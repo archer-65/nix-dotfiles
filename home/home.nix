@@ -1,0 +1,96 @@
+{ pkgs, ... }:
+
+let
+  # WM packages
+  workspacePkgs = with pkgs; [
+    nitrogen
+    rofi
+    rofi-emoji
+    playerctl
+    betterlockscreen
+    flameshot
+    xfce.thunar
+    xfce.thunar-volman
+    xfce.thunar-archive-plugin
+  ];
+
+  socialPkgs = with pkgs; [
+    tdesktop
+    discord
+  ];
+
+  mediaPkgs = with pkgs; [
+    mpv
+    pavucontrol
+  ];
+
+  coreUtilPkgs = with pkgs; [
+    exa
+    bat
+    ripgrep
+    fd
+  ];
+
+  utilPkgs = with pkgs; [
+    rbw
+  ];
+
+  monitorPkgs = with pkgs; [
+    btop
+    s-tui
+  ];
+
+  haskellPkgs = with pkgs.haskellPackages; [
+    greenclip
+  ];
+
+  desktopOnlyPkgs = with pkgs; [
+    corectrl
+  ];
+in {
+  programs.home-manager.enable = true;
+
+  home = {
+    packages = workspacePkgs ++ socialPkgs ++ mediaPkgs ++ coreUtilPkgs ++ utilPkgs ++ monitorPkgs ++ haskellPkgs;
+  };
+  
+  services = {
+    picom = {
+      package = pkgs.picom.overrideAttrs(old: {
+        src = builtins.fetchFromGitHub {
+          repo = "picom";
+          owner = "ibhagwan";
+          sha256 = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+        };
+      });
+    };
+
+    flameshot.enable = true;
+  };
+
+  programs = {
+    bash = {
+      enable = true;
+      #enableCompletion = true;
+    };
+
+    starship = {
+      enable = true;
+    };
+
+    autorandr = {
+      enable = true;
+    };
+
+    git = {
+      enable = true;
+      userEmail = "mariogt2009@live.it";
+      userName = "archer-65";
+    };
+  };
+
+  # hardware.openrazer = {
+  #   enable = true;
+  #   users = [ "mario" ];
+  # };
+}
