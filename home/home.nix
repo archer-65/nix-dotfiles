@@ -56,11 +56,13 @@ in {
   
   services = {
     picom = {
-      package = pkgs.picom.overrideAttrs(old: {
-        src = builtins.fetchFromGitHub {
+      enable = true;
+      package = pkgs.picom.overrideAttrs (old: {
+        src = pkgs.fetchFromGitHub {
           repo = "picom";
           owner = "ibhagwan";
-          sha256 = "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+	  rev = "6a3d1354bed9d4c33227944a2331b0e5713668d3";
+          sha256 = "JNbP8NZkHjlcQjSRfPbHdpTFrPO6GSZQ5qzDb0yi+pI=";
         };
       });
     };
