@@ -9,25 +9,24 @@ let
   };
 
   lib = nixpkgs.lib;
+
+  home = home-manager.nixosModules.home-manager {
+    home-manager.useGlobalPkgs = true;
+    home-manager.useUserPackages = true;
+    home-manager.extraSpecialArgs = { inherit user; };
+    home-manager.users.${user} = {
+      imports = [(import ../home/home.nix)];
+    };
+  };
 in {
   ### Virtual machine ###
   vm = lib.nixosSystem {
     inherit system;
     specialArgs = { inherit user inputs; };
     modules = [
+      ./common
       ./hosts/vm
-      ./configuration.nix
-      
-      home-manager.nixosModules.home-manager {
-        home-manager.useGlobalPkgs = true;
-        home-manager.useUserPackages = true;
-        home-manager.extraSpecialArgs = { inherit user; };
-        home-manager.users.${user} = {
-          imports =
-            [(import ../home/home.nix)];
-            # ++ [(import ./vm/home.nix)];
-        };
-      }
+      home
     ];
   };
 }

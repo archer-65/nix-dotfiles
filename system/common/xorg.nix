@@ -15,8 +15,11 @@
       };
 
       displayManager = {
+        lightdm.enable = true;
         defaultSession = "none+qtile";
       };
+
+      desktopManager.xfce.enable = true;
 
       windowManager.qtile = {
         enable = true;
