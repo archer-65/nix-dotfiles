@@ -34,6 +34,6 @@
 
   xdg.configFile = {
     source = "./qtile";
-    recursive = "true";
+    recursive = true;
   };
 }
