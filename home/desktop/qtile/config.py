@@ -548,18 +548,18 @@ screens= [
 
                 sep(),
                 
-                widget.CheckUpdates(
-                    **base(fg='bg', bg='color3'),
-                    distro="Arch_checkupdates",
-                    colour_have_updates=colors["bg"],
-                    colour_no_updates=colors["bg"],
-                    display_format=" {updates} updates",
-                    no_update_string="  no updates",
-                    update_interval=1800,
-                    execute=update,
-                ),
+                # widget.CheckUpdates(
+                #     **base(fg='bg', bg='color3'),
+                #     distro="Arch_checkupdates",
+                #     colour_have_updates=colors["bg"],
+                #     colour_no_updates=colors["bg"],
+                #     display_format=" {updates} updates",
+                #     no_update_string="  no updates",
+                #     update_interval=1800,
+                #     execute=update,
+                # ),
 
-                sep(),
+                # sep(),
 
                 widget.CPU(
                     **base(fg='bg', bg='color2'),

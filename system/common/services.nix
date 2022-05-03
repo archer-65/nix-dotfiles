@@ -1,6 +1,8 @@
 { lib, config, pkgs, ... }:
 
-{ 
+{
+  security.rtkit.enable = true;
+
   # Global services
   services = {
     # SSH and SSH Daemon
@@ -12,8 +14,12 @@
     # Pipewire settings
     pipewire = {
       enable = true;
-      alsa.enable = true;
-      alsa.support32Bit = true;
+      
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
+      
       pulse.enable = true;
     };
 
