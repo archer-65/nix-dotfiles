@@ -1,4 +1,4 @@
-# This configuration files contain common settings (of the system)
+# This configuration files contains common settings (of the system)
 # between all my machines.
 { config, lib, pkgs, inputs, user, ... }:
 {
