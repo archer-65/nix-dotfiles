@@ -469,7 +469,7 @@ def sep(fg='fg', bg='bg'):
  
 def laptop_extra():
     global hostname
-    if hostname == 'quietfrost' | hostname == "vm":
+    if hostname == 'quietfrost' or hostname == "vm":
         widgets_list = [
             sep(),
         ]
