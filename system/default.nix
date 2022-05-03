@@ -10,7 +10,7 @@ let
 
   lib = nixpkgs.lib;
 
-  in {
+in {
   ### Virtual machine ###
   vm = lib.nixosSystem {
     inherit system;

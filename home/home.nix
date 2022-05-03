@@ -83,16 +83,5 @@ in {
     autorandr = {
       enable = true;
     };
-
-    git = {
-      enable = true;
-      userEmail = "mariogt2009@live.it";
-      userName = "archer-65";
-    };
   };
-
-  # hardware.openrazer = {
-  #   enable = true;
-  #   users = [ "mario" ];
-  # };
 }
