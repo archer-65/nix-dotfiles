@@ -33,7 +33,7 @@
   };
 
   xdg.configFile."qtile" = {
-    source = "./qtile";
+    source = ./qtile;
     recursive = true;
   };
 }
