@@ -1,19 +1,6 @@
 { pkgs, ... }:
 
 let
-  # WM packages
-  workspacePkgs = with pkgs; [
-    nitrogen
-    rofi
-    rofi-emoji
-    playerctl
-    betterlockscreen
-    flameshot
-    xfce.thunar
-    xfce.thunar-volman
-    xfce.thunar-archive-plugin
-  ];
-
   socialPkgs = with pkgs; [
     tdesktop
     discord
@@ -50,38 +37,13 @@ let
 in {
   imports = [
     ./programs
+    ./desktop
+    ./services
   ];
 
   programs.home-manager.enable = true;
 
   home = {
-    packages = workspacePkgs ++ socialPkgs ++ mediaPkgs ++ coreUtilPkgs ++ utilPkgs ++ monitorPkgs ++ haskellPkgs;
-  };
-  
-  services = {
-    picom = {
-      enable = true;
-      package = pkgs.picom.overrideAttrs (old: {
-        src = pkgs.fetchFromGitHub {
-          repo = "picom";
-          owner = "ibhagwan";
-	        rev = "next-rebase";
-          sha256 = "JNbP8NZkHjlcQjSRfPbHdpTFrPO6GSZQ5qzDb0yi+pI=";
-        };
-      });
-    };
-
-    flameshot.enable = true;
-  };
-
-  programs = {
-    bash = {
-      enable = true;
-      #enableCompletion = true;
-    };
-
-    starship = {
-      enable = true;
-    };
+    packages = socialPkgs ++ mediaPkgs ++ coreUtilPkgs ++ utilPkgs ++ monitorPkgs ++ haskellPkgs;
   };
 }
