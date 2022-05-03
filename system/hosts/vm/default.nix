@@ -23,7 +23,7 @@
 
   networking = {
     useDHCP = false;
-    hostName = "nixos";
+    hostName = "vm";
     interfaces = {
       enp1s0.useDHCP = true;
     };
