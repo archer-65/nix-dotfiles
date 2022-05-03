@@ -3,6 +3,8 @@
 {
   imports = [
     ./alacritty
+    ./autorandr
     ./git
+    ./shell
   ];
 }

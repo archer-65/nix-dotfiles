@@ -83,9 +83,5 @@ in {
     starship = {
       enable = true;
     };
-
-    autorandr = {
-      enable = true;
-    };
   };
 }
