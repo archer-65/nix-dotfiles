@@ -61,7 +61,7 @@ in {
         src = pkgs.fetchFromGitHub {
           repo = "picom";
           owner = "ibhagwan";
-	  rev = "6a3d1354bed9d4c33227944a2331b0e5713668d3";
+	        rev = "next-rebase";
           sha256 = "JNbP8NZkHjlcQjSRfPbHdpTFrPO6GSZQ5qzDb0yi+pI=";
         };
       });
