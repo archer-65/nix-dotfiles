@@ -42,9 +42,9 @@
       # ONEDARK
       colors = {
         primary = {
-          background = "#1e2127";
-          foreground = "#abb2bf";
-          bright_foreground = "e6efff";
+          background        = "#1e2127";
+          foreground        = "#abb2bf";
+          bright_foreground = "#e6efff";
         };
         normal = {
           black   = "#1e2127";
