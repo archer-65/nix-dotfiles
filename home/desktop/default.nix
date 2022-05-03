@@ -32,7 +32,7 @@
     flameshot.enable = true;
   };
 
-  xdg.configFile = {
+  xdg.configFile."qtile" = {
     source = "./qtile";
     recursive = true;
   };
