@@ -5,6 +5,7 @@ let
   nerdFonts = pkgs.nerdfonts.override {
     fonts = [
       "FiraCode"
+      "JetBrainsMono"
       "VictorMono"
       "Iosevka"
     ];
