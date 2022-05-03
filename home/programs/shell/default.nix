@@ -7,7 +7,7 @@
     shellAliases = {
       ls = "exa";
       cat = "bat";
-      find = "fd"
+      find = "fd";
     };
 
     initExtra = ''
