@@ -48,7 +48,9 @@ let
     corectrl
   ];
 in {
-  imports = (import ./programs)
+  imports = [
+    ./programs
+  ];
 
   programs.home-manager.enable = true;
 
