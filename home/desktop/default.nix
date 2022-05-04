@@ -24,7 +24,7 @@
           repo = "picom";
           owner = "ibhagwan";
 	        rev = "next-rebase";
-          sha256 = "JNbP8NZkHjlcQjSRfPbHdpTFrPO6GSZQ5qzDb0yi+pI=";
+          sha256 = "1hVFBGo4Ieke2T9PqMur1w4D0bz/L3FAvfujY9Zergw=";
         };
       });
     };
