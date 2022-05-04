@@ -2,7 +2,7 @@
 { config, lib, pkgs, inputs, user, ... }:
 {
   imports = [
-    ./alacritty
+    #./alacritty
     ./autorandr
     ./git
     ./shell

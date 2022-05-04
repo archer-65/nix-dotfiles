@@ -10,6 +10,7 @@ let
 
   lib = nixpkgs.lib;
 
+  termAlternative = import ../home/programs/alacritty { fontSize = 10.0; inherit pkgs; };
 in {
   ### Laptop ###
   mate = lib.nixosSystem {
@@ -23,7 +24,10 @@ in {
         home-manager.useUserPackages = true;
         home-manager.extraSpecialArgs = { inherit user; };
         home-manager.users.${user} = {
-          imports = [(import ../home/home.nix)];
+          imports = [
+	    ../home/home.nix
+	    termAlternative
+	  ];
         };
       }
     ];
@@ -41,7 +45,10 @@ in {
         home-manager.useUserPackages = true;
         home-manager.extraSpecialArgs = { inherit user; };
         home-manager.users.${user} = {
-          imports = [(import ../home/home.nix)];
+          imports = [
+	    import ../home/home.nix
+	    termAlternative
+	  ];
         };
       }
     ];

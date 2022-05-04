@@ -447,7 +447,7 @@ def open_mixer():
 
 widget_defaults = dict(
     font="JetBrainsMono Nerd Font",
-    fontsize=20 if hostname == 'quietfrost' else 18,
+    fontsize=20 if hostname == 'quietfrost' else 12,
     foreground=colors["fg"],
     padding=3,
 )
@@ -616,7 +616,7 @@ screens= [
 
                 sep(bg='inactive'),
             ],
-            size=34 if hostname == 'quietfrost' else 32,
+            size=34 if hostname == 'quietfrost' else 26,
             background=colors["bg"],
          ),
      ),

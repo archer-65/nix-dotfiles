@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-
+{ fontSize ? 18, pkgs, ... }:
 {
   programs.alacritty = {
     enable = true;
@@ -35,7 +34,7 @@
           family = "VictorMono Nerd Font";
           style = "Italic";
         };
-        size = 18.0;
+        size = fontSize;
       };
 
       # Colors (must find a better way to handle this)
