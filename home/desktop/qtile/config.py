@@ -447,7 +447,7 @@ def open_mixer():
 
 widget_defaults = dict(
     font="JetBrainsMono Nerd Font",
-    fontsize=20 if hostname == 'quietfrost' else 12,
+    fontsize=20 if hostname == 'quietfrost' else 14,
     foreground=colors["fg"],
     padding=3,
 )
@@ -587,13 +587,13 @@ screens= [
 
                 sep(),
 
-                widget.PulseVolume(
-                    **base(fg='bg', bg='color1'),
-                    fmt=" {}",
-                    limit_max_volume=True,
-                    volume_app="pavucontrol",
-                    mouse_callbacks={"Button2": open_mixer},
-                ),
+                # widget.PulseVolume(
+                #     **base(fg='bg', bg='color1'),
+                #     fmt=" {}",
+                #     #limit_max_volume=True,
+                #     volume_app="pavucontrolp",
+                #     mouse_callbacks={"Button2": open_mixer},
+                # ),
 
             ]
             +
@@ -616,7 +616,7 @@ screens= [
 
                 sep(bg='inactive'),
             ],
-            size=34 if hostname == 'quietfrost' else 26,
+            size=34 if hostname == 'quietfrost' else 28,
             background=colors["bg"],
          ),
      ),

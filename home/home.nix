@@ -9,6 +9,8 @@ let
   mediaPkgs = with pkgs; [
     mpv
     pavucontrol
+    pamixer
+    pasystray
   ];
 
   coreUtilPkgs = with pkgs; [
@@ -39,6 +41,7 @@ in {
     ./programs
     ./desktop
     ./services
+    ./themes
   ];
 
   programs.home-manager.enable = true;
