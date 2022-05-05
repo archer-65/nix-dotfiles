@@ -3,6 +3,7 @@
 {
   home.packages = with pkgs; [
     betterlockscreen
+    brightnessctl
     xss-lock
     nitrogen
     rofi

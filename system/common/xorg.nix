@@ -22,7 +22,17 @@
       };
 
       displayManager = {
-        lightdm.enable = true;
+        sddm.enable = true;
+	sddm.theme = "${(pkgs.fetchFromGitHub {
+	  owner = "3ximus";
+	  repo = "abstractdark-sddm-theme";
+	  rev = "master";
+	  sha256 = "XmhTVs/1Hzrs+FBRbFEOSIFOrRp0VTPwIJmSa2EgIeo=";
+	})}
+	#themeIni = [
+ 	#  {section = 'General'; key = 'background'; value = ../../commodore.jpg; };
+	#]
+	";
         defaultSession = "none+qtile";
       };
 
