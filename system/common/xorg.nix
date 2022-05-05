@@ -36,7 +36,7 @@
         defaultSession = "none+qtile";
       };
 
-      desktopManager.xfce.enable = true;
+      desktopManager.wallpaper.mode = "fill";
 
       windowManager.qtile = {
         enable = true;

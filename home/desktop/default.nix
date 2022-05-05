@@ -37,4 +37,6 @@
     source = ./qtile;
     recursive = true;
   };
+
+  home.file.".background-image".source = ../../res/commodore.jpg;
 }
