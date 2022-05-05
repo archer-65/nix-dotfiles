@@ -1,9 +1,16 @@
 { config, lib, pkgs, ... }:
 
-{  
+{
+  programs.dconf.enable = true;
+     
   services = {
-    dbus.enable = true;
-  
+    gnome.gnome-keyring.enable = true;
+
+    dbus = {
+      enable = true;
+      packages = [ pkgs.dconf ];
+    };
+
     xserver = {
       enable = true;
 

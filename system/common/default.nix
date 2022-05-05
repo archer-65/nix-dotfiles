@@ -3,6 +3,7 @@
 { config, lib, pkgs, inputs, user, ... }:
 {
   imports = [
+    ./boot.nix
     ./fonts.nix
     ./locale.nix
     ./networking.nix

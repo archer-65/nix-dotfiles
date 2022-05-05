@@ -21,8 +21,8 @@
   networking = {
     useDHCP = false;
     hostName = "mate";
-    wireless.enable = true;
-    wireless.userControlled.enable = true;
+    #wireless.enable = true;
+    #wireless.userControlled.enable = true;
     interfaces = {
       wlp1s0.useDHCP = true;
     };

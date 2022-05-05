@@ -4,11 +4,11 @@
   gtk = {
     enable = true;
     theme = {
-      name = "Materia";
+      name = "Materia-dark-compact";
       package = pkgs.materia-theme;
     };
     iconTheme = {
-      name = "Kora";
+      name = "kora";
       package = pkgs.kora-icon-theme;
     };
   };
