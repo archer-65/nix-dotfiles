@@ -7,6 +7,8 @@
       alacritty
       killall
       git
+      lm_sensors
+      smartmontools
       wget
       firefox
       vim
