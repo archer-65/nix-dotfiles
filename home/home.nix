@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, user, ... }:
 
 let
   socialPkgs = with pkgs; [
@@ -36,7 +36,7 @@ let
   desktopOnlyPkgs = with pkgs; [
     corectrl
   ];
-in {
+in rec {
   imports = [
     ./programs
     ./desktop
@@ -48,5 +48,19 @@ in {
 
   home = {
     packages = socialPkgs ++ mediaPkgs ++ coreUtilPkgs ++ utilPkgs ++ monitorPkgs ++ haskellPkgs;
+  };
+
+  home.homeDirectory = "/home/${user}";
+  xdg.userDirs = {
+    enable = true;
+    createDirectories = true;
+    desktop = "${home.homeDirectory}/desktop";
+    documents = "${home.homeDirectory}/docs";
+    download = "${home.homeDirectory}/dl";
+    music = "${home.homeDirectory}/music";
+    pictures = "${home.homeDirectory}/pics";
+    publicShare = "${home.homeDirectory}/public";
+    templates = "${home.homeDirectory}/templates";
+    videos = "${home.homeDirectory}/videos";
   };
 }
