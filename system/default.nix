@@ -46,7 +46,7 @@ in {
         home-manager.extraSpecialArgs = { inherit user; };
         home-manager.users.${user} = {
           imports = [
-	    import ../home/home.nix
+	    ../home/home.nix
 	    termAlternative
 	  ];
         };

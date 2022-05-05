@@ -585,7 +585,7 @@ screens= [
                     update_interval=5,
                 ),
 
-                sep(),
+                # sep(),
 
                 # widget.PulseVolume(
                 #     **base(fg='bg', bg='color1'),
