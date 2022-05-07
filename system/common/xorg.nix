@@ -22,7 +22,7 @@
       };
 
       displayManager = {
-        gdm.enable = true;
+        lightdm.enable = true;
         # sddm.enable = true;
 	      # sddm.theme = "${(pkgs.fetchFromGitHub {
 	      #   owner = "3ximus";
