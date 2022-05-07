@@ -39,7 +39,7 @@ let
 in rec {
   imports = [
     ./programs
-    ./desktop
+    ./x11
     ./services
     ./themes
   ];
