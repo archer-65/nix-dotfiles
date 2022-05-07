@@ -1,7 +1,7 @@
 { pkgs, ... }:
 
 {
-  picom = {
+  services.picom = {
     enable = true;
     package = pkgs.picom.overrideAttrs (old: {
       src = pkgs.fetchFromGitHub {
