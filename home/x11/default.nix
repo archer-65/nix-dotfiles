@@ -5,7 +5,7 @@
     ./autorandr.nix
     ./dunst.nix
     ./picom.nix
-  ]
+  ];
 
   home.packages = with pkgs; [
     betterlockscreen
