@@ -2,8 +2,8 @@
 
 {
   imports = [
-    ./autorandr.nix;
-    ./dunst.nix;
+    ./autorandr.nix
+    ./dunst.nix
     ./picom.nix
   ]
 
