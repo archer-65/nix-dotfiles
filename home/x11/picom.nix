@@ -12,4 +12,7 @@
       };
     });
   };
+
+  ## Comment this to disable picom service
+  systemd.user.services.picom = pkgs.lib.mkForce {}; 
 }
