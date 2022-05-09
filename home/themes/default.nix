@@ -16,7 +16,12 @@
 
     cursorTheme = {
       name = "Bibata-Modern-Ice";
+      size = 16;
       package = pkgs.bibata-cursors;
+    };
+
+    font = {
+      name = "VictorMono Nerd Font 12";
     };
   };
 

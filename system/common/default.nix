@@ -9,6 +9,7 @@
     ./networking.nix
     ./packages.nix
     ./programs.nix
+    ./security.nix
     ./services.nix
     ./settings.nix
     ./users.nix

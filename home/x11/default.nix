@@ -36,5 +36,18 @@
     enable = true;
   };
 
+  # home.x11.enable = true;
+
+  home.pointerCursor = {
+    x11.enable = true;
+    package = pkgs.bibata-cursors;
+    name = "Bibata-Modern-Ice";
+    size = 16;
+  };
+
+  xresources.properties = {
+    "Xcursor.theme" = "Bibata-Modern-Ice";
+  };
+
   #home.file.".background-image".source = ../../res/commodore.jpg;
 }
