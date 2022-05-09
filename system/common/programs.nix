@@ -8,4 +8,6 @@
     enable = true;
     enableSSHSupport = true;
   };
+
+  programs.qt5ct.enable = true;
 }

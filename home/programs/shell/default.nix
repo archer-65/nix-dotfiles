@@ -10,6 +10,11 @@
       find = "fd";
     };
 
+    # sessionVariables = {
+    #   VISUAL = "emacsclient -c -a emacs";
+    #   EDITOR = "emacsclient -t";    
+    # };
+
     initExtra = ''
       ${pkgs.pfetch}/bin/pfetch
     '';

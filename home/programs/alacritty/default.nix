@@ -1,5 +1,8 @@
-{ fontSize ? 18, pkgs, ... }:
-{
+{ isDesktop ? true, pkgs, ... }:
+
+let 
+  fontSize = if isDesktop then 18.0 else 12.0;
+in {
   programs.alacritty = {
     enable = true;
 

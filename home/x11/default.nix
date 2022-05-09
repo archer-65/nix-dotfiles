@@ -32,5 +32,9 @@
     recursive = true;
   };
 
+  xsession = {
+    enable = true;
+  };
+
   #home.file.".background-image".source = ../../res/commodore.jpg;
 }
