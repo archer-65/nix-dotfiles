@@ -4,7 +4,7 @@
 {
   imports = [
     ./boot.nix
-    ./fonts.nix
+    ./fonts
     ./locale.nix
     ./networking.nix
     ./packages.nix

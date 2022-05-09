@@ -1,6 +1,8 @@
 { config, lib, pkgs, ... }:
 
 let
+  customFonts = pkgs.callPackage ./custom.nix { inherit pkgs; };
+
   # Overriding nerd fonts (if you don't, all nerd fonts will be installed.)
   nerdFonts = pkgs.nerdfonts.override {
     fonts = [
@@ -18,5 +20,8 @@ in {
     corefonts
     nerdFonts
     source-han-sans
+    comfortaa
+    noto-fonts-emoji
+    customFonts.feather
   ];
 }

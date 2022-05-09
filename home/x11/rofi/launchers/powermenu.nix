@@ -11,8 +11,8 @@ pkgs.writeShellScriptBin "rofi_powermenu" ''
 	rofi_command="rofi -theme $theme"
 
 	uptime=$(uptime -p | sed -e 's/up //g')
-	cpu=$($rofi_dir/scripts/usedcpu)
-	memory=$($rofi_dir/scripts/usedram)
+	cpu=$(usedcpu)
+	memory=$(usedram)
 
 	# Options
 	shutdown=""
@@ -78,9 +78,9 @@ pkgs.writeShellScriptBin "rofi_powermenu" ''
 			$logout)
 			ans=$(confirm_exit &)
 			if [[ $ans == "Y" ]]; then
-				if [[ "$DESKTOP_SESSION" == "qtile" ]]; then
+				if [[ "$DESKTOP_SESSION" =~ "qtile" ]]; then
 					qtile cmd-obj -o cmd -f shutdown
-				elif [[ "$DESKTOP_SESSION" == "i3" ]]; then
+				elif [[ "$DESKTOP_SESSION" =~ "i3" ]]; then
 					i3-msg exit
 				fi
 			elif [[ $ans == "N" ]]; then

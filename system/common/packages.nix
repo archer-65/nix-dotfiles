@@ -9,6 +9,7 @@
       git
       lm_sensors
       smartmontools
+      procps
       wget
       firefox
       vim

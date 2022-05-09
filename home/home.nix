@@ -44,7 +44,7 @@ in rec {
   programs.home-manager.enable = true;
 
   home = {
-    packages = socialPkgs ++ mediaPkgs ++ coreUtilPkgs ++ utilPkgs ++ monitorPkgs ++ haskellPkgs;
+    packages = socialPkgs ++ mediaPkgs ++ coreUtilPkgs ++ utilPkgs ++ monitorPkgs;
   };
 
   home.homeDirectory = "/home/${user}";
