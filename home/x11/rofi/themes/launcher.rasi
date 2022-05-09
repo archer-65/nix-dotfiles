@@ -1,0 +1,198 @@
+/*
+ *
+ * Author  : archer-65
+ *
+ */
+
+@import "../colors/color.rasi"
+
+configuration {
+    font: 							     "Iosevka Nerd Font 16";
+    fixed-num-lines: 			   true;
+ 	  icon-theme: 					   "kora";
+    show-icons: 					   true;
+    sidebar-mode: 					 true;
+    scroll-method: 					 0;
+    window-format: 					 "[{w}] ··· {c} ···   {t}";
+    click-to-exit: 					 true;
+    combi-hide-mode-prefix:  false;
+    display-window: 				 " ";
+    display-windowcd: 			 " ";
+    display-run: 					   " ";
+    display-ssh: 					   " ";
+    display-drun: 					 " ";
+    display-combi: 					 " ";
+}
+
+* {
+    background-color:  @background;
+}
+
+window {
+    border: 				2px;
+    border-color: 	@wborder;
+    border-radius:  0px;
+    padding:				15;
+    width: 					25%;
+}
+
+prompt {
+    enabled: 					true;
+	  padding: 					4px 4px 6px 6px;
+	  background-color:	@background;
+	  text-color: 			@foreground;
+}
+
+textbox-prompt-colon {
+    expand: 		 	    false;
+    str: 					    "";
+    background-color: @background;
+    text-color:       @urgent;
+    padding:          5px 0px 0px 6px;
+    text-color:  	    inherit;
+}
+
+inputbar {
+    children: 	      [ prompt, textbox-prompt-colon, entry, case-indicator ];
+    background-color: @background;
+    text-color:       @foreground;
+    expand:           false;
+    border:        		0px 0px 1px 0px;
+    border-radius:    0px;
+    border-color:     @selected;
+    margin:           0px 0px 0px 0px;
+    padding:          0px 0px 4px 0px;
+    position:         center;
+}
+
+entry {
+    background-color:  @background;
+    text-color:        @foreground;
+    placeholder-color: @altern;
+    expand:            true;
+    horizontal-align:  0;
+    placeholder:       "Launch...";
+    blink:             true;
+    padding:           4px 0px 0px 4px;
+}
+
+case-indicator {
+    spacing:     0;
+    text-color:  @foreground;
+}
+
+
+mainbox {
+    children: [ inputbar, listview, sidebar ];
+    spacing:  5px;
+    padding:  5px 5px 5px 5px;
+}
+
+listview {
+    lines:	 8;
+    columns: 1;
+    spacing: 5px;
+    dynamic: true;
+    layout:  vertical;
+    padding: 5px 5px 0px 5px;
+}
+
+element-text, element-icon {
+    background-color:  #00000000;
+    text-color:        inherit;
+}
+
+element {
+    border: 				0px;
+    border-radius:  4px;
+    padding: 				5px;
+}
+
+element normal.normal {
+    background-color:  @background;
+    text-color:        @foreground;
+}
+
+element normal.urgent {
+    background-color:  @background;
+    text-color:        @urgent;
+}
+
+element normal.active {
+    background-color:  @background;
+    text-color:        @active;
+}
+
+element selected.normal {
+    background-color:  @selected;
+    text-color:        @background;
+}
+
+element selected.urgent {
+    background-color:  @urgent;
+    text-color:        @background;
+}
+
+element selected.active {
+    background-color:  @active;
+    text-color:        @background;
+}
+
+element alternate.normal {
+    background-color:  @background;
+    text-color:        @foreground;
+}
+
+element alternate.urgent {
+    background-color:  @background;
+    text-color:        @urgent;
+}
+
+element alternate.active {
+    background-color:  @background;
+    text-color:        @active;
+}
+
+sidebar {
+    border:       	0px;
+    border-color: 	@wborder;
+    border-radius:  0px;
+}
+
+button {
+    horizontal-align:  0.5;
+    vertical-align:    0.5;
+    background-color:  @foreground;
+    margin: 					 5px;
+    padding: 					 5px;
+    text-color: 			 @background;
+    border: 					 0px;
+    border-radius: 		 4px;
+    border-color: 		 @foreground;
+}
+
+button selected {
+    background-color:  @selected;
+    text-color: 		 	 @background;
+    border: 					 0px;
+    border-radius: 		 4px;
+    border-color: 		 @foreground;
+}
+
+scrollbar {
+    width:         4px;
+    border:        0px;
+    handle-color:  @foreground;
+    handle-width:  8px;
+    padding:       0;
+}
+
+message {
+    border: 		   0px;
+    border-color:	 @selected;
+    padding: 			 1px;
+}
+
+textbox {
+    text-color: 	 @fg;
+}

@@ -28,11 +28,7 @@ let
     btop
     s-tui
   ];
-
-  haskellPkgs = with pkgs.haskellPackages; [
-    greenclip
-  ];
-
+  
   desktopOnlyPkgs = with pkgs; [
     corectrl
   ];

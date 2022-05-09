@@ -1,10 +1,12 @@
-{ pkgs, ... }: 
+{ pkgs, config, ... }: 
 
 {
   imports = [
     ./autorandr.nix
     ./dunst.nix
     ./picom.nix
+    ./rofi.nix
+    ./greenclip
   ];
 
   home.packages = with pkgs; [
@@ -12,8 +14,6 @@
     brightnessctl
     xss-lock
     nitrogen
-    rofi
-    rofi-emoji
     playerctl
     pamixer
     xclip

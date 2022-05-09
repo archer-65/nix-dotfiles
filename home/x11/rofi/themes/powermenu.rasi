@@ -1,0 +1,126 @@
+/*
+ *
+ * Author : archer-65
+ *
+ */
+
+@import "../colors/color.rasi"
+
+configuration {
+	  font:             "Comfortaa 14";
+    show-icons:       false;
+    disable-history:  false;
+	  sidebar-mode: 	  false;
+}
+
+* {
+    background-color:  @background;
+    text-color:        @foreground;
+}
+
+window {
+    transparency:      "real";
+    border:            2px;
+    border-color:      @wborder;
+    border-radius:     0px;
+    location:          center;
+    width:             800px;
+    x-offset:          0px;
+    y-offset:          0px;
+}
+
+prompt {
+    enabled: 					 true;
+    padding:           10px;
+	  background-color:  @background;
+	  text-color: 			 @selected;
+    border:            2px 2px 4px 2px;
+    border-radius:     0px;
+    border-color:      @selected;
+}
+
+textbox-prompt-colon {
+	expand: 					 false;
+	str: 							 " System ";
+	background-color:  @selected;
+	text-color: 			 @background;
+  padding:           12px 10px 0px 10px;
+}
+
+inputbar {
+    children:  			   [ textbox-prompt-colon, prompt ];
+    spacing:           0px;
+    background-color:  @background;
+    text-color:        @foreground;
+    expand:            false;
+    border:            0px;
+    border-radius:     0px;
+    border-color:      @accent;
+    margin:            0px 0px 0px 0px;
+    padding:           0px;
+    position:          center;
+}
+
+listview {
+    columns:  5;
+    lines:		1;
+    spacing:  15px;
+    cycle:    true;
+    dynamic:  true;
+    layout:   vertical;
+}
+
+mainbox {
+    background-color:  @background;
+    children:          [ inputbar, listview ];
+    spacing:           15px;
+    margin:            40px;
+}
+
+element {
+    background-color:  @background-alt;
+    text-color:        @foreground;
+    orientation:       vertical;
+    border-radius:     0px;
+}
+
+element-text {
+    background-color:  inherit;
+    text-color:        inherit;
+  	font:							 "feather 32";
+    expand:            true;
+    horizontal-align:  0.5;
+    vertical-align:    0.5;
+    margin:            40px 0px 40px 0px;
+}
+
+element normal.urgent,
+element alternate.urgent {
+    background-color:  @urgent;
+    text-color:        @background;
+    border-radius:     0px;
+}
+
+element normal.active,
+element alternate.active {
+    background-color:  @selected;
+    text-color:        @background;
+}
+
+element selected {
+    background-color:  @altern;
+    text-color:        @background;
+    border:            0px;
+    border-radius:     0px;
+    border-color:      @border;
+}
+
+element selected.urgent {
+    background-color:  @urgent;
+    text-color:        @background;
+}
+
+element selected.active {
+    background-color:  @active;
+    color:             @background;
+}

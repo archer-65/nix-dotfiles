@@ -1,0 +1,125 @@
+/*
+ *
+ * Author  : archer-65
+ *
+ */
+
+@import "../colors/color.rasi"
+
+configuration {
+    font:                 "Iosevka Nerd Font 16";
+    fixed-num-lines: 			true;
+	  icon-theme: 					"kora";
+    show-icons:           true;
+  	sidebar-mode: 				false;
+    scroll-method:        0;
+    drun-display-format:  "{name}";
+    click-to-exit: 				true;  
+}
+
+* {
+    background-color: @background;
+}
+
+window {
+    border: 			 2px;
+    border-color:  @wborder;
+    border-radius: 0px;
+    padding:			 15;
+    width: 				 25%;
+}
+
+prompt {
+    enabled: 					true;
+	  padding: 					4px 4px 6px 6px;
+	  background-color: @background;
+	  text-color: 			@foreground;
+}
+
+textbox-prompt-colon {
+	expand: 					false;
+	str: 							" ";
+  background-color: @background;
+  text-color:       @foreground;
+  padding:          5px 0px 0px 6px;
+	font:							inherit;
+}
+
+inputbar {
+	  children: 				[ textbox-prompt-colon, entry ];
+    background-color: @background;
+    text-color:       @foreground;
+    expand:           false;
+    border:           0px 0px 1px 0px;
+    border-radius:    0px;
+    border-color:     @selected;
+    margin:           0px 0px 0px 0px;
+    padding:          0px 0px 4px 0px;
+    position:         center;
+}
+
+entry {
+    background-color:  @background;
+    text-color:        @foreground;
+    placeholder-color: @altern;
+    expand:            true;
+    horizontal-align:  0;
+    placeholder:       "Autocomplete with...";
+    blink:             true;
+    padding:           4px 0px 0px 4px;
+}
+
+case-indicator {
+    spacing:          0;
+    background-color: @background;
+    text-color:       @foreground;
+}
+
+mainbox {
+    background-color: @background;
+    children:         [ inputbar, listview, message ];
+    spacing:          5px;
+    padding:          5px 5px 5px 5px;
+}
+
+listview {
+    background-color: @background;
+    lines:						10;
+    columns:          1;
+    spacing:          4px;
+    dynamic:          true;
+    layout:           vertical;
+}
+
+element-text, element-icon {
+    background-color: #00000000;
+    text-color:       inherit;
+}
+
+element {
+    border: 			 0px;
+    border-radius: 4px;
+    padding: 			 5px;
+}
+
+element normal.normal {
+    background-color: @background;
+    text-color:       @foreground;
+}
+
+element selected.normal {
+    background-color: @selected;
+    text-color:       @background;
+}
+
+element alternate.normal {
+    background-color: @background;
+    text-color:       @foreground;
+}
+
+textbox {
+    border-radius: 4px;
+    padding: 			 5px;
+    background-color: @active;
+    text-color: @background;
+}

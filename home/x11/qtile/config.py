@@ -238,23 +238,23 @@ keys = [
     
     ##### Rofi #####
     Key([mod], "d",
-        lazy.spawn(launcher),
+        lazy.spawn("rofi_launcher"),
         desc="Rofi launcher"),
     
     Key([mod, "shift"], "q",
-        lazy.spawn(powermenu),
+        lazy.spawn("rofi_powermenu"),
         desc="Rofi powermenu"),
 
     Key([mod], "comma",
-        lazy.spawn(clipboard + " copy"),
+        lazy.spawn("rofi_clipboard copy"),
         desc="Rofi clipboard"),
     
     Key([mod], "period",
-        lazy.spawn(clipboard + " paste"),
+        lazy.spawn("rofi_clipboard paste"),
         desc="Rofi clipboard direct paste"),
 
     Key([mod], "slash",
-        lazy.spawn(emoji),
+        lazy.spawn("rofi_emoji"),
         desc="Rofi emoji"),
 
     Key([mod], "p",
