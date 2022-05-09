@@ -24,17 +24,17 @@ hostname = platform.uname().node
 
 # Expand every important dir
 home       = path.expanduser('~')
-scripts    = path.join(home, ".local", "bin")
 qtile_path = path.join(home, ".config", "qtile")
+# scripts    = path.join(home, ".local", "bin")
 
 # Rofi launchers
-launcher    = path.join(scripts, "rofi_launcher")
-powermenu   = path.join(scripts, "rofi_powermenu")
-clipboard   = path.join(scripts, "rofi_clipboard")
-emoji       = path.join(scripts, "rofi_emoji")
+# launcher    = path.join(scripts, "rofi_launcher")
+# powermenu   = path.join(scripts, "rofi_powermenu")
+# clipboard   = path.join(scripts, "rofi_clipboard")
+# emoji       = path.join(scripts, "rofi_emoji")
 
 # Media scripts
-volume      = path.join(scripts, "volume")
+# volume      = path.join(scripts, "volume")
 
 # Programs
 terminal    = "alacritty"
@@ -42,7 +42,6 @@ filemanager = "thunar"
 browser     = "firefox"
 editor      = "emacsclient -c -a emacs"
 mail        = editor + " --eval '(mu4e)'"
-#git         = editor + " --eval '(magit)'"
 gitgui      = "github-desktop"
 pdfview     = "zathura"
 
@@ -221,15 +220,15 @@ keys = [
 
     # Volume
     Key([], "XF86AudioRaiseVolume",
-        lazy.spawn(volume + " up"),
+        lazy.spawn("volume up"),
         desc="Volume up"),
     
     Key([], "XF86AudioLowerVolume",
-        lazy.spawn(volume + " down"),
+        lazy.spawn("volume down"),
         desc="Volume down"),
     
     Key([], "XF86AudioMute",
-        lazy.spawn(volume + " mute"),
+        lazy.spawn("volume mute"),
         desc="Volume toggle mute"),
 
     ###################

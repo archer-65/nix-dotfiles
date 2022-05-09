@@ -1,6 +1,8 @@
 { lib, config, pkgs, ... }:
 
 {
+  sound.mediaKeys.enable = true;
+
   security.rtkit.enable = true;
 
   # Global services

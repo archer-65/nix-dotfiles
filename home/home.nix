@@ -1,6 +1,8 @@
-{ pkgs, user, ... }:
+{ pkgs, config, user, ... }:
 
 let
+  scripts = pkgs.callPackage ./scripts { inherit config pkgs; };
+
   socialPkgs = with pkgs; [
     tdesktop
     discord
@@ -44,7 +46,7 @@ in rec {
   programs.home-manager.enable = true;
 
   home = {
-    packages = socialPkgs ++ mediaPkgs ++ coreUtilPkgs ++ utilPkgs ++ monitorPkgs;
+    packages = scripts ++ socialPkgs ++ mediaPkgs ++ coreUtilPkgs ++ utilPkgs ++ monitorPkgs;
   };
 
   home.homeDirectory = "/home/${user}";
