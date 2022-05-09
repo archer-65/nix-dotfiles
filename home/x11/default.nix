@@ -5,7 +5,7 @@
     ./autorandr.nix
     ./dunst.nix
     ./picom.nix
-    ./rofi.nix
+    ./rofi
     ./greenclip
   ];
 

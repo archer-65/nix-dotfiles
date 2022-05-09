@@ -1,4 +1,5 @@
 { pkgs, ... }:
 {
-  feather = pkgs.callPackage ./feather.nix { };
+  feather = pkgs.callPackage ./Feather { };
+  comfortaa-rofi = pkgs.callPackage ./Comfortaa { };
 }

@@ -7,10 +7,10 @@
 @import "../colors/color.rasi"
 
 configuration {
-	  font:             "Comfortaa 14";
+    font:             "JetBrains Mono Nerd Font 14";
     show-icons:       false;
     disable-history:  false;
-	  sidebar-mode: 	  false;
+    sidebar-mode: 	  false;
 }
 
 * {
@@ -30,25 +30,25 @@ window {
 }
 
 prompt {
-    enabled: 					 true;
+    enabled: 		   true;
     padding:           10px;
-	  background-color:  @background;
-	  text-color: 			 @selected;
+    background-color:  @background;
+    text-color:        @selected;
     border:            2px 2px 4px 2px;
     border-radius:     0px;
     border-color:      @selected;
 }
 
 textbox-prompt-colon {
-	expand: 					 false;
-	str: 							 " System ";
-	background-color:  @selected;
-	text-color: 			 @background;
-  padding:           12px 10px 0px 10px;
+    expand: 	       false;
+    str: 			   " System ";
+    background-color:  @selected;
+    text-color: 	   @background;
+    padding:           12px 10px 0px 10px;
 }
 
 inputbar {
-    children:  			   [ textbox-prompt-colon, prompt ];
+    children:  		   [ textbox-prompt-colon, prompt ];
     spacing:           0px;
     background-color:  @background;
     text-color:        @foreground;
@@ -63,7 +63,7 @@ inputbar {
 
 listview {
     columns:  5;
-    lines:		1;
+    lines:	  1;
     spacing:  15px;
     cycle:    true;
     dynamic:  true;
@@ -87,7 +87,7 @@ element {
 element-text {
     background-color:  inherit;
     text-color:        inherit;
-  	font:							 "feather 32";
+  	font:			   "feather 32";
     expand:            true;
     horizontal-align:  0.5;
     vertical-align:    0.5;
