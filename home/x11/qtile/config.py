@@ -475,6 +475,7 @@ def laptop_extra():
         ]
     else:
         widgets_list = [
+            sep(),
             
             widget.Backlight(
                 **base(fg='bg', bg='color1'),

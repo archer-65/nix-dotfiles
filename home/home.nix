@@ -38,6 +38,7 @@ let
   ];
 in rec {
   imports = [
+    ./editors
     ./programs
     ./x11
     ./services
