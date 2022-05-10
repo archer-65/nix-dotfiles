@@ -51,5 +51,9 @@
     enable = true;
     videoDrivers = [ "amdgpu" ];
   };
+
+  services.auto-cpufreq = {
+    enable = true;
+  };
 }
 
