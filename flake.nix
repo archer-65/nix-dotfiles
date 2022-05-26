@@ -1,6 +1,6 @@
 {
   description = "Personal NixOS flake configurations";
-  
+
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
@@ -10,15 +10,13 @@
     };
   };
 
-  outputs = inputs @ { self, nixpkgs, home-manager, ... }:
-    let
-      user = "mario";
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+    let user = "mario";
     in {
-      nixosConfigurations = (
-        import ./system {
-          inherit (nixpkgs) lib;
-          inherit inputs user nixpkgs home-manager;
-        }
-      );
+
+      nixosConfigurations = (import ./system {
+        inherit (nixpkgs) lib;
+        inherit inputs user nixpkgs home-manager;
+      });
     };
 }
