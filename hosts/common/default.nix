@@ -1,6 +1,6 @@
 # This configuration files contains common settings (of the system)
 # between all my machines.
-{ config, lib, pkgs, inputs, user, ... }:
+{ config, lib, pkgs, inputs, ... }:
 {
   imports = [
     ./boot.nix

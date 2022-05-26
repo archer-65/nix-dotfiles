@@ -1,6 +1,6 @@
-{ pkgs, config, lib, user, isDesktop ? true, ... }:
+{ pkgs, config, lib, isDesktop ? true, user, ... }:
 
-let
+let    
   scripts = pkgs.callPackage ./scripts { inherit config pkgs; };
 
   socialPkgs = with pkgs; [
