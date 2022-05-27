@@ -4,6 +4,7 @@ let
   inherit (self) pkgs;
   inherit (self.lib) mkHome;
   user = "mario";
+  isDesktop = false;
 
   homeModule = import ../home.nix {
     inherit pkgs;
@@ -13,8 +14,8 @@ let
   };
 
   sharedModules = [
-    #../home.nix
-    homeModule
+    ../home.nix
+    #homeModule
   ];
 
   homeImports = {

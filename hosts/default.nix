@@ -3,7 +3,8 @@ let
   system = "x86_64-linux";
   user = "mario";
   inherit (inputs) self;
-
+  inherit (self) pkgs;
+  
   sharedModules = [
     { _module.args = { inherit inputs; }; }
     ./common
