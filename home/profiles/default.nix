@@ -10,7 +10,8 @@ let
     inherit pkgs;
     inherit (pkgs) config lib;
     inherit user;
-    isDesktop = true;
+    inherit inputs;
+    isDesktop = false;
   };
 
   sharedModules = [

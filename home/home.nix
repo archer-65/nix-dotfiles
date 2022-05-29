@@ -1,6 +1,8 @@
-{ pkgs, config, lib, isDesktop ? true, user, ... }:
+{ pkgs, config, lib, isDesktop ? true, user, inputs, ... }:
 
-let    
+let   
+  inherit inputs;
+ 
   scripts = pkgs.callPackage ./scripts { inherit config pkgs; };
 
   socialPkgs = with pkgs; [
@@ -43,9 +45,14 @@ let
   programsModule = import ./programs { 
     inherit config pkgs lib isDesktop;
   };
+
+  editorsModule = import ./editors {
+    inherit config pkgs lib inputs;
+  };
 in rec {
   imports = [
-    ./editors
+    #./editors
+    editorsModule
     programsModule
     #./programs
     ./x11

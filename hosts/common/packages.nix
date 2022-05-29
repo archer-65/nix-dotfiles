@@ -5,6 +5,7 @@
   environment = {
     systemPackages = with pkgs; [
       alacritty
+      cachix
       killall
       git
       lm_sensors
