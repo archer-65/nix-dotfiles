@@ -15,8 +15,8 @@ let
   };
 
   sharedModules = [
-    ../home.nix
-    #homeModule
+    #../home.nix
+    homeModule
   ];
 
   homeImports = {
