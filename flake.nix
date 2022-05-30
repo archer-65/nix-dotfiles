@@ -16,6 +16,13 @@
     let
       system = "x86_64-linux";
 
+      lib = nixpkgs.lib.extend (self: super: {
+        my = import ./lib {
+          inherit nixpkgs inputs;
+          lib = self;
+        };
+      });
+
       mkPkgs = pkgs: extraOverlays:
         import pkgs {
           inherit system;
@@ -24,25 +31,19 @@
         };
 
       pkgs = mkPkgs nixpkgs [ inputs.emacs-overlay.overlay ];
-      
-      lib = nixpkgs.lib.extend (self: super: {
-        my = import ./lib {
-          inherit pkgs inputs;
-          lib = self;
-        };
-      });
-      
+
+      inherit (lib.my) mapModules mapModulesRec mkHost;
     in {
+      # pkgs = pkgs;
       lib = lib.my;
-      pkgs = pkgs;
 
       #overlays = mapModules ./overlays import;
       #packages."${system}" = mapModules ./packages (p: pkgs.callPackage p { });
 
-      nixosModules = lib.my.mapModulesRec ./system/modules import;
-      nixosConfigurations = import ./outputs/nixos.nix inputs;
+      nixosModules = mapModulesRec ./system/modules import;
+      nixosConfigurations = import ./outputs/nixos.nix;
 
-      homeModules = lib.my.mapModulesRec ./home/modules import;
-      homeConfigurations = import ./outputs/home.nix inputs;
+      homeModules = mapModulesRec ./home/modules import;
+      homeConfigurations = import ./outputs/home.nix;
     };
 }

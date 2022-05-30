@@ -1,6 +1,6 @@
-{self, nixpkgs, home-manager, ...}:
+inputs:
 let
-  inherit (self.pkgs) lib;
+  inherit (inputs.self.pkgs) lib;
   hosts = (import ./configs.nix).nixos.all;
 
   netHostMap = {
@@ -8,19 +8,19 @@ let
   };
 
   hostPkgs = {
-    nixpkgs.pkgs = self.pkgs;
+    nixpkgs.pkgs = inputs.self.pkgs;
   };
 
   genConfiguration = hostname: { localSystem, ... }:
     lib.nixosSystem {
       system = localSystem;
       modules = [
-        ("${self}/system/configurations/${hostname}")
+        ("${inputs.self}/system/configurations/${hostname}")
         netHostMap
         hostPkgs
-        home-manager.nixosModules.home-manager
+        inputs.home-manager.nixosModules.home-manager
       ]
-      ++ __attrValues self.nixosModules;
+      ++ __attrValues inputs.self.nixosModules;
     };
 in
 lib.mapAttrs genConfiguration hosts
