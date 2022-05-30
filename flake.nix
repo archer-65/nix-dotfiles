@@ -1,34 +1,48 @@
 {
-  description = "Personal NixOS flake configurations";
+  description = "Nix config /w home-manager and flakes";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-
-    emacs-overlay.url = "github:nix-community/emacs-overlay";
 
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    emacs-overlay.url = "github:nix-community/emacs-overlay";
   };
-  
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+
+  outputs = inputs@{ self, nixpkgs, home-manager, ... }:
     let
-      lib = import ./lib inputs;
-      inherit (lib) genSystems;
-      
-      pkgs = import nixpkgs {
-        system = "x86_64-linux";
-        overlays = [ inputs.emacs-overlay.overlay ];
-        config.allowUnfree = true;
-      };
+      system = "x86_64-linux";
 
+      mkPkgs = pkgs: extraOverlays:
+        import pkgs {
+          inherit system;
+          config.allowUnfree = true;
+          overlays = extraOverlays; #++ (lib.attrValues self.overlays);
+        };
+
+      pkgs = mkPkgs nixpkgs [ inputs.emacs-overlay.overlay ];
+      
+      lib = nixpkgs.lib.extend (self: super: {
+        my = import ./lib {
+          inherit pkgs inputs;
+          lib = self;
+        };
+      });
+      
     in {
-      inherit lib pkgs;
-      
-      # If you want to use standalone home-manager
-      inherit (import ./home/profiles inputs) homeConfigurations;
+      lib = lib.my;
+      pkgs = pkgs;
 
-      nixosConfigurations = import ./hosts inputs;
+      #overlays = mapModules ./overlays import;
+      #packages."${system}" = mapModules ./packages (p: pkgs.callPackage p { });
+
+      nixosModules = lib.my.mapModulesRec ./system/modules import;
+      nixosConfigurations = import ./outputs/nixos.nix inputs;
+
+      homeModules = lib.my.mapModulesRec ./home/modules import;
+      homeConfigurations = import ./outputs/home.nix inputs;
     };
 }

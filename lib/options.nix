@@ -1,17 +1,18 @@
-inputs:
-let
-  inherit (inputs.nixpkgs) lib;
-in with lib; {
-  options.specs = {
-    enable = mkEnableOption "Enable specific options for multiple configurations";
-    font = mkOption {
-      default = "VictorMono Nerd Font";
-      type = types.str;
-    };
+{ lib, ... }:
 
-    fontSize = mkOption {
-      default = 14;
-      type = types.int;
-    };
+let
+  inherit (lib) mkOption types;
+in
+rec {
+  mkOpt  = type: default:
+    mkOption { inherit type default; };
+
+  mkOpt' = type: default: description:
+    mkOption { inherit type default description; };
+
+  mkBoolOpt = default: mkOption {
+    inherit default;
+    type = types.bool;
+    example = true;
   };
 }
