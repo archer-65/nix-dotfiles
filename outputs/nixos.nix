@@ -1,9 +1,9 @@
 { inputs, lib, ... }:
 
-with lib;
-with lib.my;
+#with lib;
+#with lib.my;
 let
-  #inherit (inputs.nixpkgs) lib;
+  inherit (inputs.self.pkgs) lib;
   #inherit (lib) lib;
   #inherit (lib.my) mapModules mapModulesRec mapModules' mapModulesRec' mkHost;
   hosts = (import ./configs.nix).nixos.all;
