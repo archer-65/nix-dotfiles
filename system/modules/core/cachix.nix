@@ -1,11 +1,11 @@
 { options, config, lib, pkgs, ... }: 
 
 with lib;
-with lib.my;
+# with lib.my;
 let cfg = config.modules.core.cachix;
 in {
   options.modules.core.cachix = {
-    enable = mkBoolOpt true;
+    enable = _.mkBoolOpt true;
   };
 
   config = mkIf cfg.enable { 

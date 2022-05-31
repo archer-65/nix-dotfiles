@@ -1,12 +1,12 @@
 { options, config, lib, pkgs, ... }:
 
 with lib;
-with lib.my;
+#with lib.my;
 let cfg = config.modules.media.plex;
 in {
-  options.modules.services.plex = {
-    enable = mkBoolOpt false;
-    systemd.enable = mkBoolOpt false;
+  options.modules.media.plex = {
+    enable = _.mkBoolOpt false;
+    systemd.disable = _.mkBoolOpt true;
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -17,7 +17,7 @@ in {
       };
     }
 
-    (mkIf cfg.systemd.enable == false { systemd.services.plex = mkForce { }; })
+    (mkIf cfg.systemd.enable { systemd.services.plex = mkForce { }; })
 
     { user.extraGroups = [ "plex" ]; }
   ]);

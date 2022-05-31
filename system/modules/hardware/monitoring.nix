@@ -1,12 +1,12 @@
 { options, config, lib, pkgs, ... }:
 
 with lib;
-with lib.my;
+#with lib.my;
 let cfg = config.modules.hardware.monitoring;
 in {
   options.modules.hardware.monitoring = {
-    enable = mkBoolOpt false;
-    corectrl.enable = mkBoolOpt false;
+    enable = _.mkBoolOpt false;
+    corectrl.enable = _.mkBoolOpt false;
   };
 
   config = mkIf cfg.enable (mkMerge [

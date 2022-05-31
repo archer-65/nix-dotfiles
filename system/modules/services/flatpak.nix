@@ -1,12 +1,11 @@
 { config, options, lib, pkgs, ... }:
 
 with lib;
-with lib.my;
 let
   cfg = config.modules.services.flatpak;
 in {
   options.modules.services.flatpak = {
-    enable = mkBoolOpt false;
+    enable = _.mkBoolOpt false;
   };
 
   config = mkIf cfg.enable {

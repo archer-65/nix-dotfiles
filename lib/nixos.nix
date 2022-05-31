@@ -1,7 +1,7 @@
 { inputs, lib, ... }:
 let
   inherit lib;
-  hosts = (import ./configs.nix).nixos.all;
+  hosts = (import ../outputs/configs.nix).nixos.all;
 
   netHostMap = {
     networking.hosts = lib.mapAttrs' (n: v: lib.nameValuePair v.address [ n ]) hosts;
@@ -31,5 +31,6 @@ let
       ++ (lib._.mapModulesRec' (toString ../system/modules) import);
       #++ __attrValues inputs.self.nixosModules;
     };
-in
-lib.mapAttrs genConfiguration hosts
+in {
+  generateHosts = lib.mapAttrs genConfiguration hosts;
+}

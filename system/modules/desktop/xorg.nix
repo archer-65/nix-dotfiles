@@ -1,13 +1,11 @@
-{ config, lib, pkgs, ... }:
-
 { options, config, lib, pkgs, ... }: 
 
 with lib;
-with lib.my;
+#with lib.my;
 let cfg = config.modules.desktop.xorg;
 in {
   options.modules.desktop.xorg = {
-    enable = mkBoolOpt false;
+    enable = _.mkBoolOpt false;
   };
 
   config = mkIf cfg.enable {
