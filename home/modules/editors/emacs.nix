@@ -1,12 +1,20 @@
-{ config, lib, pkgs, inputs, ... }:
+_: { config, lib, pkgs, inputs, ... }:
 
 with lib;
 let cfg = config.user-modules.editors.emacs;
     configDir = config.dotfiles.configDir;
 in {
   options.user-modules.editors.emacs = {
-    enable = config.lib.added.mkBoolOpt false;
-    daemon.enable = config.lib.added.mkBoolOpt false;
+    enable = mkOption {
+      default = false;
+      type = types.bool;
+      example = true;
+    };
+    daemon.enable = mkOption {
+      default = false;
+      type = types.bool;
+      example = true;
+    };
   };
 
   config = mkIf cfg.enable (mkMerge [

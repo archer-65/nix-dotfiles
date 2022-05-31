@@ -1,6 +1,5 @@
 # Mate, main laptop
 { config, lib, ... }:
-with lib;
 {
   modules = {
     hardware = {

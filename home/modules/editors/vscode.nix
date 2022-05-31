@@ -1,10 +1,14 @@
-{ config, lib, pkgs, inputs, ... }:
+_: { config, lib, pkgs, inputs, ... }:
 
 with lib;
 let cfg = config.modules.editors.vscode;
 in {
   options.user-modules.editors.vscode = {
-    enable = _.mkBoolOpt false;
+    enable = mkOption {
+      default = false;
+      type = types.bool;
+      example = true;
+    };
   };
 
   config = mkIf cfg.enable {

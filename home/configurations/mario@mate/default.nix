@@ -1,7 +1,6 @@
 { config, lib, ... }:
-
 {
-  lib._.user-modules = {
+  user-modules = {
     editors = {
       emacs = {
         enable = true;
@@ -9,8 +8,6 @@
       };
 
       vscode.enable = true;
-
-      neovim.enable = true;
     };
   };
 }
