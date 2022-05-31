@@ -15,6 +15,7 @@
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
       lib = import ./lib inputs;
+ 
       inherit (lib) genSystems;
       
       pkgs = import nixpkgs {
