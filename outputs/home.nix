@@ -1,19 +1,19 @@
-{self, nixpkgs, home-manager, ...}:
+inputs:
 let
-  inherit (self.pkgs) lib;
+  inherit (inputs.nixpkgs) lib;
   homeSet = (import ./configs.nix).homeManager.all;
 
   genModules = home:
     { config, ... }: {
-      imports = [ ("${self}/system/configurations/${home}") ]
-      ++ __attrValues self.homeModules;
+      imports = [ ("${inputs.self}/system/configurations/${home}") ]
+      ++ __attrValues inputs.self.homeModules;
     };
 
   genConfiguration = home: {homeDirectory, localSystem, username, ... }:
-    home-manager.lib.homeManagerConfiguration {
+    inputs.home-manager.lib.homeManagerConfiguration {
       inherit homeDirectory username;
       configuration = genModules home;
-      pkgs = self.pkgs;
+      pkgs = inputs.self.pkgs;
       stateVersion = "22.05";
       system = localSystem;
     };
