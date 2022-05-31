@@ -40,10 +40,10 @@
       #overlays = mapModules ./overlays import;
       #packages."${system}" = mapModules ./packages (p: pkgs.callPackage p { });
 
-      nixosModules = mapModules ./system/modules import;
-      nixosConfigurations = import ./outputs/nixos.nix inputs;
+      nixosModules = mapModulesRec ./system/modules import;
+      nixosConfigurations = import ./outputs/nixos.nix {inherit inputs; inherit lib;};
 
-      homeModules = mapModules ./home/modules import;
-      homeConfigurations = import ./outputs/home.nix inputs;
+      homeModules = mapModulesRec ./home/modules import;
+      homeConfigurations = import ./outputs/home.nix {inherit inputs; inherit lib;};
     };
 }
