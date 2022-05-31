@@ -1,7 +1,6 @@
 # Mate, main laptop
 { config, lib, ... }:
 
-with lib.my;
 {
   lib.my.modules = {
     hardware = {
@@ -15,7 +14,11 @@ with lib.my;
       flatpak.enable = true;
     };
 
-    core.boot.splashBoot.enable = true;
-    cachix = true;
+    desktop.xorg.enable = true;
+
+    core = {
+      boot.splashBoot.enable = true;
+      cachix.enable = true;
+    };
   };
 }

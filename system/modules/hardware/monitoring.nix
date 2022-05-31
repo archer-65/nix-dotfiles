@@ -10,14 +10,8 @@ in {
   };
 
   config = mkIf cfg.enable (mkMerge [
-    {environment.systemPackages = with pkgs; [ 
-      lm_sensors 
-      smartmontools
-      ];
-    }
+    { environment.systemPackages = with pkgs; [ lm_sensors smartmontools ]; }
 
-    (mkIf cfg.corectrl.enable {
-      programs.corectrl.enable = true;
-    })
+    (mkIf cfg.corectrl.enable { programs.corectrl.enable = true; })
   ]);
 }

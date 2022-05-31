@@ -1,9 +1,8 @@
 # VM, just for fun
 { config, lib, ... }:
 
-with lib.my;
 {
-  modules = {
+  lib.my.modules = {
     hardware = {
       audio.enable = true;
     };
@@ -12,6 +11,8 @@ with lib.my;
       ssh.enable = true;
     };
 
-    cachix = true;
+    desktop.xorg.enable = true;
+
+    core.cachix.enable = true;
   };
 }

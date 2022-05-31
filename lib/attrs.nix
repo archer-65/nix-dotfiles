@@ -13,6 +13,8 @@ rec {
   #   attrs
   mapFilterAttrs = pred: f: attrs: filterAttrs pred (mapAttrs' f attrs);
 
+  attrValuesRec = attr: fold (x: xs: (if isAttrs x then attrValuesRec x else [x]) ++ xs) [] (attrValues attr);
+
   # Generate an attribute set by mapping a function over a list of values.
   genAttrs' = values: f: listToAttrs (map f values);
 

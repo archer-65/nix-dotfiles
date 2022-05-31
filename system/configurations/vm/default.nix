@@ -19,7 +19,7 @@
     device = "nodev";
   };
 
-  boot.loadertimeout = 5;
+  boot.loader.timeout = 5;
 
   networking.interfaces.enp1s0.useDHCP = true;
 

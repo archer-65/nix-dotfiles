@@ -2,9 +2,9 @@
 
 with lib;
 with lib.my;
-let cfg = config.modules.cachix;
+let cfg = config.modules.core.cachix;
 in {
-  options.modules.cachix = {
+  options.modules.core.cachix = {
     enable = mkBoolOpt true;
   };
 

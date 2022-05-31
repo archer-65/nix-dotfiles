@@ -32,7 +32,7 @@
 
       pkgs = mkPkgs nixpkgs [ inputs.emacs-overlay.overlay ];
 
-      inherit (lib.my) mapModules mapModulesRec mkHost;
+      inherit (lib.my) mapModules mapModulesRec mapModules' mapModulesRec' mkHost;
     in {
       pkgs = pkgs;
       lib = lib.my;
