@@ -14,6 +14,17 @@ with lib;
         <option>users.user.<name></option>.
       '';
     };
+
+    localMachine = mkOption {
+      type = bool;
+      default = true;
+      description = ''
+        Whether this is a local machine or not. On local machine we can for
+        example enable the <literal>noPass = true;</literal> rule in
+        <option>security.doas.extraRules</option> for the user, or several
+        other relaxations that are not recommended for a server environment.
+      '';
+    };
   };
 
   config = {
@@ -40,6 +51,8 @@ with lib;
       trustedUsers = users;
       allowedUsers = users;
     };
+
+    system.stateVersion = lib.mkDefault "22.05";
 
     environment = {
       sessionVariables = {

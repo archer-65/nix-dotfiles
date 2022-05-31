@@ -13,5 +13,5 @@ with lib.my;
     };
 
     cachix = true;
-  }
+  };
 }

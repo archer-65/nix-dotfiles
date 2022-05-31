@@ -1,6 +1,6 @@
 inputs:
 let
-  inherit (inputs.self.pkgs) lib;
+  inherit (inputs.nixpkgs) lib;
   hosts = (import ./configs.nix).nixos.all;
 
   netHostMap = {
@@ -11,6 +11,12 @@ let
     nixpkgs.pkgs = inputs.self.pkgs;
   };
 
+  nixRegistry = {
+    nix.registry = {
+      nixpkgs.flake = inputs.nixpkgs;
+    };
+  };
+
   genConfiguration = hostname: { localSystem, ... }:
     lib.nixosSystem {
       system = localSystem;
@@ -18,6 +24,7 @@ let
         ("${inputs.self}/system/configurations/${hostname}")
         netHostMap
         hostPkgs
+        nixRegistry
         inputs.home-manager.nixosModules.home-manager
       ]
       ++ __attrValues inputs.self.nixosModules;

@@ -1,4 +1,4 @@
-{ inputs, lib, config, pkgs, ... }: 
+{ lib, config, pkgs, ... }: 
   
   {
   # NixOS GC, Upgrades and Flakes
@@ -14,11 +14,11 @@
     };
 
     package = pkgs.nixFlakes;
-    registry.nixpkgs.flake = inputs.nixpkgs;
     extraOptions = ''
       experimental-features = nix-command flakes
       keep-outputs          = true
       keep-derivations      = true
+      warn-dirty = false
     '';
   };
   # nixpkgs.config.allowUnfree = true;

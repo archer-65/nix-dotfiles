@@ -34,16 +34,16 @@
 
       inherit (lib.my) mapModules mapModulesRec mkHost;
     in {
-      # pkgs = pkgs;
+      pkgs = pkgs;
       lib = lib.my;
 
       #overlays = mapModules ./overlays import;
       #packages."${system}" = mapModules ./packages (p: pkgs.callPackage p { });
 
-      nixosModules = mapModulesRec ./system/modules import;
-      nixosConfigurations = import ./outputs/nixos.nix;
+      nixosModules = mapModules ./system/modules import;
+      nixosConfigurations = import ./outputs/nixos.nix inputs;
 
-      homeModules = mapModulesRec ./home/modules import;
-      homeConfigurations = import ./outputs/home.nix;
+      homeModules = mapModules ./home/modules import;
+      homeConfigurations = import ./outputs/home.nix inputs;
     };
 }
