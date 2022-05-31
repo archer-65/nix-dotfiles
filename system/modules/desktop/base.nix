@@ -1,7 +1,7 @@
 { lib, config, pkgs, ... }:
 
 with lib;
-;
+
 {
   config = mkIf config.services.xserver.enable {
     services.gnome.gnome-keyring.enable = true;

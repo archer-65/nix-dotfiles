@@ -2,7 +2,7 @@
 { options, config, lib, pkgs, ... }:
 
 with lib;
-;
+
 let cfg = config.modules.hardware.razer;
 in {
   options.modules.hardware.razer = {

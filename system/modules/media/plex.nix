@@ -1,7 +1,7 @@
 { options, config, lib, pkgs, ... }:
 
 with lib;
-;
+
 let cfg = config.modules.media.plex;
 in {
   options.modules.media.plex = {

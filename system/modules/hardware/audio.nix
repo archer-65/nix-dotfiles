@@ -1,7 +1,7 @@
 { options, config, lib, pkgs, ... }: 
 
 with lib;
-;
+
 let cfg = config.modules.hardware.audio;
 in {
   options.modules.hardware.audio = {

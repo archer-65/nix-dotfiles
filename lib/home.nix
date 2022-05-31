@@ -19,5 +19,6 @@ let
       stateVersion = "22.05";
       system = localSystem;
     };
-in
-lib.mapAttrs genConfiguration homeSet
+in {  
+  generateHomes = lib.mapAttrs genConfiguration homeSet;
+}

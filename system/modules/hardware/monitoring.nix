@@ -1,7 +1,7 @@
 { options, config, lib, pkgs, ... }:
 
 with lib;
-;
+
 let cfg = config.modules.hardware.monitoring;
 in {
   options.modules.hardware.monitoring = {

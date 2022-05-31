@@ -1,7 +1,7 @@
 { options, config, lib, pkgs, ... }: 
 
 with lib;
-;
+
 let cfg = config.modules.core.boot;
 in {
   options.modules.core.boot = {
