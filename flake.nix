@@ -35,7 +35,7 @@
       overlays = mapModules ./overlays import;
       # packages."${system}" = mapModules ./packages (p: pkgs.callPackage p { });
 
-      nixosModules = mapModulesRec ./system/modules import;
+      nixosModules = import ./system/modules inputs;
       nixosConfigurations = generateHosts; 
 
       homeModules = mapModulesRec ./home/modules import;

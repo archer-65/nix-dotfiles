@@ -1,11 +1,15 @@
-{ config, options, lib, pkgs, ... }:
+_: { config, options, lib, pkgs, ... }:
 
 with lib;
 let
   cfg = config.modules.services.flatpak;
 in {
   options.modules.services.flatpak = {
-    enable = _.mkBoolOpt false;
+    enable = mkOption {
+      default = false;
+      type = types.bool;
+      example = true;
+    };
   };
 
   config = mkIf cfg.enable {

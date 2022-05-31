@@ -1,11 +1,15 @@
-{ options, config, lib, pkgs, ... }: 
+_: { options, config, lib, pkgs, ... }: 
 
 with lib;
 
 let cfg = config.modules.hardware.audio;
 in {
   options.modules.hardware.audio = {
-    enable = _.mkBoolOpt false;
+    enable = mkOption {
+      default = false;
+      type = types.bool;
+      example = true;
+    };
   };
 
   config = mkIf cfg.enable {

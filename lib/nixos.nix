@@ -28,8 +28,8 @@ let
         nixRegistry
         inputs.home-manager.nixosModules.home-manager
       ]
-      ++ (lib._.mapModulesRec' (toString ../system/modules) import);
-      #++ __attrValues inputs.self.nixosModules;
+      #++ (lib._.mapModulesRec' (toString ../system/modules) import);
+      ++ __attrValues inputs.self.nixosModules;
     };
 in {
   generateHosts = lib.mapAttrs genConfiguration hosts;

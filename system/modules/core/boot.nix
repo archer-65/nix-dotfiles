@@ -1,11 +1,15 @@
-{ options, config, lib, pkgs, ... }: 
+_: { options, config, lib, pkgs, ... }: 
 
 with lib;
-
-let cfg = config.modules.core.boot;
+let 
+  cfg = config.modules.core.boot;
 in {
   options.modules.core.boot = {
-    splashBoot.enable = _.mkBoolOpt false;
+    splashBoot.enable = mkOption {
+      default = false;
+      type = types.bool;
+      example = true;
+    };
   };
 
   config = mkIf cfg.splashBoot.enable {

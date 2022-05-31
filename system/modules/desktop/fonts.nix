@@ -1,8 +1,10 @@
-{ config, lib, pkgs, ... }:
+_: { config, lib, pkgs, ... }:
 
 with lib;
 
 let
+  cfgDependency = config.modules.desktop.xorg;
+
   # Overriding nerd fonts (if you don't, all nerd fonts will be installed.)
   nerdFonts = pkgs.nerdfonts.override {
     fonts = [
@@ -14,7 +16,7 @@ let
   };
 in {
 
-  config = mkIf config.services.xserver.enable {
+  config = mkIf cfgDependency.enable {
     # System fonts
     fonts.fonts = with pkgs; [
       nerdFonts

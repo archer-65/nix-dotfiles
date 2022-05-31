@@ -2,7 +2,7 @@
 { config, lib, ... }:
 
 {
-  lib._.modules = {
+  modules = {
     hardware = {
       audio.enable = true;
     };

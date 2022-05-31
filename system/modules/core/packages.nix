@@ -1,4 +1,4 @@
-{ pkgs, inputs, lib, config, ... }:
+_: { pkgs, inputs, lib, config, ... }:
 
 {
   # System-wide packages

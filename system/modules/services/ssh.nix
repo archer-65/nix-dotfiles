@@ -1,11 +1,15 @@
-{ config, options, lib, pkgs, ... }:
+_: { config, options, lib, pkgs, ... }:
 
 with lib;
 let
-  cfg = config.modules.services.openssh;
+  cfg = config.modules.services.ssh;
 in {
-  options.modules.services.openssh = {
-    enable = _.mkBoolOpt false;
+  options.modules.services.ssh = {
+    enable = mkOption {
+      default = false;
+      type = types.bool;
+      example = true;
+    };
   };
 
   config = mkIf cfg.enable {

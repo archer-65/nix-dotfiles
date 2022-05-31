@@ -1,8 +1,8 @@
 # Mate, main laptop
 { config, lib, ... }:
-
+with lib;
 {
-  lib._.modules = {
+  modules = {
     hardware = {
       audio.enable = true;
       bluetooth.enable = true;
