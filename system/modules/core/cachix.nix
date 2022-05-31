@@ -1,7 +1,7 @@
 { options, config, lib, pkgs, ... }: 
 
 with lib;
-# with lib.my;
+;
 let cfg = config.modules.core.cachix;
 in {
   options.modules.core.cachix = {

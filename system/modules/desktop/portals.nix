@@ -1,7 +1,7 @@
 { lib, config, pkgs, ... }:
 
 with lib;
-#with lib.my;
+;
 {
   # XDG Portals, useful for wayland screen sharing and flatpak).
   config = mkIf config.services.xserver.enable {

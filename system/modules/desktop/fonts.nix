@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 with lib;
-#with lib.my;
+;
 let
   # Overriding nerd fonts (if you don't, all nerd fonts will be installed.)
   nerdFonts = pkgs.nerdfonts.override {
