@@ -1,6 +1,6 @@
 { lib, config, pkgs, ... }: 
   
-  {
+{
   # NixOS GC, Upgrades and Flakes
   nix = {
     # trustedUsers = [ "root" "mario" ];   
