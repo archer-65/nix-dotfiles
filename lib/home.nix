@@ -1,6 +1,6 @@
-{ inputs, lib, ... }:
+{ self, ... } @ inputs:
 let
-  inherit lib;
+  inherit (inputs.nixpkgs) lib;
   homeSet = (import ../outputs/configs.nix).homeManager.all;
 
   genModules = home: { lib, ... }: {
@@ -18,6 +18,5 @@ let
       stateVersion = "22.05";
       system = localSystem;
     };
-in {  
-  generateHomes = lib.mapAttrs genConfiguration homeSet;
-}
+in
+ lib.mapAttrs genConfiguration homeSet
