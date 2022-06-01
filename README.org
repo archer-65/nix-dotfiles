@@ -6,5 +6,6 @@ I'm using the standalone approach for home-manager, but it shouldn't be difficul
 #+BEGIN_QUOTE
 Be careful if you want to use this "template", this is not a framework neither an easy-come-easy-go library. I'm a totally beginner.
 
+#+ATTR_ORG: :width 100
 [[./assets/patrick-meme.jpg]]
 #+END_QUOTE
