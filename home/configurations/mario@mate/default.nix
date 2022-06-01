@@ -9,6 +9,17 @@
       vscode.enable = true;
     };
 
+    shell = {
+      bash.enable = true;
+      starship.enable = true;
+
+      git = {
+        enable = true;
+        email = "mariogt2009@live.it";
+        user = "archer-65";
+      };
+    };
+
     theme.gtk = {
       active = "materia";
 

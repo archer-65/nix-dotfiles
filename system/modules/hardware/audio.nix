@@ -25,7 +25,7 @@ in {
 
     security.rtkit.enable = true;
 
-    environment.systemPackages = with pkgs; [ easyeffects ];
+    environment.systemPackages = with pkgs; [ easyeffects pamixer ];
 
     user.extraGroups = [ "audio" ];
   };

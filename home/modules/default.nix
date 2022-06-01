@@ -11,6 +11,10 @@ inputs: {
   "editors/neovim" = import ./editors/neovim.nix inputs;
   "editors/vscode" = import ./editors/vscode.nix inputs;
 
+  "shell/bash" = import ./shell/bash.nix inputs;
+  "shell/git" = import ./shell/git.nix inputs;
+  "shell/starship" = import ./shell/starship.nix inputs;
+
   "themes/gtk" = import ./themes/gtk.nix inputs;
   "themes/materia" = import ./themes/materia inputs;
 

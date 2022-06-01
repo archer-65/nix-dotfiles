@@ -1,16 +1,14 @@
 { pkgs, config, ... }:
 
 {
-  imports = [ ./apps ];
-
   home.packages = with pkgs; [
     betterlockscreen
     brightnessctl
     xss-lock
     nitrogen
     playerctl
-    pamixer
     xclip
+    xdotool
     xfce.thunar
     xfce.thunar-volman
     xfce.thunar-archive-plugin

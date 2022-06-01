@@ -2,7 +2,7 @@
 let name = "volume";
 in stdenv.mkDerivation {
   name = "${name}";
-  src = ../bin;
+  src = ../../bin;
   nativeBuildInputs = [ makeWrapper ];
   installPhase = with pkgs; ''
     mkdir -p $out/bin

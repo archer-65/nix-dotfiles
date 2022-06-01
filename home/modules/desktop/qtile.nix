@@ -10,8 +10,12 @@
 
   programs.autorandr = { enable = true; };
 
-  user-modules.desktop.services = {
-    picom.enable = true;
-    dunst.enable = true;
+  user-modules.desktop = {
+    apps.rofi = true;
+
+    services = {
+      picom.enable = true;
+      dunst.enable = true;
+    };
   };
 }
