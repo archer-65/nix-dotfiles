@@ -1,7 +1,7 @@
 _: { config, lib, pkgs, inputs, ... }:
 
 with lib;
-let cfg = config.modules.editors.vscode;
+let cfg = config.user-modules.editors.vscode;
 in {
   options.user-modules.editors.vscode = {
     enable = mkOption {
