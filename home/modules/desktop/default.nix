@@ -1,9 +1,7 @@
 { pkgs, config, ... }:
 
 {
-  imports = [
-    ./apps
-  ];
+  imports = [ ./apps ];
 
   home.packages = with pkgs; [
     betterlockscreen
@@ -13,7 +11,6 @@
     playerctl
     pamixer
     xclip
-    libnotify
     xfce.thunar
     xfce.thunar-volman
     xfce.thunar-archive-plugin

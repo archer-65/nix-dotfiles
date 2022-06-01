@@ -2,5 +2,5 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports = [ ./alacritty ./git ./shell ./rofi ./greenclip ];
+  imports = [ ./git ./shell ];
 }

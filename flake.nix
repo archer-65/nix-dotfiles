@@ -12,29 +12,34 @@
     emacs-overlay.url = "github:nix-community/emacs-overlay";
   };
 
-  outputs = inputs@{ nixpkgs, ... }:
+  outputs = inputs@{ self, nixpkgs, ... }:
     let
       system = "x86_64-linux";
 
-      lib = import ./lib inputs;
+      lib = nixpkgs.lib;
+      helpers = import ./lib inputs;
 
       mkPkgs = pkgs: extraOverlays:
         import pkgs {
           inherit system;
           config.allowUnfree = true;
-          overlays = extraOverlays; # ++ (lib.attrValues self.overlays);
+          overlays = extraOverlays ++ (lib.attrValues self.overlays);
         };
 
       pkgs = mkPkgs nixpkgs [ inputs.emacs-overlay.overlay ];
 
     in {
       pkgs = pkgs;
-      lib = lib;
+
+      # Expose overlay to flake outputs, to allow using it from other flakes.
+      # Flake inputs are passed to the overlay so that the packages defined in
+      # it can use the sources pinned in flake.lock
+      overlays.default = final: prev: (import ./overlays inputs) final prev;
 
       nixosModules = import ./system/modules inputs;
-      nixosConfigurations = lib.mkSystem;
+      nixosConfigurations = helpers.mkSystem;
 
       homeModules = import ./home/modules inputs;
-      homeConfigurations = lib.mkHome;
+      homeConfigurations = helpers.mkHome;
     };
 }

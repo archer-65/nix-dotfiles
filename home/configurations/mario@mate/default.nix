@@ -9,7 +9,14 @@
       vscode.enable = true;
     };
 
-    theme.gtk.active = "materia";
+    theme.gtk = {
+      active = "materia";
+
+      font = {
+        name = "VictorMono Nerd Font";
+        size = 12;
+      };
+    };
   };
 
   xdg.userDirs = {

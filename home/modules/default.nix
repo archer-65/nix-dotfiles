@@ -1,4 +1,7 @@
 inputs: {
+  "desktop/apps/greenclip" = import ./desktop/apps/greenclip.nix inputs;
+  "desktop/apps/rofi" = import ./desktop/apps/rofi.nix inputs;
+  "desktop/term/alacritty" = import ./desktop/term/alacritty.nix inputs;
   "desktop/services/picom" = import ./desktop/services/picom.nix inputs;
   "desktop/services/dunst" = import ./desktop/services/dunst.nix inputs;
 

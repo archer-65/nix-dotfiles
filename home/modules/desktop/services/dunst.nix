@@ -2,8 +2,7 @@ _:
 { options, config, lib, pkgs, ... }:
 
 with lib;
-let 
-  cfg = config.user-modules.desktop.services.dunst;
+let cfg = config.user-modules.desktop.services.dunst;
 in {
   options.user-modules.desktop.services.dunst = {
     enable = mkOption {
@@ -14,6 +13,8 @@ in {
   };
 
   config = mkIf cfg.enable {
+    home.packages = [ pkgs.libnotify ];
+
     services.dunst = {
       enable = true;
 

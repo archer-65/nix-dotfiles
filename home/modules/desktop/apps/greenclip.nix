@@ -1,7 +1,8 @@
+_:
 { pkgs, ... }: {
   home.packages = with pkgs.haskellPackages; [ greenclip ];
 
-  xdg.configFile."greenclip.cfg".source = ./greenclip.toml;
+  xdg.configFile."greenclip.cfg".source = ../../../../config/greenclip.toml;
 
   systemd.user.services.greenclip = {
     Unit = {
