@@ -4,4 +4,9 @@ inputs: {
   "editors/intellij" = import ./editors/intellij.nix inputs;
   "editors/neovim" = import ./editors/neovim.nix inputs;
   "editors/vscode" = import ./editors/vscode.nix inputs;
+
+  "themes/gtk" = import ./themes/gtk.nix inputs;
+  "themes/materia" = import ./themes/materia inputs;
+
+  home = import ./home.nix inputs;
 }

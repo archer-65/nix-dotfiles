@@ -1,8 +1,6 @@
-{ pkgs, config, lib, isDesktop ? true, user, inputs, ... }:
+_: { pkgs, config, lib, ... }:
 
 let
-  inherit inputs;
-
   scripts = pkgs.callPackage ./scripts { inherit config pkgs; };
 
   socialPkgs = with pkgs; [ tdesktop discord ];
@@ -19,18 +17,13 @@ let
 
   qt5Pkgs = with pkgs.libsForQt5; [ qtstyleplugin-kvantum breeze-qt5 ];
 
-  programsModule = import ./programs { inherit config pkgs lib isDesktop; };
-
-  editorsModule = import ./editors { inherit config pkgs lib inputs; };
 in rec {
   imports = [
     #./editors
-    editorsModule
-    programsModule
     #./programs
-    ./x11
-    ./services
-    ./themes
+    #./x11
+    ./desktop
+    #./themes
   ];
 
   programs.home-manager.enable = true;
@@ -40,7 +33,7 @@ in rec {
       ++ monitorPkgs ++ qt5Pkgs;
   };
 
-  home.homeDirectory = "/home/${user}";
+  #home.homeDirectory = "/home/${user}";
   xdg.userDirs = {
     enable = true;
     createDirectories = true;
@@ -55,8 +48,8 @@ in rec {
   };
 
   home.sessionVariables = {
-    VISUAL = "emacsclient -c -a emacs";
-    EDITOR = "emacsclient -t";
+    # VISUAL = "emacsclient -c -a emacs";
+    # EDITOR = "emacsclient -t";
     QT_QPA_PLATFORMTHEME = "qt5ct";
   };
 }

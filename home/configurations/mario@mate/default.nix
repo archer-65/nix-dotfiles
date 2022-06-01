@@ -8,5 +8,7 @@
 
       vscode.enable = true;
     };
+
+    theme.gtk.active = "materia";
   };
 }
