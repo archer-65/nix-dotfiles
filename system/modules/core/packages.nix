@@ -1,14 +1,9 @@
-_: { pkgs, inputs, lib, config, ... }:
+_:
+{ pkgs, inputs, lib, config, ... }:
 
 {
   # System-wide packages
   environment = {
-    systemPackages = with pkgs; [
-      killall
-      procps
-      wget
-      git
-      vim
-    ];
+    systemPackages = with pkgs; [ killall procps wget git vim ];
   };
 }

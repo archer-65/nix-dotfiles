@@ -1,4 +1,5 @@
-_: { config, lib, pkgs, ... }:
+_:
+{ config, lib, pkgs, ... }:
 
 with lib;
 
@@ -7,12 +8,7 @@ let
 
   # Overriding nerd fonts (if you don't, all nerd fonts will be installed.)
   nerdFonts = pkgs.nerdfonts.override {
-    fonts = [
-      "FiraCode"
-      "JetBrainsMono"
-      "VictorMono"
-      "Iosevka"
-    ];
+    fonts = [ "FiraCode" "JetBrainsMono" "VictorMono" "Iosevka" ];
   };
 in {
 

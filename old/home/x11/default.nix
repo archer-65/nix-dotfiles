@@ -1,13 +1,7 @@
-{ pkgs, config, ... }: 
+{ pkgs, config, ... }:
 
 {
-  imports = [
-    ./autorandr.nix
-    ./dunst.nix
-    ./picom.nix
-    ./rofi
-    ./greenclip
-  ];
+  imports = [ ./autorandr.nix ./dunst.nix ./picom.nix ./rofi ./greenclip ];
 
   home.packages = with pkgs; [
     betterlockscreen
@@ -23,18 +17,14 @@
     xfce.thunar-archive-plugin
   ];
 
-  services = {
-    flameshot.enable = true;
-  };
+  services = { flameshot.enable = true; };
 
   xdg.configFile."qtile" = {
     source = ./qtile;
     recursive = true;
   };
 
-  xsession = {
-    enable = true;
-  };
+  xsession = { enable = true; };
 
   # home.x11.enable = true;
 
@@ -45,9 +35,7 @@
     size = 16;
   };
 
-  xresources.properties = {
-    "Xcursor.theme" = "Bibata-Modern-Ice";
-  };
+  xresources.properties = { "Xcursor.theme" = "Bibata-Modern-Ice"; };
 
   #home.file.".background-image".source = ../../res/commodore.jpg;
 }

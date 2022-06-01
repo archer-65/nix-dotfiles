@@ -1,8 +1,8 @@
-_: { config, options, lib, pkgs, ... }:
+_:
+{ config, options, lib, pkgs, ... }:
 
 with lib;
-let
-  cfg = config.modules.services.printing;
+let cfg = config.modules.services.printing;
 in {
   options.modules.services.printing = {
     enable = mkOption {

@@ -3,7 +3,7 @@
 {
   gtk = {
     enable = true;
-    
+
     theme = {
       name = "Materia-dark-compact";
       package = pkgs.materia-theme;
@@ -20,12 +20,8 @@
       package = pkgs.bibata-cursors;
     };
 
-    font = {
-      name = "VictorMono Nerd Font 12";
-    };
+    font = { name = "VictorMono Nerd Font 12"; };
   };
 
-  home.packages = with pkgs; [
-    lxappearance
-  ];
+  home.packages = with pkgs; [ lxappearance ];
 }

@@ -1,7 +1,6 @@
 { isDesktop ? true, pkgs, ... }:
 
-let 
-  fontSize = if isDesktop then 18.0 else 12.0;
+let fontSize = if isDesktop then 18.0 else 12.0;
 in {
   programs.alacritty = {
     enable = true;
@@ -12,7 +11,7 @@ in {
         padding = {
           x = 20;
           y = 20;
-        };        
+        };
         decorations = "none";
         opacity = 0.95;
       };
@@ -44,39 +43,39 @@ in {
       # ONEDARK
       colors = {
         primary = {
-          background        = "#1e2127";
-          foreground        = "#abb2bf";
+          background = "#1e2127";
+          foreground = "#abb2bf";
           bright_foreground = "#e6efff";
         };
         normal = {
-          black   = "#1e2127";
-          red     = "#e06c75";
-          green   = "#98c379";
-          yellow  = "#d19a66";
-          blue    = "#61afef";
+          black = "#1e2127";
+          red = "#e06c75";
+          green = "#98c379";
+          yellow = "#d19a66";
+          blue = "#61afef";
           magenta = "#c678dd";
-          cyan    = "#56b6c2";
-          white   = "#828791";
+          cyan = "#56b6c2";
+          white = "#828791";
         };
         bright = {
-          black   = "#5c6370";
-          red     = "#e06c75";
-          green   = "#98c379";
-          yellow  = "#d19a66";
-          blue    = "#61afef";
+          black = "#5c6370";
+          red = "#e06c75";
+          green = "#98c379";
+          yellow = "#d19a66";
+          blue = "#61afef";
           magenta = "#c678dd";
-          cyan    = "#56b6c2";
-          white   = "#e6efff";
+          cyan = "#56b6c2";
+          white = "#e6efff";
         };
         dim = {
-          black   = "#1e2127";
-          red     = "#e06c75";
-          green   = "#98c379";
-          yellow  = "#d19a66";
-          blue    = "#61afef";
+          black = "#1e2127";
+          red = "#e06c75";
+          green = "#98c379";
+          yellow = "#d19a66";
+          blue = "#61afef";
           magenta = "#c678dd";
-          cyan    = "#56b6c2";
-          white   = "#828791";
+          cyan = "#56b6c2";
+          white = "#828791";
         };
       };
 

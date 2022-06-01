@@ -1,8 +1,10 @@
-_: { config, lib, pkgs, inputs, ... }:
+_:
+{ config, lib, pkgs, inputs, ... }:
 
 with lib;
-let cfg = config.user-modules.editors.emacs;
-    configDir = config.dotfiles.configDir;
+let
+  cfg = config.user-modules.editors.emacs;
+  configDir = config.dotfiles.configDir;
 in {
   options.user-modules.editors.emacs = {
     enable = mkOption {
@@ -33,6 +35,6 @@ in {
         client.enable = true;
         defaultEditor = true;
       };
-    })    
+    })
   ]);
 }

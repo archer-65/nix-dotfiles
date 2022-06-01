@@ -1,4 +1,5 @@
-_: { lib, config, pkgs, ... }:
+_:
+{ lib, config, pkgs, ... }:
 
 {
   # Timezone

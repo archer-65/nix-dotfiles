@@ -1,5 +1,5 @@
 { inputs, ... }:
-let 
+let
   inherit (inputs) self;
   inherit (self) pkgs;
 in {

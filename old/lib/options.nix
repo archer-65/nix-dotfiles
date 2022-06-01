@@ -1,9 +1,9 @@
 inputs:
-let
-  inherit (inputs.nixpkgs) lib;
+let inherit (inputs.nixpkgs) lib;
 in with lib; {
   options.specs = {
-    enable = mkEnableOption "Enable specific options for multiple configurations";
+    enable =
+      mkEnableOption "Enable specific options for multiple configurations";
     font = mkOption {
       default = "VictorMono Nerd Font";
       type = types.str;

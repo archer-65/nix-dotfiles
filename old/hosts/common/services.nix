@@ -8,20 +8,18 @@
   # Global services
   services = {
     # SSH and SSH Daemon
-    openssh = {
-      enable = true;
-    };
+    openssh = { enable = true; };
     sshd.enable = true;
 
     # Pipewire settings
     pipewire = {
       enable = true;
-      
+
       alsa = {
         enable = true;
         support32Bit = true;
       };
-      
+
       pulse.enable = true;
     };
 

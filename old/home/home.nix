@@ -1,54 +1,27 @@
 { pkgs, config, lib, isDesktop ? true, user, inputs, ... }:
 
-let   
+let
   inherit inputs;
- 
+
   scripts = pkgs.callPackage ./scripts { inherit config pkgs; };
 
-  socialPkgs = with pkgs; [
-    tdesktop
-    discord
-  ];
+  socialPkgs = with pkgs; [ tdesktop discord ];
 
-  mediaPkgs = with pkgs; [
-    mpv
-    pavucontrol
-    pamixer
-    pasystray
-  ];
+  mediaPkgs = with pkgs; [ mpv pavucontrol pamixer pasystray ];
 
-  coreUtilPkgs = with pkgs; [
-    exa
-    bat
-    ripgrep
-    fd
-  ];
+  coreUtilPkgs = with pkgs; [ exa bat ripgrep fd ];
 
-  utilPkgs = with pkgs; [
-    rbw
-  ];
+  utilPkgs = with pkgs; [ rbw ];
 
-  monitorPkgs = with pkgs; [
-    btop
-    s-tui
-  ];
-  
-  desktopOnlyPkgs = with pkgs; [
-    corectrl
-  ];
+  monitorPkgs = with pkgs; [ btop s-tui ];
 
-  qt5Pkgs = with pkgs.libsForQt5; [ 
-    qtstyleplugin-kvantum
-    breeze-qt5
-  ];
+  desktopOnlyPkgs = with pkgs; [ corectrl ];
 
-  programsModule = import ./programs { 
-    inherit config pkgs lib isDesktop;
-  };
+  qt5Pkgs = with pkgs.libsForQt5; [ qtstyleplugin-kvantum breeze-qt5 ];
 
-  editorsModule = import ./editors {
-    inherit config pkgs lib inputs;
-  };
+  programsModule = import ./programs { inherit config pkgs lib isDesktop; };
+
+  editorsModule = import ./editors { inherit config pkgs lib inputs; };
 in rec {
   imports = [
     #./editors
@@ -63,7 +36,8 @@ in rec {
   programs.home-manager.enable = true;
 
   home = {
-    packages = scripts ++ socialPkgs ++ mediaPkgs ++ coreUtilPkgs ++ utilPkgs ++ monitorPkgs ++ qt5Pkgs;
+    packages = scripts ++ socialPkgs ++ mediaPkgs ++ coreUtilPkgs ++ utilPkgs
+      ++ monitorPkgs ++ qt5Pkgs;
   };
 
   home.homeDirectory = "/home/${user}";

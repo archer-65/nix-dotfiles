@@ -1,14 +1,12 @@
 { config, pkgs, ... }:
 
 {
-  imports = [ 
-    ./hardware-configuration.nix
-  ];
+  imports = [ ./hardware-configuration.nix ];
 
   # Use the systemd-boot EFI boot loader.
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;
-    
+
     loader = {
       efi = {
         canTouchEfiVariables = true;
@@ -34,17 +32,13 @@
     hostName = "mate";
     #wireless.enable = true;
     #wireless.userControlled.enable = true;
-    interfaces = {
-      wlp1s0.useDHCP = true;
-    };
+    interfaces = { wlp1s0.useDHCP = true; };
   };
 
   hardware.opengl = {
     driSupport = true;
     driSupport32Bit = true;
-    extraPackages = with pkgs; [
-      amdvlk
-    ];
+    extraPackages = with pkgs; [ amdvlk ];
   };
 
   services.xserver = {
@@ -52,8 +46,6 @@
     videoDrivers = [ "amdgpu" ];
   };
 
-  services.auto-cpufreq = {
-    enable = true;
-  };
+  services.auto-cpufreq = { enable = true; };
 }
 

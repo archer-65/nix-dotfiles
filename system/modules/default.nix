@@ -15,12 +15,12 @@ inputs: {
 
   "dev/adb" = import ./dev/adb.nix inputs;
   "dev/virt-manager" = import ./dev/virt-manager.nix inputs;
-  
+
   "hardware/audio" = import ./hardware/audio.nix inputs;
   "hardware/bluetooth" = import ./hardware/bluetooth.nix inputs;
   "hardware/monitoring" = import ./hardware/monitoring.nix inputs;
   "hardware/razer" = import ./hardware/razer.nix inputs;
-  
+
   "services/flatpak" = import ./services/flatpak.nix inputs;
   "services/plex" = import ./services/plex.nix inputs;
   "services/printing" = import ./services/printing.nix inputs;

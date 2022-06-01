@@ -11,13 +11,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
-  
+
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
       lib = import ./lib inputs;
- 
+
       inherit (lib) genSystems;
-      
+
       pkgs = import nixpkgs {
         system = "x86_64-linux";
         overlays = [ inputs.emacs-overlay.overlay ];
@@ -26,7 +26,7 @@
 
     in {
       inherit lib pkgs;
-      
+
       # If you want to use standalone home-manager
       inherit (import ./home/profiles inputs) homeConfigurations;
 

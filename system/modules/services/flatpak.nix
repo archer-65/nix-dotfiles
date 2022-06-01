@@ -1,8 +1,8 @@
-_: { config, options, lib, pkgs, ... }:
+_:
+{ config, options, lib, pkgs, ... }:
 
 with lib;
-let
-  cfg = config.modules.services.flatpak;
+let cfg = config.modules.services.flatpak;
 in {
   options.modules.services.flatpak = {
     enable = mkOption {
@@ -12,7 +12,5 @@ in {
     };
   };
 
-  config = mkIf cfg.enable {
-    services.flatpak.enable = true;
-  };
+  config = mkIf cfg.enable { services.flatpak.enable = true; };
 }

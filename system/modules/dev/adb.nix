@@ -1,4 +1,5 @@
-_: { options, config, lib, pkgs, ... }:
+_:
+{ options, config, lib, pkgs, ... }:
 
 with lib;
 

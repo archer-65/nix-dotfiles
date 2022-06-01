@@ -1,4 +1,5 @@
-_: { options, config, lib, pkgs, ... }:
+_:
+{ options, config, lib, pkgs, ... }:
 
 with lib;
 
@@ -12,7 +13,5 @@ in {
     };
   };
 
-  config = mkIf cfg.enable {
-    home.packages = with pkgs; [ android-studio ];
-  };
+  config = mkIf cfg.enable { home.packages = with pkgs; [ android-studio ]; };
 }

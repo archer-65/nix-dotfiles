@@ -1,4 +1,5 @@
-_: { options, config, lib, pkgs, ... }: 
+_:
+{ options, config, lib, pkgs, ... }:
 
 with lib;
 
@@ -24,9 +25,7 @@ in {
 
     security.rtkit.enable = true;
 
-    environment.systemPackages = with pkgs; [
-      easyeffects
-    ];
+    environment.systemPackages = with pkgs; [ easyeffects ];
 
     user.extraGroups = [ "audio" ];
   };

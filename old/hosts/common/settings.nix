@@ -1,9 +1,9 @@
-  { inputs, lib, config, pkgs, ... }: 
-  
-  {
+{ inputs, lib, config, pkgs, ... }:
+
+{
   # NixOS GC, Upgrades and Flakes
   nix = {
-    trustedUsers = [ "root" "mario" ];    
+    trustedUsers = [ "root" "mario" ];
 
     settings.auto-optimise-store = true;
 
@@ -21,7 +21,7 @@
       keep-derivations      = true
     '';
   };
-  
+
   nixpkgs.config.allowUnfree = true;
 
   system = {
@@ -31,4 +31,4 @@
     };
     stateVersion = "22.05";
   };
-} 
+}

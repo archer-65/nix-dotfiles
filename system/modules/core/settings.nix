@@ -1,5 +1,6 @@
-_: { lib, config, pkgs, ... }: 
-  
+_:
+{ lib, config, pkgs, ... }:
+
 {
   # NixOS GC, Upgrades and Flakes
   nix = {
@@ -31,4 +32,4 @@ _: { lib, config, pkgs, ... }:
   #   };
   #   stateVersion = "22.05";
   # };
-} 
+}

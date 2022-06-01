@@ -22,7 +22,7 @@
         import pkgs {
           inherit system;
           config.allowUnfree = true;
-          overlays = extraOverlays; #++ (lib.attrValues self.overlays);
+          overlays = extraOverlays; # ++ (lib.attrValues self.overlays);
         };
 
       pkgs = mkPkgs nixpkgs [ inputs.emacs-overlay.overlay ];
@@ -32,7 +32,7 @@
       lib = lib;
 
       nixosModules = import ./system/modules inputs;
-      nixosConfigurations = lib.mkSystem; 
+      nixosConfigurations = lib.mkSystem;
 
       homeModules = import ./home/modules inputs;
       homeConfigurations = lib.mkHome;

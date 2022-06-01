@@ -1,4 +1,5 @@
-_: { config, lib, pkgs, inputs, ... }:
+_:
+{ config, lib, pkgs, inputs, ... }:
 
 with lib;
 let cfg = config.user-modules.editors.neovim;
@@ -12,9 +13,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    
-    programs.neovim = {
-      enable = true;
-    };
+
+    programs.neovim = { enable = true; };
   };
 }

@@ -1,6 +1,5 @@
 # Mate, main laptop
-{ config, lib, ... }:
-{
+{ config, lib, ... }: {
   modules = {
     hardware = {
       audio.enable = true;

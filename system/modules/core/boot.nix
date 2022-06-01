@@ -1,8 +1,8 @@
-_: { options, config, lib, pkgs, ... }: 
+_:
+{ options, config, lib, pkgs, ... }:
 
 with lib;
-let 
-  cfg = config.modules.core.boot;
+let cfg = config.modules.core.boot;
 in {
   options.modules.core.boot = {
     splashBoot.enable = mkOption {
@@ -15,14 +15,14 @@ in {
   config = mkIf cfg.splashBoot.enable {
     boot.consoleLogLevel = 0;
     boot.initrd.verbose = false;
-    boot.kernelParams = [ 
-      "quiet" 
+    boot.kernelParams = [
+      "quiet"
       "splash"
-      "boot.shell_on_fail" 
-      "udev.log_priority=3" 
-      "loglevel=3" 
-      "rd.systemd.show_status=false" 
-      "rd.udev.log_level=3" 
+      "boot.shell_on_fail"
+      "udev.log_priority=3"
+      "loglevel=3"
+      "rd.systemd.show_status=false"
+      "rd.udev.log_level=3"
     ];
 
     boot.plymouth = {

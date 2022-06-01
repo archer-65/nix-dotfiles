@@ -4,7 +4,7 @@ let
   user = "mario";
   inherit (inputs) self;
   inherit (self) pkgs;
-  
+
   sharedModules = [
     { _module.args = { inherit inputs; }; }
     ./common

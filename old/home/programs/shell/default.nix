@@ -32,11 +32,9 @@
       cmd_duration = {
         format = "wasted time [$duration]($style)";
         style = "bold purple";
-      }; 
-
-      directory = {
-        repo_root_style = "bold blue";
       };
+
+      directory = { repo_root_style = "bold blue"; };
 
       memory_usage = {
         disabled = false;

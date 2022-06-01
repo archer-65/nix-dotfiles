@@ -1,5 +1,6 @@
 # modules/hardware/razer.nix --- support for razer devices
-_: { options, config, lib, pkgs, ... }:
+_:
+{ options, config, lib, pkgs, ... }:
 
 with lib;
 
@@ -18,8 +19,6 @@ in {
 
     user.extraGroups = [ "plugdev" ];
 
-    environment.systemPackages = with pkgs; [
-      razergenie
-    ];
+    environment.systemPackages = with pkgs; [ razergenie ];
   };
 }

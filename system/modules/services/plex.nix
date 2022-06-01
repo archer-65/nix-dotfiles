@@ -1,4 +1,5 @@
-_: { options, config, lib, pkgs, ... }:
+_:
+{ options, config, lib, pkgs, ... }:
 
 with lib;
 
@@ -10,7 +11,7 @@ in {
       type = types.bool;
       example = true;
     };
-    
+
     systemd.disable = mkOption {
       default = true;
       type = types.bool;

@@ -7,10 +7,10 @@
     backend = "glx";
     vSync = true;
     experimentalBackends = true;
-    
+
     fade = true;
     fadeDelta = 4;
-    fadeSteps = ["0.028" "0.03"];
+    fadeSteps = [ "0.028" "0.03" ];
 
     activeOpacity = "1.0";
     inactiveOpacity = "1.0";

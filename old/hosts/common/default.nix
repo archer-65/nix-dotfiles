@@ -1,7 +1,6 @@
 # This configuration files contains common settings (of the system)
 # between all my machines.
-{ config, lib, pkgs, inputs, ... }:
-{
+{ config, lib, pkgs, inputs, ... }: {
   imports = [
     ./boot.nix
     ./cachix.nix

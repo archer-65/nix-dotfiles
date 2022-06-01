@@ -1,5 +1,4 @@
-{ pkgs, ... }:
-{
+{ pkgs, ... }: {
   services.dunst = {
     enable = true;
 
@@ -27,13 +26,13 @@
         # Appearance
         indicate_hidden = true;
         transparency = 0;
-        
+
         separator_height = 1;
-        
+
         padding = 10;
         horizontal_padding = 10;
         text_icon_padding = 15;
-      
+
         corner_radius = 0;
         frame_width = 2;
         frame_color = "#282C34";
@@ -67,7 +66,7 @@
         history_length = 50;
 
         # Misc
-		    title = "Dunst";
+        title = "Dunst";
         class = "Dunst";
 
         dmenu = "${pkgs.rofi}/bin/rofi -dmenu -p dunst:";
@@ -101,7 +100,7 @@
         foreground = "#C678DD";
         timeout = 0;
       };
-      
+
       experimental.per_monitor_dpi = false;
     };
   };

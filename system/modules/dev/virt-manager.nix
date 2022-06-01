@@ -1,4 +1,5 @@
-_: { options, config, lib, pkgs, ... }:
+_:
+{ options, config, lib, pkgs, ... }:
 
 with lib;
 
@@ -26,7 +27,7 @@ in {
     };
 
     environment.systemPackages = with pkgs; [ virt-manager swtpm ];
-    
+
     user.extraGroups = [ "libvirtd" ];
   };
 }

@@ -6,10 +6,11 @@ in {
   programs.rofi = {
     enable = true;
 
-    plugins = with pkgs; [
-      rofi-emoji 
-      # rofi-rbw
-    ];
+    plugins = with pkgs;
+      [
+        rofi-emoji
+        # rofi-rbw
+      ];
   };
 
   xdg.configFile."rofi/colors" = {
@@ -17,10 +18,10 @@ in {
     recursive = true;
   };
 
-   xdg.configFile."rofi/themes" = {
+  xdg.configFile."rofi/themes" = {
     source = ./themes;
     recursive = true;
   };
 
-  home.packages = scripts ++ launchers; 
+  home.packages = scripts ++ launchers;
 }
