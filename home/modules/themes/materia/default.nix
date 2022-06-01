@@ -1,8 +1,8 @@
-_: { options, config, lib, pkgs, ... }:
+_:
+{ options, config, lib, pkgs, ... }:
 
 with lib;
-let
- cfg = config.user-modules.theme.gtk;
+let cfg = config.user-modules.theme.gtk;
 in {
   config = mkIf (cfg.active == "materia") {
     gtk = {
@@ -15,7 +15,7 @@ in {
 
       iconTheme = {
         name = "kora";
-        package = pkgs.kora-icon-theme; 
+        package = pkgs.kora-icon-theme;
       };
 
       cursorTheme = {
@@ -24,9 +24,9 @@ in {
         package = pkgs.bibata-cursors;
       };
 
-      font = { 
-        name = cfg.font.name; 
-        size = "${cfg.font.size}"; 
+      font = {
+        name = cfg.font.name;
+        size = cfg.font.size;
       };
     };
 

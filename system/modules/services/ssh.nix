@@ -12,11 +12,11 @@ in {
     };
   };
 
-  config = mkIf cfg.enable { 
+  config = mkIf cfg.enable {
     services.openssh = {
-      enable = true; 
+      enable = true;
       startWhenNeeded = true;
       openFirewall = true;
-    }
+    };
   };
 }

@@ -1,7 +1,12 @@
 { pkgs, config, ... }:
 
 {
-  imports = [ ./services/autorandr.nix ./services/dunst.nix ./services/picom.nix ./apps ];
+  imports = [
+    ./services/autorandr.nix
+    ./services/dunst.nix
+    ./services/picom.nix
+    ./apps
+  ];
 
   home.packages = with pkgs; [
     betterlockscreen
