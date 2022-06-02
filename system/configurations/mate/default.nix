@@ -20,6 +20,8 @@
     editor = false;
   };
 
+
+  networking.hostName = "mate";
   # WiFi
   networking.interfaces.wlp1s0.useDHCP = true;
 
