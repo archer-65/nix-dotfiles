@@ -14,20 +14,24 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.xserver = {
-      enable = true;
+    services.xserver.enable = true;
 
+    services.xserver.displayManager = {
+      lightdm.enable = true;
+      defaultSession = "none+qtile";
+    };
+
+    services.xserver.windowManager = {
+      qtile.enable = true;
+    };
+
+    services.xserver ={
       layout = "us";
       xkbVariant = "intl";
-
-      libinput.enable = true;
-
-      displayManager = {
-        lightdm.enable = true;
-        defaultSession = "none+qtile";
-      };
-
-      windowManager.qtile.enable = true;
     };
+
+    services.xserver.libinput.enable = true;
+
+    user.extraGroups = [ "video" ];
   };
 }
