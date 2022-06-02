@@ -23,6 +23,7 @@ let
         hostPkgs
         nixRegistry
         inputs.home-manager.nixosModules.home-manager
-      ] ++ __attrValues inputs.self.nixosModules;
+      ] 
+      ++ __attrValues inputs.self.nixosModules;
     };
 in lib.mapAttrs genConfiguration hosts

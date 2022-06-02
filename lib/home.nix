@@ -6,6 +6,7 @@ let
   genModules = home:
     { lib, ... }: {
       imports = [ (import "${inputs.self}/home/configurations/${home}") ]
+        ++ [ (import "${inputs.self}/mixed/options.nix" inputs) ] 
         ++ __attrValues inputs.self.homeModules;
     };
 

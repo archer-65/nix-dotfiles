@@ -1,4 +1,4 @@
-{ stdenv, makeWrapper, pkgs, lib }:
+{ stdenv, makeWrapper, pkgs, lib, }:
 let name = "volume";
 in stdenv.mkDerivation {
   name = "${name}";

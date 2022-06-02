@@ -1,10 +1,14 @@
 _: { pkgs, config, ... }:
 
+let
+  configDir = config.dotfiles.configDir; 
+in
 {
   xsession.enable = true;
 
   xdg.configFile."qtile" = {
-    source = ../../../config/qtile;
+    # source = ../../../config/qtile;
+    source = "${configDir}/qtile";
     recursive = true;
   };
 

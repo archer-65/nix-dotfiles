@@ -1,7 +1,7 @@
 # Thanks to Matteo Joliveau.
 # Original file: `https://github.com/https://github.com/MatteoJoliveau/nix-dotfiles/blob/master/nixpkgs/pkgs/rofi-rbw.nix`
 
-{ pkgs, lib, pypkgs, fetchurl }:
+{ pkgs, lib, pypkgs, fetchurl, }:
 
 pypkgs.buildPythonPackage rec {
   pname = "rofi_rbw";
