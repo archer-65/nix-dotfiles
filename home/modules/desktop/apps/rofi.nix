@@ -29,13 +29,13 @@ in {
       recursive = true;
     };
 
-    # home.packages = with pkgs.scripts; [
-    #   usedcpu
-    #   usedram
-    #   rofi.powermenu
-    #   rofi.launcher
-    #   rofi.greenclip
-    #   rofi.emoji
-    # ];
+    home.packages = with pkgs.scripts; [
+      usedcpu
+      usedram
+      rofi.powermenu
+      rofi.launcher
+      rofi.greenclip
+      rofi.emoji
+    ];
   };
 }
