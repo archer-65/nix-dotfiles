@@ -12,17 +12,6 @@ with lib; {
         <option>users.user.<name></option>.
       '';
     };
-
-    localMachine = mkOption {
-      type = bool;
-      default = true;
-      description = ''
-        Whether this is a local machine or not. On local machine we can for
-        example enable the <literal>noPass = true;</literal> rule in
-        <option>security.doas.extraRules</option> for the user, or several
-        other relaxations that are not recommended for a server environment.
-      '';
-    };
   };
 
   config = {
@@ -37,9 +26,7 @@ with lib; {
       home = "/home/${name}";
       group = "users";
       uid = 1000;
-      # If we are on a local machine the ‹wheel› group is not necessary
-      # because a special ‹doas› rule will be created.
-      extraGroups = if !config.localMachine then [ "wheel" ] else [ ];
+      extraGroups = [ "wheel" ];
     };
 
     users.users.${config.user.name} = mkAliasDefinitions options.user;
