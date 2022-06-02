@@ -9,7 +9,7 @@ in {
       type = types.bool;
       example = true;
     };
-    #cacheTTL = mkOpt int 3600;  # 1hr
+    #cacheTTL = mkOpt int 3600;   # 1hr
   };
 
   config = mkIf cfg.enable {

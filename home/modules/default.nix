@@ -13,6 +13,8 @@ inputs: {
   "editors/vscode" = import ./editors/vscode.nix inputs;
 
   "shell/bash" = import ./shell/bash.nix inputs;
+  "shell/direnv" = import ./shell/direnv.nix inputs;
+  "shell/extensions" = import ./shell/extensions.nix inputs;
   "shell/git" = import ./shell/git.nix inputs;
   "shell/starship" = import ./shell/starship.nix inputs;
   "shell/gpg" = import ./shell/gpg.nix inputs;

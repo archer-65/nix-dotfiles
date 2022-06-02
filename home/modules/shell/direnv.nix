@@ -2,9 +2,9 @@ _:
 { options, config, lib, pkgs, ... }:
 
 with lib;
-let cfg = config.user-modules.shell.bash;
+let cfg = config.user-modules.shell.direnv;
 in {
-  options.user-modules.shell.bash = {
+  options.user-modules.shell.direnv = {
     enable = mkOption {
       default = false;
       type = types.bool;
@@ -13,14 +13,11 @@ in {
   };
 
   config = mkIf cfg.enable {
-    programs.bash = {
+    programs.direnv = {
       enable = true;
-
-      shellAliases = {
-        cat = "bat";
-      };
+      enableBashIntegration = true;
     };
 
-    home.packages = with pkgs; [ nix-bash-completions ];
+    services.lorri.enable = true;
   };
 }

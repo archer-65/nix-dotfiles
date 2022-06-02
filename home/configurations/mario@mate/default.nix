@@ -11,7 +11,10 @@
 
     shell = {
       bash.enable = true;
+      extensions.enable = true;
       starship.enable = true;
+
+      direnv.enable = true;
 
       git = {
         enable = true;
