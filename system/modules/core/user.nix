@@ -44,7 +44,7 @@ with lib; {
 
     users.users.${config.user.name} = mkAliasDefinitions options.user;
 
-    nix = let users = [ "root" config.user.name "mario" ];
+    nix = let users = [ "root" config.user.name ];
     in {
       trustedUsers = users;
       allowedUsers = users;

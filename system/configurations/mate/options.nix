@@ -19,4 +19,6 @@
       cachix.enable = true;
     };
   };
+
+  user.extraGroups = [ "video" ];
 }
