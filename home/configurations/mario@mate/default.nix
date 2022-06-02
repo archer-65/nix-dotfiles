@@ -18,6 +18,8 @@
         email = "mariogt2009@live.it";
         user = "archer-65";
       };
+
+      gpg.enable = true;
     };
 
     theme.gtk = {
