@@ -11,7 +11,7 @@ pypkgs.buildPythonPackage rec {
   src = fetchurl {
     url =
       "https://files.pythonhosted.org/packages/py3/r/rofi-rbw/${pname}-${version}-py3-none-any.whl";
-    sha256 = "1x50aljp0f93xlins6ky0sks5lyvakpxq3v0fw2czi86lpswpja9";
+    sha256 = "sha256-7TowxLxp4+4yGhcqMQa8po+uhnNbXShNEHJs6Vjwq+g=";
   };
 
   # We can't use it because the name of the package (rofi-rbw) is different than the name of the wheel (rofi_rbw)

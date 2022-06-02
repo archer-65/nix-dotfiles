@@ -1,4 +1,4 @@
-{ config, lib, ... }: {
+{ config, lib, pkgs, ... }: {
   user-modules = {
     editors = {
       emacs = {
@@ -48,4 +48,11 @@
     templates = "${config.home.homeDirectory}/templates";
     videos = "${config.home.homeDirectory}/videos";
   };
+
+  xdg.configFile."rbw/config.json".text = ''
+    {
+      "email" : "mariogt2009@live.it",
+      "pinentry" : "${pkgs.pinentry-gtk2}/bin/pinentry-gtk-2"
+    }
+  '';
 }

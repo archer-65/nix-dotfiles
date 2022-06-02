@@ -3,6 +3,7 @@ let
   # Pass flake inputs to overlay so we can use the sources pinned in flake.lock
   # instead of having to keep sha256 hashes in each package for src
   inherit inputs;
+  inherit (inputs.self) pkgs;
 in self: super: {
   # Example package, used only for tests
   scripts = {
@@ -18,5 +19,5 @@ in self: super: {
     powermenu = super.callPackage ../packages/rofi/powermenu.nix { };
   };
 
-  rofi-rbw = super.callPackage ../packages/rofi-rbw.nix { };
+  rofi-rbw = super.callPackage ../packages/rofi-rbw.nix { pypkgs = pkgs.python39Packages; };
 }

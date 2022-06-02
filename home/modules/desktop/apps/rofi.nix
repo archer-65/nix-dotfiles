@@ -16,7 +16,7 @@ in {
     programs.rofi = {
       enable = true;
 
-      plugins = with pkgs; [ rofi-emoji ];#rofi-rbw ];
+      plugins = with pkgs; [ rofi-emoji rofi-rbw ];
     };
 
     xdg.configFile."rofi/colors" = {
@@ -29,13 +29,16 @@ in {
       recursive = true;
     };
 
-    home.packages = with pkgs.scripts; [
-      usedcpu
-      usedram
-      rofi.powermenu
-      rofi.launcher
-      rofi.greenclip
-      rofi.emoji
+    home.packages = with pkgs; [
+      rofi-rbw
+      rofi-emoji
+
+      scripts.usedcpu
+      scripts.usedram
+      scripts.rofi.powermenu
+      scripts.rofi.launcher
+      scripts.rofi.greenclip
+      scripts.rofi.emoji
     ];
   };
 }

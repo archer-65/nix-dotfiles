@@ -8,7 +8,7 @@ in stdenv.mkDerivation {
         mkdir -p $out/bin
         install -Dm 755 ./emoji.sh $out/bin/${name}
     	  wrapProgram $out/bin/${name} --prefix PATH ":" ${
-         lib.makeBinPath [ rofi bash ]
+         lib.makeBinPath [ rofi bash rofi-emoji xdotool xclip wl-clipboard ]
        }
   '';
 
