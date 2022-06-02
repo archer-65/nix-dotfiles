@@ -15,10 +15,7 @@ in {
   config = mkIf cfg.enable {
     programs.bash = {
       enable = true;
-
       shellAliases = { cat = "bat"; };
     };
-
-    home.packages = with pkgs; [ nix-bash-completions ];
   };
 }
