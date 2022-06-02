@@ -1,9 +1,8 @@
-_: { pkgs, config, ... }:
+_:
+{ config, ... }:
 
-let
-  configDir = config.dotfiles.configDir; 
-in
-{
+let configDir = config.dotfiles.configDir;
+in {
   xsession.enable = true;
 
   xdg.configFile."qtile" = {

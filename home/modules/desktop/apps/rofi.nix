@@ -2,9 +2,9 @@ _:
 { options, config, lib, pkgs, ... }:
 
 with lib;
-let 
+let
   cfg = config.user-modules.desktop.apps.rofi;
-  configDir = config.dotfiles.configDir; 
+  configDir = config.dotfiles.configDir;
 in {
   options.user-modules.desktop.apps.rofi = {
     enable = mkOption {

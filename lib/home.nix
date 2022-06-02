@@ -4,9 +4,9 @@ let
   homeSet = (import ../outputs/configs.nix).homeManager.all;
 
   genModules = home:
-    { lib, ... }: {
+    { ... }: {
       imports = [ (import "${inputs.self}/home/configurations/${home}") ]
-        ++ [ (import "${inputs.self}/mixed/options.nix" inputs) ] 
+        ++ [ (import "${inputs.self}/mixed/options.nix" inputs) ]
         ++ __attrValues inputs.self.homeModules;
     };
 

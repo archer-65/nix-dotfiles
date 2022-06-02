@@ -16,9 +16,7 @@ in {
     programs.bash = {
       enable = true;
 
-      shellAliases = {
-        cat = "bat";
-      };
+      shellAliases = { cat = "bat"; };
     };
 
     home.packages = with pkgs; [ nix-bash-completions ];

@@ -1,5 +1,5 @@
 _:
-{ options, config, lib, pkgs, ... }:
+{ options, config, lib, ... }:
 
 with lib;
 
@@ -21,11 +21,9 @@ in {
       defaultSession = "none+qtile";
     };
 
-    services.xserver.windowManager = {
-      qtile.enable = true;
-    };
+    services.xserver.windowManager = { qtile.enable = true; };
 
-    services.xserver ={
+    services.xserver = {
       layout = "us";
       xkbVariant = "intl";
     };

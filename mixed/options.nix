@@ -1,9 +1,9 @@
-inputs: { config, options, lib, ... }:
+inputs:
+{ options, lib, ... }:
 
-with lib;
-{
+with lib; {
   options.dotfiles = with types; {
-    configDir  = mkOption {
+    configDir = mkOption {
       type = path;
       default = "${inputs.self}/config";
     };

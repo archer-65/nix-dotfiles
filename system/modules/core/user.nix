@@ -1,5 +1,5 @@
 _:
-{ config, inputs, lib, options, ... }:
+{ config, lib, options, ... }:
 
 with lib; {
   options = with types; {

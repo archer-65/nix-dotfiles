@@ -1,5 +1,5 @@
 _:
-{ options, config, lib, pkgs, ... }:
+{ options, config, lib, ... }:
 
 with lib;
 let cfg = config.modules.core.boot;

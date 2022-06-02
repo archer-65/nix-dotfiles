@@ -14,14 +14,12 @@
 
 #   meta = { description = "My rofi emoji launch script"; };
 # }
-{ pkgs, lib, ... }:
-let 
-  rofi = "${pkgs.rofi}/bin/rofi";
-in
-  pkgs.writeShellScriptBin "rofi_emoji" ''
-    dir="$HOME/.config/rofi/themes/emoji"
+{ pkgs, ... }:
+let rofi = "${pkgs.rofi}/bin/rofi";
+in pkgs.writeShellScriptBin "rofi_emoji" ''
+  dir="$HOME/.config/rofi/themes/emoji"
 
-    ${rofi} -show emoji \
-    -modi emoji \
-    -theme $dir 
-  ''
+  ${rofi} -show emoji \
+  -modi emoji \
+  -theme $dir 
+''

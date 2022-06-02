@@ -1,5 +1,5 @@
 _:
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, ... }:
 
 with lib;
 let cfg = config.user-modules.editors.neovim;

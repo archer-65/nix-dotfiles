@@ -4,7 +4,7 @@ let
   # instead of having to keep sha256 hashes in each package for src
   inherit inputs;
   inherit (inputs.self) pkgs;
-in self: super: {
+in _self: super: {
   # Example package, used only for tests
   scripts = {
     volume = super.callPackage ../packages/scripts/volume.nix { };
@@ -19,5 +19,7 @@ in self: super: {
     powermenu = super.callPackage ../packages/rofi/powermenu.nix { };
   };
 
-  rofi-rbw = super.callPackage ../packages/rofi-rbw.nix { pypkgs = pkgs.python39Packages; };
+  rofi-rbw = super.callPackage ../packages/rofi-rbw.nix {
+    pypkgs = pkgs.python39Packages;
+  };
 }

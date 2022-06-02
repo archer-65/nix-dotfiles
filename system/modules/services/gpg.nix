@@ -1,4 +1,5 @@
- _: { config, options, lib, pkgs, ... }:
+_:
+{ config, options, lib, ... }:
 
 with lib;
 let cfg = config.modules.services.gpg;

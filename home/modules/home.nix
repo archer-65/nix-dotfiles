@@ -1,5 +1,5 @@
 _:
-{ pkgs, config, lib, ... }:
+{ pkgs, ... }:
 
 let
   socialPkgs = with pkgs; [ tdesktop discord ];
@@ -11,8 +11,6 @@ let
   utilPkgs = with pkgs; [ rbw ];
 
   monitorPkgs = with pkgs; [ btop s-tui ];
-
-  desktopOnlyPkgs = with pkgs; [ corectrl ];
 
   qt5Pkgs = with pkgs.libsForQt5; [ qtstyleplugin-kvantum breeze-qt5 ];
 in rec {

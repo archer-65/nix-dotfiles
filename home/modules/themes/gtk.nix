@@ -1,9 +1,7 @@
 _:
-{ options, config, lib, pkgs, ... }:
+{ options, config, lib, ... }:
 
-with lib;
-let cfg = config.user-modules.theme.gtk;
-in {
+with lib; {
   options.user-modules.theme.gtk = with types; {
     active = mkOption {
       type = nullOr str;

@@ -1,5 +1,5 @@
 _:
-{ config, options, lib, pkgs, ... }:
+{ config, options, lib, ... }:
 
 with lib;
 let cfg = config.modules.services.ssh;
@@ -18,7 +18,7 @@ in {
       startWhenNeeded = true;
       openFirewall = true;
     };
-    
+
     services.sshd.enable = true;
   };
 }

@@ -1,5 +1,5 @@
 _:
-{ config, lib, pkgs, ... }:
+{ ... }:
 
 {
   # This global flag is deprecated

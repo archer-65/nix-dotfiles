@@ -1,5 +1,5 @@
 _:
-{ pkgs, inputs, lib, config, ... }:
+{ pkgs, ... }:
 
 {
   # System-wide packages

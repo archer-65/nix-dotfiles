@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }: {
+{ config, pkgs, ... }: {
   user-modules = {
     editors = {
       emacs = {
@@ -33,10 +33,8 @@
         size = 12;
       };
     };
-   
-    desktop = {
-      term.alacritty.enable = true;
-    };
+
+    desktop = { term.alacritty.enable = true; };
   };
 
   xdg.userDirs = {

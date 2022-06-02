@@ -1,5 +1,5 @@
 _:
-{ lib, config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
   # NixOS GC, Upgrades and Flakes

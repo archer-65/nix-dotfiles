@@ -39,7 +39,8 @@ let
     "mario@vm" = rec {
       type = "home-manager";
       localSystem = "x86_64-linux";
-      username = "mario";    };
+      username = "mario";
+    };
   };
 in {
   all = configurations;

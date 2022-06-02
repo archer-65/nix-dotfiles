@@ -14,7 +14,7 @@ in {
 
   config = mkIf cfg.enable {
     programs.bat.enable = true;
-    
+
     programs.exa = {
       enable = true;
       enableAliases = true;

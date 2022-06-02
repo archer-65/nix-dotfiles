@@ -1,5 +1,5 @@
 _:
-{ options, config, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 with lib;
 let cfg = config.user-modules.theme.gtk;

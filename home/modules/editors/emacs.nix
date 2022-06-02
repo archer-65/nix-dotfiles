@@ -31,7 +31,7 @@ in {
       home.file.".emacs.d" = {
         source = "${configDir}/emacs-config";
         recursive = true;
-      }
+      };
     }
 
     (mkIf cfg.daemon.enable {
