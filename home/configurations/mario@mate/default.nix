@@ -29,7 +29,9 @@
       };
     };
    
-    term.alacritty.enable = true;
+    desktop = {
+      term.alacritty.enable = true;
+    };
   };
 
   xdg.userDirs = {
