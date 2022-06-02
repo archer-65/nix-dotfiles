@@ -4,7 +4,7 @@
 ;;(defvar archer-65/default-font-size 180)
 ;; (defvar archer-65/default-variable-font-size 180)
 
-;; Make frame transparency overridable
+;; Make frame transparency overridable.
 (defvar archer-65/frame-transparency '(100 . 100))
 
 ;; The default is 800 kilobytes.  Measured in bytes.
@@ -366,6 +366,7 @@
   :ensure t
   :config
   (dashboard-setup-startup-hook)
+  (dashboard-refresh-buffer)
   (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
   (setq dashboard-items '((recents  . 5)
                           (bookmarks . 5)))
@@ -863,7 +864,7 @@
   ;; Refresh mail using isync every 10 minutes
   (setq mu4e-get-mail-command "mbsync -a")
   (setq mu4e-update-interval (* 5 60))
-  (setq mu4e-maildir "~/Mail")
+  (setq mu4e-maildir "~/Maildir")
   (setq mu4e-main-buffer-hide-personal-addresses t)
 
   (setq mu4e-contexts
@@ -875,14 +876,14 @@
           (lambda (msg)
             (when msg
               (string-prefix-p "/Gmail" (mu4e-message-field msg :maildir))))
-          :vars '((mu4e-sent-folder  . "/Gmail/Sent Mail")
-                  (mu4e-drafts-folder  . "/Gmail/Drafts")
-                  (mu4e-trash-folder  . "/Gmail/Trash")
+          :vars '((mu4e-sent-folder  . "/Gmail/[Gmail]/Sent Mail")
+                  (mu4e-drafts-folder  . "/Gmail/[Gmail]/Drafts")
+                  (mu4e-trash-folder  . "/Gmail/[Gmail]/Trash")
                   (mu4e-maildir-shortcuts .
                                           (("/Gmail/Inbox"     . ?i)
-                                           ("/Gmail/Sent Mail" . ?s)
-                                           ("/Gmail/Trash"     . ?t)
-                                           ("/Gmail/Drafts"    . ?d)))))
+                                           ("/Gmail/[Gmail]/Sent Mail" . ?s)
+                                           ("/Gmail/[Gmail]/Trash"     . ?t)
+                                           ("/Gmail/[Gmail]/Drafts"    . ?d)))))
          ;; Outlook
          (make-mu4e-context
           :name "Outlook"
@@ -900,7 +901,7 @@
                                            ("/Outlook/Deleted" . ?t)
                                            ("/Outlook/Drafts"  . ?d)))))
 
-         ;;Unina
+         ;;UniNa
          (make-mu4e-context
           :name "Unina"
           :match-func

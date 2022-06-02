@@ -1,6 +1,6 @@
 { config, pkgs, ... }:
 {
-  accounts.email.accounts.live = {
+  accounts.email.accounts.Outlook = {
     primary = true;
     realName = "Mario Liguori";
     address = "mariogt2009@live.it";
@@ -41,7 +41,7 @@
     };
   };
 
-  accounts.email.accounts.gmail = {
+  accounts.email.accounts.Gmail = {
     primary = false;
     realName = "Mario Liguori";
     address = "mariogt2009@gmail.com";
@@ -53,12 +53,12 @@
     msmtp.enable = true;
     mbsync = {
       enable = true;
-      patterns = [ "*" "![Gmail]*" "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail" ];
+      patterns = [ "*" "![Gmail]*" "[Gmail]/Trash" "[Gmail]/Drafts" "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail" ];
       create = "both";
     };
   };
 
-  accounts.email.accounts.unina = {
+  accounts.email.accounts.Unina = {
     primary = false;
     realName = "Mario Liguori";
     address = "mario.liguori6@studenti.unina.it";

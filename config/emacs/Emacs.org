@@ -4,7 +4,7 @@
 
 * Font and Transparency
 
-These are Basic UI configuration for font size and frame transparency (if you like it).
+These are Basic UI configuration.
 
 #+begin_src emacs-lisp
 
@@ -487,6 +487,7 @@ For completions let's try [[https://github.com/minad/vertico][Vertico]] and [[ht
     :ensure t
     :config
     (dashboard-setup-startup-hook)
+    (dashboard-refresh-buffer)
     (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
     (setq dashboard-items '((recents  . 5)
                             (bookmarks . 5)))
@@ -1277,7 +1278,7 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
     ;; Refresh mail using isync every 10 minutes
     (setq mu4e-get-mail-command "mbsync -a")
     (setq mu4e-update-interval (* 5 60))
-    (setq mu4e-maildir "~/Mail")
+    (setq mu4e-maildir "~/Maildir")
     (setq mu4e-main-buffer-hide-personal-addresses t)
 
     (setq mu4e-contexts
@@ -1289,14 +1290,14 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
             (lambda (msg)
               (when msg
                 (string-prefix-p "/Gmail" (mu4e-message-field msg :maildir))))
-            :vars '((mu4e-sent-folder  . "/Gmail/Sent Mail")
-                    (mu4e-drafts-folder  . "/Gmail/Drafts")
-                    (mu4e-trash-folder  . "/Gmail/Trash")
+            :vars '((mu4e-sent-folder  . "/Gmail/[Gmail]/Sent Mail")
+                    (mu4e-drafts-folder  . "/Gmail/[Gmail]/Drafts")
+                    (mu4e-trash-folder  . "/Gmail/[Gmail]/Trash")
                     (mu4e-maildir-shortcuts .
                                             (("/Gmail/Inbox"     . ?i)
-                                             ("/Gmail/Sent Mail" . ?s)
-                                             ("/Gmail/Trash"     . ?t)
-                                             ("/Gmail/Drafts"    . ?d)))))
+                                             ("/Gmail/[Gmail]/Sent Mail" . ?s)
+                                             ("/Gmail/[Gmail]/Trash"     . ?t)
+                                             ("/Gmail/[Gmail]/Drafts"    . ?d)))))
            ;; Outlook
            (make-mu4e-context
             :name "Outlook"
@@ -1314,7 +1315,7 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
                                              ("/Outlook/Deleted" . ?t)
                                              ("/Outlook/Drafts"  . ?d)))))
 
-           ;;Unina
+           ;;UniNa
            (make-mu4e-context
             :name "Unina"
             :match-func

@@ -6,8 +6,6 @@ let
 
   mediaPkgs = with pkgs; [ mpv pavucontrol pamixer pasystray ];
 
-  coreUtilPkgs = with pkgs; [ exa bat ripgrep fd ];
-
   utilPkgs = with pkgs; [ rbw ];
 
   monitorPkgs = with pkgs; [ btop s-tui ];
@@ -18,8 +16,8 @@ in rec {
 
   programs.home-manager.enable = true;
 
-  home.packages = [ pkgs.scripts.volume ] ++ socialPkgs ++ mediaPkgs
-    ++ coreUtilPkgs ++ utilPkgs ++ monitorPkgs ++ qt5Pkgs;
+  home.packages = [ pkgs.scripts.volume pkgs.firefox ] ++ socialPkgs ++ mediaPkgs
+    ++ utilPkgs ++ monitorPkgs ++ qt5Pkgs;
 
   home.sessionVariables = { QT_QPA_PLATFORMTHEME = "qt5ct"; };
 }
