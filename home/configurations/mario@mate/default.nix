@@ -28,17 +28,8 @@
         size = 12;
       };
     };
-
-    # services ={
-    #   dunst.enable = true;
-    #   picom.enable = true;
-    # };
-
-    # apps = {
-    #   rofi.enable = true;
-    # };
-
-    # term.alacritty.enable = true;
+   
+    term.alacritty.enable = true;
   };
 
   xdg.userDirs = {

@@ -13,5 +13,7 @@ in {
       enable = true;
       packages = [ pkgs.dconf ];
     };
+
+    programs.qt5ct.enable = true;
   };
 }
