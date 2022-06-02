@@ -12,7 +12,8 @@ let
   genConfiguration = home:
     { homeDirectory, localSystem, username, ... }:
     inputs.home-manager.lib.homeManagerConfiguration {
-      inherit homeDirectory username;
+      inherit username;
+      homeDirectory = "/home/${username}";
       configuration = genModules home;
       pkgs = inputs.self.pkgs;
       stateVersion = "22.05";
