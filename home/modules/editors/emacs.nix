@@ -29,7 +29,7 @@ in {
       };
 
       home.file.".emacs.d" = {
-        source = "${configDir}/emacs-config";
+        source = "${configDir}/emacs";
         recursive = true;
       };
     }
