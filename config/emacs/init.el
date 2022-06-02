@@ -864,7 +864,7 @@
   ;; Refresh mail using isync every 10 minutes
   (setq mu4e-get-mail-command "mbsync -a")
   (setq mu4e-update-interval (* 5 60))
-  (setq mu4e-maildir "~/Maildir")
+  (setq mu4e-maildir "~/mails")
   (setq mu4e-main-buffer-hide-personal-addresses t)
 
   (setq mu4e-contexts

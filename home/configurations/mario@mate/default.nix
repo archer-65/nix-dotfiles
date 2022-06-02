@@ -36,7 +36,15 @@
       };
     };
 
-    desktop = { term.alacritty.enable = true; };
+    dev = { nix.enable = true; };
+
+    desktop = {
+      media.documents = {
+        enable = true;
+        pdf.enable = true;
+      };
+      term.alacritty.enable = true;
+    };
   };
 
   xdg.userDirs = {

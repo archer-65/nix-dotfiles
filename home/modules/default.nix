@@ -2,9 +2,13 @@ inputs: {
   "desktop/qtile" = import ./desktop/qtile.nix inputs;
   "desktop/apps/greenclip" = import ./desktop/apps/greenclip.nix inputs;
   "desktop/apps/rofi" = import ./desktop/apps/rofi.nix inputs;
+  "desktop/media/documents" = import ./desktop/media/documents.nix inputs;
   "desktop/term/alacritty" = import ./desktop/term/alacritty.nix inputs;
   "desktop/services/picom" = import ./desktop/services/picom.nix inputs;
   "desktop/services/dunst" = import ./desktop/services/dunst.nix inputs;
+  "desktop/services/locker" = import ./desktop/services/locker.nix inputs;
+
+  "/dev/nix-lang" = import ./dev/nix-lang.nix inputs;
 
   "editors/android-studio" = import ./editors/android-studio.nix inputs;
   "editors/emacs" = import ./editors/emacs.nix inputs;

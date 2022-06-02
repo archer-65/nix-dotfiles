@@ -2,9 +2,9 @@
 
 {
   home.packages = with pkgs; [
-    betterlockscreen
+    #betterlockscreen
     brightnessctl
-    xss-lock
+    #xss-lock
     nitrogen
     playerctl
     xclip
@@ -16,5 +16,6 @@
 
   services = { flameshot.enable = true; };
 
+  user-modules.desktop.services = { locker.enable = true; };
   # home.file.".background-image".source = ../../res/commodore.jpg;
 }

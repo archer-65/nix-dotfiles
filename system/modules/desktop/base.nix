@@ -15,7 +15,7 @@ in {
     };
 
     programs.qt5ct.enable = true;
-   
+
     environment.systemPackages = with pkgs; [ gnome.seahorse libsecret ];
   };
 }

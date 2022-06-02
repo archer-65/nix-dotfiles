@@ -1,5 +1,6 @@
-{ config, pkgs, ... }:
-{
+{ config, pkgs, ... }: {
+  accounts.email.maildirBasePath = "${config.home.homeDirectory}/mails";
+
   accounts.email.accounts.Outlook = {
     primary = true;
     realName = "Mario Liguori";
@@ -10,17 +11,13 @@
     imap = {
       host = "outlook.office365.com";
       port = 993;
-      tls = {
-        enable = true;
-      };
+      tls = { enable = true; };
     };
 
     smtp = {
       host = "smtp.fastmail.com";
       port = 465;
-      tls = {
-        enable = true;
-      };
+      tls = { enable = true; };
     };
 
     mu.enable = true;
@@ -30,9 +27,7 @@
       create = "both";
       expunge = "both";
       extraConfig = {
-        channel = {
-          Sync = "All";
-        };
+        channel = { Sync = "All"; };
         account = {
           Timeout = 120;
           PipelineDepth = 50;
@@ -53,7 +48,15 @@
     msmtp.enable = true;
     mbsync = {
       enable = true;
-      patterns = [ "*" "![Gmail]*" "[Gmail]/Trash" "[Gmail]/Drafts" "[Gmail]/Sent Mail" "[Gmail]/Starred" "[Gmail]/All Mail" ];
+      patterns = [
+        "*"
+        "![Gmail]*"
+        "[Gmail]/Trash"
+        "[Gmail]/Drafts"
+        "[Gmail]/Sent Mail"
+        "[Gmail]/Starred"
+        "[Gmail]/All Mail"
+      ];
       create = "both";
     };
   };
@@ -68,17 +71,13 @@
     imap = {
       host = "studenti.unina.it";
       port = 993;
-      tls = {
-        enable = true;
-      };
+      tls = { enable = true; };
     };
 
     smtp = {
       host = "studenti.unina.it";
       port = 465;
-      tls = {
-        enable = true;
-      };
+      tls = { enable = true; };
     };
 
     mu.enable = true;
@@ -88,11 +87,7 @@
       patterns = [ "*" ];
       create = "both";
       expunge = "both";
-      extraConfig = {
-        channel = {
-          Sync = "All";
-        };
-      };
+      extraConfig = { channel = { Sync = "All"; }; };
     };
   };
 

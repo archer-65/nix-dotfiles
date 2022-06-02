@@ -1,0 +1,3 @@
+action = autotype
+prompt = Select credentials
+selector-args = -theme ~/.config/rofi/themes/rbw

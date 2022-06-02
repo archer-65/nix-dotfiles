@@ -14,7 +14,7 @@ autorandr --change
 pasystray &
 
 # Lockscreen manager
-xss-lock -l -- betterlockscreen -l blur --off 300 &
+# xss-lock -l -- betterlockscreen -l blur --off 300 &
 
 # CoreCtrl
 if command -v corectrl &> /dev/null ; then

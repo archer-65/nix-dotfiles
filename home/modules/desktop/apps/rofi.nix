@@ -33,6 +33,8 @@ in {
       recursive = true;
     };
 
+    xdg.configFile."rofi-rbw.rc".source = "${configDir}/rofi-rbw.rc";
+
     home.packages = with pkgs; [
       rofi-rbw
       rofi-emoji

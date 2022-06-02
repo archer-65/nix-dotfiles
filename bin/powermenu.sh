@@ -15,11 +15,11 @@ cpu=$(usedcpu)
 memory=$(usedram)
 
 # Options
-shutdown=""
-reboot=""
-lock=""
-suspend=""
-logout=""
+shutdown=""
+reboot="勒"
+lock=""
+suspend=""
+logout=""
 
 # Confirmation
 confirm_exit() {

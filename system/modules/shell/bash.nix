@@ -18,6 +18,9 @@ in {
       enableLsColors = true;
     };
 
-    environment.systemPackages = with pkgs; [ bash-completion nix-bash-completions ];
+    environment.systemPackages = with pkgs; [
+      bash-completion
+      nix-bash-completions
+    ];
   };
 }
