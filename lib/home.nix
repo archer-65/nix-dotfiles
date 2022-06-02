@@ -11,7 +11,7 @@ let
     };
 
   genConfiguration = home:
-    { homeDirectory, localSystem, username, ... }:
+    { localSystem, username, ... }:
     inputs.home-manager.lib.homeManagerConfiguration {
       inherit username;
       homeDirectory = "/home/${username}";

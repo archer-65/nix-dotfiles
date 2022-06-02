@@ -27,6 +27,11 @@ in {
         package = pkgs.emacsPgtkNativeComp;
         #extraPackages = epkgs: [epkgs.vterm];
       };
+
+      home.file.".emacs.d" = {
+        source = "${configDir}/emacs-config";
+        recursive = true;
+      }
     }
 
     (mkIf cfg.daemon.enable {

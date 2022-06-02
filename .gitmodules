@@ -1,0 +1,3 @@
+[submodule "config/emacs-config"]
+	path = config/emacs-config
+	url = git@github.com:archer-65/emacs-config.git

@@ -30,20 +30,16 @@ let
       type = "home-manager";
       localSystem = "x86_64-linux";
       username = "mario";
-      homeDirectory = "home/${username}";
     };
     "mario@mate" = rec {
       type = "home-manager";
       localSystem = "x86_64-linux";
       username = "mario";
-      homeDirectory = "home/${username}";
     };
     "mario@vm" = rec {
       type = "home-manager";
       localSystem = "x86_64-linux";
-      username = "mario";
-      homeDirectory = "home/${username}";
-    };
+      username = "mario";    };
   };
 in {
   all = configurations;
