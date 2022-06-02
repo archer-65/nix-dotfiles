@@ -18,5 +18,7 @@ in {
       startWhenNeeded = true;
       openFirewall = true;
     };
+    
+    services.sshd.enable = true;
   };
 }
