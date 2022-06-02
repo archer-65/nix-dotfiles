@@ -1,7 +1,7 @@
 { self, ... }@inputs:
 let
   inherit (inputs.nixpkgs) lib;
-  hosts = (import ../outputs/configs.nix).nixos.all;
+  hosts = (import ../sets/configs.nix).nixos.all;
 
   netHostMap = {
     networking.hosts =

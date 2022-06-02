@@ -1,7 +1,7 @@
 { self, ... }@inputs:
 let
   inherit (inputs.nixpkgs) lib;
-  homeSet = (import ../outputs/configs.nix).homeManager.all;
+  homeSet = (import ../sets/configs.nix).homeManager.all;
 
   genModules = home:
     { lib, ... }: {
