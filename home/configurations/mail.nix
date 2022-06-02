@@ -66,7 +66,7 @@
     passwordCommand = "${pkgs.libsecret}/bin/secret-tool lookup unina password";
 
     imap = {
-      host = "outlook.office365.com";
+      host = "studenti.unina.it";
       port = 993;
       tls = {
         enable = true;
@@ -74,7 +74,7 @@
     };
 
     smtp = {
-      host = "smtp.fastmail.com";
+      host = "studenti.unina.it";
       port = 465;
       tls = {
         enable = true;
