@@ -20,7 +20,8 @@ in rec {
 
   programs.home-manager.enable = true;
 
-  home.packages = [ pkgs.scripts.volume ] ++ socialPkgs ++ mediaPkgs
+  home.packages = #[ pkgs.scripts.volume ] ++
+    socialPkgs ++ mediaPkgs
     ++ coreUtilPkgs ++ utilPkgs ++ monitorPkgs ++ qt5Pkgs;
 
   home.sessionVariables = { QT_QPA_PLATFORMTHEME = "qt5ct"; };
