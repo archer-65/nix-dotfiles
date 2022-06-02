@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+_: { pkgs, config, ... }:
 
 {
   xsession.enable = true;
