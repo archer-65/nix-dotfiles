@@ -11,7 +11,7 @@ _: { pkgs, config, ... }:
   programs.autorandr = { enable = true; };
 
   user-modules.desktop = {
-    apps.rofi = true;
+    apps.rofi.enable = true;
 
     services = {
       picom.enable = true;
