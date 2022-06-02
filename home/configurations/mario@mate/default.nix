@@ -1,4 +1,6 @@
 { config, pkgs, ... }: {
+  imports = [ ../mail.nix ];
+
   user-modules = {
     editors = {
       emacs = {
