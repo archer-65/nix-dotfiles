@@ -1,4 +1,5 @@
 inputs: {
+  "desktop/qtile" = import ./desktop/qtile.nix inputs;
   "desktop/apps/greenclip" = import ./desktop/apps/greenclip.nix inputs;
   "desktop/apps/rofi" = import ./desktop/apps/rofi.nix inputs;
   "desktop/term/alacritty" = import ./desktop/term/alacritty.nix inputs;
