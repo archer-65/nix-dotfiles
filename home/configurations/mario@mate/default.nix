@@ -37,7 +37,7 @@
       git-defaults.enable = true;
     };
 
-    theme.gtk = {
+    themes = {
       active = "materia";
 
       font = {
