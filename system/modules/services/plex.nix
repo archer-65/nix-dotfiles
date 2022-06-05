@@ -27,7 +27,7 @@ in {
       };
     }
 
-    (mkIf cfg.systemd.disable { systemd.services.plex.wantedBy = mkForce []; })
+    (mkIf cfg.systemd.disable { systemd.services.plex.wantedBy = mkForce [ ]; })
 
     { user.extraGroups = [ "plex" ]; }
   ]);

@@ -4,19 +4,15 @@
     hardware = {
       audio.enable = true;
       monitoring = {
-         enable = true;
-         corectrl.enable = true; 
+        enable = true;
+        corectrl.enable = true;
       };
       razer.enable = true;
     };
 
-    dev = {
-      adb.enable = true;
-    };
+    dev = { adb.enable = true; };
 
-    media = {
-      plex.enable = true;
-    };
+    media = { plex.enable = true; };
 
     services = {
       ssh.enable = true;

@@ -2,7 +2,7 @@ _:
 { pkgs, config, lib, options, ... }:
 
 with lib;
-let 
+let
   configDir = config.dotfiles.configDir;
   cfg = config.user-modules.desktop.apps.greenclip;
 in {
@@ -13,9 +13,12 @@ in {
       example = true;
     };
   };
-  
-  config = mkIf cfg.enable {   
-    home.packages = with pkgs; [ haskellPackages.greenclip scripts.rofi.greenclip ];
+
+  config = mkIf cfg.enable {
+    home.packages = with pkgs; [
+      haskellPackages.greenclip
+      scripts.rofi.greenclip
+    ];
 
     xdg.configFile."greenclip.cfg".source = "${configDir}/greenclip.toml";
 

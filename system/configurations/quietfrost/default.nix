@@ -21,6 +21,7 @@
     efiSupport = true;
     device = "nodev";
     useOSProber = true;
+    gfxmodeEfi = "3440x1440";
   };
 
   networking.hostName = "quietfrost";

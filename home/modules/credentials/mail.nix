@@ -28,7 +28,8 @@ in {
         address = "mariogt2009@live.it";
         userName = "mariogt2009@live.it";
 
-        passwordCommand = "${pkgs.libsecret}/bin/secret-tool lookup live password";
+        passwordCommand =
+          "${pkgs.libsecret}/bin/secret-tool lookup live password";
 
         maildir.path = "Outlook";
 
@@ -69,14 +70,15 @@ in {
         userName = "mariogt2009@gmail.com";
 
         flavor = "gmail.com";
-        passwordCommand = "${pkgs.libsecret}/bin/secret-tool lookup gmail password";
+        passwordCommand =
+          "${pkgs.libsecret}/bin/secret-tool lookup gmail password";
 
         maildir.path = "Gmail";
 
         mu.enable = true;
 
         msmtp.enable = true;
-        
+
         mbsync = {
           enable = true;
           patterns = [
@@ -98,7 +100,8 @@ in {
         address = "mario.liguori6@studenti.unina.it";
         userName = "mario.liguori6@studenti.unina.it";
 
-        passwordCommand = "${pkgs.libsecret}/bin/secret-tool lookup unina password";
+        passwordCommand =
+          "${pkgs.libsecret}/bin/secret-tool lookup unina password";
 
         maildir.path = "Unina";
 

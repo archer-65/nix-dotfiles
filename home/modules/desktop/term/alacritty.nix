@@ -2,7 +2,7 @@ _:
 { options, config, lib, ... }:
 
 with lib;
-let 
+let
   cfg = config.user-modules.desktop.term.alacritty;
   cfgTheme = config.user-modules.themes;
 in {
