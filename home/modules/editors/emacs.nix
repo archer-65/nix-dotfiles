@@ -21,7 +21,6 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     {
-      # nixpkgs.overlays = [ inputs.emacs-overlay.overlay ];
       programs.emacs = {
         enable = true;
         package = pkgs.emacsPgtkNativeComp;

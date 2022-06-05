@@ -2,35 +2,21 @@ _:
 { options, config, lib, ... }:
 
 with lib;
-let cfg = config.user-modules.shell.git;
+let cfg = config.user-modules.shell.git-defaults;
 in {
-  options.user-modules.shell.git = with types; {
+  options.user-modules.shell.git-defaults = with types; {
     enable = mkOption {
       default = false;
       type = bool;
       example = true;
-    };
-
-    email = mkOption {
-      default = null;
-      type = nullOr str;
-      example = "example@gmail.com";
-    };
-
-    user = mkOption {
-      default = null;
-      type = nullOr str;
-      example = "pippo";
     };
   };
 
   config = mkIf cfg.enable {
     programs.git = {
       enable = true;
-      userEmail = cfg.email;
-      userName = cfg.user;
-      #userEmail = "mariogt2009@live.it";
-      #userName = "archer-65";
+      userEmail = "mariogt2009@live.it";
+      userName = "archer-65";
     };
   };
 }

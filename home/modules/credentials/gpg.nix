@@ -2,9 +2,9 @@ _:
 { config, options, lib, ... }:
 
 with lib;
-let cfg = config.user-modules.shell.gpg;
+let cfg = config.user-modules.credentials.gpg;
 in {
-  options.user-modules.shell.gpg = with types; {
+  options.user-modules.credentials.gpg = with types; {
     enable = mkOption {
       default = false;
       type = types.bool;

@@ -4,7 +4,7 @@ _:
 let
   socialPkgs = with pkgs; [ tdesktop discord ];
 
-  mediaPkgs = with pkgs; [ mpv pavucontrol pamixer pasystray ];
+  mediaPkgs = with pkgs; [ mpv pavucontrol ];
 
   utilPkgs = with pkgs; [ rbw ];
 

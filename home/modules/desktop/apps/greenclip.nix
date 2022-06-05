@@ -1,21 +1,33 @@
 _:
-{ pkgs, config, ... }:
+{ pkgs, config, lib, options, ... }:
 
-let configDir = config.dotfiles.configDir;
+with lib;
+let 
+  configDir = config.dotfiles.configDir;
+  cfg = config.user-modules.desktop.apps.greenclip;
 in {
-  home.packages = with pkgs.haskellPackages; [ greenclip ];
-
-  # xdg.configFile."greenclip.cfg".source = ../../../../config/greenclip.toml;
-  xdg.configFile."greenclip.cfg".source = "${configDir}/greenclip.toml";
-
-  systemd.user.services.greenclip = {
-    Unit = {
-      Description = "greenclip daemon";
-      After = [ "graphical-session.target" ];
+  options.user-modules.desktop.apps.greenclip = {
+    enable = mkOption {
+      default = false;
+      type = types.bool;
+      example = true;
     };
-    Install = { WantedBy = [ "graphical-session.target" ]; };
-    Service = {
-      ExecStart = "${pkgs.haskellPackages.greenclip}/bin/greenclip daemon";
+  };
+  
+  config = mkIf cfg.enable {   
+    home.packages = with pkgs; [ haskellPackages.greenclip scripts.rofi.greenclip ];
+
+    xdg.configFile."greenclip.cfg".source = "${configDir}/greenclip.toml";
+
+    systemd.user.services.greenclip = {
+      Unit = {
+        Description = "greenclip daemon";
+        After = [ "graphical-session.target" ];
+      };
+      Install = { WantedBy = [ "graphical-session.target" ]; };
+      Service = {
+        ExecStart = "${pkgs.haskellPackages.greenclip}/bin/greenclip daemon";
+      };
     };
   };
 }

@@ -1,4 +1,7 @@
 inputs: {
+  "credentials/gpg" = import ./credentials/gpg.nix inputs;
+  "credentials/mail" = import ./credentials/mail.nix inputs;
+
   "desktop/qtile" = import ./desktop/qtile.nix inputs;
   "desktop/apps/greenclip" = import ./desktop/apps/greenclip.nix inputs;
   "desktop/apps/rofi" = import ./desktop/apps/rofi.nix inputs;
@@ -21,7 +24,6 @@ inputs: {
   "shell/extensions" = import ./shell/extensions.nix inputs;
   "shell/git" = import ./shell/git.nix inputs;
   "shell/starship" = import ./shell/starship.nix inputs;
-  "shell/gpg" = import ./shell/gpg.nix inputs;
 
   "themes/gtk" = import ./themes/gtk.nix inputs;
   "themes/materia" = import ./themes/materia inputs;

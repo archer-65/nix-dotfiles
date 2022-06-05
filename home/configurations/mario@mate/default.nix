@@ -1,7 +1,23 @@
 { config, pkgs, ... }: {
-  imports = [ ../mail.nix ];
-
   user-modules = {
+    credentials = {
+      gpg.enable = true;
+      mail-defaults.enable = true;
+    };
+
+    desktop = {
+      apps.rofi.enable = true;
+
+      media.documents = {
+        enable = true;
+        pdf.enable = true;
+      };
+
+      term.alacritty.enable = true;
+    };
+
+    dev = { nix.enable = true; };
+
     editors = {
       emacs = {
         enable = true;
@@ -18,13 +34,7 @@
 
       direnv.enable = true;
 
-      git = {
-        enable = true;
-        email = "mariogt2009@live.it";
-        user = "archer-65";
-      };
-
-      gpg.enable = true;
+      git-defaults.enable = true;
     };
 
     theme.gtk = {
@@ -34,16 +44,6 @@
         name = "VictorMono Nerd Font";
         size = 12;
       };
-    };
-
-    dev = { nix.enable = true; };
-
-    desktop = {
-      media.documents = {
-        enable = true;
-        pdf.enable = true;
-      };
-      term.alacritty.enable = true;
     };
   };
 
@@ -63,7 +63,7 @@
   xdg.configFile."rbw/config.json".text = ''
     {
       "email" : "mariogt2009@live.it",
-      "pinentry" : "${pkgs.pinentry-gtk2}/bin/pinentry-gtk-2"
+      "pinentry" : "${pkgs.pinentry-gnome}/bin/pinentry-gnome3"
     }
   '';
 }

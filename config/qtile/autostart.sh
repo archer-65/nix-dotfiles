@@ -11,7 +11,7 @@ autorandr --change
 /usr/lib/polkit-gnome/polkit-gnome-authentication-agent-1 &
 
 # Audio tray
-pasystray &
+# pasystray &
 
 # Lockscreen manager
 # xss-lock -l -- betterlockscreen -l blur --off 300 &

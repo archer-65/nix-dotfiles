@@ -5,7 +5,6 @@ let
   inherit inputs;
   inherit (inputs.self) pkgs;
 in _self: super: {
-  # Example package, used only for tests
   scripts = {
     volume = super.callPackage ../packages/scripts/volume.nix { };
     usedram = super.callPackage ../packages/scripts/usedram.nix { };
