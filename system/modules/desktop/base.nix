@@ -14,6 +14,9 @@ in {
       packages = [ pkgs.dconf ];
     };
 
+    # Trash and GTK apps features
+    services.gvfs.enable = true;
+
     programs.qt5ct.enable = true;
 
     environment.systemPackages = with pkgs; [ gnome.seahorse libsecret ];

@@ -17,7 +17,7 @@ in {
   config = mkIf cfg.enable {
     hardware.openrazer.enable = true;
 
-    user.extraGroups = [ "plugdev" ];
+    user.extraGroups = [ "openrazer" ];
 
     environment.systemPackages = with pkgs; [ razergenie ];
   };

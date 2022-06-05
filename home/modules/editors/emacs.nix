@@ -23,7 +23,7 @@ in {
     {
       programs.emacs = {
         enable = true;
-        package = pkgs.emacsPgtkNativeComp;
+        package = pkgs.emacs;
         #extraPackages = epkgs: [epkgs.vterm];
       };
 

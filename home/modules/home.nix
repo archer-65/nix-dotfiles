@@ -6,7 +6,7 @@ let
 
   mediaPkgs = with pkgs; [ mpv pavucontrol ];
 
-  utilPkgs = with pkgs; [ rbw ];
+  utilPkgs = with pkgs; [ rbw neofetch ];
 
   monitorPkgs = with pkgs; [ btop s-tui ];
 

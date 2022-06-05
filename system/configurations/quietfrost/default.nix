@@ -19,7 +19,7 @@
     enable = true;
     version = 2;
     efiSupport = true;
-    device = nodev;
+    device = "nodev";
     useOSProber = true;
   };
 

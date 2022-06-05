@@ -2,7 +2,7 @@ _:
 { config, lib, pkgs, ... }:
 
 with lib;
-let cfg = config.user-modules.theme.gtk;
+let cfg = config.user-modules.themes;
 in {
   config = mkIf (cfg.active == "materia") {
     gtk = {

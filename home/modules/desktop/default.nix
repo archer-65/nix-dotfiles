@@ -7,6 +7,7 @@
     playerctl
     xclip
     xdotool
+    xfce.xfconf
     (xfce.thunar.override {
       thunarPlugins = with pkgs; [
         xfce.thunar-volman

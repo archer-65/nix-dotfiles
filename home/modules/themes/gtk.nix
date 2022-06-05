@@ -2,7 +2,7 @@ _:
 { options, config, lib, ... }:
 
 with lib; {
-  options.user-modules.theme.gtk = with types; {
+  options.user-modules.themes = with types; {
     active = mkOption {
       type = nullOr str;
       default = null;

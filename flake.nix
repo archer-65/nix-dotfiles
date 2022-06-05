@@ -10,6 +10,7 @@
     };
 
     emacs-overlay.url = "github:nix-community/emacs-overlay";
+    #emacs-overlay.url = "https://github.com/nix-community/emacs-overlay/archive/master@{2%20hours%20ago}.tar.gz";
   };
 
   outputs = inputs@{ self, nixpkgs, ... }:

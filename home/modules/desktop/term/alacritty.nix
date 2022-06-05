@@ -2,7 +2,9 @@ _:
 { options, config, lib, ... }:
 
 with lib;
-let cfg = config.user-modules.desktop.term.alacritty;
+let 
+  cfg = config.user-modules.desktop.term.alacritty;
+  cfgTheme = config.user-modules.themes;
 in {
   options.user-modules.desktop.term.alacritty = {
     enable = mkOption {
@@ -47,7 +49,7 @@ in {
             family = "VictorMono Nerd Font";
             style = "Italic";
           };
-          size = 14.0;
+          size = cfgTheme.font.size + 2.0;
         };
 
         # Colors (must find a better way to handle this)

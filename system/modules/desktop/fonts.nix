@@ -21,6 +21,7 @@ in {
       source-han-sans
       font-awesome
       noto-fonts-emoji
+      roboto
     ];
   };
 }

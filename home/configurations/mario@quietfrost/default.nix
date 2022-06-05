@@ -11,7 +11,7 @@
       media.documents = {
         enable = true;
         pdf.enable = true;
-        pdfPlus.enable = true;
+        pdf.enablePlus = true;
       };
 
       term.alacritty.enable = true;
@@ -38,12 +38,12 @@
       git-defaults.enable = true;
     };
 
-    theme.gtk = {
+    themes = {
       active = "materia";
 
       font = {
-        name = "VictorMono Nerd Font";
-        size = 12;
+        name = "Roboto";
+        size = 16;
       };
     };
   };
