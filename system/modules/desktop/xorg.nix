@@ -1,5 +1,5 @@
 _:
-{ options, config, lib, ... }:
+{ options, config, lib, pkgs, ... }:
 
 with lib;
 
@@ -29,7 +29,7 @@ in {
     };
 
     services.xserver.libinput.enable = true;
-
+    environment.systemPackages = [ pkgs.libinput ];
     user.extraGroups = [ "video" ];
   };
 }

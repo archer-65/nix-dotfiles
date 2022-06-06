@@ -46,4 +46,17 @@
     memoryPercent = 40;
     priority = 10;
   };
+
+  services.xserver.libinput = {
+    enable = true;
+
+    mouse = {
+      buttonMapping = "1 2 3 4 5 6 7 8 9 10 11 12";
+      scrollMethod = "button";
+      scrollButton = 12;
+      additionalOptions = ''
+        MatchProduct "ELECOM TrackBall Mouse HUGE TrackBall"
+      '';
+    };
+  };
 }
