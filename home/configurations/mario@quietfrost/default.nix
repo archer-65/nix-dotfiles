@@ -62,9 +62,14 @@
     download = "${config.home.homeDirectory}/dl";
     music = "${config.home.homeDirectory}/music";
     pictures = "${config.home.homeDirectory}/pics";
-    publicShare = "${config.home.homeDirectory}/public";
-    templates = "${config.home.homeDirectory}/templates";
+    publicShare = "${config.home.homeDirectory}";
+    templates = "${config.home.homeDirectory}";
     videos = "${config.home.homeDirectory}/videos";
+
+    extraConfig = {
+      XDG_PROJECTS_DIR = "${config.home.homeDirectory}/projects";
+      XDG_GAMES_DIR = "${config.home.homeDirectory}/games";
+    };
   };
 
   xdg.configFile."rbw/config.json".text = ''
