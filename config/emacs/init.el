@@ -4,7 +4,7 @@
 ;;(defvar archer-65/default-font-size 180)
 ;; (defvar archer-65/default-variable-font-size 180)
 
-;; Make frame transparency overridable.
+;; Make frame transparency overridable
 (defvar archer-65/frame-transparency '(100 . 100))
 
 ;; The default is 800 kilobytes.  Measured in bytes.
@@ -37,6 +37,32 @@
 (require 'use-package)
 ;; (require 'quelpa-use-package)
 (setq use-package-always-ensure t)
+
+;; <leaf-install-code>
+(eval-and-compile
+  (customize-set-variable
+   'package-archives '(("org" . "https://orgmode.org/elpa/")
+                       ("melpa" . "https://melpa.org/packages/")
+                       ("gnu" . "https://elpa.gnu.org/packages/")))
+  (package-initialize)
+  (unless (package-installed-p 'leaf)
+    (package-refresh-contents)
+    (package-install 'leaf))
+
+  (leaf leaf-keywords
+        :ensure t
+        :init
+        ;; optional packages if you want to use :hydra, :el-get, :blackout,,,
+        (leaf hydra :ensure t)
+        (leaf el-get :ensure t)
+        (leaf blackout :ensure t)
+
+        :config
+        ;; initialize leaf-keywords.el
+        (leaf-keywords-init)))
+;; </leaf-install-code>
+
+(leaf leaf-convert :ensure t)
 
 ;; straight.el
 (defvar bootstrap-version)

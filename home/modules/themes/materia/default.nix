@@ -35,6 +35,7 @@ in {
       package = pkgs.bibata-cursors;
       name = "Bibata-Modern-Ice";
       size = 16;
+      gtk.enable = true;
     };
 
     xresources.properties = { "Xcursor.theme" = "Bibata-Modern-Ice"; };

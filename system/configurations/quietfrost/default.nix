@@ -59,4 +59,6 @@
       '';
     };
   };
+
+  environment.systemPackages = [ pkgs.compsize ];
 }

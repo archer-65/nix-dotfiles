@@ -20,6 +20,7 @@
     dev = { 
       nix.enable = true;
       java.enable = true;
+      js.enable = true;
     };
 
     editors = {

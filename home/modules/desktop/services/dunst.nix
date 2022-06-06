@@ -2,7 +2,9 @@ _:
 { options, config, lib, pkgs, ... }:
 
 with lib;
-let cfg = config.user-modules.desktop.services.dunst;
+let 
+  cfg = config.user-modules.desktop.services.dunst;
+  cfgTheme = config.user-modules.themes;
 in {
   options.user-modules.desktop.services.dunst = {
     enable = mkOption {
@@ -58,7 +60,7 @@ in {
           idle_threshold = 60;
 
           # Text    
-          font = "Fira Code 13, Font Awesome 13";
+          font = "Fira Code ${toString cfgTheme.font.size}, Font Awesome ${toString cfgTheme.font.size}";
           line_height = 0;
           markup = "full";
 
