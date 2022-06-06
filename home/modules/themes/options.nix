@@ -1,7 +1,9 @@
 _:
 { options, config, lib, ... }:
 
-with lib; {
+with lib;
+let cfg = config.user-modules.themes;
+in {
   options.user-modules.themes = with types; {
     active = mkOption {
       type = nullOr str;
@@ -26,5 +28,9 @@ with lib; {
         default = 12;
       };
     };
+  };
+
+  config = mkIf (cfg.active != null) {
+    home.sessionVariables = { QT_QPA_PLATFORMTHEME = "qt5ct"; };
   };
 }

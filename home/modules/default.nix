@@ -12,6 +12,7 @@ inputs: {
   "desktop/services/dunst" = import ./desktop/services/dunst.nix inputs;
   "desktop/services/locker" = import ./desktop/services/locker.nix inputs;
 
+  "/dev/java" = import ./dev/java.nix inputs;
   "/dev/nix-lang" = import ./dev/nix-lang.nix inputs;
 
   "editors/android-studio" = import ./editors/android-studio.nix inputs;
@@ -26,7 +27,7 @@ inputs: {
   "shell/git" = import ./shell/git.nix inputs;
   "shell/starship" = import ./shell/starship.nix inputs;
 
-  "themes/gtk" = import ./themes/gtk.nix inputs;
+  "themes/options" = import ./themes/options.nix inputs;
   "themes/materia" = import ./themes/materia inputs;
 
   home = import ./home.nix inputs;

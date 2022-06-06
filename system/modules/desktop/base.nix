@@ -16,6 +16,7 @@ in {
 
     # Trash and GTK apps features
     services.gvfs.enable = true;
+    services.udisks2.enable = true;
 
     programs.qt5ct.enable = true;
 

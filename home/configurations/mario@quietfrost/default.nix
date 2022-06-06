@@ -17,13 +17,19 @@
       term.alacritty.enable = true;
     };
 
-    dev = { nix.enable = true; };
+    dev = { 
+      nix.enable = true;
+      java.enable = true;
+    };
 
     editors = {
       emacs = {
         enable = true;
         daemon.enable = true;
       };
+
+      android.enable = true;
+      intellij.enable = true;
 
       vscode.enable = true;
     };

@@ -6,6 +6,7 @@
   # Kernel related
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.initrd.kernelModules = [ "amdgpu" ];
+  boot.supportedFilesystems = [ "ntfs" ];
 
   # General EFI settings
   boot.loader.efi = {
@@ -20,8 +21,8 @@
     version = 2;
     efiSupport = true;
     device = "nodev";
-    useOSProber = true;
     gfxmodeEfi = "3440x1440";
+    useOSProber = true;
   };
 
   networking.hostName = "quietfrost";
@@ -37,5 +38,12 @@
   services.xserver = {
     enable = true;
     videoDrivers = [ "amdgpu" ];
+  };
+
+  boot.kernelParams = [ "zswap.enabled=0" ];
+  zramSwap = {
+    enable = true;
+    memoryPercent = 40;
+    priority = 10;
   };
 }

@@ -10,7 +10,10 @@
       razer.enable = true;
     };
 
-    dev = { adb.enable = true; };
+    dev = { 
+      adb.enable = true;
+      virt-manager.enable = true;
+    };
 
     media = { plex.enable = true; };
 

@@ -69,6 +69,22 @@
     fsType = "vfat";
   };
 
+  fileSystems."/home/${config.user.name}/storage" = {
+    device = "/dev/disk/by-uuid/0C502272502262A6";
+    fsType = "ntfs3";
+  };
+
+  fileSystems."/home/${config.user.name}/stuff" = {
+    device = "/dev/disk/by-uuid/cc458bb0-50d8-4184-8b4b-cab2b5fc5caf";
+    fsType = "btrfs";
+    options = [
+      "noatime"
+      "compress-force=zstd:3"
+      "space_cache=v2"
+      "autodefrag"
+    ];
+  };
+
   swapDevices = [ ];
 
   # Enables DHCP on each ethernet and wireless interface. In case of scripted networking
