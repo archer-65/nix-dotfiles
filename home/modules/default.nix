@@ -12,6 +12,7 @@ inputs: {
   "desktop/services/dunst" = import ./desktop/services/dunst.nix inputs;
   "desktop/services/locker" = import ./desktop/services/locker.nix inputs;
 
+  "/dev/c-c++" = import ./dev/cc.nix inputs;
   "/dev/javascript" = import ./dev/js inputs;
   "/dev/java" = import ./dev/java.nix inputs;
   "/dev/nix-lang" = import ./dev/nix-lang.nix inputs;

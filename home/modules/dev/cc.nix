@@ -15,7 +15,8 @@ in {
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       gcc
-      clang
+      clang-tools
+      #clang
       valgrind
       gdb
       cmake
