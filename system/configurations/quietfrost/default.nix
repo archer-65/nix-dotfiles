@@ -5,6 +5,8 @@
 
   # Kernel related
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  #boot.kernelPackages = pkgs.linuxPackages_zen;
+
   boot.initrd.kernelModules = [ "amdgpu" ];
   boot.supportedFilesystems = [ "ntfs" ];
 

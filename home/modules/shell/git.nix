@@ -1,5 +1,5 @@
 _:
-{ options, config, lib, ... }:
+{ options, config, lib, pkgs, ... }:
 
 with lib;
 let cfg = config.user-modules.shell.git-defaults;
@@ -18,5 +18,10 @@ in {
       userEmail = "mariogt2009@live.it";
       userName = "archer-65";
     };
+
+    home.packages = [ 
+      #pkgs.bfg-repo-cleaner 
+      #pkgs.trufflehog 
+    ];
   };
 }
