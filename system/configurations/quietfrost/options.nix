@@ -27,7 +27,7 @@
     desktop.xorg.enable = true;
 
     core = {
-      boot.splashBoot.enable = true;
+      #boot.splashBoot.enable = true;
       cachix.enable = true;
     };
   };

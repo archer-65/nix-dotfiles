@@ -9,10 +9,15 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    nur = {
+      url = "github:nix-community/NUR";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    
     emacs-overlay.url = "github:nix-community/emacs-overlay";
   };
 
-  outputs = inputs@{ self, nixpkgs, ... }:
+  outputs = inputs@{ self, nixpkgs, nur, ... }:
     let
       system = "x86_64-linux";
 
@@ -26,7 +31,7 @@
           overlays = extraOverlays ++ (lib.attrValues self.overlays);
         };
 
-      pkgs = mkPkgs nixpkgs [ inputs.emacs-overlay.overlay ];
+      pkgs = mkPkgs nixpkgs [ inputs.emacs-overlay.overlay inputs.nur.overlay];
 
     in {
       pkgs = pkgs;
