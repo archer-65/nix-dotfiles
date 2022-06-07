@@ -18,6 +18,7 @@
     };
 
     dev = { 
+      cc.enable = true;
       nix.enable = true;
       java.enable = true;
       js.enable = true;
