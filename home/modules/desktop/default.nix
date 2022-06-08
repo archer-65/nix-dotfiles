@@ -8,6 +8,7 @@
     xclip
     xdotool
     xfce.xfconf
+    xfce.exo
     (xfce.thunar.override {
       thunarPlugins = with pkgs; [
         xfce.thunar-volman
@@ -15,6 +16,8 @@
         xfce.thunar-media-tags-plugin
       ];
     })
+    mate.engrampa
+    unzip
   ];
 
   services = { flameshot.enable = true; };
