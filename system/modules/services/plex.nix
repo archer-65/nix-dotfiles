@@ -24,11 +24,13 @@ in {
       services.plex = {
         enable = true;
         openFirewall = true;
+        user = "${config.user.name}";
       };
+      
+      # Primary user
+      user.extraGroups = [ "plex" ];
     }
 
     (mkIf cfg.systemd.disable { systemd.services.plex.wantedBy = mkForce [ ]; })
-
-    { user.extraGroups = [ "plex" ]; }
   ]);
 }
