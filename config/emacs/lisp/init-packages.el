@@ -1,4 +1,4 @@
-;;; packages.el --- Package manager and related configuration -*- lexical-binding: t -*-
+;;; init-packages.el --- Package manager and related configuration -*- lexical-binding: t -*-
 
 ;;; Commentary:
 
@@ -73,5 +73,5 @@
   (auto-package-update-maybe)
   (auto-package-update-at-time "16:00"))
 
-(provide 'packages)
-;;; packages.el ends here
+(provide 'init-packages)
+;;; init-packages.el ends here

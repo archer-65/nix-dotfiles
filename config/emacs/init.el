@@ -13,18 +13,19 @@
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
 ;; Require package management file.
-(require 'packages)
+(require 'init-packages)
 
 ;; The `no-littering` package to keep folders where we edit files and the Emacs configuration folder clean.
 (leaf no-littering
   :doc "Keeps folders clean"
   :setq
   ;; The package `no-littering` doesn't set this by default so we must place
-  ;; auto save files in the same path as it uses for sessions
+ ;; auto save files in the same path as it uses for sessions
   (auto-save-file-name-transforms . `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
 
 ;; Require other stuff
-(require 'appearance)
+(require 'init-appearance)
+(require 'init-dash)
 
 ;; Disable line numbers for some modes
 (dolist (mode '(org-mode-hook
@@ -253,37 +254,6 @@
   ([remap describe-command] . helpful-command)
   ([remap describe-variable] . helpful-variable)
   ([remap describe-key] . helpful-key))
-
-(use-package dashboard
-  :ensure t
-  :config
-  (dashboard-setup-startup-hook)
-  (dashboard-refresh-buffer)
-  (setq initial-buffer-choice (lambda () (get-buffer "*dashboard*")))
-  (setq dashboard-items '((recents  . 5)
-                          (bookmarks . 5)))
-  (setq dashboard-set-haeding-icons t)
-  (setq dashboard-set-file-icons t)
-  (setq dashboard-startup-banner "~/.emacs.d/img/stallman.png")
-  (setq dashboard-banner-logo-title "Welcome to Emacs!")
-  ;; (setq dashboard-startup-banner 'logo)
-  (setq dashboard-set-navigator t)
-  (setq dashboard-navigator-buttons
-        `(
-          ((,(all-the-icons-octicon "mark-github" :height 1.1 :v-adjust 0.0)
-            "Homepage"
-            "Browse homepage"
-            (lambda (&rest _) (browse-url "https://github.com/archer-65/emacs-config")))
-
-           (,(all-the-icons-faicon "archive" :height 1.1 :v-adjust 0.0)
-            "Update Packages"
-            "Click to updates your packages"
-            (lambda (&rest _) (auto-package-update-now)))
-
-           (,(all-the-icons-octicon "gear" :height 1.1 :v-adjust 0.0)
-            "Configuration"
-            "Click to config Emacs"
-            (lambda (&rest _) (find-file "~/.dotfiles/config/emacs/Emacs.org")))))))
 
 (defun meow-setup ()
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)

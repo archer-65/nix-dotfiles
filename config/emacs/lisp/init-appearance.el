@@ -1,4 +1,4 @@
-;;; appearance.el --- Appearance settings -*- lexical-binding: t -*-
+;;; init-appearance.el --- Appearance settings -*- lexical-binding: t -*-
 
 ;;; Commentary:
 
@@ -41,5 +41,5 @@
   :config
   (rainbow-mode t))
 
-(provide 'appearance)
-;;; appearance.el ends here
+(provide 'init-appearance)
+;;; init-appearance.el ends here
