@@ -16,15 +16,6 @@
 (unless package-archive-contents
   (package-refresh-contents))
 
-;;; SECTION USE-PACKAGE TO DEPRECATE
-;; Initialize use-package on non-Linux platforms
-(unless (package-installed-p 'use-package)
-  (package-install 'use-package))
-
-(require 'use-package)
-(setq use-package-always-ensure t)
-;;; SECTION USE-PACKAGE TO DEPRECATE ENDS HERE
-
 ;;; SECTION STRAIGHT.EL
 (defvar bootstrap-version)
 (let ((bootstrap-file
