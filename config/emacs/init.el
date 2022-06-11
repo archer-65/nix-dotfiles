@@ -23,18 +23,13 @@
   ;; auto save files in the same path as it uses for sessions
   (auto-save-file-name-transforms . `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
 
-(leaf which-key
-  :doc "Useful panel that appears while pressing any partial binding."
-  :blackout t
-  :setq
-  (which-key-idle-delay . 0.5)
-  :config
-  (which-key-mode))
+(require 'init-help)
 
-;; Require other stuff
 (require 'init-appearance)
-(require 'init-dash)
+
 (require 'init-fonts)
+
+(require 'init-dash)
 
 ;; Enable vertico
 (leaf vertico
@@ -223,15 +218,6 @@
   ;; auto-updating embark collect buffer
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
-
-(leaf helpful
-  :doc "Helpful informations in buffers."
-  :bind
-  (("C-h f"   . helpful-callable)
-   ("C-h v"   . helpful-variable) 
-   ("C-h k"   . helpful-key) 
-   ("C-h C"   . helpful-command)
-   ("C-c C-d" . helpful-at-point)))
 
 (defun meow-setup ()
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
@@ -516,7 +502,7 @@
   :config
   (yas-reload-all))
 
-(use-package yasnippet-snippets)
+(leaf yasnippet-snippets)
 
 (leaf smartparens
   :hook (prog-mode . smartparens-mode))
@@ -576,7 +562,7 @@
 (leaf magit
   :commands magit-status
   :custom
-  (magit-display-buffer-function . #'magit-display-buffer-same-window-except-diff-v1))
+  (magit-display-buffer-function . 'magit-display-buffer-same-window-except-diff-v1))
 
 ;; NOTE: Make sure to configure a GitHub token before using this package!
 ;; - https://magit.vc/manual/forge/Token-Creation.html#Token-Creation

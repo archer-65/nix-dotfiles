@@ -7,7 +7,7 @@
 This is my personal configuration of ~GNU Emacs~. Many of these settings have been stolen from research and other configurations.
 I have a very basic use-case, and this configuration is, currently, pretty straightforward to read.
 
-Right now I'm deprecating =use-package= for =leaf.el= and =package.el= with =straight.el=.
+Right now I'm deprecating =package.el= with =straight.el=, and =leaf.el= is my macro configuration tool.
 
 ** Before GUI: "early init"
 
@@ -15,7 +15,9 @@ Is good practice to define an =early-init.el= file: this kind of approach provid
 
 #+include: "early-init.el" src emacs-lisp :tangle no
 
-** Init file
+** Mandatory settings for the "init"
+
+Note that =init.el= is mandatory, however I'm tangling it from this =.org= file (=Emacs.org=)
 
 #+begin_src emacs-lisp
 
@@ -33,8 +35,30 @@ Is good practice to define an =early-init.el= file: this kind of approach provid
   ;; We don't want customizations in `init.el`, instead we use `custom.el`.
   (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
+#+end_src
+
+* Core settings
+
+** Packages bootstrap
+
+We are requiring =init-packages=, where package manager (e.g. =package.el=, =straight.el=) and macro configuration tools (e.g. =use-package=, =leaf.el=, =setup.el=) are initialized.
+
+#+begin_src emacs-lisp
+
   ;; Require package management file.
   (require 'init-packages)
+
+#+end_src
+
+This is the =init-packages.el= file.
+
+#+include: "lisp/init-packages.el" src emacs-lisp :tangle no
+
+** Keep order
+
+This useful package helps to avoid filling up our work folders with ~auto-save~ files.
+
+#+begin_src emacs-lisp
 
   ;; The `no-littering` package to keep folders where we edit files and the Emacs configuration folder clean.
   (leaf no-littering
@@ -43,34 +67,39 @@ Is good practice to define an =early-init.el= file: this kind of approach provid
     ;; The package `no-littering` doesn't set this by default so we must place
     ;; auto save files in the same path as it uses for sessions
     (auto-save-file-name-transforms . `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
+  
+#+end_src
 
-  (leaf which-key
-    :doc "Useful panel that appears while pressing any partial binding."
-    :blackout t
-    :setq
-    (which-key-idle-delay . 0.5)
-    :config
-    (which-key-mode))
+** Pick up me mom, I'm scared!
 
-  ;; Require other stuff
-  (require 'init-appearance)
-  (require 'init-dash)
-  (require 'init-fonts)
+Sometimes we forget shortcuts as we type them, or we wish more _helpful_ description of functions/variables/keys of our environment.
+
+#+begin_src emacs-lisp
+
+  (require 'init-help)
 
 #+end_src
 
-* Core settings
+[[https://github.com/justbur/emacs-which-key][Which-Key]] is a minor mode for Emacs that displays the key bindings following your currently entered incomplete command in a popup.
 
-** Packages bootstrap
+[[https://github.com/Wilfred/helpful][Helpful]] adds a lot of very helpful information to =describe-= command buffers. For example, if you use =describe-function=, you will not only get the documentation about the function, you will also see the source code of the function and where it gets used in other places in the Emacs configuration.
 
-This file bootstraps package manager and other utilities. The core of this configuration starts from here.
+This is the =init-help.el= file, nothing special.
 
-#+include: "lisp/init-packages.el" src emacs-lisp :tangle no
+#+include: "lisp/init-help.el" src emacs-lisp :tangle no
 
 ** Appearance
 
+#+begin_src emacs-lisp
+
+  (require 'init-appearance)
+
+#+end_src
+
 I'm currently using these: [[https://protesilaos.com/emacs/modus-themes][Modus Themes]]. Protesilaos made a great work, and these themes are, indeed, built into Emacs.
 Here are also contained line-numbers settings, modeline (doom atm) related configuration, minor tweaks for icons (needed also for dashboard) and colors.
+
+Here the =init.appearance.el= file.
 
 #+include: "lisp/init-appearance.el" src emacs-lisp :tangle no
 
@@ -79,15 +108,31 @@ Here are also contained line-numbers settings, modeline (doom atm) related confi
 Readability is important.
 Currently using [[https://rubjo.github.io/victor-mono/][Victor Mono]] as font, I love it, also for variable-pitch face.
 
+#+begin_src emacs-lisp
+
+  (require 'init-fonts)
+
+#+end_src
+
+Here the =init.fonts.el= file.
+
 #+include: "lisp/init-fonts.el" src emacs-lisp :tangle no
 
 ** Dashboard Configuration
 
 Useless cute dashboard, nothing to say, and there are minor tweaks to make it work with server-mode and Emacs PGTK/NativeComp.
 
+#+begin_src emacs-lisp
+
+  (require 'init-dash)
+
+#+end_src
+
+Here the =init.dash.el= file.
+
 #+include: "lisp/init-dash.el" src emacs-lisp :tangle no
 
-* UI Configuration
+* Selection and search
 
 ** Vertico + Orderless
 
@@ -306,23 +351,6 @@ For completions let's try [[https://github.com/minad/vertico][Vertico]] and [[ht
     ;; auto-updating embark collect buffer
     :hook
     (embark-collect-mode . consult-preview-at-point-mode))
-
-#+end_src
-
-** Helpful Help Commands
-
-[[https://github.com/Wilfred/helpful][Helpful]] adds a lot of very helpful (get it?) information to Emacs' =describe-= command buffers.  For example, if you use =describe-function=, you will not only get the documentation about the function, you will also see the source code of the function and where it gets used in other places in the Emacs configuration.  It is very useful for figuring out how things work in Emacs.
-
-#+begin_src emacs-lisp
-
-  (leaf helpful
-    :doc "Helpful informations in buffers."
-    :bind
-    (("C-h f"   . helpful-callable)
-     ("C-h v"   . helpful-variable) 
-     ("C-h k"   . helpful-key) 
-     ("C-h C"   . helpful-command)
-     ("C-c C-d" . helpful-at-point)))
 
 #+end_src
 
@@ -747,7 +775,7 @@ This snippet adds a hook to =org-mode= buffers so that =archer-65/org-babel-tang
     :config
     (yas-reload-all))
 
-  (use-package yasnippet-snippets)
+  (leaf yasnippet-snippets)
 
 #+end_src
 ** Smart Parens
@@ -862,7 +890,7 @@ Common Git operations are easy to execute quickly using Magit's command panel sy
   (leaf magit
     :commands magit-status
     :custom
-    (magit-display-buffer-function . #'magit-display-buffer-same-window-except-diff-v1))
+    (magit-display-buffer-function . 'magit-display-buffer-same-window-except-diff-v1))
 
   ;; NOTE: Make sure to configure a GitHub token before using this package!
   ;; - https://magit.vc/manual/forge/Token-Creation.html#Token-Creation
