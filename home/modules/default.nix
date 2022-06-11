@@ -16,6 +16,7 @@ inputs: {
   "/dev/javascript" = import ./dev/js inputs;
   "/dev/java" = import ./dev/java.nix inputs;
   "/dev/nix-lang" = import ./dev/nix-lang.nix inputs;
+  "/dev/tex" = import ./dev/tex.nix inputs;
 
   "editors/android-studio" = import ./editors/android-studio.nix inputs;
   "editors/emacs" = import ./editors/emacs.nix inputs;

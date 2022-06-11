@@ -22,6 +22,7 @@
       nix.enable = true;
       java.enable = true;
       js.enable = true;
+      tex.enable = true;
     };
 
     editors = {

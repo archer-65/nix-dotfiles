@@ -599,7 +599,7 @@
   (dired-load-hook . (lambda () (interactive) (dired-collapse))))
 
 
-;(put 'dired-find-alternate-file 'disabled nil)
+;; (put 'dired-find-alternate-file 'disabled nil)
 
 ;; (add-hook 'dired-mode-hook
 ;;           (lambda ()
@@ -614,10 +614,10 @@
   :commands (dired dired-jump))
 
 (leaf all-the-icons-dired
-  :hook (dired-mode . all-the-icons-dired-mode))
+  :hook (dired-mode-hook . all-the-icons-dired-mode))
 
 (leaf dired-hide-dotfiles
-  :hook (dired-mode . dired-hide-dotfiles-mode)
+  :hook (dired-mode-hook . dired-hide-dotfiles-mode)
   :config
   (define-key dired-mode-map (kbd "C-c d") 'dired-hide-dotfiles-mode))
 
@@ -626,7 +626,6 @@
 
 (leaf mu4e
   :load-path "/usr/share/emacs/site-lisp/mu4e/"
-  ;:defer 10 ; Wait until 10 seconds after startup
   :require t
   :config
 
