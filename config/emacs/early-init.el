@@ -11,16 +11,10 @@
 ;; The default is 800 kilobytes.  Measured in bytes.
 (setq gc-cons-threshold (* 128 1024 1024))
 
-(defun archer--display-startup-time ()
-  "This function serves as convenience to display startup time after Emacs start."
-  (message "Emacs loaded in %s with %d garbage collections."
-           (format "%.2f seconds"
-                   (float-time
-                    (time-subtract after-init-time before-init-time)))
-           gcs-done))
-
-;; Startup hook to display startup time.
-(add-hook 'emacs-startup-hook #'archer--display-startup-time)
+(add-hook 'emacs-startup-hook
+          (lambda ()
+            (message "Emacs loaded in %s with %d garbage collections."
+                     (emacs-init-time) gcs-done)))
 
 ;; For consistency, we change the location of native compilation cache.
 ;; Currently not used
@@ -47,6 +41,4 @@
 (setq use-file-dialog nil)           ; Disable dialog for files
 
 (column-number-mode)                    ; Display column number on modeline
-(global-display-line-numbers-mode t)    ; Enable numbers globally
-
 ;;; early-init.el ends here

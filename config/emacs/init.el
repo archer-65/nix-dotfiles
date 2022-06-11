@@ -20,29 +20,31 @@
   :doc "Keeps folders clean"
   :setq
   ;; The package `no-littering` doesn't set this by default so we must place
- ;; auto save files in the same path as it uses for sessions
+  ;; auto save files in the same path as it uses for sessions
   (auto-save-file-name-transforms . `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
+
+(leaf which-key
+  :doc "Useful panel that appears while pressing any partial binding."
+  :blackout t
+  :setq
+  (which-key-idle-delay . 0.5)
+  :config
+  (which-key-mode))
 
 ;; Require other stuff
 (require 'init-appearance)
 (require 'init-dash)
-
-;; Disable line numbers for some modes
-(dolist (mode '(org-mode-hook
-                treemacs-mode-hook))
-  (add-hook mode (lambda () (display-line-numbers-mode 0))))
-
-(use-package which-key
-  :defer 0
-  :diminish which-key-mode
-  :config
-  (which-key-mode)
-  (setq which-key-idle-delay 1))
+(require 'init-fonts)
 
 ;; Enable vertico
-(use-package vertico
+(leaf vertico
   :init
   (vertico-mode))
+
+;; Persist history over Emacs restarts. Vertico sorts by history position.
+(leaf savehist
+  :init
+  (savehist-mode))
 
 ;; Optionally use the `orderless' completion style. See
 ;; `+orderless-dispatch' in the Consult wiki for an advanced Orderless style
@@ -50,7 +52,7 @@
 ;; expansion. `partial-completion' is important for wildcard support.
 ;; Multiple files can be opened at once with `find-file' if you enter a
 ;; wildcard. You may also give the `initials' completion style a try.
-(use-package orderless
+(leaf orderless
   :init
   ;; Configure a custom style dispatcher (see the Consult wiki)
   ;; (setq orderless-style-dispatchers '(+orderless-dispatch))
@@ -58,13 +60,8 @@
         completion-category-defaults nil
         completion-category-overrides '((file (styles partial-completion)))))
 
-;; Persist history over Emacs restarts. Vertico sorts by history position.
-(use-package savehist
-  :init
-  (savehist-mode))
-
 ;; A few more useful configurations...
-(use-package emacs
+(leaf emacs
   :init
   ;; Add prompt indicator to `completing-read-multiple'.
   ;; Alternatively try `consult-completing-read-multiple'.
@@ -81,7 +78,7 @@
   (setq enable-recursive-minibuffers t))
 
 ;; Example configuration for Consult
-(use-package consult
+(leaf consult
   ;; Replace bindings. Lazily loaded due by `use-package'.
   :bind (;; C-c bindings (mode-specific-map)
          ("C-c h" . consult-history)
@@ -123,11 +120,11 @@
          ("M-s u" . consult-focus-lines)
          ;; Isearch integration
          ("M-s e" . consult-isearch-history)
-         :map isearch-mode-map
-         ("M-e" . consult-isearch-history)         ;; orig. isearch-edit-string
-         ("M-s e" . consult-isearch-history)       ;; orig. isearch-edit-string
-         ("M-s l" . consult-line)                  ;; needed by consult-line to detect isearch
-         ("M-s L" . consult-line-multi))           ;; needed by consult-line to detect isearch
+         (isearch-mode-map
+          ("M-e" . consult-isearch-history)         ;; orig. isearch-edit-string
+          ("M-s e" . consult-isearch-history)       ;; orig. isearch-edit-string
+          ("M-s l" . consult-line)                  ;; needed by consult-line to detect isearch
+          ("M-s L" . consult-line-multi)))           ;; needed by consult-line to detect isearch
 
   ;; Enable automatic preview at point in the *Completions* buffer. This is
   ;; relevant when you use the default completion UI. You may want to also
@@ -181,79 +178,60 @@
   ;; You may want to use `embark-prefix-help-command' or which-key instead.
   ;; (define-key consult-narrow-map (vconcat consult-narrow-key "?") #'consult-narrow-help)
 
-  ;; Optionally configure a function which returns the project root directory.
+  ;; Configure a function which returns the project root directory.
   ;; There are multiple reasonable alternatives to chose from.
-  ;;;; 1. project.el (project-roots)
-  ;;(setq consult-project-root-function
-  ;;      (lambda ()
-  ;;        (when-let (project (project-current))
-  ;;          (car (project-roots project)))))
-  ;;;; 2. projectile.el (projectile-project-root)
-   (autoload 'projectile-project-root "projectile")
-   (setq consult-project-root-function #'projectile-project-root)
-  ;;;; 3. vc.el (vc-root-dir)
-  ;; (setq consult-project-root-function #'vc-root-dir)
-  ;;;; 4. locate-dominating-file
-  ;; (setq consult-project-root-function (lambda () (locate-dominating-file "." ".git")))
-  )
+  (autoload 'projectile-project-root "projectile")
+  (setq consult-project-root-function #'projectile-project-root))
 
 ;; Enable richer annotations using the Marginalia package
-(use-package marginalia
+(leaf marginalia
   ;; Either bind `marginalia-cycle` globally or only in the minibuffer
   :bind (("M-A" . marginalia-cycle)
-         :map minibuffer-local-map
-         ("M-A" . marginalia-cycle))
+         (minibuffer-local-map
+          ("M-A" . marginalia-cycle)))
 
   ;; The :init configuration is always executed (Not lazy!)
   :init
-
   ;; Must be in the :init section of use-package such that the mode gets
   ;; enabled right away. Note that this forces loading the package.
   (marginalia-mode))
 
-(use-package embark
-  :ensure t
+(leaf wgrep)
 
+(leaf embark
+  :ensure t
   :bind
   (("C-." . embark-act)         ;; pick some comfortable binding
    ("C-;" . embark-dwim)        ;; good alternative: M-.
    ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
-
   :init
-
   ;; Optionally replace the key help with a completing-read interface
   (setq prefix-help-command #'embark-prefix-help-command)
-
   :config
-
   ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist
                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
                  nil
                  (window-parameters (mode-line-format . none)))))
 
-(use-package wgrep)
-
 ;; Consult users will also want the embark-consult package.
-(use-package embark-consult
+(leaf embark-consult
   :ensure t
   :after (embark consult)
-  :demand t ; only necessary if you have the hook below
+  :leaf-defer nil ; only necessary if you have the hook below
   ;; if you want to have consult previews as you move around an
   ;; auto-updating embark collect buffer
   :hook
   (embark-collect-mode . consult-preview-at-point-mode))
 
-(use-package helpful
-  :commands (helpful-callable helpful-variable helpful-command helpful-key)
-  :custom
-  (counsel-describe-function-function #'helpful-callable)
-  (counsel-describe-variable-function #'helpful-variable)
+(leaf helpful
+  :doc "Helpful informations in buffers."
   :bind
-  ([remap describe-function] . helpful-callable)
-  ([remap describe-command] . helpful-command)
-  ([remap describe-variable] . helpful-variable)
-  ([remap describe-key] . helpful-key))
+  (("C-h f"   . helpful-callable)
+   ("C-h v"   . helpful-variable) 
+   ("C-h k"   . helpful-key) 
+   ("C-h C"   . helpful-command)
+   ("C-c C-d" . helpful-at-point)))
 
 (defun meow-setup ()
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
@@ -341,139 +319,102 @@
    '("'" . repeat)
    '("<escape>" . ignore)))
 
-(use-package meow
+(leaf meow
   :ensure t
-  ;; :init
+  :require t
   :config
   (meow-setup)
   (meow-global-mode 1))
 
-(use-package undo-tree
+(leaf undo-tree
   :ensure t
   :init
   (global-undo-tree-mode))
 
-(use-package company
+(leaf company
   :after lsp-mode
   :config
-  (add-to-list 'company-backends 'company-nixos-options)
+  ;(add-to-list 'company-backends 'company-nixos-options)
   (global-company-mode t)
   :hook
   (lsp-mode . company-mode)
   :bind
-  (:map company-active-map
+  (company-active-map
         ("<tab>" . company-complete-selection))
-  (:map lsp-mode-map
+  (lsp-mode-map
         ("<tab>" . company-indent-or-complete-common)))
 
-(use-package flycheck
+(leaf flycheck
   :ensure t
   :init (global-flycheck-mode))
 
-(delete-selection-mode 1)
+(leaf delsel
+  :config
+  (delete-selection-mode 1))
 
-;; Windmove with shift
-(when (fboundp 'windmove-default-keybindings)
-  (windmove-default-keybindings))
+(leaf windmove
+  "Utility to move faster between buffers"
+  :config
+  (windmove-default-keybindings) ; Windmove with shift+arrows
+  :hook
+  (org-shiftup-final-hook . windmove-up)
+  (org-shiftdown-final-hook . windmove-down)
+  (org-shiftleft-final-hook . windmove-left)
+  (org-shiftright-final-hook . windmove-right))
 
-;; Make windmove work in Org mode:
-(add-hook 'org-shiftup-final-hook 'windmove-up)
-(add-hook 'org-shiftleft-final-hook 'windmove-left)
-(add-hook 'org-shiftdown-final-hook 'windmove-down)
-(add-hook 'org-shiftright-final-hook 'windmove-right)
-
-(global-set-key (kbd "C-<left>") 'shrink-window-horizontally)
-(global-set-key (kbd "C-<right>") 'enlarge-window-horizontally)
-(global-set-key (kbd "C-<down>") 'shrink-window)
-(global-set-key (kbd "C-<up>") 'enlarge-window)
+(global-set-key (kbd "C-S-<up>") 'enlarge-window)
+(global-set-key (kbd "C-S-<down>") 'shrink-window)
+(global-set-key (kbd "C-S-<left>") 'shrink-window-horizontally)
+(global-set-key (kbd "C-S-<right>") 'enlarge-window-horizontally)
 
 ;; Disable damn sleep!
 (global-unset-key (kbd "C-z"))
 
+;; Tabs, indentation, and the TAB key
+(setq-default tab-always-indent 'complete)
+(setq-default tab-first-completion 'word-or-paren-or-punct)
 (setq-default tab-width 2)
 (setq-default indent-tabs-mode nil)
 
-(use-package beacon
+(leaf beacon
   :ensure t
   :config
   (beacon-mode 1))
 
-(use-package drag-stuff
+(leaf drag-stuff
   :ensure t
   :config
   (drag-stuff-mode t)
   (drag-stuff-global-mode 1)
   (drag-stuff-define-keys))
 
-(defun archer-65/org-font-setup ()
-  (message "Setting faces")
-  ;; Global fonts
-  (set-face-attribute 'default nil :font "VictorMono Nerd Font-18") ;;:height archer-65/default-font-size)
-
-  ;; Set the fixed pitch face
-  (set-face-attribute 'fixed-pitch nil :font "VictorMono Nerd Font-18") ;;:height archer-65/default-font-size)
-
-  ;; Set the variable pitch face
-  (set-face-attribute 'variable-pitch nil :font "VictorMono Nerd Font-18") ;; :height archer-65/default-variable-font-size :weight 'regular) 
-
-  ;; ORG
-  ;; Replace list hyphen with dot
-  (font-lock-add-keywords 'org-mode
-                          '(("^ *\\([-]\\) "
-                             (0 (prog1 () (compose-region (match-beginning 1) (match-end 1) "•"))))))
-
-  ;; Set faces for heading levels
-  (with-eval-after-load 'org
-  (dolist (face '((org-level-1 . 1.2)
-                  (org-level-2 . 1.1)
-                  (org-level-3 . 1.05)
-                  (org-level-4 . 1.0)
-                  (org-level-5 . 1.1)
-                  (org-level-6 . 1.1)
-                  (org-level-7 . 1.1)
-                  (org-level-8 . 1.1)))
-    (set-face-attribute (car face) nil :font "VictorMono Nerd Font" :weight 'regular :height (cdr face)))
-
-  ;; Ensure that anything that should be fixed-pitch in Org files appears that way
-  (set-face-attribute 'org-block nil    :foreground nil :inherit 'fixed-pitch)
-  (set-face-attribute 'org-table nil    :inherit 'fixed-pitch)
-  (set-face-attribute 'org-formula nil  :inherit 'fixed-pitch)
-  (set-face-attribute 'org-code nil     :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-table nil    :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-verbatim nil :inherit '(shadow fixed-pitch))
-  (set-face-attribute 'org-special-keyword nil :inherit '(font-lock-comment-face fixed-pitch))
-  (set-face-attribute 'org-meta-line nil :inherit '(font-lock-comment-face fixed-pitch))
-  (set-face-attribute 'org-checkbox nil  :inherit 'fixed-pitch)
-  (set-face-attribute 'line-number nil :inherit 'fixed-pitch)
-  (set-face-attribute 'line-number-current-line nil :inherit 'fixed-pitch)))
-
-;; run this hook after we have initialized the first time
-(add-hook 'after-init-hook 'archer-65/org-font-setup)
-;; re-run this hook if we create a new frame from daemonized Emacs
-(add-hook 'server-after-make-frame-hook 'archer-65/org-font-setup)
-
 (defun archer-65/org-mode-setup ()
   (org-indent-mode)
   (variable-pitch-mode 1)
   (visual-line-mode 1))
 
-(use-package org
-  :pin org
-  :hook (org-mode . archer-65/org-mode-setup)
+(leaf org
+  ;:pin org
+  :ensure t
+  :require t
+  :hook (org-mode-hook . archer-65/org-mode-setup)
   :config
   (setq org-ellipsis " ▾")
-  (setq org-pretty-entities 't)
+  (setq org-pretty-entities 't))
 
-(use-package org-modern
-  :hook (org-mode . org-modern-mode))
+(leaf org-modern
+  :ensure t
+  :require t
+  :after org
+  :hook (org-mode-hook . org-modern-mode))
 
 (defun archer-65/org-mode-visual-fill ()
   (setq visual-fill-column-width 170
         visual-fill-column-center-text t)
   (visual-fill-column-mode 1))
 
-(use-package visual-fill-column
-  :hook (org-mode . archer-65/org-mode-visual-fill))
+(leaf visual-fill-column
+  :hook (org-mode-hook . archer-65/org-mode-visual-fill))
 
 ;; Date settings for org-mode
 (setq-default org-display-custom-times t)
@@ -536,7 +477,7 @@
 (setq org-latex-minted-options '(("breaklines" "true")
                                  ("breakanywhere" "true")))
 
-(use-package ox-reveal
+(leaf ox-reveal
   :ensure ox-reveal)
 
 (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js")
@@ -546,7 +487,7 @@
       'org-babel-load-languages
       '((emacs-lisp . t))))
 
-  (push '("conf-unix" . conf-unix) org-src-lang-modes))
+  (push '("conf-unix" . conf-unix) org-src-lang-modes)
 
 (with-eval-after-load 'org
   ;; This is needed as of Org 9.2
@@ -570,18 +511,18 @@
 
 (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'archer-65/org-babel-tangle-config)))
 
-(use-package yasnippet
+(leaf yasnippet
   :hook (prog-mode . yas-minor-mode)
   :config
   (yas-reload-all))
 
 (use-package yasnippet-snippets)
 
-(use-package smartparens
+(leaf smartparens
   :hook (prog-mode . smartparens-mode))
 
-(use-package projectile
-  :diminish projectile-mode
+(leaf projectile
+  :blackout t
   :config (projectile-mode)
   :bind-keymap
   ("C-c p" . projectile-command-map))
@@ -591,18 +532,16 @@
   ;;  (setq projectile-project-search-path '("~/Git")))
   ;;(setq projectile-switch-project-action #'projectile-dired))
 
-(use-package nix-mode
+(leaf nix-mode
   :mode "\\.nix\\'")
 
-(use-package company-nixos-options)
+(leaf company-nixos-options)
 
-;; (use-package nixos-option)
+(leaf yaml-mode)
 
-(use-package yaml-mode)
+(leaf lsp-haskell)
 
-(use-package lsp-haskell)
-
-(use-package lsp-mode
+(leaf lsp-mode
   :init
   :config
   (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
@@ -626,62 +565,69 @@
 ;; (use-package dap-mode)
 ;; (use-package dap-LANGUAGE) to load the dap adapter for your language
 
-(use-package lsp-treemacs
+(leaf lsp-treemacs
   :after lsp)
 
 ;; Already set in LSP, to rewatch a little bit
 
-(use-package lsp-java
+(leaf lsp-java
   :config (add-hook 'java-mode-hook 'lsp))
 
-(use-package magit
+(leaf magit
   :commands magit-status
   :custom
-  (magit-display-buffer-function #'magit-display-buffer-same-window-except-diff-v1))
+  (magit-display-buffer-function . #'magit-display-buffer-same-window-except-diff-v1))
 
 ;; NOTE: Make sure to configure a GitHub token before using this package!
 ;; - https://magit.vc/manual/forge/Token-Creation.html#Token-Creation
 ;; - https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started
-(use-package forge
+(leaf forge
   :after magit)
 
-(use-package rainbow-delimiters
+(leaf rainbow-delimiters
+  :ensure t
+  :require t
   :hook (prog-mode . rainbow-delimiters-mode))
 
-(use-package dired
+(leaf dired
   :ensure nil
   :commands (dired dired-jump)
-  :bind (("C-x C-j" . dired-jump))
-  :custom ((dired-listing-switches "-agho --group-directories-first")))
+  :bind ("C-x C-j" . dired-jump)
+  :custom
+  (dired-listing-switches . "-agho --group-directories-first")
+  :hook
+  (dired-load-hook . (lambda () (interactive) (dired-collapse))))
 
-(put 'dired-find-alternate-file 'disabled nil)
 
-(add-hook 'dired-mode-hook
-          (lambda ()
-            (define-key dired-mode-map (kbd "<return>")
-                        'dired-find-alternate-file) ; was dired-advertised-find-file
-            (define-key dired-mode-map (kbd "^")
-                        (lambda () (interactive) (find-alternate-file "..")))
-                                        ; was dired-up-directory
-            ))
+;(put 'dired-find-alternate-file 'disabled nil)
 
-(use-package dired-single
+;; (add-hook 'dired-mode-hook
+;;           (lambda ()
+;;             (define-key dired-mode-map (kbd "<return>")
+;;                         'dired-find-alternate-file) ; was dired-advertised-find-file
+;;             (define-key dired-mode-map (kbd "^")
+;;                         (lambda () (interactive) (find-alternate-file "..")))
+;;                                         ; was dired-up-directory
+;;             ))
+
+(leaf dired-single
   :commands (dired dired-jump))
 
-(use-package all-the-icons-dired
+(leaf all-the-icons-dired
   :hook (dired-mode . all-the-icons-dired-mode))
 
-(use-package dired-hide-dotfiles
+(leaf dired-hide-dotfiles
   :hook (dired-mode . dired-hide-dotfiles-mode)
   :config
   (define-key dired-mode-map (kbd "C-c d") 'dired-hide-dotfiles-mode))
 
-(use-package emojify
+(leaf emojify
   :hook (after-init . global-emojify-mode))
 
-(use-package mu4e
+(leaf mu4e
   :load-path "/usr/share/emacs/site-lisp/mu4e/"
   ;:defer 10 ; Wait until 10 seconds after startup
+  :require t
   :config
 
   ;; Use mu4e for sending e-mail
@@ -782,7 +728,7 @@
   (setq mu4e-confirm-quit nil)
   (mu4e t))
 
-(use-package mu4e-alert
+(leaf mu4e-alert
   :after mu4e
   :init
   (mu4e-alert-set-default-style 'libnotify)
@@ -810,7 +756,7 @@
 
   (setq mu4e-alert-notify-repeated-mails nil))
 
-(use-package org-msg
+(leaf org-msg
   :after mu4e
   :config
   (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil \\n:t"
