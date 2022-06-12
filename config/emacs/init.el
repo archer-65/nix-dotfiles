@@ -49,15 +49,68 @@
 
 ;; (require 'init-meow)
 
-(leaf flycheck
+(leaf projectile
   :ensure t
-  :init (global-flycheck-mode))
+  :blackout t
+  :config (projectile-mode)
+  :bind-keymap
+  ("C-c p"   . projectile-command-map))
+  ;;:init
+  ;; NOTE: Set this to the folder where you keep your Git repos!
+  ;;(when (file-directory-p "~/Git")
+  ;;  (setq projectile-project-search-path '("~/Git")))
+  ;;(setq projectile-switch-project-action #'projectile-dired))
 
-;; Tabs, indentation, and the TAB key
-(setq-default tab-always-indent 'complete)
-(setq-default tab-first-completion 'word-or-paren-or-punct)
-(setq-default tab-width 2)
-(setq-default indent-tabs-mode nil)
+(leaf magit
+  :commands magit-status
+  :custom
+  (magit-display-buffer-function . 'magit-display-buffer-same-window-except-diff-v1))
+
+;; NOTE: Make sure to configure a GitHub token before using this package!
+;; - https://magit.vc/manual/forge/Token-Creation.html#Token-Creation
+;; - https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started
+(leaf forge
+  :after magit)
+
+(require 'init-code-style)
+
+(require 'init-spell-and-check)
+
+(require 'init-extra-modes)
+
+(require 'init-snippets)
+
+(leaf lsp-mode
+  :init
+  :config
+  (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
+  (lsp-register-client
+   (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
+                    :major-modes '(nix-mode)
+                    :server-id 'nix))
+  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+  (setq lsp-keymap-prefix "C-c l")
+  :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+         (java-mode . lsp)
+         (c-mode . lsp)
+         (c++-mode . lsp)
+         (haskell-mode-hook . lsp)
+         (nix-mode . lsp)
+         ;; if you want which-key integration
+         (lsp-mode . lsp-enable-which-key-integration))
+  :commands lsp)
+
+;; optionally if you want to use debugger
+;; (use-package dap-mode)
+;; (use-package dap-LANGUAGE) to load the dap adapter for your language
+
+(leaf lsp-treemacs
+  :after lsp)
+
+;; Already set in LSP, to rewatch a little bit
+
+(leaf lsp-java
+  :config (add-hook 'java-mode-hook 'lsp))
 
 (defun archer-65/org-mode-setup ()
   (org-indent-mode)
@@ -174,91 +227,12 @@
 ;; Automatically tangle our Emacs.org config file when we save it.
 (defun archer-65/org-babel-tangle-config ()
   (when (string-equal (file-name-directory (buffer-file-name))
-                      ;; (expand-file-name user-emacs-directory))
-                      (archer--config-path))
+                      (expand-file-name archer--config-path))
     ;; Dynamic scoping to the rescue
     (let ((org-confirm-babel-evaluate nil))
       (org-babel-tangle))))
 
 (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'archer-65/org-babel-tangle-config)))
-
-(leaf yasnippet
-  :hook (prog-mode-hook . yas-minor-mode)
-  :config
-  (yas-reload-all))
-
-(leaf yasnippet-snippets)
-
-(leaf smartparens
-  :hook (prog-mode-hook . smartparens-mode))
-
-(leaf projectile
-  :blackout t
-  :config (projectile-mode)
-  :bind-keymap
-  ("C-c p" . projectile-command-map))
-  ;;:init
-  ;; NOTE: Set this to the folder where you keep your Git repos!
-  ;;(when (file-directory-p "~/Git")
-  ;;  (setq projectile-project-search-path '("~/Git")))
-  ;;(setq projectile-switch-project-action #'projectile-dired))
-
-(leaf nix-mode
-  :mode "\\.nix\\'")
-
-(leaf company-nixos-options)
-
-(leaf yaml-mode)
-
-(leaf lsp-haskell)
-
-(leaf lsp-mode
-  :init
-  :config
-  (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
-                    :major-modes '(nix-mode)
-                    :server-id 'nix))
-  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-  (setq lsp-keymap-prefix "C-c l")
-  :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
-         (java-mode . lsp)
-         (c-mode . lsp)
-         (c++-mode . lsp)
-         (haskell-mode-hook . lsp)
-         (nix-mode . lsp)
-         ;; if you want which-key integration
-         (lsp-mode . lsp-enable-which-key-integration))
-  :commands lsp)
-
-;; optionally if you want to use debugger
-;; (use-package dap-mode)
-;; (use-package dap-LANGUAGE) to load the dap adapter for your language
-
-(leaf lsp-treemacs
-  :after lsp)
-
-;; Already set in LSP, to rewatch a little bit
-
-(leaf lsp-java
-  :config (add-hook 'java-mode-hook 'lsp))
-
-(leaf magit
-  :commands magit-status
-  :custom
-  (magit-display-buffer-function . 'magit-display-buffer-same-window-except-diff-v1))
-
-;; NOTE: Make sure to configure a GitHub token before using this package!
-;; - https://magit.vc/manual/forge/Token-Creation.html#Token-Creation
-;; - https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started
-(leaf forge
-  :after magit)
-
-(leaf rainbow-delimiters
-  :ensure t
-  :require t
-  :hook (prog-mode-hook . rainbow-delimiters-mode))
 
 (leaf dired
   :ensure nil

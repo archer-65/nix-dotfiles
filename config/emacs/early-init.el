@@ -36,8 +36,8 @@
 
 (defvar archer--config-path
   (if (archer--using-nix-p)
-      (if (file-exists-p (expand-file-name ".dotfiles/config/emacs" (getenv "HOME")))
-          (expand-file-name ".dotfiles/config/emacs" (getenv "HOME")))
+      (if (file-exists-p (expand-file-name ".dotfiles/config/emacs/" (getenv "HOME")))
+          (expand-file-name ".dotfiles/config/emacs/" (getenv "HOME")))
     (expand-file-name user-emacs-directory)))
 
 ;; Initialise installed packages
