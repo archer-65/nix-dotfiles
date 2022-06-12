@@ -216,7 +216,6 @@ Here =init-complete-in-buffer.el=.
 
 * Interface interaction
 
-
 ** Editing enhancement
 
 #+begin_src emacs-lisp
@@ -251,6 +250,106 @@ Moving around windows can be painful, but some built-in functions save our s**a.
 #+include: "lisp/init-windows.el" src emacs-lisp :tangle no
 
 
+** Dired
+
+Dired is a built-in file manager for Emacs that does some pretty amazing things!  Here are some key bindings you should try out:
+
+*** Key Bindings
+
+**** Navigation
+
+- =n= - next line
+- =p= - previous line
+- =j= - jump to file in buffer
+- =RET= - select file or directory
+- =^= - go to parent directory
+- =S-RET= - Open file in "other" window
+- =M-RET= - Show file in other window without focusing (previewing files)
+- =g o= (=dired-view-file=) - Open file but in a "preview" mode, close with =q=
+- =g= - Refresh the buffer with =revert-buffer= after changing configuration (and after filesystem changes!)
+
+**** Marking files
+
+- =m= - Marks a file
+- =u= - Unmarks a file
+- =U= - Unmarks all files in buffer
+- ='*' t= - Inverts marked files in buffer
+- =% m= - Mark files in buffer using regular expression
+- =*= - Lots of other auto-marking functions
+- =k= - "Kill" marked items (refresh buffer with =g= / =g r= to get them back)
+- Many operations can be done on a single file if there are no active marks!
+
+**** Copying and Renaming files
+
+- =C= - Copy marked files (or if no files are marked, the current file)
+- Copying single and multiple files
+- =U= - Unmark all files in buffer
+- =R= - Rename marked files, renaming multiple is a move!
+- =% R= - Rename based on regular expression: =^test= , =old-\&=
+
+*Power command*: =C-x C-q= (=dired-toggle-read-only=) - Makes all file names in the buffer editable directly to rename them!  Press =Z Z= to confirm renaming or =Z Q= to abort.
+
+**** Deleting files
+
+- =D= - Delete marked file
+- =d= - Mark file for deletion
+- =x= - Execute deletion for marks
+- =delete-by-moving-to-trash= - Move to trash instead of deleting permanently
+
+**** Creating and extracting archives
+
+- =Z= - Compress or uncompress a file or folder to (=.tar.gz=)
+- =c= - Compress selection to a specific file
+- =dired-compress-files-alist= - Bind compression commands to file extension
+
+**** Other common operations
+
+- =T= - Touch (change timestamp)
+- =M= - Change file mode
+- =O= - Change file owner
+- =G= - Change file group
+- =S= - Create a symbolic link to this file
+- =L= - Load an Emacs Lisp file into Emacs
+
+*** Configuration
+
+#+begin_src emacs-lisp
+
+  (leaf dired
+    :ensure nil
+    :commands (dired dired-jump)
+    :bind ("C-x C-j" . dired-jump)
+    :custom
+    (dired-listing-switches . "-agho --group-directories-first")
+    :hook
+    (dired-load-hook . (lambda () (interactive) (dired-collapse))))
+
+
+  ;; (put 'dired-find-alternate-file 'disabled nil)
+
+  ;; (add-hook 'dired-mode-hook
+  ;;           (lambda ()
+  ;;             (define-key dired-mode-map (kbd "<return>")
+  ;;                         'dired-find-alternate-file) ; was dired-advertised-find-file
+  ;;             (define-key dired-mode-map (kbd "^")
+  ;;                         (lambda () (interactive) (find-alternate-file "..")))
+  ;;                                         ; was dired-up-directory
+  ;;             ))
+
+  (leaf dired-single
+    :commands (dired dired-jump))
+
+  (leaf all-the-icons-dired
+    :hook (dired-mode-hook . all-the-icons-dired-mode))
+
+  (leaf dired-hide-dotfiles
+    :hook (dired-mode-hook . dired-hide-dotfiles-mode)
+    :config
+    (define-key dired-mode-map (kbd "C-c d") 'dired-hide-dotfiles-mode))
+
+#+end_src
+
+
 ** Meow
 
 #+begin_src emacs-lisp
@@ -268,43 +367,23 @@ Keybindings are listed in =init-meow.el=.
 
 * Development
 
-** Projectile
+** Projects management and Git
 
 #+begin_src emacs-lisp
 
-  (leaf projectile
-    :ensure t
-    :blackout t
-    :config (projectile-mode)
-    :bind-keymap
-    ("C-c p"   . projectile-command-map))
-    ;;:init
-    ;; NOTE: Set this to the folder where you keep your Git repos!
-    ;;(when (file-directory-p "~/Git")
-    ;;  (setq projectile-project-search-path '("~/Git")))
-    ;;(setq projectile-switch-project-action #'projectile-dired))
+  (require 'init-projects)
 
 #+end_src
 
+[[https://github.com/bbatsov/projectile][Projectile]] provides easy project management and navigation.
 
-** Magit
+Common Git operations are easy to execute quickly using _Magit_'s command panel system.
 
-Common Git operations are easy to execute quickly using Magit's command panel system.
+*NOTE*: Make sure to configure a GitHub token before using this package!
+- [[https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started][Getting started with Magit]]
+- [[https://magit.vc/manual/forge/Token-Creation.html#Token-Creation][Token Creation]] 
 
-#+begin_src emacs-lisp
-
-  (leaf magit
-    :commands magit-status
-    :custom
-    (magit-display-buffer-function . 'magit-display-buffer-same-window-except-diff-v1))
-
-  ;; NOTE: Make sure to configure a GitHub token before using this package!
-  ;; - https://magit.vc/manual/forge/Token-Creation.html#Token-Creation
-  ;; - https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started
-  (leaf forge
-    :after magit)
-
-#+end_src
+#+include: "lisp/init-projects.el" src emacs-lisp :tangle no
 
 
 ** Code style
@@ -371,62 +450,15 @@ Here =init-snippets.el=.
 
 ** LSP
 
+#+begin_src emacs-lisp
+
+  (require 'init-lsp)
+
+#+end_src
+
 [[https://github.com/emacs-lsp/lsp-mode][Language Server Protocol]] support with multiples languages support for Emacs.
 
-
-#+begin_src emacs-lisp
-
-  (leaf lsp-mode
-    :init
-    :config
-    (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
-    (lsp-register-client
-     (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
-                      :major-modes '(nix-mode)
-                      :server-id 'nix))
-    ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-    (setq lsp-keymap-prefix "C-c l")
-    :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
-           (java-mode . lsp)
-           (c-mode . lsp)
-           (c++-mode . lsp)
-           (haskell-mode-hook . lsp)
-           (nix-mode . lsp)
-           ;; if you want which-key integration
-           (lsp-mode . lsp-enable-which-key-integration))
-    :commands lsp)
-
-  ;; optionally if you want to use debugger
-  ;; (use-package dap-mode)
-  ;; (use-package dap-LANGUAGE) to load the dap adapter for your language
-
-#+end_src
-
-*** LSP-UI
-
-#+begin_src emacs-lisp
-
-  (leaf lsp-treemacs
-    :after lsp)
-
-#+end_src
-
-*** C/C++
-
-#+begin_src emacs-lisp
-
-  ;; Already set in LSP, to rewatch a little bit
-
-#+end_src
-
-*** JAVA
-
-#+begin_src emacs-lisp
-
-  (leaf lsp-java
-    :config (add-hook 'java-mode-hook 'lsp))
-
-#+end_src
+#+include: "lisp/init-lsp.el" src emacs-lisp :tangle no
 
 
 * Org Mode
@@ -627,106 +659,6 @@ This snippet adds a hook to =org-mode= buffers so that =archer-65/org-babel-tang
 
 #+end_src
 
-* File Management
-
-** Dired
-
-Dired is a built-in file manager for Emacs that does some pretty amazing things!  Here are some key bindings you should try out:
-
-*** Key Bindings
-
-**** Navigation
-
-- =n= - next line
-- =p= - previous line
-- =j= - jump to file in buffer
-- =RET= - select file or directory
-- =^= - go to parent directory
-- =S-RET= - Open file in "other" window
-- =M-RET= - Show file in other window without focusing (previewing files)
-- =g o= (=dired-view-file=) - Open file but in a "preview" mode, close with =q=
-- =g= - Refresh the buffer with =revert-buffer= after changing configuration (and after filesystem changes!)
-
-**** Marking files
-
-- =m= - Marks a file
-- =u= - Unmarks a file
-- =U= - Unmarks all files in buffer
-- ='*' t= - Inverts marked files in buffer
-- =% m= - Mark files in buffer using regular expression
-- =*= - Lots of other auto-marking functions
-- =k= - "Kill" marked items (refresh buffer with =g= / =g r= to get them back)
-- Many operations can be done on a single file if there are no active marks!
-
-**** Copying and Renaming files
-
-- =C= - Copy marked files (or if no files are marked, the current file)
-- Copying single and multiple files
-- =U= - Unmark all files in buffer
-- =R= - Rename marked files, renaming multiple is a move!
-- =% R= - Rename based on regular expression: =^test= , =old-\&=
-
-*Power command*: =C-x C-q= (=dired-toggle-read-only=) - Makes all file names in the buffer editable directly to rename them!  Press =Z Z= to confirm renaming or =Z Q= to abort.
-
-**** Deleting files
-
-- =D= - Delete marked file
-- =d= - Mark file for deletion
-- =x= - Execute deletion for marks
-- =delete-by-moving-to-trash= - Move to trash instead of deleting permanently
-
-**** Creating and extracting archives
-
-- =Z= - Compress or uncompress a file or folder to (=.tar.gz=)
-- =c= - Compress selection to a specific file
-- =dired-compress-files-alist= - Bind compression commands to file extension
-
-**** Other common operations
-
-- =T= - Touch (change timestamp)
-- =M= - Change file mode
-- =O= - Change file owner
-- =G= - Change file group
-- =S= - Create a symbolic link to this file
-- =L= - Load an Emacs Lisp file into Emacs
-
-*** Configuration
-
-#+begin_src emacs-lisp
-
-  (leaf dired
-    :ensure nil
-    :commands (dired dired-jump)
-    :bind ("C-x C-j" . dired-jump)
-    :custom
-    (dired-listing-switches . "-agho --group-directories-first")
-    :hook
-    (dired-load-hook . (lambda () (interactive) (dired-collapse))))
-
-
-  ;; (put 'dired-find-alternate-file 'disabled nil)
-
-  ;; (add-hook 'dired-mode-hook
-  ;;           (lambda ()
-  ;;             (define-key dired-mode-map (kbd "<return>")
-  ;;                         'dired-find-alternate-file) ; was dired-advertised-find-file
-  ;;             (define-key dired-mode-map (kbd "^")
-  ;;                         (lambda () (interactive) (find-alternate-file "..")))
-  ;;                                         ; was dired-up-directory
-  ;;             ))
-
-  (leaf dired-single
-    :commands (dired dired-jump))
-
-  (leaf all-the-icons-dired
-    :hook (dired-mode-hook . all-the-icons-dired-mode))
-
-  (leaf dired-hide-dotfiles
-    :hook (dired-mode-hook . dired-hide-dotfiles-mode)
-    :config
-    (define-key dired-mode-map (kbd "C-c d") 'dired-hide-dotfiles-mode))
-
-#+end_src
 
 * Mail
 
@@ -891,4 +823,4 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
           org-msg-convert-citation t)
     (org-msg-mode))
 
-#+end_srcx
+#+end_src

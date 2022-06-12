@@ -26,7 +26,8 @@
   :ensure t
   :init
   (setq modus-themes-region '(accented no-extend bg-only)
-        modus-themes-org-blocks 'gray-background)
+        modus-themes-org-blocks 'gray-background
+        modus-themes-mode-line '(borderless accented))
   ;; Load the theme files before enabling a theme
   (modus-themes-load-themes)
   :config

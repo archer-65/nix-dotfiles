@@ -47,30 +47,41 @@
 
 (require 'init-windows)
 
+(leaf dired
+  :ensure nil
+  :commands (dired dired-jump)
+  :bind ("C-x C-j" . dired-jump)
+  :custom
+  (dired-listing-switches . "-agho --group-directories-first")
+  :hook
+  (dired-load-hook . (lambda () (interactive) (dired-collapse))))
+
+
+;; (put 'dired-find-alternate-file 'disabled nil)
+
+;; (add-hook 'dired-mode-hook
+;;           (lambda ()
+;;             (define-key dired-mode-map (kbd "<return>")
+;;                         'dired-find-alternate-file) ; was dired-advertised-find-file
+;;             (define-key dired-mode-map (kbd "^")
+;;                         (lambda () (interactive) (find-alternate-file "..")))
+;;                                         ; was dired-up-directory
+;;             ))
+
+(leaf dired-single
+  :commands (dired dired-jump))
+
+(leaf all-the-icons-dired
+  :hook (dired-mode-hook . all-the-icons-dired-mode))
+
+(leaf dired-hide-dotfiles
+  :hook (dired-mode-hook . dired-hide-dotfiles-mode)
+  :config
+  (define-key dired-mode-map (kbd "C-c d") 'dired-hide-dotfiles-mode))
+
 ;; (require 'init-meow)
 
-(leaf projectile
-  :ensure t
-  :blackout t
-  :config (projectile-mode)
-  :bind-keymap
-  ("C-c p"   . projectile-command-map))
-  ;;:init
-  ;; NOTE: Set this to the folder where you keep your Git repos!
-  ;;(when (file-directory-p "~/Git")
-  ;;  (setq projectile-project-search-path '("~/Git")))
-  ;;(setq projectile-switch-project-action #'projectile-dired))
-
-(leaf magit
-  :commands magit-status
-  :custom
-  (magit-display-buffer-function . 'magit-display-buffer-same-window-except-diff-v1))
-
-;; NOTE: Make sure to configure a GitHub token before using this package!
-;; - https://magit.vc/manual/forge/Token-Creation.html#Token-Creation
-;; - https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started
-(leaf forge
-  :after magit)
+(require 'init-projects)
 
 (require 'init-code-style)
 
@@ -80,37 +91,7 @@
 
 (require 'init-snippets)
 
-(leaf lsp-mode
-  :init
-  :config
-  (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
-  (lsp-register-client
-   (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
-                    :major-modes '(nix-mode)
-                    :server-id 'nix))
-  ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-  (setq lsp-keymap-prefix "C-c l")
-  :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
-         (java-mode . lsp)
-         (c-mode . lsp)
-         (c++-mode . lsp)
-         (haskell-mode-hook . lsp)
-         (nix-mode . lsp)
-         ;; if you want which-key integration
-         (lsp-mode . lsp-enable-which-key-integration))
-  :commands lsp)
-
-;; optionally if you want to use debugger
-;; (use-package dap-mode)
-;; (use-package dap-LANGUAGE) to load the dap adapter for your language
-
-(leaf lsp-treemacs
-  :after lsp)
-
-;; Already set in LSP, to rewatch a little bit
-
-(leaf lsp-java
-  :config (add-hook 'java-mode-hook 'lsp))
+(require 'init-lsp)
 
 (defun archer-65/org-mode-setup ()
   (org-indent-mode)
@@ -233,38 +214,6 @@
       (org-babel-tangle))))
 
 (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'archer-65/org-babel-tangle-config)))
-
-(leaf dired
-  :ensure nil
-  :commands (dired dired-jump)
-  :bind ("C-x C-j" . dired-jump)
-  :custom
-  (dired-listing-switches . "-agho --group-directories-first")
-  :hook
-  (dired-load-hook . (lambda () (interactive) (dired-collapse))))
-
-
-;; (put 'dired-find-alternate-file 'disabled nil)
-
-;; (add-hook 'dired-mode-hook
-;;           (lambda ()
-;;             (define-key dired-mode-map (kbd "<return>")
-;;                         'dired-find-alternate-file) ; was dired-advertised-find-file
-;;             (define-key dired-mode-map (kbd "^")
-;;                         (lambda () (interactive) (find-alternate-file "..")))
-;;                                         ; was dired-up-directory
-;;             ))
-
-(leaf dired-single
-  :commands (dired dired-jump))
-
-(leaf all-the-icons-dired
-  :hook (dired-mode-hook . all-the-icons-dired-mode))
-
-(leaf dired-hide-dotfiles
-  :hook (dired-mode-hook . dired-hide-dotfiles-mode)
-  :config
-  (define-key dired-mode-map (kbd "C-c d") 'dired-hide-dotfiles-mode))
 
 (leaf emojify
   :hook (after-init . global-emojify-mode))
@@ -399,3 +348,14 @@
                   mails))
 
   (setq mu4e-alert-notify-repeated-mails nil))
+
+(leaf org-msg
+  :after mu4e
+  :config
+  (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil \\n:t"
+        org-msg-startup "hidestars indent inlineimages"
+        org-msg-default-alternatives '((new		. (text html))
+                                       (reply-to-html	. (text html))
+                                       (reply-to-text	. (text)))
+        org-msg-convert-citation t)
+  (org-msg-mode))
