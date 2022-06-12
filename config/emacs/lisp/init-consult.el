@@ -23,7 +23,7 @@
          ;; [C]-[M]-# bindings for registers
          ("C-M-#" . consult-register)
          ("M-#"   . consult-register-load)
-         ("C-#'"  . consult-register-store)        ;; orig. abbrev-prefix-mark (unrelated)
+         ("C-#"  . consult-register-store)        ;; orig. abbrev-prefix-mark (unrelated)
          ;; Other custom bindings
          ("M-y"   . consult-yank-pop)              ;; orig. yank-pop
          ("C-h a" . consult-apropos)               ;; orig. apropos-command
