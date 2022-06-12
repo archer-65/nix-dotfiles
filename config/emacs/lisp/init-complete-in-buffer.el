@@ -7,10 +7,10 @@
 ;;; Code:
 
 (leaf company
-    ;; :after lsp-mode
-    :hook
-    (after-init-hook . company-mode)
-    (lsp-mode-hook . company-mode)
+    :after lsp-mode
+    :ensure t
+    :init
+    (global-company-mode)
     :bind
     (company-active-map
           ("<tab>" . company-complete-selection))

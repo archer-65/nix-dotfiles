@@ -203,7 +203,7 @@ Keybindings and configuration are in the =init-embark.el= file.
 
 #+begin_src emacs-lisp
 
-  (require 'init-complete-in-buffer.el)
+  (require 'init-complete-in-buffer)
 
 #+end_src
 
@@ -216,6 +216,7 @@ Here =init-complete-in-buffer.el=.
 
 * Interface interaction
 
+
 ** Editing enhancement
 
 #+begin_src emacs-lisp
@@ -224,8 +225,15 @@ Here =init-complete-in-buffer.el=.
 
 #+end_src
 
-Enable [[https://www.emacswiki.org/emacs/UndoTree][Undo Tree]] mode for simpler undo-redo (and visual branches!).
-Other minor tweaks, regarding smooth (and smooth scroll for Emacs >= 29), delete-selection mode to overwrite selected regions, and drag-stuff to...drag stuff around.
+
+Tweaks present here:
+- Scroll (and smooth scroll for Emacs >= 29);
+- Electric-pair mode and show-paren;
+- Autorevert files after changes;
+- [[https://www.emacswiki.org/emacs/UndoTree][Undo Tree]] mode for simpler undo-redo (and visual branches!).
+- Rainbow-mode;
+- Delete-selection mode to overwrite selected regions;
+- Drag-stuff to...drag stuff around.
 
 #+include: "lisp/init-editing.el" src emacs-lisp :tangle no
 
@@ -258,30 +266,165 @@ Keybindings are listed in =init-meow.el=.
 #+include: "lisp/init-meow.el" src emacs-lisp :tangle no
 
 
-* Language related
+* Development
 
-** Flycheck
+** Projectile
 
-Modern on-the-fly syntax checking.
- 
 #+begin_src emacs-lisp
 
-    (leaf flycheck
-      :ensure t
-      :init (global-flycheck-mode))
+  (leaf projectile
+    :ensure t
+    :blackout t
+    :config (projectile-mode)
+    :bind-keymap
+    ("C-c p"   . projectile-command-map))
+    ;;:init
+    ;; NOTE: Set this to the folder where you keep your Git repos!
+    ;;(when (file-directory-p "~/Git")
+    ;;  (setq projectile-project-search-path '("~/Git")))
+    ;;(setq projectile-switch-project-action #'projectile-dired))
 
 #+end_src
 
 
-** Tabs
+** Magit
+
+Common Git operations are easy to execute quickly using Magit's command panel system.
 
 #+begin_src emacs-lisp
 
-  ;; Tabs, indentation, and the TAB key
-  (setq-default tab-always-indent 'complete)
-  (setq-default tab-first-completion 'word-or-paren-or-punct)
-  (setq-default tab-width 2)
-  (setq-default indent-tabs-mode nil)
+  (leaf magit
+    :commands magit-status
+    :custom
+    (magit-display-buffer-function . 'magit-display-buffer-same-window-except-diff-v1))
+
+  ;; NOTE: Make sure to configure a GitHub token before using this package!
+  ;; - https://magit.vc/manual/forge/Token-Creation.html#Token-Creation
+  ;; - https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started
+  (leaf forge
+    :after magit)
+
+#+end_src
+
+
+** Code style
+
+#+begin_src emacs-lisp
+
+  (require 'init-code-style)
+
+#+end_src
+
+[[https://github.com/glasserc/ethan-wspace][Ethan-wspace]] is a nice package to avoid useless/horrible extra whitespaces.
+
+[[https://github.com/Fanael/rainbow-delimiters][Rainbow-delimiters]] is useful in programming modes because it colorizes nested parentheses and brackets according to their nesting depth.  This makes it a lot easier to visually match parentheses in Emacs Lisp code without having to count them yourself.
+
+The rest of =init-code-style.el= regards tab settings.
+
+#+include: "lisp/init-code-style.el" src emacs-lisp :tangle no
+
+
+** Syntax checking
+
+Modern on-the-fly syntax checking.
+
+#+begin_src emacs-lisp
+
+  (require 'init-spell-and-check)
+
+#+end_src
+
+I'm a bit distracted, so spell and syntax checking is essential for me.
+
+This is =init-spell-and-check.el=.
+
+#+include: "lisp/init-spell-and-check.el" src emacs-lisp :tangle no
+
+
+** Extra modes
+
+#+begin_src emacs-lisp
+
+  (require 'init-extra-modes)
+
+#+end_src
+
+=init.extra.modes.el=
+
+#+include: "lisp/init-extra-modes.el" src emacs-lisp :tangle no
+
+
+** Yasnippet
+
+#+begin_src emacs-lisp
+
+  (require 'init-snippets)
+
+#+end_src
+
+I have to explain this?
+
+Here =init-snippets.el=.
+
+#+include: "lisp/init-snippets.el" src emacs-lisp :tangle no
+
+
+** LSP
+
+[[https://github.com/emacs-lsp/lsp-mode][Language Server Protocol]] support with multiples languages support for Emacs.
+
+
+#+begin_src emacs-lisp
+
+  (leaf lsp-mode
+    :init
+    :config
+    (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
+    (lsp-register-client
+     (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
+                      :major-modes '(nix-mode)
+                      :server-id 'nix))
+    ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
+    (setq lsp-keymap-prefix "C-c l")
+    :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
+           (java-mode . lsp)
+           (c-mode . lsp)
+           (c++-mode . lsp)
+           (haskell-mode-hook . lsp)
+           (nix-mode . lsp)
+           ;; if you want which-key integration
+           (lsp-mode . lsp-enable-which-key-integration))
+    :commands lsp)
+
+  ;; optionally if you want to use debugger
+  ;; (use-package dap-mode)
+  ;; (use-package dap-LANGUAGE) to load the dap adapter for your language
+
+#+end_src
+
+*** LSP-UI
+
+#+begin_src emacs-lisp
+
+  (leaf lsp-treemacs
+    :after lsp)
+
+#+end_src
+
+*** C/C++
+
+#+begin_src emacs-lisp
+
+  ;; Already set in LSP, to rewatch a little bit
+
+#+end_src
+
+*** JAVA
+
+#+begin_src emacs-lisp
+
+  (leaf lsp-java
+    :config (add-hook 'java-mode-hook 'lsp))
 
 #+end_src
 
@@ -475,161 +618,12 @@ This snippet adds a hook to =org-mode= buffers so that =archer-65/org-babel-tang
   ;; Automatically tangle our Emacs.org config file when we save it.
   (defun archer-65/org-babel-tangle-config ()
     (when (string-equal (file-name-directory (buffer-file-name))
-                        ;; (expand-file-name user-emacs-directory))
-                        (expand-file-name "~/.dotfiles/config/emacs/"))
+                        (expand-file-name archer--config-path))
       ;; Dynamic scoping to the rescue
       (let ((org-confirm-babel-evaluate nil))
         (org-babel-tangle))))
 
   (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'archer-65/org-babel-tangle-config)))
-
-#+end_src
-
-* Development
-** Yasnippet
-
-#+begin_src emacs-lisp
-
-  (leaf yasnippet
-    :hook (prog-mode-hook . yas-minor-mode)
-    :config
-    (yas-reload-all))
-
-  (leaf yasnippet-snippets)
-
-#+end_src
-** Smart Parens
-
-#+begin_src emacs-lisp
-
-  (leaf smartparens
-    :hook (prog-mode-hook . smartparens-mode))
-
-#+end_src
-
-** Projectile
-
-#+begin_src emacs-lisp
-
-  (leaf projectile
-    :blackout t
-    :config (projectile-mode)
-    :bind-keymap
-    ("C-c p" . projectile-command-map))
-    ;;:init
-    ;; NOTE: Set this to the folder where you keep your Git repos!
-    ;;(when (file-directory-p "~/Git")
-    ;;  (setq projectile-project-search-path '("~/Git")))
-    ;;(setq projectile-switch-project-action #'projectile-dired))
-
-#+end_src
-
-** Nix
-#+begin_src emacs-lisp
-  (leaf nix-mode
-    :mode "\\.nix\\'")
-
-  (leaf company-nixos-options)
-#+end_src
-** YAML
-
-#+begin_src emacs-lisp
-
-  (leaf yaml-mode)
-
-#+end_src
-
-** LSP
-
-
-[[https://github.com/emacs-lsp/lsp-mode][Language Server Protocol]] support with multiples languages support for Emacs.
-
-
-#+begin_src emacs-lisp
-
-  (leaf lsp-haskell)
-
-  (leaf lsp-mode
-    :init
-    :config
-    (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
-    (lsp-register-client
-     (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
-                      :major-modes '(nix-mode)
-                      :server-id 'nix))
-    ;; set prefix for lsp-command-keymap (few alternatives - "C-l", "C-c l")
-    (setq lsp-keymap-prefix "C-c l")
-    :hook (;; replace XXX-mode with concrete major-mode(e. g. python-mode)
-           (java-mode . lsp)
-           (c-mode . lsp)
-           (c++-mode . lsp)
-           (haskell-mode-hook . lsp)
-           (nix-mode . lsp)
-           ;; if you want which-key integration
-           (lsp-mode . lsp-enable-which-key-integration))
-    :commands lsp)
-
-  ;; optionally if you want to use debugger
-  ;; (use-package dap-mode)
-  ;; (use-package dap-LANGUAGE) to load the dap adapter for your language
-
-#+end_src
-
-*** LSP-UI
-
-#+begin_src emacs-lisp
-
-  (leaf lsp-treemacs
-    :after lsp)
-
-#+end_src
-
-*** C/C++
-
-#+begin_src emacs-lisp
-
-  ;; Already set in LSP, to rewatch a little bit
-
-#+end_src
-
-*** JAVA
-
-#+begin_src emacs-lisp
-
-  (leaf lsp-java
-    :config (add-hook 'java-mode-hook 'lsp))
-
-#+end_src
-
-** Magit
-
-Common Git operations are easy to execute quickly using Magit's command panel system.
-
-#+begin_src emacs-lisp
-
-  (leaf magit
-    :commands magit-status
-    :custom
-    (magit-display-buffer-function . 'magit-display-buffer-same-window-except-diff-v1))
-
-  ;; NOTE: Make sure to configure a GitHub token before using this package!
-  ;; - https://magit.vc/manual/forge/Token-Creation.html#Token-Creation
-  ;; - https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started
-  (leaf forge
-    :after magit)
-
-#+end_src
-
-** Rainbow Delimiters
-
-[[https://github.com/Fanael/rainbow-delimiters][rainbow-delimiters]] is useful in programming modes because it colorizes nested parentheses and brackets according to their nesting depth.  This makes it a lot easier to visually match parentheses in Emacs Lisp code without having to count them yourself.
-
-#+begin_src emacs-lisp
-
-  (leaf rainbow-delimiters
-    :ensure t
-    :require t
-    :hook (prog-mode-hook . rainbow-delimiters-mode))
 
 #+end_src
 

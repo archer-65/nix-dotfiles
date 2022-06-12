@@ -51,11 +51,5 @@
   (doom-modeline-minor-modes . t)
   (doom-modeline-buffer-file-name-style . 'buffer-name))
 
-(leaf rainbow-mode
-  :doc "Minor mode to set background of string matching hex colors to the hex color."
-  :ensure t
-  :config
-  (rainbow-mode t))
-
 (provide 'init-appearance)
 ;;; init-appearance.el ends here

@@ -16,12 +16,29 @@
             (message "Emacs loaded in %s with %d garbage collections."
                      (emacs-init-time) gcs-done)))
 
+
 ;; For consistency, we change the location of native compilation cache.
 ;; Currently not used
 ;; (when (fboundp 'startup-redirect-eln-cache)
 ;;   (startup-redirect-eln-cache
 ;;    (convert-standard-filename
 ;; 	  (expand-file-name  "var/eln-cache/" user-emacs-directory))))
+
+(defun archer--using-nix-p ()
+  "Verifies if the running Emacs executable is under the `/nix/store/' path."
+  (unless (or (equal system-type 'ms-dos)
+              (equal system-type 'windows-nt))
+    ;; Since there is no windows implementation of guix
+    (string-prefix-p "/nix/store/"
+                     (file-truename
+                      (executable-find
+                       (car command-line-args))))))
+
+(defvar archer--config-path
+  (if (archer--using-nix-p)
+      (if (file-exists-p (expand-file-name ".dotfiles/config/emacs" (getenv "HOME")))
+          (expand-file-name ".dotfiles/config/emacs" (getenv "HOME")))
+    (expand-file-name user-emacs-directory)))
 
 ;; Initialise installed packages
 (setq package-enable-at-startup t)

@@ -9,8 +9,8 @@
 
 ;;; Scrolling behaviour
 ;; Enable smooth scroll
-(unless (version< "29" emacs-version)
-  (add-hook 'after-init-hook 'pixel-scroll-precision-mode))
+(unless (version< emacs-version "29")
+  (pixel-scroll-precision-mode 1))
 
 ;; These four come from the C source code.
 ;; (And from Protesilaos, rofl)
@@ -19,11 +19,25 @@
 (setq-default scroll-margin 0)
 (setq-default next-screen-context-lines 0)
 
+(electric-pair-mode 1)
+(show-paren-mode 1)
+
 (leaf undo-tree
   :doc "Simpler undo/redo"
   :ensure t
   :init
   (global-undo-tree-mode))
+
+(leaf goto-last-change
+  :ensure t
+  :bind
+  ("C-z" . goto-last-change))
+
+(leaf autorevert
+  :setq
+  (auto-revert-verbose . t)
+  :hook
+  (after-init-hook . global-auto-revert-mode))
 
 (leaf delsel
   :hook
@@ -36,6 +50,12 @@
   (drag-stuff-mode t)
   (drag-stuff-global-mode 1)
   (drag-stuff-define-keys))
+
+(leaf rainbow-mode
+  :doc "Minor mode to set background of string matching hex colors to the hex color."
+  :ensure t
+  :config
+  (rainbow-mode t))
 
 (provide 'init-editing)
 ;;; init-editing.el ends here

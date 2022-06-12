@@ -16,6 +16,6 @@ in rec {
 
   programs.home-manager.enable = true;
 
-  home.packages = [ pkgs.scripts.volume pkgs.firefox ] ++ socialPkgs
+  home.packages = [ pkgs.scripts.volume pkgs.firefox pkgs.ispell ] ++ socialPkgs
     ++ mediaPkgs ++ utilPkgs ++ monitorPkgs ++ qt5Pkgs;
 }

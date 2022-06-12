@@ -41,7 +41,7 @@
 
 (require 'init-embark)
 
-(require 'init-complete-in-buffer.el)
+(require 'init-complete-in-buffer)
 
 (require 'init-editing)
 
@@ -175,7 +175,7 @@
 (defun archer-65/org-babel-tangle-config ()
   (when (string-equal (file-name-directory (buffer-file-name))
                       ;; (expand-file-name user-emacs-directory))
-                      (expand-file-name "~/.dotfiles/config/emacs/"))
+                      (archer--config-path))
     ;; Dynamic scoping to the rescue
     (let ((org-confirm-babel-evaluate nil))
       (org-babel-tangle))))
