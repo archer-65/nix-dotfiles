@@ -22,7 +22,11 @@
   :config
   (add-to-list 'org-structure-template-alist '("bash" . "src bash"))
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-  (add-to-list 'org-structure-template-alist '("cc" . "src c")))
+  (add-to-list 'org-structure-template-alist '("cc" . "src c"))
+  :hook
+  (org-mode-hook . (lambda () (setq-local electric-pair-inhibit-predicate
+                                          `(lambda (c)
+                                             (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c)))))))
 
 ;; Auto tangling
 (defun archer-65/org-babel-tangle-config ()

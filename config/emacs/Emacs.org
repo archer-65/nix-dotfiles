@@ -301,6 +301,75 @@ This if my =init.dired.el= file.
 #+include: "lisp/init-dired.el" src emacs-lisp :tangle no
 
 
+* Org Mode
+
+** Essential configuration
+
+#+begin_src emacs-lisp
+
+  (require 'init-org)
+
+#+end_src
+
+I absolutely need focus when I'm editing my documents in the dark, so I want my buffer centered and lines untruncated.
+
+Indentation and =visual-line-column= are defined as a function for basic org-mode setup.
+
+The purpose of [[https://github.com/joostkremers/visual-fill-column][visual-fill-column]] is to center =org-mode= buffers for a more pleasing writing experience as it centers the contents of the buffer horizontally to seem more like you are editing a document.
+
+[[https://github.com/minad/org-modern][Org Modern]] replaces markup syntax with nice headings, TODOs etc.
+
+#+include: "lisp/init-org.el" src emacs-lisp :tangle no
+
+
+** Babel and Tempo
+
+#+begin_src emacs-lisp
+
+  (require 'init-org-languages)
+
+#+end_src
+
+To execute or export code in =org-mode= code blocks, we need to set up =org-babel-load-languages= for each language. [[https://orgmode.org/worg/org-contrib/babel/languages.html][This page]] documents all of the languages that you can use with =org-babel=.
+
+Org Mode's [[https://orgmode.org/manual/Structure-Templates.html][structure templates]] feature enables to quickly insert code blocks into your Org files in combination with =org-tempo= by typing =<= followed by the template name like =el= or =py= and then press =TAB=.
+To add more =src= block templates, just copy one of the lines and change the two strings at the end, the first to be the template name and the second to contain the name of the language ([[https://orgmode.org/worg/org-contrib/babel/languages.html][listed here]]).
+
+There's also a snippet that adds a hook to =org-mode= buffers so that =archer--org-babel-tangle-config= gets executed each time such a buffer gets saved. This function checks to see if the file being saved is the Emacs.org file you're looking at right now, and if so, automatically exports the configuration here to the associated output files. This function is inspired by David Wilson of System Crafters.
+
+#+include: "lisp/init-org-languages.el" src emacs-lisp :tangle no
+
+
+** Exporting
+
+#+begin_src emacs-lisp
+
+  (require 'init-org-export)
+
+#+end_src
+
+Org is surely nice, but what about export?
+Wonderful, but it needs some tweaks, and not only for presentations.
+
+The first section of this file is regards good LaTeX export through =ox-latex=.
+The best way to set export options is [[https://jakebox.github.io/youtube/org_latex_video.html][the following]].
+
+Structure every file like this:
+
+#+begin_src org
+
+  #+LaTeX_CLASS: article
+  #+LaTeX_CLASS_OPTIONS: [letterpaper]
+  #+OPTIONS: toc:nil
+  #+SETUPFILE: ~/your/path/to/setup/file.org
+
+#+end_src
+
+Reveal.js presentations are exported through =ox-reveal=, which is very simple to configure.
+
+#+include: "lisp/init-org-export.el" src emacs-lisp :tangle no
+
+
 * Development
 
 ** Projects management and Git
@@ -397,307 +466,30 @@ Here =init-snippets.el=.
 #+include: "lisp/init-lsp.el" src emacs-lisp :tangle no
 
 
-* Org Mode
+* Frontend for other uses
 
-** Essential configuration
-
-#+begin_src emacs-lisp
-
-  (require 'init-org)
-
-#+end_src
-
-I absolutely need focus when I'm editing my documents in the dark, so I want my buffer centered and lines untruncated.
-
-Indentation and =visual-line-column= are defined as a function for basic org-mode setup.
-
-The purpose of [[https://github.com/joostkremers/visual-fill-column][visual-fill-column]] is to center =org-mode= buffers for a more pleasing writing experience as it centers the contents of the buffer horizontally to seem more like you are editing a document.
-
-[[https://github.com/minad/org-modern][Org Modern]] replaces markup syntax with nice headings, TODOs etc.
-
-#+include: "lisp/init-org.el" src emacs-lisp :tangle no
-
-
-** Configure Babel Languages
-
-To execute or export code in =org-mode= code blocks, you'll need to set up =org-babel-load-languages= for each language you'd like to use.  [[https://orgmode.org/worg/org-contrib/babel/languages.html][This page]] documents all of the languages that you can use with =org-babel=.
+** Mails
 
 #+begin_src emacs-lisp
 
-  ;; (with-eval-after-load 'org
-  ;;   (org-babel-do-load-languages
-  ;;       'org-babel-load-languages
-  ;;       '((emacs-lisp . t))))
-
-  (require 'init-org-languages)
+  (require 'init-mail)
 
 #+end_src
 
+=mu4e= (mu-for-emacs) is an e-mail client for GNU Emacs version 24.4 or higher, built on top of the =mu= e-mail search engine. mu4e is optimized for quickly processing large amounts of e-mail.
 
-** Structure Templates
+Some of its highlights:
+- Fully search-based: there are no folders, only queries;
+- Fully documented, with example configurations;
+- User-interface optimized for speed, with quick key strokes for common actions;
+- Support for non-English languages (so “angstrom” matches “Ångström”);
+- Asynchronous: heavy actions don’t block emacs;
+- Support for cryptography — signing, encrypting and decrypting;
+- Address auto-completion based on the contacts in your messages;
+- Extendable with your own snippets of elisp.
 
-Org Mode's [[https://orgmode.org/manual/Structure-Templates.html][structure templates]] feature enables you to quickly insert code blocks into your Org files in combination with =org-tempo= by typing =<= followed by the template name like =el= or =py= and then press =TAB=.  For example, to insert an empty =emacs-lisp= block below, you can type =<el= and press =TAB= to expand into such a block.
+There's =mu4e-alert= a good package for notifications, a bit buggy, but is working :D.
 
-You can add more =src= block templates below by copying one of the lines and changing the two strings at the end, the first to be the template name and the second to contain the name of the language [[https://orgmode.org/worg/org-contrib/babel/languages.html][as it is known by Org Babel]].
+Last but not least: [[https://github.com/jeremy-compostella/org-msg][org-msg]], an Outlook email style to compose (and reply to) emails, working also for ~Gnus~.
 
-#+begin_src emacs-lisp
-
-  ;; (with-eval-after-load 'org
-  ;;   ;; This is needed as of Org 9.2
-  ;;   (require 'org-tempo)
-
-  ;;   (add-to-list 'org-structure-template-alist '("bash" . "src bash"))
-  ;;   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-  ;;   (add-to-list 'org-structure-template-alist '("cc" . "src c")))
-
-#+end_src
-
-
-** Auto-tangle Configuration Files
-
-This snippet adds a hook to =org-mode= buffers so that =archer-65/org-babel-tangle-config= gets executed each time such a buffer gets saved.  This function checks to see if the file being saved is the Emacs.org file you're looking at right now, and if so, automatically exports the configuration here to the associated output files.
-
-#+begin_src emacs-lisp
-
-
-
-#+end_src
-
-
-** Export LaTeX
-
-#+begin_src emacs-lisp
-  
-  ;; LaTeX export settings
-  (setq org-latex-pdf-process
-        '("latexmk -pdflatex='pdflatex -interaction nonstopmode' -pdf -bibtex -f %f"))
-  
-  (require 'ox-latex)
-  (unless (boundp 'org-latex-classes)
-    (setq org-latex-classes nil))
-  
-  ;; Newpage after TOC
-  (setq org-latex-toc-command "\\tableofcontents \\clearpage")
-  
-  ;; Article 
-  (add-to-list 'org-latex-classes
-               '("article"
-                 "\\documentclass[11pt,a4paper]{article}
-  \\usepackage[utf8]{inputenc}
-  \\usepackage[T1]{fontenc}
-  \\usepackage{fixltx2e}
-  \\usepackage{graphicx}
-  \\usepackage{longtable}
-  \\usepackage{float}
-  \\usepackage{wrapfig}
-  \\usepackage{rotating}
-  \\usepackage[normalem]{ulem}
-  \\usepackage{amsmath}
-  \\usepackage{textcomp}
-  \\usepackage{marvosym}
-  \\usepackage{wasysym}
-  \\usepackage{amssymb}
-  \\usepackage{hyperref}
-  \\usepackage{mathpazo}
-  \\usepackage{color}
-  \\usepackage{enumerate}
-  \\definecolor{bg}{rgb}{0.95,0.95,0.95}
-  \\tolerance=1000
-        [NO-DEFAULT-PACKAGES]
-        [PACKAGES]
-        [EXTRA]
-  \\linespread{1.1}
-  \\hypersetup{pdfborder=0 0 0}"
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}")))
-  
-  ;; Using minted for tables
-  (setq org-latex-listings 'minted
-        org-latex-packages-alist '(("" "minted"))
-        org-latex-pdf-process
-        '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-          "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
-  
-  (setq org-latex-minted-options '(("breaklines" "true")
-                                   ("breakanywhere" "true")))
-  
-#+end_src
-
-
-** HTML Reveal.js
-
-#+begin_src emacs-lisp
-  (leaf ox-reveal
-    :ensure ox-reveal)
-
-  (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js")
-#+end_src
-
-
-* Mail
-
-** MU4E
-
-#+begin_src emacs-lisp
-
-  (leaf emojify
-    :hook (after-init . global-emojify-mode))
-
-  (leaf mu4e
-    :load-path "/usr/share/emacs/site-lisp/mu4e/"
-    :require t
-    :config
-
-    ;; Use mu4e for sending e-mail
-    (setq mail-user-agent 'mu4e-user-agent)
-
-    (setq sendmail-program "/usr/bin/msmtp"
-      message-sendmail-f-is-evil t
-      message-sendmail-extra-arguments '("--read-envelope-from")
-      send-mail-function 'smtpmail-send-it
-      message-send-mail-function 'message-send-mail-with-sendmail)
-      ;mu4e-compose-signature "Sent from Emacs")
-
-    (with-eval-after-load "emojify"
-      (delete 'mu4e-headers-mode emojify-inhibit-major-modes))
-
-    (require 'mu4e-contrib)
-
-    (setq shr-color-visible-luminance-min 60)
-    (setq shr-color-visible-distance-min 5)
-    (setq shr-use-colors nil)
-    (advice-add #'shr-colorize-region :around (defun shr-no-colourise-region (&rest ignore)))
-
-    ;; Load org-mode integration
-    (require 'org-mu4e)
-
-    ;; This is set to 't' to avoid mail syncing issues when using mbsync
-    (setq mu4e-change-filenames-when-moving t)
-
-    ;; Refresh mail using isync every 10 minutes
-    (setq mu4e-get-mail-command "mbsync -a")
-    (setq mu4e-update-interval (* 5 60))
-    (setq mu4e-maildir "~/mails")
-    (setq mu4e-main-buffer-hide-personal-addresses t)
-
-    (setq mu4e-contexts
-          (list
-           ;; Gmail Account
-           (make-mu4e-context
-            :name "Gmail"
-            :match-func
-            (lambda (msg)
-              (when msg
-                (string-prefix-p "/Gmail" (mu4e-message-field msg :maildir))))
-            :vars '((mu4e-sent-folder  . "/Gmail/[Gmail]/Sent Mail")
-                    (mu4e-drafts-folder  . "/Gmail/[Gmail]/Drafts")
-                    (mu4e-trash-folder  . "/Gmail/[Gmail]/Trash")
-                    (mu4e-maildir-shortcuts .
-                                            (("/Gmail/Inbox"     . ?i)
-                                             ("/Gmail/[Gmail]/Sent Mail" . ?s)
-                                             ("/Gmail/[Gmail]/Trash"     . ?t)
-                                             ("/Gmail/[Gmail]/Drafts"    . ?d)))))
-           ;; Outlook
-           (make-mu4e-context
-            :name "Outlook"
-            :match-func
-            (lambda (msg)
-              (when msg
-                (string-prefix-p "/Outlook" (mu4e-message-field msg :maildir))))
-            :vars '((mu4e-drafts-folder  . "/Outlook/Drafts")
-                    (mu4e-sent-folder  . "/Outlook/Sent")
-                    (mu4e-refile-folder  . "/Outlook/Archive")
-                    (mu4e-trash-folder  . "/Outlook/Deleted")
-                    (mu4e-maildir-shortcuts .
-                                            (("/Outlook/Inbox"   . ?i)
-                                             ("/Outlook/Sent"    . ?s)
-                                             ("/Outlook/Deleted" . ?t)
-                                             ("/Outlook/Drafts"  . ?d)))))
-
-           ;;UniNa
-           (make-mu4e-context
-            :name "Unina"
-            :match-func
-            (lambda (msg)
-              (when msg
-                (string-prefix-p "/Unina" (mu4e-message-field msg :maildir))))
-            :vars '((mu4e-drafts-folder  . "/Unina/Bozze")
-                    (mu4e-sent-folder  . "/Unina/Posta inviata")
-                    (mu4e-trash-folder  . "/Unina/Deleted Items")
-                    (mu4e-maildir-shortcuts .
-                                            (("/Unina/Inbox"         . ?i)
-                                             ("/Unina/Posta inviata" . ?s)
-                                             ("/Unina/Deleted Items" . ?t)
-                                             ("/Unina/Bozze"         . ?d)))))))
-    ;; Set Bookmarks for all
-    (setq  mu4e-bookmarks '(( :name  "Unread messages"
-                              :query "flag:unread AND NOT flag:trashed"
-                              :key ?u)
-                            ( :name "Today's messages"
-                              :query "date:today..now"
-                              :key ?t)))
-
-    (setq mu4e-context-policy 'pick-first)
-
-    ;; don't keep message buffers around
-    (setq message-kill-buffer-on-exit t)
-
-    ;; Don't ask to quit... why is this the default?
-    (setq mu4e-confirm-quit nil)
-    (mu4e t))
-
-#+end_src
-
-** MUE4-ALERT
-
-#+begin_src emacs-lisp
-
-  (leaf mu4e-alert
-    :after mu4e
-    :init
-    (mu4e-alert-set-default-style 'libnotify)
-
-    (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
-
-    (defun mu4e-alert--get-mu4e-frame ()
-      "Try getting a frame containing a mu4e buffer."
-      (car (delq nil (mapcar (lambda (buffer)
-                               (when (and buffer
-                                          (get-buffer-window buffer t))
-                                 (window-frame (get-buffer-window buffer t))))
-                             (list mu4e-main-buffer-name)))))
-
-    (defun mu4e-alert-filter-repeated-mails (mails)
-      "Filters the MAILS that have been seen already."
-      (cl-remove-if (lambda (mail)
-                      (prog1 (and (not mu4e-alert-notify-repeated-mails)
-                                  (ht-get mu4e-alert-repeated-mails
-                                          (plist-get mail :message-id)))
-                        (ht-set! mu4e-alert-repeated-mails
-                                 (plist-get mail :message-id)
-                                 t)))
-                    mails))
-
-    (setq mu4e-alert-notify-repeated-mails nil))
-
-#+end_src
-
-** Org Mail
-
-#+begin_src emacs-lisp
-
-  (leaf org-msg
-    :after mu4e
-    :config
-    (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil \\n:t"
-          org-msg-startup "hidestars indent inlineimages"
-          org-msg-default-alternatives '((new		. (text html))
-                                         (reply-to-html	. (text html))
-                                         (reply-to-text	. (text)))
-          org-msg-convert-citation t)
-    (org-msg-mode))
-
-#+end_src
+#+include: "lisp/init-mail.el" src emacs-lisp :tangle no

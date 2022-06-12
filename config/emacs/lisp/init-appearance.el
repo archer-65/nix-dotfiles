@@ -52,5 +52,19 @@
   (doom-modeline-minor-modes . t)
   (doom-modeline-buffer-file-name-style . 'buffer-name))
 
+(leaf emojify
+  :doc "Enhanced emoji support :D"
+  :config
+  (when (member "Noto Color Emoji" (font-family-list))
+    (set-fontset-font
+     t 'symbol (font-spec :family "Noto Color Emoji") nil 'prepend))
+  (setq emojify-display-style 'unicode)
+  (setq emojify-emoji-styles '(unicode))
+  ;; Don't inhibit for mu4e
+  (delete 'mu4e-headers-mode emojify-inhibit-major-modes)
+  (bind-key* (kbd "C-x C-/") #'emojify-insert-emoji)
+  :hook
+  (after-init-hook . global-emojify-mode))
+
 (provide 'init-appearance)
 ;;; init-appearance.el ends here
