@@ -30,17 +30,10 @@
    ((> bytes 1000) (format "%10.1fk" (/ bytes 1000.0)))
    (t (format "%10d" bytes))))
 
-;;; Unique names for buffers
-(leaf uniquify
-  :require t
-  :config
-  (setq uniquify-buffer-name-style 'forward)
-  (setq uniquify-strip-common-suffix t)
-  (setq uniquify-after-kill-buffer-p t))
 
 (leaf ibuffer
   :require t
-  :init
+  :config
   ;; Use human readable Size column instead of original one
   (define-ibuffer-column size-h
     (:name "Size" :inline t :summarizer
@@ -51,9 +44,8 @@
 			                          total)))
 	             (archer--bytes-to-human-readable-file-sizes total))))
     (archer--bytes-to-human-readable-file-sizes (buffer-size)))
-  :setq
   ;; Modify the default ibuffer-formats
-  (ibuffer-formats .
+  (setq ibuffer-formats
         '((mark modified read-only locked " "
 	              (name 20 20 :left :elide)
 	              " "
@@ -66,24 +58,36 @@
 	              (name 16 -1)
 	              " " filename)))
   ;; Add groups
-  (ibuffer-saved-filter-groups .
+  (setq ibuffer-saved-filter-groups
         '(("default"
            ("dired" (mode . dired-mode))
            ("emacs" (or
                      (name . "^\\*scratch\\*$")
-                     (name . "^\\*Messages\\*$"))))))
-  (ibuffer-expert . t)
-  (ibuffer-display-summary . t)
-  (ibuffer-show-empty-filter-groups . nil)
-  (ibuffer-use-other-window . nil)
-  (ibuffer-movement-cycle . t)
-  (ibuffer-default-sorting-mode . 'filename/process)
-  (ibuffer-use-header-line . t)
-  (ibuffer-default-shrink-to-minimum-size . nil)
+                     (name . "^\\*Messages\\*$")
+                     (name . "^\\*straight-process\\*$")
+                     (name . "^\\*dashboard\\*$"))))))
+  (setq ibuffer-expert t)
+  (setq ibuffer-display-summary t)
+  (setq ibuffer-show-empty-filter-groups nil)
+  (setq ibuffer-use-other-window nil)
+  (setq ibuffer-movement-cycle t)
+  (setq ibuffer-default-sorting-mode 'filename/process)
+  (setq ibuffer-use-header-line t)
+  (setq ibuffer-default-shrink-to-minimum-size nil)
   :hook
-  (ibuffer-mode-hook . (lambda () (ibuffer-switch-to-saved-filter-groups "default")))
+  (ibuffer-mode-hook . (lambda ()
+                         (ibuffer-switch-to-saved-filter-groups "default")
+                         (ibuffer-auto-mode 1)))
   :bind
   ("C-x C-b" . ibuffer))
+
+;;; Unique names for buffers
+(leaf uniquify
+  :require t
+  :config
+  (setq uniquify-buffer-name-style 'forward)
+  (setq uniquify-strip-common-suffix t)
+  (setq uniquify-after-kill-buffer-p t))
 
 (provide 'init-buffers)
 ;;; init-buffers.el ends here

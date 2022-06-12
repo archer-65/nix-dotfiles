@@ -65,38 +65,24 @@
 
 (require 'init-lsp)
 
-(defun archer-65/org-mode-setup ()
-  (org-indent-mode)
-  (variable-pitch-mode 1)
-  (visual-line-mode 1))
+(require 'init-org)
 
-(leaf org
-  ;:pin org
-  :ensure t
-  :require t
-  :hook (org-mode-hook . archer-65/org-mode-setup)
-  :config
-  (setq org-ellipsis " ▾")
-  (setq org-pretty-entities 't))
+;; (with-eval-after-load 'org
+;;   (org-babel-do-load-languages
+;;       'org-babel-load-languages
+;;       '((emacs-lisp . t))))
 
-(leaf org-modern
-  :ensure t
-  :require t
-  :after org
-  :hook (org-mode-hook . org-modern-mode))
+(require 'init-org-languages)
 
-(defun archer-65/org-mode-visual-fill ()
-  (setq visual-fill-column-width 170
-        visual-fill-column-center-text t)
-  (visual-fill-column-mode 1))
+;; (with-eval-after-load 'org
+;;   ;; This is needed as of Org 9.2
+;;   (require 'org-tempo)
 
-(leaf visual-fill-column
-  :hook (org-mode-hook . archer-65/org-mode-visual-fill))
+;;   (add-to-list 'org-structure-template-alist '("bash" . "src bash"))
+;;   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+;;   (add-to-list 'org-structure-template-alist '("cc" . "src c")))
 
-;; Date settings for org-mode
-(setq-default org-display-custom-times t)
-(setq org-time-stamp-custom-formats
-      '("<%d %b %Y>" . "<%d/%m/%y %a %H:%M>"))
+
 
 ;; LaTeX export settings
 (setq org-latex-pdf-process
@@ -158,34 +144,6 @@
   :ensure ox-reveal)
 
 (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js")
-
-(with-eval-after-load 'org
-  (org-babel-do-load-languages
-      'org-babel-load-languages
-      '((emacs-lisp . t))))
-
-  (push '("conf-unix" . conf-unix) org-src-lang-modes)
-
-(with-eval-after-load 'org
-  ;; This is needed as of Org 9.2
-  (require 'org-tempo)
-
-  (add-to-list 'org-structure-template-alist '("bash" . "src bash"))
-  (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-  (add-to-list 'org-structure-template-alist '("cc" . "src c")))
-
-(eval-after-load 'org
-  '(setf org-highlight-latex-and-related '(latex)))
-
-;; Automatically tangle our Emacs.org config file when we save it.
-(defun archer-65/org-babel-tangle-config ()
-  (when (string-equal (file-name-directory (buffer-file-name))
-                      (expand-file-name archer--config-path))
-    ;; Dynamic scoping to the rescue
-    (let ((org-confirm-babel-evaluate nil))
-      (org-babel-tangle))))
-
-(add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'archer-65/org-babel-tangle-config)))
 
 (leaf emojify
   :hook (after-init . global-emojify-mode))

@@ -226,13 +226,16 @@ Here =init-complete-in-buffer.el=.
 
 
 Tweaks present here:
-- Scroll (and smooth scroll for Emacs >= 29);
+- Scroll (and smooth scroll for Emacs >= 29) and horizontal scroll with mouse;
+- Truncate lines hook for =prog-mode=;
 - Electric-pair mode and show-paren;
 - Autorevert files after changes;
 - [[https://www.emacswiki.org/emacs/UndoTree][Undo Tree]] mode for simpler undo-redo (and visual branches!).
 - Rainbow-mode;
 - Delete-selection mode to overwrite selected regions;
 - Drag-stuff to...drag stuff around.
+
+Following, my =init-editing.el=.
 
 #+include: "lisp/init-editing.el" src emacs-lisp :tangle no
 
@@ -264,6 +267,7 @@ Moving around windows can be painful, but some built-in functions save our a*s.
 
 #+include: "lisp/init-windows.el" src emacs-lisp :tangle no
 
+
 ** Buffer management
 
 #+begin_src emacs-lisp
@@ -273,8 +277,10 @@ Moving around windows can be painful, but some built-in functions save our a*s.
 #+end_src
 
 Sometimes buffers are too much, and I think that the classic buffer-menu is meh.
+With =ibuffer= I can group buffers in ~Gnus~ style, customize actions remembering ~Dired~, and so on.
 
 #+include: "lisp/init-buffers.el" src emacs-lisp :tangle no
+
 
 ** Dired
 
@@ -393,68 +399,70 @@ Here =init-snippets.el=.
 
 * Org Mode
 
-** Basic Config
-
-This section contains the basic configuration for =org-mode= plus the configuration for Org agendas and capture templates.
+** Essential configuration
 
 #+begin_src emacs-lisp
 
-  (defun archer-65/org-mode-setup ()
-    (org-indent-mode)
-    (variable-pitch-mode 1)
-    (visual-line-mode 1))
-
-  (leaf org
-    ;:pin org
-    :ensure t
-    :require t
-    :hook (org-mode-hook . archer-65/org-mode-setup)
-    :config
-    (setq org-ellipsis " ▾")
-    (setq org-pretty-entities 't))
+  (require 'init-org)
 
 #+end_src
 
-*** Nicer Heading Bullets
+I absolutely need focus when I'm editing my documents in the dark, so I want my buffer centered and lines untruncated.
 
-[[https://github.com/sabof/org-bullets][org-bullets]] replaces the heading stars in =org-mode= buffers with nicer looking characters that you can control.
+Indentation and =visual-line-column= are defined as a function for basic org-mode setup.
+
+The purpose of [[https://github.com/joostkremers/visual-fill-column][visual-fill-column]] is to center =org-mode= buffers for a more pleasing writing experience as it centers the contents of the buffer horizontally to seem more like you are editing a document.
+
+[[https://github.com/minad/org-modern][Org Modern]] replaces markup syntax with nice headings, TODOs etc.
+
+#+include: "lisp/init-org.el" src emacs-lisp :tangle no
+
+
+** Configure Babel Languages
+
+To execute or export code in =org-mode= code blocks, you'll need to set up =org-babel-load-languages= for each language you'd like to use.  [[https://orgmode.org/worg/org-contrib/babel/languages.html][This page]] documents all of the languages that you can use with =org-babel=.
 
 #+begin_src emacs-lisp
 
-  (leaf org-modern
-    :ensure t
-    :require t
-    :after org
-    :hook (org-mode-hook . org-modern-mode))
+  ;; (with-eval-after-load 'org
+  ;;   (org-babel-do-load-languages
+  ;;       'org-babel-load-languages
+  ;;       '((emacs-lisp . t))))
+
+  (require 'init-org-languages)
 
 #+end_src
 
-*** Center Org Buffers
 
-We use [[https://github.com/joostkremers/visual-fill-column][visual-fill-column]] to center =org-mode= buffers for a more pleasing writing experience as it centers the contents of the buffer horizontally to seem more like you are editing a document.  This is really a matter of personal preference so you can remove the block below if you don't like the behavior.
+** Structure Templates
+
+Org Mode's [[https://orgmode.org/manual/Structure-Templates.html][structure templates]] feature enables you to quickly insert code blocks into your Org files in combination with =org-tempo= by typing =<= followed by the template name like =el= or =py= and then press =TAB=.  For example, to insert an empty =emacs-lisp= block below, you can type =<el= and press =TAB= to expand into such a block.
+
+You can add more =src= block templates below by copying one of the lines and changing the two strings at the end, the first to be the template name and the second to contain the name of the language [[https://orgmode.org/worg/org-contrib/babel/languages.html][as it is known by Org Babel]].
 
 #+begin_src emacs-lisp
 
-  (defun archer-65/org-mode-visual-fill ()
-    (setq visual-fill-column-width 170
-          visual-fill-column-center-text t)
-    (visual-fill-column-mode 1))
+  ;; (with-eval-after-load 'org
+  ;;   ;; This is needed as of Org 9.2
+  ;;   (require 'org-tempo)
 
-  (leaf visual-fill-column
-    :hook (org-mode-hook . archer-65/org-mode-visual-fill))
+  ;;   (add-to-list 'org-structure-template-alist '("bash" . "src bash"))
+  ;;   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
+  ;;   (add-to-list 'org-structure-template-alist '("cc" . "src c")))
 
 #+end_src
 
-*** Date
+
+** Auto-tangle Configuration Files
+
+This snippet adds a hook to =org-mode= buffers so that =archer-65/org-babel-tangle-config= gets executed each time such a buffer gets saved.  This function checks to see if the file being saved is the Emacs.org file you're looking at right now, and if so, automatically exports the configuration here to the associated output files.
 
 #+begin_src emacs-lisp
-  
-  ;; Date settings for org-mode
-  (setq-default org-display-custom-times t)
-  (setq org-time-stamp-custom-formats
-        '("<%d %b %Y>" . "<%d/%m/%y %a %H:%M>"))
-  
+
+
+
 #+end_src
+
 
 ** Export LaTeX
 
@@ -518,6 +526,7 @@ We use [[https://github.com/joostkremers/visual-fill-column][visual-fill-column]
   
 #+end_src
 
+
 ** HTML Reveal.js
 
 #+begin_src emacs-lisp
@@ -525,68 +534,6 @@ We use [[https://github.com/joostkremers/visual-fill-column][visual-fill-column]
     :ensure ox-reveal)
 
   (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js")
-#+end_src
-
-** Configure Babel Languages
-
-To execute or export code in =org-mode= code blocks, you'll need to set up =org-babel-load-languages= for each language you'd like to use.  [[https://orgmode.org/worg/org-contrib/babel/languages.html][This page]] documents all of the languages that you can use with =org-babel=.
-
-#+begin_src emacs-lisp
-
-  (with-eval-after-load 'org
-    (org-babel-do-load-languages
-        'org-babel-load-languages
-        '((emacs-lisp . t))))
-
-    (push '("conf-unix" . conf-unix) org-src-lang-modes)
-
-#+end_src
-
-** Structure Templates
-
-Org Mode's [[https://orgmode.org/manual/Structure-Templates.html][structure templates]] feature enables you to quickly insert code blocks into your Org files in combination with =org-tempo= by typing =<= followed by the template name like =el= or =py= and then press =TAB=.  For example, to insert an empty =emacs-lisp= block below, you can type =<el= and press =TAB= to expand into such a block.
-
-You can add more =src= block templates below by copying one of the lines and changing the two strings at the end, the first to be the template name and the second to contain the name of the language [[https://orgmode.org/worg/org-contrib/babel/languages.html][as it is known by Org Babel]].
-
-#+begin_src emacs-lisp
-
-  (with-eval-after-load 'org
-    ;; This is needed as of Org 9.2
-    (require 'org-tempo)
-
-    (add-to-list 'org-structure-template-alist '("bash" . "src bash"))
-    (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
-    (add-to-list 'org-structure-template-alist '("cc" . "src c")))
-
-#+end_src
-
-** LaTeX Live
-
-This snippet is used to highlight LaTeX code in org files
-
-#+begin_src emacs-lisp
-
-  (eval-after-load 'org
-    '(setf org-highlight-latex-and-related '(latex)))
-
-#+end_src
-
-** Auto-tangle Configuration Files
-
-This snippet adds a hook to =org-mode= buffers so that =archer-65/org-babel-tangle-config= gets executed each time such a buffer gets saved.  This function checks to see if the file being saved is the Emacs.org file you're looking at right now, and if so, automatically exports the configuration here to the associated output files.
-
-#+begin_src emacs-lisp
-
-  ;; Automatically tangle our Emacs.org config file when we save it.
-  (defun archer-65/org-babel-tangle-config ()
-    (when (string-equal (file-name-directory (buffer-file-name))
-                        (expand-file-name archer--config-path))
-      ;; Dynamic scoping to the rescue
-      (let ((org-confirm-babel-evaluate nil))
-        (org-babel-tangle))))
-
-  (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'archer-65/org-babel-tangle-config)))
-
 #+end_src
 
 
