@@ -45,41 +45,13 @@
 
 (require 'init-editing)
 
+;; (require 'init-meow)
+
 (require 'init-windows)
 
-(leaf dired
-  :ensure nil
-  :commands (dired dired-jump)
-  :bind ("C-x C-j" . dired-jump)
-  :custom
-  (dired-listing-switches . "-agho --group-directories-first")
-  :hook
-  (dired-load-hook . (lambda () (interactive) (dired-collapse))))
+(require 'init-buffers)
 
-
-;; (put 'dired-find-alternate-file 'disabled nil)
-
-;; (add-hook 'dired-mode-hook
-;;           (lambda ()
-;;             (define-key dired-mode-map (kbd "<return>")
-;;                         'dired-find-alternate-file) ; was dired-advertised-find-file
-;;             (define-key dired-mode-map (kbd "^")
-;;                         (lambda () (interactive) (find-alternate-file "..")))
-;;                                         ; was dired-up-directory
-;;             ))
-
-(leaf dired-single
-  :commands (dired dired-jump))
-
-(leaf all-the-icons-dired
-  :hook (dired-mode-hook . all-the-icons-dired-mode))
-
-(leaf dired-hide-dotfiles
-  :hook (dired-mode-hook . dired-hide-dotfiles-mode)
-  :config
-  (define-key dired-mode-map (kbd "C-c d") 'dired-hide-dotfiles-mode))
-
-;; (require 'init-meow)
+(require 'init-dired)
 
 (require 'init-projects)
 

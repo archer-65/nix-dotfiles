@@ -14,5 +14,8 @@ in {
 
   config = mkIf cfg.enable {
     programs.java.enable = true;
+
+    # Language server for Emacs
+    home.packages = with pkgs; [ maven gradle ];
   };
 }

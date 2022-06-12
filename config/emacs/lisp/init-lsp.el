@@ -26,8 +26,10 @@
 (leaf lsp-treemacs
    :after lsp)
 
-;; (leaf lsp-java
-;;     :config (add-hook 'java-mode-hook 'lsp))
+(leaf lsp-java
+  :ensure t
+  :require t
+  :config (add-hook 'java-mode-hook 'lsp))
 
 ;; optionally if you want to use debugger
 ;; (leaf dap-mode)

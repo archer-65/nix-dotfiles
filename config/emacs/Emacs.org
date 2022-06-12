@@ -237,120 +237,7 @@ Tweaks present here:
 #+include: "lisp/init-editing.el" src emacs-lisp :tangle no
 
 
-** Windows navigation
-
-#+begin_src emacs-lisp
-
-  (require 'init-windows)
-
-#+end_src
-
-Moving around windows can be painful, but some built-in functions save our s**a.
-
-#+include: "lisp/init-windows.el" src emacs-lisp :tangle no
-
-
-** Dired
-
-Dired is a built-in file manager for Emacs that does some pretty amazing things!  Here are some key bindings you should try out:
-
-*** Key Bindings
-
-**** Navigation
-
-- =n= - next line
-- =p= - previous line
-- =j= - jump to file in buffer
-- =RET= - select file or directory
-- =^= - go to parent directory
-- =S-RET= - Open file in "other" window
-- =M-RET= - Show file in other window without focusing (previewing files)
-- =g o= (=dired-view-file=) - Open file but in a "preview" mode, close with =q=
-- =g= - Refresh the buffer with =revert-buffer= after changing configuration (and after filesystem changes!)
-
-**** Marking files
-
-- =m= - Marks a file
-- =u= - Unmarks a file
-- =U= - Unmarks all files in buffer
-- ='*' t= - Inverts marked files in buffer
-- =% m= - Mark files in buffer using regular expression
-- =*= - Lots of other auto-marking functions
-- =k= - "Kill" marked items (refresh buffer with =g= / =g r= to get them back)
-- Many operations can be done on a single file if there are no active marks!
-
-**** Copying and Renaming files
-
-- =C= - Copy marked files (or if no files are marked, the current file)
-- Copying single and multiple files
-- =U= - Unmark all files in buffer
-- =R= - Rename marked files, renaming multiple is a move!
-- =% R= - Rename based on regular expression: =^test= , =old-\&=
-
-*Power command*: =C-x C-q= (=dired-toggle-read-only=) - Makes all file names in the buffer editable directly to rename them!  Press =Z Z= to confirm renaming or =Z Q= to abort.
-
-**** Deleting files
-
-- =D= - Delete marked file
-- =d= - Mark file for deletion
-- =x= - Execute deletion for marks
-- =delete-by-moving-to-trash= - Move to trash instead of deleting permanently
-
-**** Creating and extracting archives
-
-- =Z= - Compress or uncompress a file or folder to (=.tar.gz=)
-- =c= - Compress selection to a specific file
-- =dired-compress-files-alist= - Bind compression commands to file extension
-
-**** Other common operations
-
-- =T= - Touch (change timestamp)
-- =M= - Change file mode
-- =O= - Change file owner
-- =G= - Change file group
-- =S= - Create a symbolic link to this file
-- =L= - Load an Emacs Lisp file into Emacs
-
-*** Configuration
-
-#+begin_src emacs-lisp
-
-  (leaf dired
-    :ensure nil
-    :commands (dired dired-jump)
-    :bind ("C-x C-j" . dired-jump)
-    :custom
-    (dired-listing-switches . "-agho --group-directories-first")
-    :hook
-    (dired-load-hook . (lambda () (interactive) (dired-collapse))))
-
-
-  ;; (put 'dired-find-alternate-file 'disabled nil)
-
-  ;; (add-hook 'dired-mode-hook
-  ;;           (lambda ()
-  ;;             (define-key dired-mode-map (kbd "<return>")
-  ;;                         'dired-find-alternate-file) ; was dired-advertised-find-file
-  ;;             (define-key dired-mode-map (kbd "^")
-  ;;                         (lambda () (interactive) (find-alternate-file "..")))
-  ;;                                         ; was dired-up-directory
-  ;;             ))
-
-  (leaf dired-single
-    :commands (dired dired-jump))
-
-  (leaf all-the-icons-dired
-    :hook (dired-mode-hook . all-the-icons-dired-mode))
-
-  (leaf dired-hide-dotfiles
-    :hook (dired-mode-hook . dired-hide-dotfiles-mode)
-    :config
-    (define-key dired-mode-map (kbd "C-c d") 'dired-hide-dotfiles-mode))
-
-#+end_src
-
-
-** Meow
+*** Meow
 
 #+begin_src emacs-lisp
 
@@ -363,6 +250,49 @@ Dired is a built-in file manager for Emacs that does some pretty amazing things!
 Keybindings are listed in =init-meow.el=.
 
 #+include: "lisp/init-meow.el" src emacs-lisp :tangle no
+
+
+** Windows navigation
+
+#+begin_src emacs-lisp
+
+  (require 'init-windows)
+
+#+end_src
+
+Moving around windows can be painful, but some built-in functions save our a*s.
+
+#+include: "lisp/init-windows.el" src emacs-lisp :tangle no
+
+** Buffer management
+
+#+begin_src emacs-lisp
+
+  (require 'init-buffers)
+
+#+end_src
+
+Sometimes buffers are too much, and I think that the classic buffer-menu is meh.
+
+#+include: "lisp/init-buffers.el" src emacs-lisp :tangle no
+
+** Dired
+
+#+begin_src emacs-lisp
+
+  (require 'init-dired)
+
+#+end_src
+
+Dired is a built-in file manager for Emacs that does some pretty amazing things. For example you can enable writable dired buffer to edit everything and just save to apply your changes.
+
+I have disabled ~dired-find-alternate-file~ warning, I'm using it 'cause pressing ~Return~ key just opens too many buffers.
+
+There's also a package named ~trashed~, to visit system trash.
+
+This if my =init.dired.el= file.
+
+#+include: "lisp/init-dired.el" src emacs-lisp :tangle no
 
 
 * Development
