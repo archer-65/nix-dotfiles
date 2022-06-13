@@ -493,3 +493,14 @@ There's =mu4e-alert= a good package for notifications, a bit buggy, but is worki
 Last but not least: [[https://github.com/jeremy-compostella/org-msg][org-msg]], an Outlook email style to compose (and reply to) emails, working also for ~Gnus~.
 
 #+include: "lisp/init-mail.el" src emacs-lisp :tangle no
+
+* End
+
+#+begin_src emacs-lisp
+
+  ;; Make gc pauses faster by decreasing the threshold.
+  (setq gc-cons-threshold (* 2 1000 1000))
+
+  ;;; init.el ends here
+
+#+end_src
