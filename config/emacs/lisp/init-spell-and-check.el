@@ -18,9 +18,9 @@
   :custom
   (flycheck-emacs-lisp-load-path . 'inherit)
   (flycheck-display-errors-delay . 1.5)
-  (flycheck-emacs-lisp-initialize-packages . t)
-  :hook
-  (emacs-lisp-mode-hook . lisp-interaction-mode-hook))
+  (flycheck-emacs-lisp-initialize-packages . t))
+  ;:hook
+  ;(emacs-lisp-mode-hook . lisp-interaction-mode-hook))
 
 (provide 'init-spell-and-check)
 ;;; init-spell-and-check.el ends here
