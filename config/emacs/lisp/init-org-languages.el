@@ -13,7 +13,8 @@
   :after org
   :config
   (org-babel-do-load-languages
-   'org-babel-load-languages '((emacs-lisp . t))))
+   'org-babel-load-languages '((emacs-lisp . t)
+                               (shell . t))))
 
 ;; Tempo
 (leaf org-tempo

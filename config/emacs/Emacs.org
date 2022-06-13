@@ -74,7 +74,7 @@ This useful package helps to avoid filling up our work folders with ~auto-save~ 
     ;; The package `no-littering` doesn't set this by default so we must place
     ;; auto save files in the same path as it uses for sessions
     (auto-save-file-name-transforms . `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
-  
+
 #+end_src
 
 
@@ -386,7 +386,7 @@ Common Git operations are easy to execute quickly using _Magit_'s command panel 
 
 *NOTE*: Make sure to configure a GitHub token before using this package!
 - [[https://magit.vc/manual/ghub/Getting-Started.html#Getting-Started][Getting started with Magit]]
-- [[https://magit.vc/manual/forge/Token-Creation.html#Token-Creation][Token Creation]] 
+- [[https://magit.vc/manual/forge/Token-Creation.html#Token-Creation][Token Creation]]
 
 #+include: "lisp/init-projects.el" src emacs-lisp :tangle no
 
