@@ -6,6 +6,12 @@
 
 ;;; Code:
 
+(leaf treemacs
+  :doc "Tree style directory visualization"
+  :ensure t
+  :config
+  (setq treemacs-width-is-initially-locked nil))
+
 (leaf projectile
   :doc "Project management and navigation"
   :ensure t
