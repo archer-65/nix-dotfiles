@@ -48,54 +48,63 @@
   (setq mu4e-main-buffer-hide-personal-addresses t)
 
   (setq mu4e-contexts
-        (list
-         ;; Gmail Account
-         (make-mu4e-context
-          :name "Gmail"
-          :match-func
-          (lambda (msg)
-            (when msg
-              (string-prefix-p "/Gmail" (mu4e-message-field msg :maildir))))
-          :vars '((mu4e-sent-folder  . "/Gmail/[Gmail]/Sent Mail")
-                  (mu4e-drafts-folder  . "/Gmail/[Gmail]/Drafts")
-                  (mu4e-trash-folder  . "/Gmail/[Gmail]/Trash")
-                  (mu4e-maildir-shortcuts .
-                                          (("/Gmail/Inbox"     . ?i)
-                                           ("/Gmail/[Gmail]/Sent Mail" . ?s)
-                                           ("/Gmail/[Gmail]/Trash"     . ?t)
-                                           ("/Gmail/[Gmail]/Drafts"    . ?d)))))
-         ;; Outlook
-         (make-mu4e-context
-          :name "Outlook"
-          :match-func
-          (lambda (msg)
-            (when msg
-              (string-prefix-p "/Outlook" (mu4e-message-field msg :maildir))))
-          :vars '((mu4e-drafts-folder  . "/Outlook/Drafts")
-                  (mu4e-sent-folder  . "/Outlook/Sent")
-                  (mu4e-refile-folder  . "/Outlook/Archive")
-                  (mu4e-trash-folder  . "/Outlook/Deleted")
-                  (mu4e-maildir-shortcuts .
-                                          (("/Outlook/Inbox"   . ?i)
-                                           ("/Outlook/Sent"    . ?s)
-                                           ("/Outlook/Deleted" . ?t)
-                                           ("/Outlook/Drafts"  . ?d)))))
+        `(
+          ;; Gmail Account
+          ,(make-mu4e-context
+            :name "Gmail"
+            :match-func
+            (lambda (msg)
+              (when msg
+                (string-prefix-p "/Gmail" (mu4e-message-field msg :maildir))))
+            :vars '((user-email-address . "mariogt2009@gmail.com")
+                    (smtpmail-smtp-user . "mariogt2009@gmail.com")
+                    (user-full-name     . "Mario Liguori")
+                    (mu4e-sent-folder   . "/Gmail/[Gmail]/Sent Mail")
+                    (mu4e-drafts-folder . "/Gmail/[Gmail]/Drafts")
+                    (mu4e-trash-folder  . "/Gmail/[Gmail]/Trash")
+                    (mu4e-maildir-shortcuts .
+                                            (("/Gmail/Inbox"     . ?i)
+                                             ("/Gmail/[Gmail]/Sent Mail" . ?s)
+                                             ("/Gmail/[Gmail]/Trash"     . ?t)
+                                             ("/Gmail/[Gmail]/Drafts"    . ?d)))))
+          ;; Outlook
+          ,(make-mu4e-context
+            :name "Outlook"
+            :match-func
+            (lambda (msg)
+              (when msg
+                (string-prefix-p "/Outlook" (mu4e-message-field msg :maildir))))
+            :vars '((user-email-address . "mariogt2009@live.it")
+                    (smtpmail-smtp-user . "mariogt2009@live.it")
+                    (user-full-name     . "Mario Liguori")
+                    (mu4e-drafts-folder . "/Outlook/Drafts")
+                    (mu4e-sent-folder   . "/Outlook/Sent")
+                    (mu4e-refile-folder . "/Outlook/Archive")
+                    (mu4e-trash-folder  . "/Outlook/Deleted")
+                    (mu4e-maildir-shortcuts .
+                                            (("/Outlook/Inbox"   . ?i)
+                                             ("/Outlook/Sent"    . ?s)
+                                             ("/Outlook/Deleted" . ?t)
+                                             ("/Outlook/Drafts"  . ?d)))))
 
-         ;;UniNa
-         (make-mu4e-context
-          :name "Unina"
-          :match-func
-          (lambda (msg)
-            (when msg
-              (string-prefix-p "/Unina" (mu4e-message-field msg :maildir))))
-          :vars '((mu4e-drafts-folder  . "/Unina/Bozze")
-                  (mu4e-sent-folder  . "/Unina/Posta inviata")
-                  (mu4e-trash-folder  . "/Unina/Deleted Items")
-                  (mu4e-maildir-shortcuts .
-                                          (("/Unina/Inbox"         . ?i)
-                                           ("/Unina/Posta inviata" . ?s)
-                                           ("/Unina/Deleted Items" . ?t)
-                                           ("/Unina/Bozze"         . ?d)))))))
+          ;;UniNa
+          ,(make-mu4e-context
+            :name "Unina"
+            :match-func
+            (lambda (msg)
+              (when msg
+                (string-prefix-p "/Unina" (mu4e-message-field msg :maildir))))
+            :vars '((user-email-address . "mario.liguori6@studenti.unina.it")
+                    (smtpmail-smtp-user . "mario.liguori6@studenti.unina.it")
+                    (user-full-name     . "Mario Liguori")
+                    (mu4e-drafts-folder . "/Unina/Bozze")
+                    (mu4e-sent-folder   . "/Unina/Posta inviata")
+                    (mu4e-trash-folder  . "/Unina/Deleted Items")
+                    (mu4e-maildir-shortcuts .
+                                            (("/Unina/Inbox"         . ?i)
+                                             ("/Unina/Posta inviata" . ?s)
+                                             ("/Unina/Deleted Items" . ?t)
+                                             ("/Unina/Bozze"         . ?d)))))))
   ;; Set Bookmarks for all
   (setq  mu4e-bookmarks '(( :name  "Unread messages"
                             :query "flag:unread AND NOT flag:trashed"
@@ -105,6 +114,7 @@
                             :key ?t)))
 
   (setq mu4e-context-policy 'pick-first)
+  (setq mu4e-compose-policy 'pick-first)
 
   ;; don't keep message buffers around
   (setq message-kill-buffer-on-exit t)
@@ -160,5 +170,5 @@
         org-msg-convert-citation t)
   (org-msg-mode))
 
-(provide 'init-org-export)
+(provide 'init-mail)
 ;;; init-mail.el ends here

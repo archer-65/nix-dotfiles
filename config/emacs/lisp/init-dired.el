@@ -6,10 +6,19 @@
 
 ;;; Code:
 
+(defun archer--dired-open-file ()
+  "In Dired, open the file named on this line through xdg-open."
+  (interactive)
+  (let* ((file (dired-get-filename nil t)))
+    (call-process "xdg-open" nil 0 nil file)))
+
 (leaf dired
   :ensure nil
   :commands (dired dired-jump)
-  :bind ("C-x C-j" . dired-jump)
+  :bind
+  ("C-x C-j" . dired-jump)
+  (:dired-mode-map
+   ("C-c o" . archer--dired-open-file))
   :config
   (put 'dired-find-alternate-file 'disabled nil)
   (setopt dired-mouse-drag-files t)

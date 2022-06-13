@@ -15,11 +15,18 @@
   ;; Needed with PGTK/NativeComp
   (dashboard-refresh-buffer)
   (setq initial-buffer-choice(lambda nil (get-buffer "*dashboard*")))
+  ;; Center buffer
+  (setq dashboard-center-content t)
   ;; Items
   (setq dashboard-items '((recents . 5)
                           (bookmarks . 5)))
-  (setq dashboard-set-haeding-icons t)
+  (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
+  (setq dashboard-heading-icons '((recents   . "history")
+                                  (bookmarks . "bookmark")
+                                  (agenda    . "calendar")
+                                  (projects  . "briefcase")
+                                  (registers . "database")))
   (setq dashboard-startup-banner "~/.emacs.d/img/stallman.png")
   (setq dashboard-banner-logo-title "Welcome to Emacs!")
   ;; Buttons
