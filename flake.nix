@@ -13,7 +13,7 @@
       url = "github:nix-community/NUR";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    
+
     emacs-overlay.url = "github:nix-community/emacs-overlay?rev=17c4af8fcb6200c894fb1351a423676ba34f7f01";
   };
 

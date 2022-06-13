@@ -7,6 +7,7 @@
 ;;; Code:
 
 (leaf yasnippet
+  :ensure t
   :hook (prog-mode-hook . yas-minor-mode)
   :config
   (yas-reload-all))

@@ -30,7 +30,6 @@
    ((> bytes 1000) (format "%10.1fk" (/ bytes 1000.0)))
    (t (format "%10d" bytes))))
 
-
 (leaf ibuffer
   :require t
   :config

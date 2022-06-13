@@ -2,13 +2,13 @@
 
 ;;; Commentary:
 
-;; Emacs' internal completion is awesome, why should you use Ivy/Helm and similar?
-;; They're wonderful, but complex and for me are unnecessary.
-;; I'm using Vertico, Orderless and Marginalia (monster trio) for rich, orderless completion style.
+;; .
 
 ;;; Code:
 
 (leaf consult
+  :doc "Practical commands based on the Emacs completion function completing-read."
+  :ensure t
   ;; Replace bindings. Lazily loaded due by `use-package'.
   :bind (;; C-c bindings (mode specific)
          ("C-c h" . consult-history)

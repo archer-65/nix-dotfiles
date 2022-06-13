@@ -8,20 +8,25 @@
 ;;; Code:
 
 (leaf ethan-wspace
+  :doc "Delete useless whitespaces"
   :ensure t
-  :commands global-ethan-wspace-mode
+  :bind ("C-c c" . ethan-wspace-clean-all)
+  :hook (prog-mode-hook . ethan-wspace-mode)
   :config
-  (global-ethan-wspace-mode 1)
-  :bind ("C-c c" . ethan-wspace-clean-all))
-
-(setq mode-require-final-newline nil)
-(setq require-final-newline nil)
+  (leaf files
+    :doc "Required by ethan-wspace"
+    :config
+    (setq mode-require-final-newline nil)
+    (setq require-final-newline nil)))
 
 ;; Tabs, indentation, and the TAB key
-(setq-default tab-always-indent 'complete)
-(setq-default tab-first-completion 'word-or-paren-or-punct)
-(setq-default tab-width 2)
-(setq-default indent-tabs-mode nil)
+(leaf indent
+  :doc "Tab settings"
+  (setq-default tab-always-indent 'complete)
+  (setq-default tab-first-completion 'word-or-paren-or-punct)
+  (setq-default tab-width 2)
+  ;; Use spaces!
+  (setq-default indent-tabs-mode nil))
 
 (leaf rainbow-delimiters
   :ensure t
@@ -36,7 +41,8 @@
   :hook
   (tree-sitter-after-on-hook . tree-sitter-hl-mode))
 
-(leaf tree-sitter-langs)
+(leaf tree-sitter-langs
+  :ensure t)
 
 (provide 'init-code-style)
 ;;; init-code-style.el ends here

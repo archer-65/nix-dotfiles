@@ -13,6 +13,5 @@
 
 (leaf yaml-mode)
 
-
 (provide 'init-extra-modes)
 ;;; init-extra-modes.el ends here

@@ -8,6 +8,7 @@
 
 (leaf lsp-mode
   :commands lsp
+  :ensure t
   :init
   :config
   (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
@@ -24,7 +25,8 @@
   (lsp-mode-hook  . lsp-enable-which-key-integration))
 
 (leaf lsp-treemacs
-   :after lsp)
+  :after lsp
+  :ensure t)
 
 (leaf lsp-java
   :ensure t

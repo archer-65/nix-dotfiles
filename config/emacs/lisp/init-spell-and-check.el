@@ -8,14 +8,19 @@
 
 (leaf flyspell
   :hook
-  (text-mode-hook . (lambda () flyspell-mode 1)))
+  (text-mode-hook . (lambda () flyspell-mode 1))
+  (prog-mode-hook . flyspell-prog-mode))
 
 (leaf flycheck
   :ensure t
   :init
   (global-flycheck-mode)
   :custom
-  (flycheck-display-errors-delay . 1.5))
+  (flycheck-emacs-lisp-load-path . 'inherit)
+  (flycheck-display-errors-delay . 1.5)
+  (flycheck-emacs-lisp-initialize-packages . t)
+  :hook
+  (emacs-lisp-mode-hook . lisp-interaction-mode-hook))
 
 (provide 'init-spell-and-check)
 ;;; init-spell-and-check.el ends here

@@ -54,6 +54,7 @@
 
 (leaf emojify
   :doc "Enhanced emoji support :D"
+  :ensure t
   :config
   (when (member "Noto Color Emoji" (font-family-list))
     (set-fontset-font

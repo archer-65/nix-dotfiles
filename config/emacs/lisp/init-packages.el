@@ -37,15 +37,16 @@
    'package-archives '(("org" . "https://orgmode.org/elpa/")
                        ("melpa" . "https://melpa.org/packages/")
                        ("gnu" . "https://elpa.gnu.org/packages/")))
-  (package-initialize)
+  ;; (package-initialize)
   (unless (package-installed-p 'leaf)
     (package-refresh-contents)
     (package-install 'leaf))
-
+  
   (leaf leaf-keywords
     :ensure t
     :init
     ;; optional packages
+    (leaf blackout :ensure t)
     :config
     ;; initialize leaf-keywords.el
     (leaf-keywords-init)))
@@ -56,6 +57,7 @@
 ;; Auto updates
 (leaf auto-package-update
   :doc "Auto update packages (only works for package.el)"
+  :ensure t
   :custom
   (auto-package-update-interval . 7)
   (auto-package-update-prompt-before-update . t)

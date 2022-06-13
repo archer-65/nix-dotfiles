@@ -33,7 +33,8 @@
   (magit-display-buffer-function . 'magit-display-buffer-same-window-except-diff-v1))
 
 (leaf forge
-  :after magit)
+  :after magit
+  :ensure t)
 
 (provide 'init-projects)
 ;;; init-projects.el ends here
