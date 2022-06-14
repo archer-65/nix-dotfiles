@@ -60,6 +60,15 @@
   (setq ibuffer-saved-filter-groups
         '(("default"
            ("dired" (mode . dired-mode))
+	   ("git" (or (mode . magit-mode)
+		      (mode . magit-process-mode)
+		      (mode . magit-diff-mode)
+		      (mode . magit-status-mode)))
+	   ("elisp" (mode . emacs-lisp-mode))
+	   ("c/c++" (or (mode . c-mode)
+			(mode . c++-mode)))
+	   ("documents" (or (name . "\\.pdf")
+			    (name . "\\.org")))
            ("emacs" (or
                      (name . "^\\*scratch\\*$")
                      (name . "^\\*Messages\\*$")

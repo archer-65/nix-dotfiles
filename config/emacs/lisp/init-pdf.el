@@ -12,6 +12,12 @@
   :commands (pdf-view-mode pdf-tools-install)
   :mode ("\\.[pP][dD][fF]\\'" . pdf-view-mode)
   :magic ("%PDF" . pdf-view-mode)
+  :custom
+  (display-buffer-alist . '(("^\\*outline"
+			    display-buffer-in-side-window
+			    (side . left)
+			    (window-width . 0.20)
+			    (inhibit-switch-frame . t))))
   :config
   (pdf-tools-install)
   (define-pdf-cache-function pagelabels)
