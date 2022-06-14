@@ -6,7 +6,7 @@
 
 ;;; Code:
 
-(defun archer/org-font-setup ()
+(defun archer/font-setup ()
   "Simple function to initialize font, usually called with simple hook."
   ;; Global fonts
   (set-face-attribute 'default nil
