@@ -35,6 +35,14 @@
   (modus-themes-load-vivendi)
   :bind ("<f5>" . modus-themes-toggle))
 
+;; Change based on time
+(leaf circadian
+  :ensure t
+  :config
+  (setq circadian-themes '(("8:00" . modus-operandi)
+                           ("20:00" . modus-vivendi)))
+  (circadian-setup))
+
 ;;; Minor tweaks
 
 ;; You must run `all-the-icons-install-fonts` the first time.
