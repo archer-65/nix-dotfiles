@@ -6,7 +6,7 @@
 
 ;;; Code:
 
-(defun archer--org-font-setup ()
+(defun archer/org-font-setup ()
   "Simple function to initialize font, usually called with simple hook."
   ;; Global fonts
   (set-face-attribute 'default nil
@@ -25,9 +25,9 @@
                       :weight 'light))
 
 ;; Run this hook after we have initialized the first time.
-(add-hook 'after-init-hook 'archer--org-font-setup)
+(add-hook 'after-init-hook 'archer/org-font-setup)
 ;; Re-run this hook if we create a new frame from daemonized Emacs.
-(add-hook 'server-after-make-frame-hook 'archer--org-font-setup)
+(add-hook 'server-after-make-frame-hook 'archer/org-font-setup)
 
 (provide 'init-fonts)
 ;;; init-fonts.el ends here

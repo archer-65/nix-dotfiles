@@ -7,7 +7,7 @@
 ;;; Code:
 
 ;;; Basic settings
-(defun archer--display-numbers-hook ()
+(defun archer/display-numbers-hook ()
   "Turn on line numbers mode for certain modes."
   (display-line-numbers-mode t))
 
@@ -16,7 +16,7 @@
   :setq
   (display-line-numbers-type . t)
   :hook
-  (prog-mode-hook . archer--display-numbers-hook))
+  (prog-mode-hook . archer/display-numbers-hook))
 
 ;;; Themes section
 

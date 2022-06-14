@@ -6,7 +6,7 @@
 
 ;;; Code:
 
-(defun archer--human-readable-file-sizes-to-bytes (string)
+(defun archer/human-readable-file-sizes-to-bytes (string)
   "Convert a human-readable file (as STRING) size into BYTES."
   (interactive)
   (cond
@@ -19,7 +19,7 @@
    (t
     (string-to-number (substring string 0 (- (length string) 1))))))
 
-(defun archer--bytes-to-human-readable-file-sizes (bytes)
+(defun archer/bytes-to-human-readable-file-sizes (bytes)
   "Convert number of BYTES to human-readable file size."
   (interactive)
   (cond
@@ -39,10 +39,10 @@
 	         (lambda (column-strings)
 	           (let ((total 0))
 	             (dolist (string column-strings)
-	               (setq total (+ (float (archer--human-readable-file-sizes-to-bytes string))
+	               (setq total (+ (float (archer/human-readable-file-sizes-to-bytes string))
 			                          total)))
-	             (archer--bytes-to-human-readable-file-sizes total))))
-    (archer--bytes-to-human-readable-file-sizes (buffer-size)))
+	             (archer/bytes-to-human-readable-file-sizes total))))
+    (archer/bytes-to-human-readable-file-sizes (buffer-size)))
   ;; Modify the default ibuffer-formats
   (setq ibuffer-formats
         '((mark modified read-only locked " "
