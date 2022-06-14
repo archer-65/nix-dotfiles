@@ -3,7 +3,7 @@
 ;;; Commentary:
 
 ;; This file should be the `core`.
-;; Here are initialized `package.el/straight.el` and `use-package/leaf`
+;; Here are initialized `package.el/straight.el` and `use-package/leaf`.
 
 ;;; Code:
 
@@ -33,15 +33,16 @@
 
 ;;; SECTION LEAF INSTALLATION
 (eval-and-compile
-  (customize-set-variable
-   'package-archives '(("org" . "https://orgmode.org/elpa/")
-                       ("melpa" . "https://melpa.org/packages/")
-                       ("gnu" . "https://elpa.gnu.org/packages/")))
+  ;; (customize-set-variable
+  ;;  'package-archives '(("org" . "https://orgmode.org/elpa/")
+  ;;                      ("melpa" . "https://melpa.org/packages/")
+  ;;                      ("gnu" . "https://elpa.gnu.org/packages/")))
+  ;;
   ;; (package-initialize)
   (unless (package-installed-p 'leaf)
     (package-refresh-contents)
     (package-install 'leaf))
-  
+
   (leaf leaf-keywords
     :ensure t
     :init
