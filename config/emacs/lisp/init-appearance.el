@@ -40,17 +40,18 @@
 ;; You must run `all-the-icons-install-fonts` the first time.
 (leaf all-the-icons
   :doc "Needed for modeline and dired"
-  :ensure t)
-
-(leaf doom-modeline
-  :doc "A very attractive and rich (yet still minimal) mode line configuration for Emacs."
   :ensure t
-  :hook
-  (after-init-hook . doom-modeline-mode)
-  :custom
-  (doom-modeline-bar-width . 1)
-  (doom-modeline-minor-modes . t)
-  (doom-modeline-buffer-file-name-style . 'buffer-name))
+  :require t)
+
+;; (leaf doom-modeline
+;;   :doc "A very attractive and rich (yet still minimal) mode line configuration for Emacs."
+;;   :ensure t
+;;   :hook
+;;   (after-init-hook . doom-modeline-mode)
+;;   :custom
+;;   (doom-modeline-bar-width . 1)
+;;   (doom-modeline-minor-modes . t)
+;;   (doom-modeline-buffer-file-name-style . 'buffer-name))
 
 (leaf emojify
   :doc "Enhanced emoji support :D"

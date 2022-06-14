@@ -41,7 +41,7 @@
       active = "materia";
 
       font = {
-        name = "VictorMono Nerd Font";
+        name = "Roboto";
         size = 12;
       };
     };

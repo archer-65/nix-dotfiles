@@ -7,26 +7,30 @@
 
 ;;; Code:
 
-;;; Scrolling behaviour
+;;; Scrolling behavior
 ;; Enable smooth scroll
 (unless (version< emacs-version "29")
   (pixel-scroll-precision-mode 1))
 
 ;; These four come from the C source code.
-;; (And from Protesilaos, rofl)
+;; (And from Protesilaos)
 (setq-default scroll-preserve-screen-position t)
-(setq-default scroll-conservatively 1) ; affects `scroll-step'
-(setq-default scroll-margin 0)
+(setq-default scroll-conservatively 10000) ; affects `scroll-step'
+(setq-default scroll-margin 1)
+(setq-default scroll-step 1)
 (setq-default next-screen-context-lines 0)
+(setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
+(setq mouse-wheel-follow-mouse t)
+(setq mouse-wheel-progressive-speed nil)
 
 ;; Horizontal scrolling mouse events should actually scroll left and right.
 (setq mouse-wheel-tilt-scroll t)
 (global-set-key (kbd "<mouse-6>") (lambda ()
                                     (interactive)
-				                            (if truncate-lines (scroll-right 1))))
+				    (if truncate-lines (scroll-right 1))))
 (global-set-key (kbd "<mouse-7>") (lambda ()
                                     (interactive)
-				                            (if truncate-lines (scroll-left 1))))
+				    (if truncate-lines (scroll-left 1))))
 
 ;;; Prog-mode preference for truncating lines
 (add-hook 'prog-mode-hook #'(lambda ()
@@ -48,7 +52,7 @@
   (global-undo-tree-mode))
 
 (leaf delsel
-  :doc "Should be default imho."
+  :doc "Should be default IMHO."
   :hook
   (after-init-hook . delete-selection-mode))
 
