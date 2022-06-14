@@ -17,6 +17,7 @@
 
 (leaf helpful
   :doc "Helpful informations in buffers."
+  :disabled t
   :ensure t
   :bind
   (("C-h f"   . helpful-callable)

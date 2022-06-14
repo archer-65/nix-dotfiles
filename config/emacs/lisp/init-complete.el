@@ -19,13 +19,48 @@
   (vertico-count . 15)
   (vertico-cycle . t))
 
-;;; Cute centered child buffer
+
+;; Cute centered child buffer
 (leaf vertico-posframe
   :doc "Based on posframe library, for vertico"
   :ensure t
   :require t
   :init
-  (vertico-posframe-mode 1))
+  (vertico-posframe-mode 1)
+  :config
+  (defun vertico-posframe--show (buffer window-point)
+    "`posframe-show' of vertico-posframe.
+BUFFER will be showed by `posframe-show'.  After `posframe-show'
+is called, window-point will be set to WINDOW-POINT."
+    (let ((posframe
+           ;; Some posframe poshandlers need infos of last-window.
+           (with-selected-window (vertico-posframe-last-window)
+             (apply #'posframe-show
+                    buffer
+                    :font vertico-posframe-font
+                    :poshandler vertico-posframe-poshandler
+                    :background-color (face-attribute 'vertico-posframe :background nil t)
+                    :foreground-color (face-attribute 'vertico-posframe :foreground nil t)
+                    :border-width vertico-posframe-border-width
+                    :border-color (vertico-posframe--get-border-color)
+                    :override-parameters vertico-posframe-parameters
+                    :refposhandler vertico-posframe-refposhandler
+                    :hidehandler #'vertico-posframe-hidehandler
+                    :lines-truncate vertico-posframe-truncate-lines
+                    (funcall vertico-posframe-size-function)))))
+      ;; NOTE: `posframe-show' will force set window-point to 0, so we
+      ;; need reset it again after `posframe-show'.
+      (when (numberp window-point)
+	(let ((window (frame-root-window posframe)))
+          (when (window-live-p window)
+            (set-window-point window window-point))))
+      ;; NOTE: posframe will hide cursor, so we need let it show again.
+      (with-current-buffer buffer
+	(setq-local cursor-type 'bar)
+	(setq-local cursor-in-non-selected-windows 'box))))
+  (setq vertico-posframe-parameters
+      '((left-fringe . 8)
+        (right-fringe . 8))))
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (leaf savehist

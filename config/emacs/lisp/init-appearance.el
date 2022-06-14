@@ -51,15 +51,51 @@
   :ensure t
   :require t)
 
-;; (leaf doom-modeline
-;;   :doc "A very attractive and rich (yet still minimal) mode line configuration for Emacs."
-;;   :ensure t
-;;   :hook
-;;   (after-init-hook . doom-modeline-mode)
-;;   :custom
-;;   (doom-modeline-bar-width . 1)
-;;   (doom-modeline-minor-modes . t)
-;;   (doom-modeline-buffer-file-name-style . 'buffer-name))
+(setq-default mode-line-format
+		'("%e"
+		  mode-line-front-space
+                  (:propertize
+		   (" "
+                   mode-line-mule-info
+                   mode-line-client
+                   mode-line-modified
+                   mode-line-remote)
+		  display
+		  (min-width
+		   (5.0)))
+		  '(:eval (list (nyan-create)))
+                  mode-line-frame-identification
+                  mode-line-buffer-identification
+                  "  "
+                  mode-line-position
+                  "  "
+                  "  "
+                  mode-line-misc-info
+                  (vc-mode vc-mode)
+                  mode-line-modes
+                  mode-line-end-spaces))
+
+(leaf nyan-mode
+  :ensure t
+  :config
+  (nyan-mode 1)
+  (setq nyan-bar-length 20
+        nyan-wavy-trail nil))
+
+(leaf moody
+  :doc "Tabs and ribbons"
+  :ensure t
+  :config
+  (setq x-underline-at-descent-line t)
+  (moody-replace-mode-line-buffer-identification)
+  (moody-replace-vc-mode)
+  (moody-replace-eldoc-minibuffer-message-function))
+
+(leaf minions
+  :doc "Hide minor modes"
+  :ensure t
+  :init
+  (minions-mode 1))
 
 (leaf emojify
   :doc "Enhanced emoji support :D"

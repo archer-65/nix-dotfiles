@@ -30,11 +30,20 @@ Note that =init.el= is mandatory, however I'm tangling it from this =.org= file 
 
   ;;; Code:
 
+  ;; Still here, just for compatibility purpose.
+  (when (version< emacs-version "27")
+    (load (concat user-emacs-directory "early-init.el")))
+
   ;; Add load-path
   (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
   ;; We don't want customizations in `init.el`, instead we use `custom.el`.
   (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
+
+  ;; Set the right directory to store the native comp cache
+  (when (and (fboundp 'native-comp-available-p)
+             (native-comp-available-p))
+    (add-to-list 'native-comp-eln-load-path (expand-file-name "eln-cache/" user-emacs-directory)))
 
   ;; Disable damn sleep!
   ;; Yep, it's mandatory, that's the worst keybind ever.
@@ -44,6 +53,30 @@ Note that =init.el= is mandatory, however I'm tangling it from this =.org= file 
 
 
 * Core settings
+
+** Convenience 
+
+Functions to determine if we are on NixOS, or not, then set our path, that's useful for auto-tangle function defined later.
+
+#+begin_src emacs-lisp
+
+  (defun archer/using-nix-p ()
+    "Verifies if the running Emacs executable is under the `/nix/store/' path."
+    (unless (or (equal system-type 'ms-dos)
+                (equal system-type 'windows-nt))
+      ;; Since there is no windows implementation of nix
+      (string-prefix-p "/nix/store/"
+                       (file-truename
+                        (executable-find
+                         (car command-line-args))))))
+
+  (defvar archer/config-path
+    (if (archer/using-nix-p)
+        (if (file-exists-p (expand-file-name ".dotfiles/config/emacs/" (getenv "HOME")))
+            (expand-file-name ".dotfiles/config/emacs/" (getenv "HOME")))
+      (expand-file-name user-emacs-directory)))
+  
+#+end_src
 
 ** Packages bootstrap
 
@@ -78,6 +111,18 @@ This useful package helps to avoid filling up our work folders with ~auto-save~ 
 
 #+end_src
 
+
+** Garbage collector enhancement
+
+#+begin_src emacs-lisp
+
+  (leaf gcmh
+    :ensure t
+    :require t
+    :config
+    (gcmh-mode 1))
+
+#+end_src
 
 ** Pick up me mom, I'm scared!
 
@@ -114,10 +159,9 @@ Here the =init.appearance.el= file.
 #+include: "lisp/init-appearance.el" src emacs-lisp :tangle no
 
 
-** Font
 
-Readability is important.
-Currently using [[https://rubjo.github.io/victor-mono/][Victor Mono]] as font, I love it, also for variable-pitch face.
+*** Font
+
 
 #+begin_src emacs-lisp
 
@@ -125,12 +169,26 @@ Currently using [[https://rubjo.github.io/victor-mono/][Victor Mono]] as font, I
 
 #+end_src
 
+Readability is important.
+Currently using [[https://rubjo.github.io/victor-mono/][Victor Mono]] as font, I love it, also for variable-pitch face.
+
 Here the =init.fonts.el= file.
 
 #+include: "lisp/init-fonts.el" src emacs-lisp :tangle no
 
+*** Modeline
 
-** Dashboard Configuration
+#+begin_src emacs-lisp
+
+ (require 'init-modeline)  
+
+#+end_src
+
+Just modeline customized.
+
+#+include: "lisp/init-modeline.el" src emacs-lisp :tangle no
+
+*** Dashboard Configuration
 
 Useless cute dashboard, nothing to say, and there are minor tweaks to make it work with server-mode and Emacs PGTK/NativeComp.
 
@@ -514,7 +572,7 @@ My choice is [[https://github.com/vedang/pdf-tools][pdf-tools]], that renders on
 #+begin_src emacs-lisp
 
   ;; Make gc pauses faster by decreasing the threshold.
-  (setq gc-cons-threshold (* 2 1000 1000))
+  ;; (setq gc-cons-threshold (* 2 1000 1000))
 
   ;;; init.el ends here
 
