@@ -8,28 +8,24 @@
 
 (leaf dashboard
   :ensure t
-  ;; In server mode is needed, some symbols are seen as void
-  :after all-the-icons
-  :config
-  (dashboard-setup-startup-hook)
-  ;; Needed with PGTK/NativeComp
-  (dashboard-refresh-buffer)
-  (setq initial-buffer-choice(lambda nil (get-buffer "*dashboard*")))
-  ;; Center buffer
+  :blackout t
+  :commands (all-the-icons-faicon
+	     all-the-icons-octicon)
+  :init
+  ;; Basic UI settings
+  (setq dashboard-banner-logo-title "SUCK(EMAC)S - Personal Workspace")
+  (setq dashboard-startup-banner "~/.emacs.d/img/stallman.png")
   (setq dashboard-center-content t)
-  ;; Items
-  (setq dashboard-items '((recents . 5)
-                          (bookmarks . 5)))
+  ;; Icons
   (setq dashboard-set-heading-icons t)
   (setq dashboard-set-file-icons t)
+  (setq dashboard-items '((recents . 5)
+                          (bookmarks . 5)))
   (setq dashboard-heading-icons '((recents   . "history")
                                   (bookmarks . "bookmark")
                                   (agenda    . "calendar")
                                   (projects  . "briefcase")
                                   (registers . "database")))
-  (setq dashboard-startup-banner "~/.emacs.d/img/stallman.png")
-  (setq dashboard-banner-logo-title "Welcome to Emacs!")
-  ;; Buttons
   (setq dashboard-set-navigator t)
   (setq dashboard-navigator-buttons
         `(((,(all-the-icons-octicon "mark-github" :height 1.1 :v-adjust 0.0)
@@ -43,7 +39,14 @@
            (,(all-the-icons-octicon "gear" :height 1.1 :v-adjust 0.0)
             "Configuration"
             "Click to config Emacs"
-            (lambda (&rest _) (find-file "~/.dotfiles/config/emacs/Emacs.org")))))))
+            (lambda (&rest _) (find-file "~/.dotfiles/config/emacs/Emacs.org"))))))
+  (dashboard-setup-startup-hook)
+  (add-hook 'after-init-hook #'dashboard-insert-startupify-lists)
+  :config
+  ;; Needed with PGTK/NativeComp
+  (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*"))))
+  ;;(dashboard-refresh-buffer))
+  ;; (setq initial-buffer-choice(lambda nil (get-buffer "*dashboard*")))
 
 (provide 'init-dash)
 ;;; init-dash.el ends here

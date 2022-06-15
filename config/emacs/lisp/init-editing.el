@@ -7,35 +7,58 @@
 
 ;;; Code:
 
-;;; Scrolling behavior
+;;
+;;; Windows/frames
+
+;; A simple frame title
+(setq frame-title-format '("%b – Emacs")
+      icon-title-format frame-title-format)
+
+;;
+;;; Scrolling
+
 ;; Enable smooth scroll
 (unless (version< emacs-version "29")
   (pixel-scroll-precision-mode 1))
 
-;; These four come from the C source code.
-;; (And from Protesilaos)
-(setq-default scroll-preserve-screen-position t)
-(setq-default scroll-conservatively 10000) ; affects `scroll-step'
-(setq-default scroll-margin 1)
-(setq-default scroll-step 1)
-(setq-default next-screen-context-lines 0)
-(setq mouse-wheel-scroll-amount '(1 ((shift) . 1)))
-(setq mouse-wheel-follow-mouse t)
-(setq mouse-wheel-progressive-speed nil)
+;; General tweaks
+(setq scroll-preserve-screen-position t
+      ;; Emacs spends too much effort recentering the screen if you scroll the
+      ;; cursor more than N lines past window edges (where N is the settings of
+      ;; `scroll-conservatively'). This is especially slow in larger files
+      ;; during large-scale scrolling commands. If kept over 100, the window is
+      ;; never automatically re-centered.
+      scroll-conservatively 101
+      hscroll-margin 2
+      hscroll-step 1
+      scroll-margin 0
+      ;; Reduce cursor lag by a tiny bit by not auto-adjusting `window-vscroll'
+      ;; for tall lines.
+      auto-window-vscroll nil
+      ;; mouse
+      mouse-wheel-scroll-amount '(2 ((shift) . hscroll))
+      mouse-wheel-scroll-amount-horizontal 2)
+
+;; More performant rapid scrolling over unfontified regions. May cause brief
+;; spells of inaccurate syntax highlighting right after scrolling, which should
+;; quickly self-correct.
+(setq fast-but-imprecise-scrolling t)
+
+;; Horizontal scrolling tweaks
 
 ;; Horizontal scrolling mouse events should actually scroll left and right.
-(setq mouse-wheel-tilt-scroll t)
-(global-set-key (kbd "<mouse-6>") (lambda ()
-                                    (interactive)
-				    (if truncate-lines (scroll-right 1))))
-(global-set-key (kbd "<mouse-7>") (lambda ()
-                                    (interactive)
-				    (if truncate-lines (scroll-left 1))))
+;; (setq mouse-wheel-tilt-scroll t)
+;; (global-set-key (kbd "<mouse-6>") (lambda ()
+;;                                     (interactive)
+;; 				    (if truncate-lines (scroll-right 1))))
+;; (global-set-key (kbd "<mouse-7>") (lambda ()
+;;                                     (interactive)
+;; 				    (if truncate-lines (scroll-left 1))))
 
 ;;; Prog-mode preference for truncating lines
-(add-hook 'prog-mode-hook #'(lambda ()
-                             (setq truncate-lines t
-                                   word-wrap nil)))
+;; (add-hook 'prog-mode-hook #'(lambda ()
+;;                              (setq truncate-lines t
+;;                                    word-wrap nil)))
 
 ;;; Pairs? I forget to balance every kind of pair, I need this.
 (electric-pair-mode 1)

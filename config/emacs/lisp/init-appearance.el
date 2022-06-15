@@ -6,6 +6,16 @@
 
 ;;; Code:
 
+;; Preference, if I'm using mouse, I want dialog-box.
+(setq use-dialog-box t     ; Mouse events dialog (yes or no predicate)
+      use-file-dialog nil) ; Disable dialog for files
+
+;; Favor vertical splits over horizontal ones.
+(setq split-width-threshold 160
+      split-height-threshold nil)
+
+(setq-default cursor-type 'bar) ; Cursor type default
+
 ;;; Basic settings
 (defun archer/display-numbers-hook ()
   "Turn on line numbers mode for certain modes."

@@ -17,7 +17,6 @@
                 mode-line-remote
                 mode-line-frame-identification
                 mode-line-buffer-identification
-		'(:eval (list (nyan-create)))
                 "  "
                 mode-line-position
                 "  "
@@ -27,26 +26,8 @@
                 mode-line-modes
                 mode-line-end-spaces))
 
-(setq mode-line-position-column-line-format '("<%l:%c>")) ; Emacs 28
-(setq mode-line-defining-kbd-macro
-      (propertize " Macro" 'face 'mode-line-emphasis))
-
-;; Try this for upper mode-line
-;; (setq-default header-line-format mode-line-format)
-;; (setq-default mode-line-format nil)
-;; (push '(internal-border-width . 8) default-frame-alist)
-;; (setq-default left-margin-width 1)
-;; (setq-default right-margin-width 1)
-;; (setq-default fringes-outside-margins t)
-
-;; Stupid thing
-(leaf nyan-mode
-  :doc "Stupid mode to scroll b"
-  :ensure t
-  :config
-  (nyan-mode 1)
-  (setq nyan-bar-length 24
-        nyan-wavy-trail nil))
+(setq mode-line-position-column-line-format '("<%l:%c>") ; Emacs 28
+      mode-line-defining-kbd-macro (propertize " Macro" 'face 'mode-line-emphasis))
 
 ;; Some bugs, disabled right now.
 (leaf moody

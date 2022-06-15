@@ -9,40 +9,44 @@
 
 ;; Actual client for mails
 (leaf mu4e
-  ;; :load-path "/usr/share/emacs/site-lisp/mu4e/"
   :require t
+  :commands mu4e mu4e-compose-new
+  :init
+  (provide 'html2text)
   :config
-
-  ;; Use mu4e for sending e-mail
-  (setq mail-user-agent 'mu4e-user-agent)
-
-  ;; Needed? I don't know
-  ;; (setq sendmail-program "/usr/bin/msmtp")
-  (setq message-sendmail-f-is-evil t)
-  (setq message-sendmail-extra-arguments '("--read-envelope-from"))
-  (setq send-mail-function 'smtpmail-send-it)
-  (setq message-send-mail-function 'message-send-mail-with-sendmail)
-  ;; (setq mu4e-compose-signature "Sent from Emacs")
-
-  ;; Contrib
+   ;; Load org-mode integration
+  (require 'org-mu4e)
   (require 'mu4e-contrib)
 
-  (setq shr-color-visible-luminance-min 60)
-  (setq shr-color-visible-distance-min 5)
-  (setq shr-use-colors nil)
-  (advice-add #'shr-colorize-region :around (defun shr-no-colourise-region (&rest ignore)))
+  ;; General
+  (setq mu4e-get-mail-command "mbsync -a"
+	;; Update every 5 minutes
+	mu4e-update-interval (* 5 60)
+	;; Images
+	mu4e-view-show-images t
+	mu4e-view-image-max-width 800
+	;; Don't keep message buffers around
+	message-kill-buffer-on-exit t
+	;; Start with default context
+	mu4e-context-policy 'pick-first
+	mu4e-compose-context-policy 'ask-if-none
+	;; Why confirm quit?
+	mu4e-confirm-quit nil)
 
-  ;; Load org-mode integration
-  (require 'org-mu4e)
+  ;; User agent
+  (setq mail-user-agent 'mu4e-user-agent)
 
-  ;; This is set to 't' to avoid mail syncing issues when using mbsync
-  (setq mu4e-change-filenames-when-moving t)
+  ;; Use mu4e for sending e-mail
+  (setq send-mail-function #'smtpmail-send-it
+	message-sendmail-f-is-evil t
+	message-sendmail-extra-arguments '("--read-envelope-from")
+	message-send-mail-function 'message-send-mail-with-sendmail)
 
-  ;; Refresh mail using isync every 10 minutes
-  (setq mu4e-get-mail-command "mbsync -a")
-  (setq mu4e-update-interval (* 5 60))
-  (setq mu4e-maildir "~/mails")
-  (setq mu4e-main-buffer-hide-personal-addresses t)
+  ;; Mail settings
+  (setq mu4e-maildir "~/mails"
+	;; This is set to 't' to avoid mail syncing issues when using mbsync
+	mu4e-change-filenames-when-moving t
+	mu4e-main-buffer-hide-personal-addresses t)
 
   (setq mu4e-contexts
         `(
@@ -110,24 +114,16 @@
                             :query "date:today..now"
                             :key ?t)))
 
-  (setq mu4e-context-policy 'pick-first)
-  (setq mu4e-compose-policy 'pick-first)
-
-  ;; don't keep message buffers around
-  (setq message-kill-buffer-on-exit t)
-
-  ;; Don't ask to quit... why is this the default?
-  (setq mu4e-confirm-quit nil)
   (mu4e t))
 
 ;; Notifications!
 (leaf mu4e-alert
   :doc "Enable notifications for mu4e"
-  :straight (t :type git :host github :repo "xzz53/mu4e-alert")
+  :straight t
   :after mu4e
-  :init
+  :config
   (mu4e-alert-set-default-style 'libnotify)
-  (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
+  (mu4e-alert-enable-notifications)
   (setq mu4e-alert-notify-repeated-mails nil))
 
 ;; Org enhanced messages

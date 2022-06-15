@@ -33,39 +33,20 @@
 
 ;;; SECTION LEAF INSTALLATION
 (eval-and-compile
-  ;; (customize-set-variable
-  ;;  'package-archives '(("org" . "https://orgmode.org/elpa/")
-  ;;                      ("melpa" . "https://melpa.org/packages/")
-  ;;                      ("gnu" . "https://elpa.gnu.org/packages/")))
-  ;;
-  ;; (package-initialize)
-  (unless (package-installed-p 'leaf)
-    (package-refresh-contents)
-    (package-install 'leaf))
+  (straight-use-package 'leaf)
 
   (leaf leaf-keywords
-    :ensure t
+    (straight-use-package 'leaf-keywords)
     :init
-    ;; optional packages
-    (leaf blackout :ensure t)
+    (leaf straight (straight-use-package 'straight))
+    (leaf blackout (straight-use-package 'blackout))
+    ;:custom
+    ;(leaf-alias-keyword-alist .'((:ensure . :straight)))
     :config
-    ;; initialize leaf-keywords.el
     (leaf-keywords-init)))
 
-(leaf leaf-convert :ensure t)
+(leaf leaf-convert :straight t)
 ;;; SECTION LEAF INSTALLATION ENDS HERE
-
-;; Auto updates
-(leaf auto-package-update
-  :doc "Auto update packages (only works for package.el)"
-  :ensure t
-  :custom
-  (auto-package-update-interval . 7)
-  (auto-package-update-prompt-before-update . t)
-  (auto-package-update-hide-results . t)
-  :config
-  (auto-package-update-maybe)
-  (auto-package-update-at-time "16:00"))
 
 (provide 'init-packages)
 ;;; init-packages.el ends here
