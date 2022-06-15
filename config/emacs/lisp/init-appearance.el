@@ -20,8 +20,13 @@
   :hook
   (prog-mode-hook . archer/display-numbers-hook))
 
-;;; Themes section
+;; Transparency
+;; (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
+;; (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
+;; (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
+;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
 
+;;; Themes section
 ;; For packaged versions which must use `require':
 (leaf modus-themes
   :doc "Wonderful built-in themes by Protesilaos Stavrou"
@@ -36,6 +41,7 @@
   ;; Load the theme of your choice:
   (modus-themes-load-vivendi)
   :bind ("<f5>" . modus-themes-toggle))
+
 
 ;; Change based on time
 (leaf circadian

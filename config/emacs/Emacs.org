@@ -568,6 +568,7 @@ My choice is [[https://github.com/vedang/pdf-tools][pdf-tools]], that renders on
 
 #+include: "lisp/init-pdf.el" src emacs-lisp :tangle no
 
+
 * End
 
 #+begin_src emacs-lisp
