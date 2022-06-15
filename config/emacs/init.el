@@ -55,6 +55,7 @@
 
 (leaf gcmh
   :ensure t
+  :disabled t
   :require t
   :config
   (gcmh-mode 1))

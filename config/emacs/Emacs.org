@@ -118,6 +118,7 @@ This useful package helps to avoid filling up our work folders with ~auto-save~ 
 
   (leaf gcmh
     :ensure t
+    :disabled t
     :require t
     :config
     (gcmh-mode 1))

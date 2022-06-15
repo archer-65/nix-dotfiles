@@ -8,7 +8,7 @@
 
 ;;; Code:
 
-(defvar default-gc-cons-threshold (* 16 1000 1000) ;; 16MB
+(defvar default-gc-cons-threshold (* 2 1000 1000) ;; 16MB
   "Desired value of `gc-cons-threshold' during normal Emacs operations.")
 
 ;; Make garbage collector less invasive

@@ -15,6 +15,8 @@
   :doc "Line numbers configuration."
   :setq
   (display-line-numbers-type . t)
+  (display-line-numbers-width-start . nil)
+  (display-line-numbers-grow-only . t)
   :hook
   (prog-mode-hook . archer/display-numbers-hook))
 
@@ -27,7 +29,7 @@
   :init
   (setq modus-themes-region '(accented no-extend bg-only)
         modus-themes-org-blocks 'gray-background
-        modus-themes-mode-line '(borderless accented))
+        modus-themes-mode-line '(moody borderless accented))
   ;; Load the theme files before enabling a theme
   (modus-themes-load-themes)
   :config
@@ -50,52 +52,6 @@
   :doc "Needed for modeline and dired"
   :ensure t
   :require t)
-
-(setq-default mode-line-format
-		'("%e"
-		  mode-line-front-space
-                  (:propertize
-		   (" "
-                   mode-line-mule-info
-                   mode-line-client
-                   mode-line-modified
-                   mode-line-remote)
-		  display
-		  (min-width
-		   (5.0)))
-		  '(:eval (list (nyan-create)))
-                  mode-line-frame-identification
-                  mode-line-buffer-identification
-                  "  "
-                  mode-line-position
-                  "  "
-                  "  "
-                  mode-line-misc-info
-                  (vc-mode vc-mode)
-                  mode-line-modes
-                  mode-line-end-spaces))
-
-(leaf nyan-mode
-  :ensure t
-  :config
-  (nyan-mode 1)
-  (setq nyan-bar-length 20
-        nyan-wavy-trail nil))
-
-(leaf moody
-  :doc "Tabs and ribbons"
-  :ensure t
-  :config
-  (setq x-underline-at-descent-line t)
-  (moody-replace-mode-line-buffer-identification)
-  (moody-replace-vc-mode)
-  (moody-replace-eldoc-minibuffer-message-function))
-
-(leaf minions
-  :doc "Hide minor modes"
-  :ensure t
-  :init
-  (minions-mode 1))
 
 (leaf emojify
   :doc "Enhanced emoji support :D"

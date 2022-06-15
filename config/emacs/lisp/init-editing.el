@@ -59,6 +59,7 @@
 (leaf drag-stuff
   :doc "Drag stuff around with alt+arrows"
   :ensure t
+  :blackout t
   :config
   (drag-stuff-mode t)
   (drag-stuff-global-mode 1)
