@@ -12,6 +12,7 @@
 (leaf vertico
   :doc "Performant and minimalistic vertical completion
         UI based on the default completion system."
+  :straight t
   :init
   (vertico-mode)
   :setq
@@ -19,26 +20,15 @@
   (vertico-count . 15)
   (vertico-cycle . t))
 
-
-;; Cute centered child buffer (a bit buggy right now)
-;; (leaf vertico-posframe
-;;   :doc "Based on posframe library, for vertico"
-;;   :ensure t
-;;   :require t
-;;   :init
-;;   (vertico-posframe-mode 1)
-;;   :config
-;;   (setq vertico-posframe-parameters
-;;       '((left-fringe . 8)
-;;         (right-fringe . 8))))
-
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (leaf savehist
+  :after vertico
   :init
   (savehist-mode))
 
 ;; Other useful settings
 (leaf emacs
+  :after vertico
   :init
   ;; Do not allow the cursor in the minibuffer prompt
   (setq minibuffer-prompt-properties
@@ -50,6 +40,8 @@
 ;; Marginalia
 (leaf marginalia
   :doc "Annotations placed at the margin of the minibuffer for completion candidates."
+  :after vertico
+  :straight t
   ;; Enable `marginalia-cycle` globally and in the minibuffer
   :bind (("M-A" . marginalia-cycle)
          (minibuffer-local-map
@@ -62,6 +54,8 @@
 ;; Orderless
 (leaf orderless
   :doc "Orderless completion style for your Completion UI/Framework"
+  :after vertico
+  :straight t
   :init
   (setq completion-styles '(orderless)
         completion-category-defaults nil

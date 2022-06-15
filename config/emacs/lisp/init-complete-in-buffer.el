@@ -8,7 +8,7 @@
 
 (leaf company
     :after lsp-mode
-    :ensure t
+    :straight t
     :init
     (global-company-mode)
     :bind

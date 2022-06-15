@@ -7,12 +7,15 @@
 ;;; Code:
 
 (leaf yasnippet
-  :ensure t
-  :hook (prog-mode-hook . yas-minor-mode)
+  :straight t
+  :hook
+  (prog-mode-hook . yas-minor-mode)
   :config
   (yas-reload-all))
 
-(leaf yasnippet-snippets)
+(leaf yasnippet-snippets
+  :straight t
+  :after yasnippet)
 
 (provide 'init-snippets)
 ;;; init-snippets.el ends here

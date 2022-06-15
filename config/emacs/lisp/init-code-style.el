@@ -9,7 +9,7 @@
 
 (leaf ethan-wspace
   :doc "Delete useless whitespaces"
-  :ensure t
+  :straight t
   :bind ("C-c c" . ethan-wspace-clean-all)
   :hook (prog-mode-hook . ethan-wspace-mode)
   :config
@@ -29,20 +29,20 @@
   (setq-default indent-tabs-mode nil))
 
 (leaf rainbow-delimiters
-  :ensure t
+  :straight t
   :require t
   :hook (prog-mode-hook . rainbow-delimiters-mode))
 
 (leaf tree-sitter
-  :ensure t
-  ;; :commands (global-tree-sitter-mode tree-sitter-mode tree-sitter-hl-mode)
-  :init
-  (global-tree-sitter-mode)
+  :straight t
+  :commands (tree-sitter-mode tree-sitter-hl-mode)
   :hook
+  ((emacs-lisp-mode c-mode c++-mode java-mode python-mode) . tree-sitter-mode)
   (tree-sitter-after-on-hook . tree-sitter-hl-mode))
 
 (leaf tree-sitter-langs
-  :ensure t)
+  :straight t
+  :after treesitter)
 
 (provide 'init-code-style)
 ;;; init-code-style.el ends here

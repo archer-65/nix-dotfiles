@@ -70,32 +70,34 @@
 ;;; Tweak around!!!
 (leaf undo-tree
   :doc "Simpler undo/redo tree, with textual tree mode."
-  :ensure t
+  :straight t
   :init
   (global-undo-tree-mode))
 
 (leaf delsel
   :doc "Should be default IMHO."
+  :blackout t
   :hook
   (after-init-hook . delete-selection-mode))
 
 (leaf drag-stuff
   :doc "Drag stuff around with alt+arrows"
-  :ensure t
+  :straight t
   :blackout t
+  :hook
+  ((prog-mode text-mode org-mode))
   :config
-  (drag-stuff-mode t)
-  (drag-stuff-global-mode 1)
   (drag-stuff-define-keys))
 
 (leaf goto-last-change
   :doc "Oops, forgot position of last edit? Go back. (Thanks again, Prot)"
-  :ensure t
+  :straight t
   :bind
   ("C-z" . goto-last-change))
 
 (leaf autorevert
   :doc "Every time I have to confirm buffer reverts, do it yourself, Emacs"
+  :blackout t
   :setq
   (auto-revert-verbose . t)
   :hook
@@ -103,9 +105,9 @@
 
 (leaf rainbow-mode
   :doc "Minor mode to set background of string matching hex colors to the hex color."
-  :ensure t
-  :config
-  (rainbow-mode t))
+  :straight t
+  :hook
+  ((org-mode emacs-lisp-mode web-mode json-mode) . rainbow-mode))
 
 (provide 'init-editing)
 ;;; init-editing.el ends here

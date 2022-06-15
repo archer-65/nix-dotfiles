@@ -24,7 +24,7 @@
   (visual-fill-column-mode 1))
 
 (leaf org
-  :ensure t
+  :straight t
   :require t
   :hook
   (org-mode-hook . archer/org-mode-setup)
@@ -40,14 +40,16 @@
   (push '("conf-unix" . conf-unix) org-src-lang-modes))
 
 (leaf org-modern
-  :doc "Org bullets? Pft."
-  :ensure t
-  :require t
+  :doc "Org bullets? Old."
+  :straight t
   :after org
+  :require t
   :hook (org-mode-hook . org-modern-mode))
 
 (leaf visual-fill-column
   :doc "Center buffers, word processor like editing"
+  :straight t
+  :after org
   :hook
   (org-mode-hook . archer/org-mode-visual-fill))
 

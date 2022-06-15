@@ -12,15 +12,15 @@
   (prog-mode-hook . flyspell-prog-mode))
 
 (leaf flycheck
-  :ensure t
-  :init
+  :straight t
+  :commands (flycheck-list-errors flycheck-buffer)
+  :config
   (global-flycheck-mode)
   :custom
   (flycheck-emacs-lisp-load-path . 'inherit)
-  (flycheck-display-errors-delay . 1.5)
+  (flycheck-idle-change-delay . 1.0)
+  (flycheck-display-errors-delay . 0.25)
   (flycheck-emacs-lisp-initialize-packages . t))
-  ;:hook
-  ;(emacs-lisp-mode-hook . lisp-interaction-mode-hook))
 
 (provide 'init-spell-and-check)
 ;;; init-spell-and-check.el ends here

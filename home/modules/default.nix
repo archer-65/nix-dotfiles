@@ -6,6 +6,8 @@ inputs: {
   "desktop/apps/greenclip" = import ./desktop/apps/greenclip.nix inputs;
   "desktop/apps/rofi" = import ./desktop/apps/rofi.nix inputs;
   "desktop/apps/autorandr" = import ./desktop/apps/autorandr.nix inputs;
+  "desktop/apps/telegram" = import ./desktop/apps/telegram.nix inputs;
+
   "desktop/media/documents" = import ./desktop/media/documents.nix inputs;
   "desktop/term/alacritty" = import ./desktop/term/alacritty.nix inputs;
   "desktop/services/picom" = import ./desktop/services/picom.nix inputs;

@@ -7,8 +7,7 @@
 ;;; Code:
 
 (leaf pdf-tools
-  ;:defer t
-  :ensure t
+  :straight t
   :commands (pdf-view-mode pdf-tools-install)
   :mode ("\\.[pP][dD][fF]\\'" . pdf-view-mode)
   :magic ("%PDF" . pdf-view-mode)

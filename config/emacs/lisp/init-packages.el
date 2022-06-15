@@ -3,7 +3,7 @@
 ;;; Commentary:
 
 ;; This file should be the `core`.
-;; Here are initialized `package.el/straight.el` and `use-package/leaf`.
+;; Here are initialized `straight.el` and `leaf`.
 
 ;;; Code:
 
@@ -34,18 +34,14 @@
 ;;; SECTION LEAF INSTALLATION
 (eval-and-compile
   (straight-use-package 'leaf)
-
+  
   (leaf leaf-keywords
     (straight-use-package 'leaf-keywords)
     :init
-    (leaf straight (straight-use-package 'straight))
+    ;(leaf straight :ensure t)
     (leaf blackout (straight-use-package 'blackout))
-    ;:custom
-    ;(leaf-alias-keyword-alist .'((:ensure . :straight)))
     :config
     (leaf-keywords-init)))
-
-(leaf leaf-convert :straight t)
 ;;; SECTION LEAF INSTALLATION ENDS HERE
 
 (provide 'init-packages)

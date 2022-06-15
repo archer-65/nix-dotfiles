@@ -128,8 +128,8 @@
 
 ;; Org enhanced messages
 (leaf org-msg
-  :ensure t
-  :after mu4e
+  :straight t
+  :after (mu4e org)
   :config
   (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil \\n:t"
         org-msg-startup "hidestars indent inlineimages"

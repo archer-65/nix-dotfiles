@@ -93,7 +93,7 @@
    '("<escape>" . ignore)))
 
 (leaf meow
-  :ensure t
+  :straight t
   :require t
   :config
   (archer/meow-setup)

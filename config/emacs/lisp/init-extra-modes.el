@@ -7,11 +7,16 @@
 ;;; Code:
 
 (leaf nix-mode
+  :straight t
   :mode "\\.nix\\'")
 
-;; (leaf company-nixos-options)
+(leaf yaml-mode
+  :straight t
+  :mode "\\.yml\\'")
 
-(leaf yaml-mode)
+(leaf json-mode
+  :straight t
+  :mode "\\.json\\'")
 
 (provide 'init-extra-modes)
 ;;; init-extra-modes.el ends here

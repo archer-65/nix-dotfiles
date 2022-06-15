@@ -8,17 +8,17 @@
 
 (leaf which-key
   :doc "Useful panel that appears while pressing any partial binding."
-  :ensure t
+  :straight t
   :blackout t
   :setq
-  (which-key-idle-delay . 0.5)
+  (which-key-idle-delay . 0.2)
   :config
   (which-key-mode))
 
 (leaf helpful
   :doc "Helpful informations in buffers."
   :disabled t
-  :ensure t
+  :straight t
   :bind
   (("C-h f"   . helpful-callable)
    ("C-h v"   . helpful-variable)

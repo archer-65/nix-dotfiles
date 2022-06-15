@@ -43,14 +43,14 @@
 ;; The `no-littering` package to keep folders where we edit files and the Emacs configuration folder clean.
 (leaf no-littering
   :doc "Keeps folders clean"
-  :ensure t
+  :straight t
   :setq
   ;; The package `no-littering` doesn't set this by default so we must place
   ;; auto save files in the same path as it uses for sessions
   (auto-save-file-name-transforms . `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
 
 (leaf gcmh
-  :ensure t
+  :straight t
   ;; :disabled t
   :init
   ;; The GC introduces annoying pauses and stuttering into our Emacs experience,

@@ -30,17 +30,11 @@
   :hook
   (prog-mode-hook . archer/display-numbers-hook))
 
-;; Transparency
-;; (set-frame-parameter (selected-frame) 'alpha '(90 . 90))
-;; (add-to-list 'default-frame-alist '(alpha . (90 . 90)))
-;; (set-frame-parameter (selected-frame) 'fullscreen 'maximized)
-;; (add-to-list 'default-frame-alist '(fullscreen . maximized))
-
-;;; Themes section
+;; Themes section
 ;; For packaged versions which must use `require':
 (leaf modus-themes
   :doc "Wonderful built-in themes by Protesilaos Stavrou"
-  :ensure t
+  :straight t
   :init
   (setq modus-themes-region '(accented no-extend bg-only)
         modus-themes-org-blocks 'gray-background
@@ -50,12 +44,14 @@
   :config
   ;; Load the theme of your choice:
   (modus-themes-load-vivendi)
-  :bind ("<f5>" . modus-themes-toggle))
+  :bind
+  ("<f5>" . modus-themes-toggle))
 
 
 ;; Change based on time
 (leaf circadian
-  :ensure t
+  :straight t
+  :after modus-themes
   :config
   (setq circadian-themes '(("8:00" . modus-operandi)
                            ("20:00" . modus-vivendi)))
@@ -66,23 +62,17 @@
 ;; You must run `all-the-icons-install-fonts` the first time.
 (leaf all-the-icons
   :doc "Needed for modeline and dired"
-  :ensure t
+  :straight t
   :require t)
 
 (leaf emojify
-  :doc "Enhanced emoji support :D"
-  :ensure t
-  :config
-  (when (member "Noto Color Emoji" (font-family-list))
-    (set-fontset-font
-     t 'symbol (font-spec :family "Noto Color Emoji") nil 'prepend))
-  (setq emojify-display-style 'unicode)
-  (setq emojify-emoji-styles '(unicode))
-  ;; Don't inhibit for mu4e
-  (delete 'mu4e-headers-mode emojify-inhibit-major-modes)
-  (bind-key* (kbd "C-x C-/") #'emojify-insert-emoji)
-  :hook
-  (after-init-hook . global-emojify-mode))
+   :doc "Enhanced emoji support :D"
+   :straight t
+   :config
+   ;; Don't inhibit for mu4e
+   (delete 'mu4e-headers-mode emojify-inhibit-major-modes)
+   :hook
+   ((mu4e-headers-mode org-mode) . global-emojify-mode))
 
 (provide 'init-appearance)
 ;;; init-appearance.el ends here

@@ -8,15 +8,16 @@
 
 (leaf treemacs
   :doc "Tree style directory visualization"
-  :ensure t
+  :straight t
   :config
   (setq treemacs-width-is-initially-locked nil))
 
 (leaf projectile
   :doc "Project management and navigation"
-  :ensure t
+  :straight t
   :blackout t
-  :config (projectile-mode)
+  :config
+  (projectile-mode)
   :bind-keymap
   ("C-c p"   . projectile-command-map)
   :init
@@ -27,14 +28,14 @@
 
 (leaf magit
   :doc "Git interface"
-  :ensure t
+  :straight t
   :commands magit-status
   :custom
   (magit-display-buffer-function . 'magit-display-buffer-same-window-except-diff-v1))
 
 (leaf forge
   :after magit
-  :ensure t)
+  :straight t)
 
 (provide 'init-projects)
 ;;; init-projects.el ends here

@@ -32,7 +32,7 @@
 ;; Some bugs, disabled right now.
 (leaf moody
   :doc "Tabs and ribbons"
-  :ensure t
+  :straight t
   :disabled t
   :config
   (setq x-underline-at-descent-line t)
@@ -44,7 +44,7 @@
 ;; Hiding minor mode can be useful, but right now I have disabled this behavior.
 (leaf minions
   :doc "Hide minor modes"
-  :ensure t
+  :straight t
   :disabled t
   :config
   (minions-mode 1))
@@ -52,7 +52,7 @@
 ;; Currently disabled because a bit broken
 (leaf doom-modeline
   :doc "A very attractive and rich (yet still minimal) mode line configuration for Emacs."
-  :ensure t
+  :straight t
   :disabled t
   :hook
   (after-init-hook . doom-modeline-mode)

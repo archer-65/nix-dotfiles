@@ -39,6 +39,7 @@
       (org-babel-tangle))))
 
 (leaf ob-tangle
+  :after org
   :hook
   (org-mode-hook . (lambda () (add-hook 'after-save-hook #'archer-65/org-babel-tangle-config))))
 

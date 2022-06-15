@@ -7,9 +7,10 @@
 ;;; Code:
 
 (leaf dashboard
-  :ensure t
+  :straight t
   :blackout t
-  :commands (all-the-icons-faicon
+  :commands (all-the-icons-fileicon
+	     all-the-icons-faicon
 	     all-the-icons-octicon)
   :init
   ;; Basic UI settings
@@ -41,12 +42,12 @@
             "Click to config Emacs"
             (lambda (&rest _) (find-file "~/.dotfiles/config/emacs/Emacs.org"))))))
   (dashboard-setup-startup-hook)
-  (add-hook 'after-init-hook #'dashboard-insert-startupify-lists)
+  :hook
+  (after-init-hook . dashboard-insert-startupify-lists)
   :config
   ;; Needed with PGTK/NativeComp
   (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*"))))
-  ;;(dashboard-refresh-buffer))
-  ;; (setq initial-buffer-choice(lambda nil (get-buffer "*dashboard*")))
+  ;; (dashboard-refresh-buffer))
 
 (provide 'init-dash)
 ;;; init-dash.el ends here

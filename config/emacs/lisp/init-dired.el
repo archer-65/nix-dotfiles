@@ -13,7 +13,6 @@
     (call-process "xdg-open" nil 0 nil file)))
 
 (leaf dired
-  :ensure nil
   :commands (dired dired-jump)
   :bind
   ("C-x C-j" . dired-jump)
@@ -34,19 +33,25 @@
   (dired-load-hook . (lambda () (interactive) (dired-collapse))))
 
 (leaf dired-single
+  :straight t
+  :after dired
   :commands (dired dired-jump))
 
 (leaf all-the-icons-dired
+  :straight t
+  :after dired
   :hook (dired-mode-hook . all-the-icons-dired-mode))
 
 (leaf dired-hide-dotfiles
+  :straight t
+  :after dired
   :hook (dired-mode-hook . dired-hide-dotfiles-mode)
   :config
   (define-key dired-mode-map (kbd "C-c d") 'dired-hide-dotfiles-mode))
 
 (leaf trashed
   :doc "Visit system trash."
-  :ensure t
+  :straight t
   :require t
   :config
   (setq trashed-action-confirmer 'y-or-n-p)

@@ -6,7 +6,10 @@
     };
 
     desktop = {
-      apps.rofi.enable = true;
+      apps = {
+        rofi.enable = true;
+        telegram.enable = true;
+      };
 
       media.documents = {
         enable = true;

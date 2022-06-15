@@ -45,7 +45,7 @@ targets."
 ;; Embark configuration
 (leaf embark
   :doc "Act near point :D"
-  :ensure t
+  :straight t
   :bind
   (("C-." . embark-act)
    ("C-;" . embark-dwim)
@@ -64,11 +64,12 @@ targets."
 ;; Used for export and edit after ripgrep magic.
 (leaf wgrep
   :doc "Edit matches in place."
-  :ensure t)
+  :after embark
+  :straight t)
 
 ;; Integration with Consult
 (leaf embark-consult
-  :ensure t
+  :straight t
   :after (embark consult)
   :require t
   :leaf-defer nil ; only necessary if you have the hook below
