@@ -24,9 +24,6 @@
   (setq message-send-mail-function 'message-send-mail-with-sendmail)
   ;; (setq mu4e-compose-signature "Sent from Emacs")
 
-  ;; (with-eval-after-load "emojify"
-  ;;   (delete 'mu4e-headers-mode emojify-inhibit-major-modes))
-
   ;; Contrib
   (require 'mu4e-contrib)
 
@@ -126,36 +123,12 @@
 ;; Notifications!
 (leaf mu4e-alert
   :doc "Enable notifications for mu4e"
-  :ensure t
+  :straight (t :type git :host github :repo "xzz53/mu4e-alert")
   :after mu4e
   :init
   (mu4e-alert-set-default-style 'libnotify)
-  ;; (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
-
-  ;; Really, I don't know if this is needed anymore, I'll try the forked package
-  ;; with the pull request sent by me.
-  (defun mu4e-alert--get-mu4e-frame ()
-    "Try getting a frame containing a mu4e buffer."
-    (car (delq nil (mapcar (lambda (buffer)
-                             (when (and buffer
-                                        (get-buffer-window buffer t))
-                               (window-frame (get-buffer-window buffer t))))
-                           (list mu4e-main-buffer-name)))))
-
-  (defun mu4e-alert-filter-repeated-mails (mails)
-    "Filters the MAILS that have been seen already."
-    (cl-remove-if (lambda (mail)
-                    (prog1 (and (not mu4e-alert-notify-repeated-mails)
-                                (ht-get mu4e-alert-repeated-mails
-                                        (plist-get mail :message-id)))
-                      (ht-set! mu4e-alert-repeated-mails
-                               (plist-get mail :message-id)
-                               t)))
-                  mails))
-
-  (setq mu4e-alert-notify-repeated-mails nil)
-  :hook
-  (after-init-hook . mu4e-alert-enable-notifications))
+  (add-hook 'after-init-hook #'mu4e-alert-enable-notifications)
+  (setq mu4e-alert-notify-repeated-mails nil))
 
 ;; Org enhanced messages
 (leaf org-msg
