@@ -547,19 +547,6 @@ screens= [
                 ),
 
                 sep(),
-                
-                # widget.CheckUpdates(
-                #     **base(fg='bg', bg='color3'),
-                #     distro="Arch_checkupdates",
-                #     colour_have_updates=colors["bg"],
-                #     colour_no_updates=colors["bg"],
-                #     display_format=" {updates} updates",
-                #     no_update_string="  no updates",
-                #     update_interval=1800,
-                #     execute=update,
-                # ),
-
-                # sep(),
 
                 widget.CPU(
                     **base(fg='bg', bg='color2'),
@@ -594,7 +581,6 @@ screens= [
                 #     volume_app="pavucontrolp",
                 #     mouse_callbacks={"Button2": open_mixer},
                 # ),
-
             ]
             +
             
@@ -616,8 +602,9 @@ screens= [
 
                 sep(bg='inactive'),
             ],
-            size=34 if hostname == 'quietfrost' else 28,
-            background=colors["bg"],
+            size = 34 if hostname == 'quietfrost' else 28,
+            #margin = [0, 10, 5, 10],
+            background = colors["bg"],
          ),
      ),
 ]
