@@ -11,7 +11,6 @@
 ;; LaTeX export
 (leaf ox-latex
   :require t
-  :after org
   :config
   ;; Newpage after TOC
   (setq org-latex-toc-command "\\tableofcontents \\clearpage")
@@ -47,7 +46,6 @@
 ;; Reveal.js
 (leaf ox-reveal
   :straight t
-  :after org
   :config
   (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js"))
 

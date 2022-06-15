@@ -39,11 +39,8 @@
       (org-babel-tangle))))
 
 (leaf ob-tangle
-  :after org
   :hook
   (org-mode-hook . (lambda () (add-hook 'after-save-hook #'archer-65/org-babel-tangle-config))))
-
-;; (add-hook 'org-mode-hook (lambda () (add-hook 'after-save-hook #'archer-65/org-babel-tangle-config)))
 
 (provide 'init-org-languages)
 ;;; init-org-languages.el ends here

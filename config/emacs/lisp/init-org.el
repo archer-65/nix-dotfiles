@@ -44,14 +44,24 @@
   :straight t
   :after org
   :require t
-  :hook
-  (org-mode-hook . org-modern-mode))
+  :hook (org-mode-hook . org-modern-mode))
 
 (leaf visual-fill-column
   :doc "Center buffers, word processor like editing"
+  :disabled t
   :straight t
   :hook
   (org-mode-hook . archer/org-mode-visual-fill))
+
+(leaf olivetti
+  :doc "Focused writing, like visual-fill-column, but seems better."
+  :straight t
+  :hook
+  (org-mode-hook . olivetti-mode)
+  :config
+  (setq olivetti-body-width 0.75)
+  (setq olivetti-minimum-body-width 75)
+  (setq olivetti-style 'fancy))
 
 (provide 'init-org)
 ;;; init-org.el ends here

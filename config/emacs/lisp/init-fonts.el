@@ -27,7 +27,9 @@
   (set-face-attribute 'variable-pitch nil
                       :font "VictorMono Nerd Font"
                       :height archer/font-height
-                      :weight 'light))
+                      :weight 'light)
+  (set-face-attribute 'org-modern-symbol nil
+		      :family "Iosevka"))
 
 ;; Run this hook after we have initialized the first time.
 (add-hook 'after-init-hook 'archer/font-setup)

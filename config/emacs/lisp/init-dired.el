@@ -34,17 +34,14 @@
 
 (leaf dired-single
   :straight t
-  :after dired
   :commands (dired dired-jump))
 
 (leaf all-the-icons-dired
   :straight t
-  :after dired
   :hook (dired-mode-hook . all-the-icons-dired-mode))
 
 (leaf dired-hide-dotfiles
   :straight t
-  :after dired
   :hook (dired-mode-hook . dired-hide-dotfiles-mode)
   :config
   (define-key dired-mode-map (kbd "C-c d") 'dired-hide-dotfiles-mode))
