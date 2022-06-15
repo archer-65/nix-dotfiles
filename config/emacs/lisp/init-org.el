@@ -49,7 +49,7 @@
 (leaf visual-fill-column
   :doc "Center buffers, word processor like editing"
   :straight t
-  :after org
+  ;; :after org
   :hook
   (org-mode-hook . archer/org-mode-visual-fill))
 
