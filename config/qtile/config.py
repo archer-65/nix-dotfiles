@@ -313,7 +313,7 @@ keys = [
             desc="Launch Telegram"),
 
         Key([], "d",
-            lazy.spawn("com.discordapp.Discord"),
+            lazy.spawn("discord"),
             desc="Launch Discord"),
 
         Key([], "c",

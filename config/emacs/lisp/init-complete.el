@@ -22,13 +22,11 @@
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
 (leaf savehist
-  :after vertico
   :init
   (savehist-mode))
 
 ;; Other useful settings
 (leaf emacs
-  :after vertico
   :init
   ;; Do not allow the cursor in the minibuffer prompt
   (setq minibuffer-prompt-properties
@@ -40,7 +38,6 @@
 ;; Marginalia
 (leaf marginalia
   :doc "Annotations placed at the margin of the minibuffer for completion candidates."
-  :after vertico
   :straight t
   ;; Enable `marginalia-cycle` globally and in the minibuffer
   :bind (("M-A" . marginalia-cycle)
@@ -54,7 +51,6 @@
 ;; Orderless
 (leaf orderless
   :doc "Orderless completion style for your Completion UI/Framework"
-  :after vertico
   :straight t
   :init
   (setq completion-styles '(orderless)

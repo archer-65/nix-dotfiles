@@ -114,7 +114,6 @@ This useful package helps to avoid filling up our work folders with ~auto-save~ 
 
   (leaf gcmh
     :straight t
-    ;; :disabled t
     :init
     ;; The GC introduces annoying pauses and stuttering into our Emacs experience,
     ;; so we use `gcmh' to stave off the GC while we're using Emacs, and provoke it

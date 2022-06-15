@@ -64,7 +64,6 @@ targets."
 ;; Used for export and edit after ripgrep magic.
 (leaf wgrep
   :doc "Edit matches in place."
-  :after embark
   :straight t)
 
 ;; Integration with Consult

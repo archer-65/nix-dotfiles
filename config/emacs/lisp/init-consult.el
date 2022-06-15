@@ -8,7 +8,6 @@
 
 (leaf consult
   :doc "Practical commands based on the Emacs completion function completing-read."
-  :after (vertico marginalia orderless)
   :straight t
   ;; Replace bindings. Lazily loaded due by `use-package'.
   :bind (;; C-c bindings (mode specific)

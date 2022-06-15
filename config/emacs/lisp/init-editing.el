@@ -85,7 +85,7 @@
   :straight t
   :blackout t
   :hook
-  ((prog-mode text-mode org-mode))
+  ((prog-mode text-mode))
   :config
   (drag-stuff-define-keys))
 
@@ -107,7 +107,7 @@
   :doc "Minor mode to set background of string matching hex colors to the hex color."
   :straight t
   :hook
-  ((org-mode emacs-lisp-mode web-mode json-mode) . rainbow-mode))
+  ((emacs-lisp-mode web-mode json-mode) . rainbow-mode))
 
 (provide 'init-editing)
 ;;; init-editing.el ends here

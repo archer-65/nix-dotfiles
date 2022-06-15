@@ -8,10 +8,6 @@
     desktop = {
       apps = {
         rofi.enable = true;
-        telegram = {
-          enable = true;
-          telega.enable = true;
-        };
       };
 
       media.documents = {

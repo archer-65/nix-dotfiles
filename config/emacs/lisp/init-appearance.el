@@ -44,14 +44,12 @@
   :config
   ;; Load the theme of your choice:
   (modus-themes-load-vivendi)
-  :bind
-  ("<f5>" . modus-themes-toggle))
+  :bind ("<f5>" . modus-themes-toggle))
 
 
 ;; Change based on time
 (leaf circadian
   :straight t
-  :after modus-themes
   :config
   (setq circadian-themes '(("8:00" . modus-operandi)
                            ("20:00" . modus-vivendi)))
@@ -72,7 +70,7 @@
    ;; Don't inhibit for mu4e
    (delete 'mu4e-headers-mode emojify-inhibit-major-modes)
    :hook
-   ((mu4e-headers-mode org-mode) . global-emojify-mode))
+   (after-init-hook . global-emojify-mode))
 
 (provide 'init-appearance)
 ;;; init-appearance.el ends here

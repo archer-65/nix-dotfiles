@@ -44,12 +44,12 @@
   :straight t
   :after org
   :require t
-  :hook (org-mode-hook . org-modern-mode))
+  :hook
+  (org-mode-hook . org-modern-mode))
 
 (leaf visual-fill-column
   :doc "Center buffers, word processor like editing"
   :straight t
-  ;; :after org
   :hook
   (org-mode-hook . archer/org-mode-visual-fill))
 

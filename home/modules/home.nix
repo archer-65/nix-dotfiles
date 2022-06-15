@@ -2,7 +2,7 @@ _:
 { pkgs, ... }:
 
 let
-  socialPkgs = with pkgs; [ discord ];
+  socialPkgs = with pkgs; [ discord tdesktop ];
 
   mediaPkgs = with pkgs; [ mpv pavucontrol ];
 
