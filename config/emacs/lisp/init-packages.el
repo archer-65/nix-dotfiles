@@ -7,15 +7,6 @@
 
 ;;; Code:
 
-;; Initialize package sources
-(require 'package)
-
-(setq package-archives '(("melpa" . "https://melpa.org/packages/")
-                         ("elpa" . "https://elpa.gnu.org/packages/")))
-
-(unless package-archive-contents
-  (package-refresh-contents))
-
 ;;; SECTION STRAIGHT.EL
 (defvar bootstrap-version)
 (let ((bootstrap-file
@@ -34,11 +25,12 @@
 ;;; SECTION LEAF INSTALLATION
 (eval-and-compile
   (straight-use-package 'leaf)
+  (straight-use-package 'leaf-keywords)
+  (straight-use-package 'blackout)
   
   (leaf leaf-keywords
     (straight-use-package 'leaf-keywords)
     :init
-    ;(leaf straight :ensure t)
     (leaf blackout (straight-use-package 'blackout))
     :config
     (leaf-keywords-init)))

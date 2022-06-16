@@ -26,7 +26,7 @@
 ;; In Emacs 27+, package initialization occurs before `user-init-file' is
 ;; loaded, but after `early-init-file'. Doom handles package initialization, so
 ;; we must prevent Emacs from doing it early!
-(setq package-enable-at-startup t)
+(setq package-enable-at-startup nil)
 
 ;; Another trick from DOOM
 (unless (or (daemonp)
