@@ -60,6 +60,10 @@
 ;;                              (setq truncate-lines t
 ;;                                    word-wrap nil)))
 
+;; Editing enhancements for `prog-mode`
+(add-hook 'prog-mode #'visual-line-mode)
+(add-hook 'prog-mode #'hl-line-mode)
+
 ;;; Pairs? I forget to balance every kind of pair, I need this.
 (electric-pair-mode 1)
 (show-paren-mode 1)
@@ -84,8 +88,8 @@
   :doc "Drag stuff around with alt+arrows"
   :straight t
   :blackout t
-  :hook
-  ((prog-mode text-mode))
+  :init
+  (drag-stuff-global-mode 1)
   :config
   (drag-stuff-define-keys))
 

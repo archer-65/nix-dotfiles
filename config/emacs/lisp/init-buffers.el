@@ -67,6 +67,7 @@
 	   ("elisp" (mode . emacs-lisp-mode))
 	   ("c/c++" (or (mode . c-mode)
 			(mode . c++-mode)))
+	   ("nix" (mode . nix-mode))
 	   ("documents" (or (name . "\\.pdf")
 			    (name . "\\.org")))
            ("emacs" (or

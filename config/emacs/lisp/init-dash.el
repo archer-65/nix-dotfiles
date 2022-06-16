@@ -36,7 +36,7 @@
            (,(all-the-icons-faicon "archive" :height 1.1 :v-adjust 0.0)
             "Update Packages"
             "Click to updates your packages"
-            (lambda (&rest _) (auto-package-update-now)))
+            (lambda (&rest _) (straight-pull-all)))
            (,(all-the-icons-octicon "gear" :height 1.1 :v-adjust 0.0)
             "Configuration"
             "Click to config Emacs"

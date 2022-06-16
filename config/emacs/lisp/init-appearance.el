@@ -24,7 +24,7 @@
 (leaf display-line-numbers
   :doc "Line numbers configuration."
   :setq
-  (display-line-numbers-type . t)
+  (display-line-numbers-type . 'relative)
   (display-line-numbers-width-start . nil)
   (display-line-numbers-grow-only . t)
   :hook

@@ -24,7 +24,7 @@ in {
       programs.emacs = {
         enable = true;
         package = pkgs.emacsPgtkNativeComp;
-        #extraPackages = epkgs: [epkgs.vterm];
+        extraPackages = epkgs: [epkgs.vterm];
       };
 
       home.file.".emacs.d" = {

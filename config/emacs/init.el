@@ -148,6 +148,11 @@
 
 (require 'init-pdf)
 
+(leaf daemons
+  :straight t)
+
+(leaf vterm)
+
 ;; Make gc pauses faster by decreasing the threshold.
 ;; (setq gc-cons-threshold (* 2 1000 1000))
 

@@ -259,7 +259,7 @@ Just modeline customized.
 
 #+end_src
 
-As Completion UI [[https://github.com/minad/vertico][Vertico]] is my preferred choice, it's lightweight and fast, and relies on Emacs internals. [[https://github.com/minad/marginalia/][Marginalia]] for rich annotations provides a summary for candidates.
+As Completion UI [[https://github.com/minad/vertico]Vertico]] is my preferred choice, it's lightweight and fast, and relies on Emacs internals. [[https://github.com/minad/marginalia/][Marginalia]] for rich annotations provides a summary for candidates.
 Completion can be better with an [[https://github.com/oantolin/orderless][Orderless]] (similar to FZF, if you know). Orderless is also customizable for matching style.
 
 Following, the =init-complete.el= file.
@@ -613,6 +613,24 @@ My choice is [[https://github.com/vedang/pdf-tools][pdf-tools]], that renders on
 
 #+include: "lisp/init-pdf.el" src emacs-lisp :tangle no
 
+
+** Daemons control
+
+#+begin_src emacs-lisp
+
+  (leaf daemons
+    :straight t)
+
+#+end_src
+
+
+** Terminal
+
+#+begin_src emacs-lisp
+
+  (leaf vterm)
+
+#+end_src
 
 * End
 

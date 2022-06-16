@@ -26,6 +26,7 @@ in {
     services.xserver = {
       layout = "us";
       xkbVariant = "intl";
+      xkbOptions = "ctrl:nocaps";
     };
 
     services.xserver.libinput.enable = true;

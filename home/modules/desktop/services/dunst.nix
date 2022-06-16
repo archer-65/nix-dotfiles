@@ -27,7 +27,7 @@ in {
           fullscreen = "pushback";
 
           # Geometry
-          width = "(300, 500)";
+          width = "(300, 450)";
           height = "300";
           origin = "top-right";
           offset = "5x40";
@@ -60,7 +60,7 @@ in {
           idle_threshold = 60;
 
           # Text    
-          font = "Fira Code ${toString cfgTheme.font.size}, Font Awesome ${toString cfgTheme.font.size}";
+          font = "Fira Code ${toString (cfgTheme.font.size - 2)}, Font Awesome ${toString (cfgTheme.font.size - 2)}";
           line_height = 0;
           markup = "full";
 
