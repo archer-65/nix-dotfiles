@@ -153,6 +153,42 @@
 
 (leaf vterm)
 
+(leaf emms
+  :straight t
+  :init
+  ;; Notification on play
+  (defun emms-notify-track-description ()
+    "Use `notify-send' to show the description of the currecnt track."
+    (call-process
+     "notify-send"
+     nil nil nil
+     "-a" "EMMS"
+     "-t" "1000"
+     "-h" "string:x-dunst-stack-tag:test"
+     "-a" "music"
+     (emms-track-description
+      (emms-playlist-current-selected-track))))
+  :config
+  ;; Start
+  (require 'emms-setup)
+  (require 'emms-mode-line)
+  (require 'emms-playing-time)
+  (emms-all)
+
+  ;; Info
+  (setq emms-mode-line t)
+  (setq emms-playing-time t)
+
+  ;; Directory
+  (setq emms-source-file-default-directory "~/stuff/"
+        emms-info-asynchronously t)
+
+  ;; Other infos, covers
+  (setq emms-info-functions '(emms-info-exiftool)
+        emms-browser-covers 'emms-browser-cache-thumbnail-async)
+  :hook
+  (emms-player-started-hook . emms-notify-track-description))
+
 ;; Make gc pauses faster by decreasing the threshold.
 ;; (setq gc-cons-threshold (* 2 1000 1000))
 

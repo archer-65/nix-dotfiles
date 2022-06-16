@@ -632,6 +632,50 @@ My choice is [[https://github.com/vedang/pdf-tools][pdf-tools]], that renders on
 
 #+end_src
 
+
+** Media
+
+#+begin_src emacs-lisp
+
+  (leaf emms
+    :straight t
+    :init
+    ;; Notification on play
+    (defun emms-notify-track-description ()
+      "Use `notify-send' to show the description of the currecnt track."
+      (call-process
+       "notify-send"
+       nil nil nil
+       "-a" "EMMS"
+       "-t" "1000"
+       "-h" "string:x-dunst-stack-tag:test"
+       "-a" "music"
+       (emms-track-description
+        (emms-playlist-current-selected-track))))
+    :config
+    ;; Start
+    (require 'emms-setup)
+    (require 'emms-mode-line)
+    (require 'emms-playing-time)
+    (emms-all)
+
+    ;; Info
+    (setq emms-mode-line t)
+    (setq emms-playing-time t)
+
+    ;; Directory
+    (setq emms-source-file-default-directory "~/stuff/"
+          emms-info-asynchronously t)
+
+    ;; Other infos, covers
+    (setq emms-info-functions '(emms-info-exiftool)
+          emms-browser-covers 'emms-browser-cache-thumbnail-async)
+    :hook
+    (emms-player-started-hook . emms-notify-track-description))
+
+#+end_src
+
+
 * End
 
 #+begin_src emacs-lisp
