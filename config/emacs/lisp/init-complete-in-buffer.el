@@ -7,15 +7,13 @@
 ;;; Code:
 
 (leaf company
-    :after lsp-mode
+    ;; :after lsp-mode
     :straight t
     :init
     (global-company-mode)
     :bind
     (company-active-map
-          ("<tab>" . company-complete-selection))
-    (lsp-mode-map
-          ("<tab>" . company-indent-or-complete-common)))
+          ("<tab>" . company-complete-selection)))
 
 (provide 'init-complete-in-buffer)
 ;;; init-complete-in-buffer.el ends here

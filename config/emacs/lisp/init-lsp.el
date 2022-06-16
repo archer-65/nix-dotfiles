@@ -9,6 +9,9 @@
 (leaf lsp-mode
   :commands lsp
   :straight t
+  :bind
+  (lsp-mode-map
+    ("<tab>" . company-indent-or-complete-common))
   :init
   (setq lsp-keymap-prefix "C-c l")
   :config

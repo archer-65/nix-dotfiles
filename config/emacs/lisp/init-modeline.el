@@ -29,6 +29,7 @@
 (setq mode-line-position-column-line-format '("<%l:%c>") ; Emacs 28
       mode-line-defining-kbd-macro (propertize " Macro" 'face 'mode-line-emphasis))
 
+
 ;; Some bugs, disabled right now.
 (leaf moody
   :doc "Tabs and ribbons"

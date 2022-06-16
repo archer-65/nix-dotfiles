@@ -36,9 +36,39 @@
   :doc "Wonderful built-in themes by Protesilaos Stavrou"
   :straight t
   :init
-  (setq modus-themes-region '(accented no-extend bg-only)
-        modus-themes-org-blocks 'gray-background
-        modus-themes-mode-line '(moody borderless accented))
+  (setq modus-themes-region '(accented no-extend bg-only) ;; Region highlight
+        modus-themes-org-blocks 'gray-background ;; Org source blocks background
+	modus-themes-mixed-fonts t ;; Mixed fonts support, for tables etc.
+	modus-themes-deuteranopia nil
+	modus-themes-intense-mouseovers nil
+	modus-themes-variable-pitch-ui nil ;; Use better font for modeline and UI
+	modus-themes-tabs-accented t
+	modus-themes-fringes nil ;; Fringes { nil, 'subtle, 'intense}
+	modus-themes-markup '(intense)
+	modus-themes-syntax '(yellow-comments)
+	modus-themes-lang-checkers '(straight-underline faint)
+	modus-themes-hl-line '(intense)
+	modus-themes-paren-match '(intense)
+	modus-themes-links '(no-underline)
+	modus-themes-box-buttons '(variable-pitch faint 0.9)
+	modus-themes-prompts '(intense bold)
+	modus-themes-completions '((matches . (extrabold background))
+                                   (selection . (bold accented))
+                                   (popup . (accented intense)))
+	modus-themes-mail-citations 'intense ; {nil,'intense,'faint,'monochrome}
+	modus-themes-subtle-line-numbers nil
+        modus-themes-mode-line '(borderless accented (padding . 8)))
+  ;; (setq	modus-themes-org-agenda ; this is an alist: read the manual or its doc string
+  ;; 	'((header-block . (variable-pitch 1.3))
+  ;; 	  (header-date . (grayscale workaholic bold-today 1.1))
+  ;; 	  (event . (accented varied))
+  ;; 	  (scheduled . uniform)
+  ;; 	  (habit . traffic-light))
+
+  ;; 	modus-themes-headings ; this is an alist: read the manual or its doc string
+  ;; 	'((1 . (overline background variable-pitch 1.3))
+  ;; 	  (2 . (rainbow overline 1.1))
+  ;; 	  (t . (semibold))))
   ;; Load the theme files before enabling a theme
   (modus-themes-load-themes)
   :config
@@ -70,7 +100,7 @@
    ;; Don't inhibit for mu4e
    (delete 'mu4e-headers-mode emojify-inhibit-major-modes)
    :hook
-   (after-init-hook . global-emojify-mode))
+   ((org-mode-hook mu4e-headers-mode-hook) . emojify-mode))
 
 (provide 'init-appearance)
 ;;; init-appearance.el ends here
