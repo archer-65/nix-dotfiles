@@ -73,7 +73,7 @@
   (modus-themes-load-themes)
   :config
   ;; Load the theme of your choice:
-  (modus-themes-load-vivendi)
+  ;; (modus-themes-load-vivendi)
   :bind ("<f5>" . modus-themes-toggle))
 
 
