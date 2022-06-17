@@ -38,7 +38,7 @@
   :init
   (setq modus-themes-region '(accented no-extend bg-only) ;; Region highlight
         modus-themes-org-blocks 'gray-background ;; Org source blocks background
-	modus-themes-mixed-fonts t ;; Mixed fonts support, for tables etc.
+	modus-themes-mixed-fonts nil ;; Mixed fonts support, for tables etc.
 	modus-themes-deuteranopia nil
 	modus-themes-intense-mouseovers nil
 	modus-themes-variable-pitch-ui nil ;; Use better font for modeline and UI

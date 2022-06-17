@@ -24,8 +24,14 @@ in {
       programs.emacs = {
         enable = true;
         package = pkgs.emacsPgtkNativeComp;
-        extraPackages = epkgs: [epkgs.vterm];
+        extraPackages = epkgs:
+          [
+            epkgs.vterm
+            # epkgs.telega
+          ];
       };
+
+      home.packages = [ pkgs.tdlib ];
 
       home.file.".emacs.d" = {
         source = "${configDir}/emacs";

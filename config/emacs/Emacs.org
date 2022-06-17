@@ -2,16 +2,27 @@
 #+AUTHOR: Mario Liguori
 #+PROPERTY: header-args:emacs-lisp :tangle ./init.el :mkdirp yes
 
-* Overview and mandatory stuff
+* Preface
+
+** Overview
 
 This is my personal configuration of ~GNU Emacs~. Many of these settings have been stolen from research and other configurations.
 I have a very basic use-case, and this configuration is, currently, pretty straightforward to read.
 
-Right now I'm deprecating =package.el= with =straight.el=, and =leaf.el= is my macro configuration tool.
+Probably I'm using this +operating system+ editor/interactive-interpreter as daily driver now. In the last section I explain my "experience" and reasons why I'm using Emacs.
+
+*** Notes on this document
+
+Every file is commented in a decent way, but I'm not very verbose. Sometimes I describe every single things written (in a decent way, I guess), other times, I'm awful.
+
+Anyway, this document is not intended as a way to show my ~elisp-fu~ or something like that. When you read this, imagine a diary, a tale of my [mis]adventures 🤣.
+
 
 ** Before GUI: "early init"
 
 Is good practice to define an =early-init.el= file: this kind of approach provides better loading for essential stuff.
+
+Specifically, there are some tweaks taken from [[https://github.com/doomemacs/doomemacs][DOOM Emacs]], [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][David Wilson]], [[https://protesilaos.com/emacs/dotemacs][Protesilaos Stavrou]]...but I'll put some credits at the end of this document, along with useful resources.
 
 #+include: "early-init.el" src emacs-lisp :tangle no
 
@@ -20,6 +31,8 @@ Is good practice to define an =early-init.el= file: this kind of approach provid
 
 Note that =init.el= is mandatory, however I'm tangling it from this =.org= file (=Emacs.org=).
 
+I have decided to tangle this document in =init.el= because I want to keep a few things in the main directory. 
+
 #+begin_src emacs-lisp
 
   ;;; init.el --- Load the full configuration -*- lexical-binding: t -*-
@@ -27,6 +40,8 @@ Note that =init.el= is mandatory, however I'm tangling it from this =.org= file 
 
   ;; This file bootstraps the configuration, which is divided into
   ;; a number of other files.
+
+  ;; NOTE: This file is generated from `Emacs.org`!
 
   ;;; Code:
 
@@ -74,10 +89,18 @@ Functions to determine if we are on NixOS, or not, then set our path, that's use
   
 #+end_src
 
+
 ** Packages bootstrap
 
 We are requiring =init-packages=, where package manager (e.g. =package.el=, =straight.el=) and macro configuration tools (e.g. =use-package=, =leaf.el=, =setup.el=) are initialized.
 
+Right now I'm using =straight.el= along with =leaf.el=. I love this combo.
+
+- [[https://github.com/radian-software/straight.el][straight.el]] provides reproducibility (like Nix and Guix) with recipes, allows the editing of packages and manual version control operations on repos. [[https://github.com/radian-software/straight.el#advantages-of-straightel-5][Here]] the list of advantages.
+- [[https://github.com/conao3/leaf.el][leaf.el]] is a more verbose =use-package=, but their syntax is similar, and it's easy to mantain (to add new keywords, for example).
+
+Here I also install [[https://github.com/radian-software/blackout][blackout.el]], to manage modes displayed in the mode-line.
+ 
 #+begin_src emacs-lisp
 
   ;; Require package management file.
@@ -90,7 +113,9 @@ This is the =init-packages.el= file.
 #+include: "lisp/init-packages.el" src emacs-lisp :tangle no
 
 
-** Keep order
+** Clean and fast
+
+*** Keep order
 
 This useful package helps to avoid filling up our work folders with ~auto-save~ files.
 
@@ -108,7 +133,11 @@ This useful package helps to avoid filling up our work folders with ~auto-save~ 
 #+end_src
 
 
-** Garbage collector enhancement
+*** Garbage collector enhancement
+
+[[https://github.com/emacsmirror/gcmh][GCMH]] allows the auto-regulation of garbage collector based on idle timers. During normal use a high GC threshold is set; when idling GC is triggered and a low threshold is set.
+
+Right now I'm good with 16MB for high threshold.
 
 #+begin_src emacs-lisp
 
@@ -129,7 +158,11 @@ This useful package helps to avoid filling up our work folders with ~auto-save~ 
 
 #+end_src
 
-** Minor tweaks
+
+*** Minor tweaks
+
+Aaand, here other code stolen from DOOM.
+Performance are really better with this snippet (for me).
 
 #+begin_src emacs-lisp
 
@@ -169,9 +202,9 @@ This useful package helps to avoid filling up our work folders with ~auto-save~ 
 
 #+end_src
 
+
 ** Pick up me mom, I'm scared!
 
-Sometimes we forget shortcuts as we type them, or we wish more _helpful_ description of functions/variables/keys of our environment.
 
 #+begin_src emacs-lisp
 
@@ -179,9 +212,10 @@ Sometimes we forget shortcuts as we type them, or we wish more _helpful_ descrip
 
 #+end_src
 
-[[https://github.com/justbur/emacs-which-key][Which-Key]] is a minor mode for Emacs that displays the key bindings following your currently entered incomplete command in a popup.
+Sometimes we forget shortcuts as we type them, [[https://github.com/justbur/emacs-which-key][which-Key]] is a minor mode for Emacs that displays the key bindings following your currently entered incomplete command in a popup.
 
-[[https://github.com/Wilfred/helpful][Helpful]] adds a lot of very helpful information to =describe-= command buffers. For example, if you use =describe-function=, you will not only get the documentation about the function, you will also see the source code of the function and where it gets used in other places in the Emacs configuration.
+I'm not using helpful anymore.
++[[https://github.com/Wilfred/helpful][Helpful]] adds a lot of very helpful information to =describe-= command buffers. For example, if you use =describe-function=, you will not only get the documentation about the function, you will also see the source code of the function and where it gets used in other places in the Emacs configuration.+
 
 This is the =init-help.el= file, nothing special.
 
@@ -190,23 +224,9 @@ This is the =init-help.el= file, nothing special.
 
 ** Appearance
 
-#+begin_src emacs-lisp
-
-  (require 'init-appearance)
-
-#+end_src
-
-I'm currently using these: [[https://protesilaos.com/emacs/modus-themes][Modus Themes]]. Protesilaos made a great work, and these themes are, indeed, built into Emacs.
-Here are also contained line-numbers settings, modeline (doom atm) related configuration, minor tweaks for icons (needed also for dashboard) and colors.
-
-Here the =init.appearance.el= file.
-
-#+include: "lisp/init-appearance.el" src emacs-lisp :tangle no
-
-
+In this section are contained line-numbers settings, modeline related configuration, minor tweaks for icons (needed also for dashboard) and colors.
 
 *** Font
-
 
 #+begin_src emacs-lisp
 
@@ -215,11 +235,27 @@ Here the =init.appearance.el= file.
 #+end_src
 
 Readability is important.
-Currently using [[https://rubjo.github.io/victor-mono/][Victor Mono]] as font, I love it, also for variable-pitch face.
+Currently using [[https://rubjo.github.io/victor-mono/][Victor Mono]] as font, I love it, also for variable-pitch face. 
 
 Here the =init.fonts.el= file.
 
 #+include: "lisp/init-fonts.el" src emacs-lisp :tangle no
+
+
+*** Colors and general UI
+
+#+begin_src emacs-lisp
+
+  (require 'init-appearance)
+
+#+end_src
+
+I'm currently using [[https://protesilaos.com/emacs/modus-themes][Modus Themes]], with [[https://github.com/guidoschmidt/circadian.el][Circadian]] to set light/dark version, based on time. It's possible to switch themes on sunrise and sunset. Protesilaos made a great work, and these themes are, indeed, built into Emacs.
+
+Here the =init.appearance.el= file.
+
+#+include: "lisp/init-appearance.el" src emacs-lisp :tangle no
+
 
 *** Dashboard Configuration
 
@@ -251,6 +287,8 @@ Just modeline customized.
 
 * Selection and search
 
+This is one of my favourite parts. I think that fast selection, completing and search are a must, always, everywhere.
+
 ** Monster trio of completion
 
 #+begin_src emacs-lisp
@@ -259,7 +297,7 @@ Just modeline customized.
 
 #+end_src
 
-As Completion UI [[https://github.com/minad/vertico]Vertico]] is my preferred choice, it's lightweight and fast, and relies on Emacs internals. [[https://github.com/minad/marginalia/][Marginalia]] for rich annotations provides a summary for candidates.
+As Completion UI [[https://github.com/minad/vertico][Vertico]] is my preferred choice, it's lightweight and fast, and relies on Emacs internals. [[https://github.com/minad/marginalia/][Marginalia]] for rich annotations provides a summary for candidates.
 Completion can be better with an [[https://github.com/oantolin/orderless][Orderless]] (similar to FZF, if you know). Orderless is also customizable for matching style.
 
 Following, the =init-complete.el= file.
@@ -320,6 +358,8 @@ Here =init-complete-in-buffer.el=.
 
 
 * Interface interaction
+
+This section contains my file and buffer related configurations. Nothing special.
 
 ** Editing enhancement
 
@@ -408,6 +448,8 @@ This if my =init.dired.el= file.
 
 * Org Mode
 
+Org mode is the killer feature of Emacs. Markup language, agenda, brain, templates...you can do /literally/ (xD) everything.
+
 ** Essential configuration
 
 #+begin_src emacs-lisp
@@ -418,9 +460,9 @@ This if my =init.dired.el= file.
 
 I absolutely need focus when I'm editing my documents in the dark, so I want my buffer centered and lines untruncated.
 
-Indentation and =visual-line-column= are defined as a function for basic org-mode setup.
+Indentation is defined as a function for basic org-mode setup.
 
-The purpose of [[https://github.com/joostkremers/visual-fill-column][visual-fill-column]] is to center =org-mode= buffers for a more pleasing writing experience as it centers the contents of the buffer horizontally to seem more like you are editing a document.
+The purpose of +[[https://github.com/joostkremers/visual-fill-column][visual-fill-column]]+ [[https://github.com/rnkn/olivetti][olivetti ]]is to center =org-mode= buffers for a more pleasing writing experience as it centers the contents of the buffer horizontally to seem more like you are editing a document.
 
 [[https://github.com/minad/org-modern][Org Modern]] replaces markup syntax with nice headings, TODOs etc.
 
@@ -476,6 +518,8 @@ Reveal.js presentations are exported through =ox-reveal=, which is very simple t
 
 
 * Development
+
+All my packages needed to develop in a decent way. Bye IDEs.
 
 ** Projects management and Git
 
@@ -551,7 +595,7 @@ This is =init-spell-and-check.el=.
 
 #+end_src
 
-I have to explain this?
+Do I have to explain this?
 
 Here =init-snippets.el=.
 
@@ -572,6 +616,8 @@ Here =init-snippets.el=.
 
 
 * Frontend for other uses
+
+Emacs can be a frontend for almost everything. 
 
 ** Mails
 
@@ -616,6 +662,8 @@ My choice is [[https://github.com/vedang/pdf-tools][pdf-tools]], that renders on
 
 ** Daemons control
 
+Nice mode to control your system (and user) services without leaving Emacs.
+
 #+begin_src emacs-lisp
 
   (leaf daemons
@@ -626,14 +674,31 @@ My choice is [[https://github.com/vedang/pdf-tools][pdf-tools]], that renders on
 
 ** Terminal
 
+The best terminal emulator in Emacs.
+
 #+begin_src emacs-lisp
 
-  (leaf vterm)
+  (leaf vterm
+    :commands (vterm vterm-other-window))
 
 #+end_src
 
 
-** Media
+** Telegram
+
+Currently I'm not using telega, it is constantly breaking, especially on NixOS
+
+#+begin_src emacs-lisp
+
+  ;; (leaf telega
+  ;;   :commands telega)
+
+#+end_src
+
+
+** Music
+
+Manage your music from Emacs? Possible!
 
 #+begin_src emacs-lisp
 
@@ -664,8 +729,8 @@ My choice is [[https://github.com/vedang/pdf-tools][pdf-tools]], that renders on
     (setq emms-playing-time t)
 
     ;; Directory
-    (setq emms-source-file-default-directory "~/stuff/"
-          emms-info-asynchronously t)
+    ;; (setq emms-source-file-default-directory "~/stuff/")
+    (setq emms-info-asynchronously t)
 
     ;; Other infos, covers
     (setq emms-info-functions '(emms-info-exiftool)
@@ -680,9 +745,41 @@ My choice is [[https://github.com/vedang/pdf-tools][pdf-tools]], that renders on
 
 #+begin_src emacs-lisp
 
-  ;; Make gc pauses faster by decreasing the threshold.
-  ;; (setq gc-cons-threshold (* 2 1000 1000))
-
   ;;; init.el ends here
 
 #+end_src
+
+This is the end of my =init.el=, and of my configuration.
+
+
+* Useful things
+
+** My experience
+
+I started using Emacs in late 2021, at the beginning of the third year of university.
+
+Why? I needed something to write notes in a fast way, but I didn't last long: writing notes during my lessons slowed me down, probably because slides given by professors were enough.
+
+Anyway, discovering Emacs was a surprise, and at first it was terrible, because I didn't know where to start!
+Too many things to learn, but the community is awesome, resources are good, documentation is almost perfect, and it's VERY fun. So, I gave a chance to myself to learn Emacs.
+
+*** How I learned?
+
+=C-h=, essentially, self-documentation is useful ;).
+Also EmacsWiki, videos and blog posts, manual, and so on.
+
+*** Good people
+
+My learning path has been discontinuous, but good enough to learn this beautiful piece of software from 1976 (1984, for GNU Emacs).
+
+- [[https://systemcrafters.cc/][System Crafters]] :: helped me a lot with the series `Emacs from Scratch`, in fact my first configuration was almost a copy-paste of David's configuration...This slowed me down *a lot*.
+
+- [[https://protesilaos.com/][Protesilaos Stavrou]] :: is a gold mine, he's a very clever and wonderful person. I appreciate his verbose explanations about any kind of magic trick he do with Emacs.
+
+- [[https://www.youtube.com/user/mzamansky][Mike Zamansky]] :: has a series dedicated to Emacs, he works well, and helped me to figure out some obscure matters.
+
+- [[https://www.youtube.com/channel/UCuj_loxODrOPxSsXDfJmpng][Andrew Tropin]] :: helped me on both Emacs and Nix (now he's using Guix), the problem of reproducibility is fascinating, and this guy is really prepared.
+
+- [[https://github.com/purcell/emacs.d][Steve Purcell]] :: has a dev-centered configuration, but everyone can take inspiration from its dotfiles.
+
+- [[https://github.com/seagle0128][Vincent Zhang]] :: author of [[https://github.com/seagle0128/.emacs.d][Centaur]], really good work.

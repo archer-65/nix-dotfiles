@@ -28,6 +28,7 @@
                       :font "VictorMono Nerd Font"
                       :height archer/font-height
                       :weight 'light)
+
   (set-face-attribute 'org-modern-symbol nil
 		      :family "Iosevka"))
 

@@ -4,6 +4,8 @@
 ;; This file bootstraps the configuration, which is divided into
 ;; a number of other files.
 
+;; NOTE: This file is generated from `Emacs.org`!
+
 ;;; Code:
 
 ;; Add load-path
@@ -100,9 +102,9 @@
 
 (require 'init-help)
 
-(require 'init-appearance)
-
 (require 'init-fonts)
+
+(require 'init-appearance)
 
 (require 'init-dash)
 
@@ -151,7 +153,11 @@
 (leaf daemons
   :straight t)
 
-(leaf vterm)
+(leaf vterm
+  :commands (vterm vterm-other-window))
+
+;; (leaf telega
+;;   :commands telega)
 
 (leaf emms
   :straight t
@@ -180,16 +186,13 @@
   (setq emms-playing-time t)
 
   ;; Directory
-  (setq emms-source-file-default-directory "~/stuff/"
-        emms-info-asynchronously t)
+  ;; (setq emms-source-file-default-directory "~/stuff/")
+  (setq emms-info-asynchronously t)
 
   ;; Other infos, covers
   (setq emms-info-functions '(emms-info-exiftool)
         emms-browser-covers 'emms-browser-cache-thumbnail-async)
   :hook
   (emms-player-started-hook . emms-notify-track-description))
-
-;; Make gc pauses faster by decreasing the threshold.
-;; (setq gc-cons-threshold (* 2 1000 1000))
 
 ;;; init.el ends here
