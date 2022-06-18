@@ -61,12 +61,15 @@
 ;;                                    word-wrap nil)))
 
 ;; Editing enhancements for `prog-mode`
-(add-hook 'prog-mode #'visual-line-mode)
-(add-hook 'prog-mode #'hl-line-mode)
+(add-hook 'prog-mode-hook #'visual-line-mode)
+(add-hook 'prog-mode-hook #'hl-line-mode)
 
 ;;; Pairs? I forget to balance every kind of pair, I need this.
 (electric-pair-mode 1)
 (show-paren-mode 1)
+
+;; Save place
+(save-place-mode 1)
 
 ;;; Protesilaos Stavrou docet, system clipboard should have priority among kill-ring
 (setq save-interprogram-paste-before-kill t)

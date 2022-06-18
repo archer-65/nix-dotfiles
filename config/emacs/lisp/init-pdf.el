@@ -24,5 +24,10 @@
   (pdf-view-mode-hook . (lambda () (display-line-numbers-mode -1)))
   (pdf-view-mode-hook . pdf-tools-enable-minor-modes))
 
+(leaf saveplace-pdf-view
+  :straight t
+  :require t
+  :after pdf-tools)
+
 (provide 'init-pdf)
 ;;; init-pdf.el ends here
