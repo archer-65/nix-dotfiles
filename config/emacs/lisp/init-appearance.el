@@ -57,23 +57,11 @@
                                    (popup . (accented intense)))
 	modus-themes-mail-citations 'intense ; {nil,'intense,'faint,'monochrome}
 	modus-themes-subtle-line-numbers nil
-        modus-themes-mode-line '(borderless accented (padding . 8)))
-  ;; (setq	modus-themes-org-agenda ; this is an alist: read the manual or its doc string
-  ;; 	'((header-block . (variable-pitch 1.3))
-  ;; 	  (header-date . (grayscale workaholic bold-today 1.1))
-  ;; 	  (event . (accented varied))
-  ;; 	  (scheduled . uniform)
-  ;; 	  (habit . traffic-light))
-
-  ;; 	modus-themes-headings ; this is an alist: read the manual or its doc string
-  ;; 	'((1 . (overline background variable-pitch 1.3))
-  ;; 	  (2 . (rainbow overline 1.1))
-  ;; 	  (t . (semibold))))
-  ;; Load the theme files before enabling a theme
+        modus-themes-mode-line '(borderless accented))
   (modus-themes-load-themes)
   :config
   ;; Load the theme of your choice:
-  ;; (modus-themes-load-vivendi)
+  (modus-themes-load-operandi)
   :bind ("<f5>" . modus-themes-toggle))
 
 
