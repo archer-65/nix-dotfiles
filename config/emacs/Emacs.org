@@ -400,6 +400,16 @@ Keybindings are listed in =init-meow.el=.
 #+include: "lisp/init-meow.el" src emacs-lisp :tangle no
 
 
+*** Evil
+
+#+begin_src emacs-lisp
+
+  ;; (require 'init-evil)
+
+#+end_src
+
+#+include: "lisp/init-evil.el" src emacs-lisp :tangle no
+
 ** Windows navigation
 
 #+begin_src emacs-lisp

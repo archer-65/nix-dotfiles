@@ -122,6 +122,8 @@
 
 ;; (require 'init-meow)
 
+;; (require 'init-evil)
+
 (require 'init-windows)
 
 (require 'init-buffers)
