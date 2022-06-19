@@ -25,7 +25,7 @@ in {
 
     services.xserver = {
       layout = "us";
-      xkbVariant = "intl";
+      xkbVariant = "altgr-intl";
       xkbOptions = "ctrl:nocaps";
     };
 
