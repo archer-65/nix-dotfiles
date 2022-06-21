@@ -2,7 +2,7 @@ inputs: {
   "credentials/gpg" = import ./credentials/gpg.nix inputs;
   "credentials/mail" = import ./credentials/mail.nix inputs;
 
-  "desktop/qtile" = import ./desktop/qtile.nix inputs;
+  "desktop/xorg/qtile" = import ./desktop/xorg/qtile.nix inputs;
   "desktop/apps/greenclip" = import ./desktop/apps/greenclip.nix inputs;
   "desktop/apps/rofi" = import ./desktop/apps/rofi.nix inputs;
   "desktop/apps/autorandr" = import ./desktop/apps/autorandr.nix inputs;

@@ -16,6 +16,6 @@ in rec {
 
   programs.home-manager.enable = true;
 
-  home.packages = [ pkgs.scripts.volume pkgs.firefox pkgs.ispell pkgs.exiftool pkgs.imagemagick ] ++ socialPkgs
+  home.packages = [ pkgs.scripts.volume pkgs.firefox pkgs.ispell pkgs.exiftool pkgs.imagemagick pkgs.transmission-gtk ] ++ socialPkgs
     ++ mediaPkgs ++ utilPkgs ++ monitorPkgs ++ qt5Pkgs;
 }

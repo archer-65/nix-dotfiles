@@ -16,6 +16,8 @@
         pdf.enablePlus = true;
       };
 
+      xorg.qtile.enable = true;
+
       term.alacritty.enable = true;
     };
 
