@@ -137,8 +137,8 @@ in {
             "F11" = "fullscreen toggle";
 
             # Gaps
-            "${mod}+plus" = "gaps inner all plus 5";
-            "${mod}+Shift+minus" = "gaps inner all minus 5";
+            "${mod}+ctrl+equal" = "gaps inner all plus 5";
+            "${mod}+ctrl+minus" = "gaps inner all minus 5";
 
             # Workspaces
             # I'm using sov with complex binds now
@@ -171,6 +171,10 @@ in {
             "${mod}+Shift+Right" = "move container to workspace next ; workspace next";
             "${mod}+Shift+Left" = " move container to workspace prev ; workspace prev";
 
+            # Scratchpad
+            "${mod}+minus" = "move scratchpad";
+            "${mod}+equal" = "scratchpad show";
+            
             # XF86
             "XF86AudioRaiseVolume" = "exec volume up";
             "XF86AudioLowerVolume" = "exec volume down";
