@@ -158,6 +158,9 @@ in {
             # Move to next/previous and switch
             "${mod}+Shift+Right" = "move container to workspace next ; workspace next";
             "${mod}+Shift+Left" = " move container to workspace prev ; workspace prev";
+            
+            # Apps
+            "${mod}+Return" = "exec ${term}";
           };
       };
 
