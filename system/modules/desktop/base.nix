@@ -21,6 +21,12 @@ in {
 
     programs.qt5ct.enable = true;
 
-    environment.systemPackages = with pkgs; [ gnome.seahorse libsecret ];
+    environment.systemPackages = with pkgs; [
+      gnome.seahorse
+      libsecret
+      pkgs.libinput
+    ];
+
+    user.extraGroups = [ "video" ];
   };
 }

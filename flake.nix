@@ -31,7 +31,10 @@
           overlays = extraOverlays ++ (lib.attrValues self.overlays);
         };
 
-      pkgs = mkPkgs nixpkgs [ inputs.emacs-overlay.overlay inputs.nur.overlay];
+      pkgs = mkPkgs nixpkgs [
+        inputs.emacs-overlay.overlay
+        inputs.nur.overlay
+      ];
 
     in {
       pkgs = pkgs;

@@ -30,7 +30,5 @@ in {
     };
 
     services.xserver.libinput.enable = true;
-    environment.systemPackages = [ pkgs.libinput ];
-    user.extraGroups = [ "video" ];
   };
 }

@@ -14,6 +14,8 @@ in {
     };
   };
 
+  imports = [ ./shared.nix ];
+
   config = mkIf cfg.enable {
     xsession.enable = true;
 

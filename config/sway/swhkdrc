@@ -1,0 +1,89 @@
+##################
+##### RELOAD #####
+##################
+
+super + Escape
+	pkill -HUP swhkd
+
+################
+##### XF86 #####
+################
+
+##### VOLUME #####
+
+# Up
+XF86AudioRaiseVolume
+  volume up
+
+# Down
+XF86AudioLowerVolume
+  volume down
+
+# Toggle Mute
+XF86AudioMute
+  volume mute
+
+###################
+##### GENERAL #####
+###################
+
+##### ROFI #####
+
+# Run-Drun-Win
+super + d
+  rofi_launcher
+
+# Powermenu
+super + shift + q
+  rofi_powermenu
+
+# Clipboard
+# super + comma
+#  ~/.local/bin/rofi_clipboard copy
+
+# super + period
+#  ~/.local/bin/rofi_clipboard paste
+
+# Emojis
+super + slash
+  rofi_emoji
+
+# Bitwarden
+super + p
+  rofi-rbw
+
+##### FLAMESHOT #####
+
+# Full capture
+Print
+  flameshot full -c
+
+# Open GUI
+super + Print  
+  flameshot gui  
+  
+##### APPS #####
+
+# Terminal
+super + Return
+  alacritty
+
+# File Manager
+super + f
+  thunar
+
+# Browser
+super + b
+  google-chrome-stable
+
+# Emacs
+#super + e; {e, m}
+#  {$VISUAL, $VISUAL --eval '(mu4e)'}
+
+# Global Run
+#super + r; {t, d, c, g, p, s}
+#  {telegram-desktop, discord, code, github-desktop, zathura, env LD_PRELOAD=/usr/lib/spotify-adblock.so spotify %U}
+
+# Sysmon
+#super + m; {b, h}
+#  {alacritty -e btop, alacritty -e htop}

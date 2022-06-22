@@ -16,7 +16,8 @@
         pdf.enablePlus = true;
       };
 
-      xorg.qtile.enable = true;
+      #xorg.qtile.enable = true;
+      wayland.sway.enable = true;
 
       term.alacritty.enable = true;
     };

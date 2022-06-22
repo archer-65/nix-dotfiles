@@ -3,10 +3,7 @@
 {
   home.packages = with pkgs; [
     brightnessctl
-    nitrogen
     playerctl
-    xclip
-    xdotool
     xfce.xfconf
     xfce.exo
     (xfce.thunar.override {
@@ -19,12 +16,6 @@
     mate.engrampa
     unzip
   ];
-
-  services = { flameshot.enable = true; };
-  user-modules.desktop = {
-    apps = { greenclip.enable = true; };
-    services = { locker.enable = true; };
-  };
 
   systemd.user.services = {
     polkit = {

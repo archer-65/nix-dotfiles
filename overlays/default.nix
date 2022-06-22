@@ -22,6 +22,8 @@ in _self: super: {
     pypkgs = pkgs.python39Packages;
   };
 
+  swhkd = super.callPackage ../packages/swhkd.nix { };
+
   # OVERLAYS (overrideAttrs)
   discord = super.discord.overrideAttrs (old: rec {
     version = "0.0.18";

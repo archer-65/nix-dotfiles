@@ -12,6 +12,7 @@ inputs: {
   "desktop/fonts" = import ./desktop/fonts.nix inputs;
   "desktop/portals" = import ./desktop/portals.nix inputs;
   "desktop/xorg" = import ./desktop/xorg.nix inputs;
+  "desktop/wayland" = import ./desktop/wayland.nix inputs;
 
   "dev/adb" = import ./dev/adb.nix inputs;
   "dev/virt-manager" = import ./dev/virt-manager.nix inputs;
