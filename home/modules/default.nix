@@ -18,6 +18,7 @@ inputs: {
   "desktop/browsers/chromium" = import ./desktop/browsers/chromium.nix inputs;
 
   "desktop/media/documents" = import ./desktop/media/documents.nix inputs;
+  "desktop/media/videos" = import ./desktop/media/videos.nix inputs;
 
   "desktop/term/alacritty" = import ./desktop/term/alacritty.nix inputs;
 

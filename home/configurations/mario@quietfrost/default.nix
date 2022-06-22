@@ -16,10 +16,14 @@
         firefox.enable = true;
       };
       
-      media.documents = {
-        enable = true;
-        pdf.enable = true;
-        pdf.enablePlus = true;
+      media = {
+        documents = {
+          enable = true;
+          pdf.enable = true;
+          pdf.enablePlus = true;
+        };
+
+        videos.enable = true;
       };
 
       # xorg = {

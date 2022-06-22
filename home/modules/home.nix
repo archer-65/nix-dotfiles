@@ -4,7 +4,7 @@ _:
 let
   socialPkgs = with pkgs; [ tdesktop ];
 
-  mediaPkgs = with pkgs; [ mpv pavucontrol ];
+  mediaPkgs = with pkgs; [ pavucontrol ];
 
   utilPkgs = with pkgs; [ rbw neofetch ];
 
