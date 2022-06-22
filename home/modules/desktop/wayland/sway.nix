@@ -7,6 +7,7 @@ let
   cfgTheme = config.user-modules.themes;
   configDir = config.dotfiles.configDir;
 
+  # Maybe I don't need this anymore
   import-gsettings = pkgs.writeShellScriptBin "import-gsettings" ''
     config="''${XDG_CONFIG_HOME:-$HOME/.config}/gtk-3.0/settings.ini"
     if [ ! -f "$config" ]; then exit 1; fi
@@ -51,7 +52,7 @@ in {
 
         fonts = {
           names = [ "VictorMono Nerd Font "];
-          #size = cfgTheme.font.size;
+          # size = cfgTheme.font.size; TODO
           size = 15.0;
         };
 
@@ -77,7 +78,7 @@ in {
 
         startup = [
           { command = "if command -v corectrl &> /dev/null ; then corectrl & fi";  }
-          { command = "import-gsettings"; always = true; }
+          # { command = "import-gsettings"; always = true; }
           # { command = "exec swhks & ; pkexec swhkd -c $HOME/.config/sway/swhkdrc"; }
         ];
 
@@ -85,7 +86,7 @@ in {
           let
             mod = config.wayland.windowManager.sway.config.modifier;
             term = config.wayland.windowManager.sway.config.terminal;
-          in lib.mkOptionDefault {
+          in {
             # Base
             "${mod}+ctrl+r" = "reload";
             "${mod}+Shift+r" = "restart";
@@ -160,6 +161,7 @@ in {
           };
       };
 
+      # Old attempt for flameshot, not working
       # extraConfig = ''
       #   exec systemctl --user import-environment DISPLAY WAYLAND_DISPLAY SWAYSOCK
       #   exec hash dbus-update-activation-environment 2>/dev/null && \
@@ -168,7 +170,7 @@ in {
 
       extraConfig = ''
         exec dbus-sway-environment
-        exec configure-gtk
+        # exec configure-gtk
       '';
 
       extraSessionCommands = ''
@@ -189,7 +191,7 @@ in {
 
     home.packages = with pkgs; [
       gsettings-desktop-schemas
-      import-gsettings
+      # import-gsettings
     ];
 
     user-modules.desktop = {
