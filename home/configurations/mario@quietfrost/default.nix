@@ -8,8 +8,14 @@
     desktop = {
       apps = {
         rofi.enable = true;
+        discord.enable = true;
+        teams.enable = true;
       };
 
+      browsers = {
+        firefox.enable = true;
+      };
+      
       media.documents = {
         enable = true;
         pdf.enable = true;

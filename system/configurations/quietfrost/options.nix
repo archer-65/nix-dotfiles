@@ -8,6 +8,7 @@
         corectrl.enable = true;
       };
       razer.enable = true;
+      qmk.enable = true;
     };
 
     dev = { 

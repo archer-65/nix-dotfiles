@@ -2,7 +2,7 @@ _:
 { pkgs, ... }:
 
 let
-  socialPkgs = with pkgs; [ discord tdesktop ];
+  socialPkgs = with pkgs; [ tdesktop ];
 
   mediaPkgs = with pkgs; [ mpv pavucontrol ];
 
@@ -18,17 +18,9 @@ in rec {
 
   home.packages = [
     pkgs.scripts.volume
-    pkgs.firefox
     pkgs.ispell
     pkgs.exiftool
     pkgs.imagemagick
     pkgs.transmission-gtk
   ] ++ socialPkgs ++ mediaPkgs ++ utilPkgs ++ monitorPkgs ++ qt5Pkgs;
-
-  # programs.firefox = {
-  #   enable = true;
-  #   package = pkgs.wrapFirefox pkgs.firefox-unwrapped {
-  #     forceWayland = true;
-  #   };
-  # };
 }

@@ -17,6 +17,8 @@
     unzip
   ];
 
+  xsession.enable = true;
+
   systemd.user.services = {
     polkit = {
       Unit = {

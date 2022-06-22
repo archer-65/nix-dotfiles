@@ -21,7 +21,7 @@ in {
       pulse.enable = true;
     };
 
-    sound.mediaKeys.enable = true;
+    sound.mediaKeys.enable = false;
 
     security.rtkit.enable = true;
 

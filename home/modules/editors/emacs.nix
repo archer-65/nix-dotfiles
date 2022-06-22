@@ -45,6 +45,8 @@ in {
         client.enable = true;
         defaultEditor = true;
       };
+
+      #systemd.user.services.emacs = lib.mkForce {};
     })
   ]);
 }

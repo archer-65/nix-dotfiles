@@ -17,9 +17,27 @@ in {
     services.xserver.enable = true;
 
     services.xserver.displayManager = {
-      lightdm.enable = true;
+      #lightdm.enable = true;
+      sddm = {
+        enable = true;
+
+        theme = "${(pkgs.fetchFromGitHub {
+          owner = "Kangie";
+          repo = "sddm-sugar-candy";
+          rev = "master";
+          sha256 = "sha256-p2d7I0UBP63baW/q9MexYJQcqSmZ0L5rkwK3n66gmqM=";
+        })}
+        ";
+      };
+
       defaultSession = "none+qtile";
     };
+
+    environment.systemPackages = with pkgs.libsForQt5.qt5; [
+      qtgraphicaleffects
+      qtsvg
+      qtquickcontrols2
+    ];
 
     services.xserver.windowManager = { qtile.enable = true; };
 

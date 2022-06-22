@@ -4,9 +4,15 @@ inputs: {
 
   "desktop/xorg/qtile" = import ./desktop/xorg/qtile.nix inputs;
   "desktop/wayland/sway" = import ./desktop/wayland/sway.nix inputs;
+
   "desktop/apps/greenclip" = import ./desktop/apps/greenclip.nix inputs;
   "desktop/apps/rofi" = import ./desktop/apps/rofi.nix inputs;
   "desktop/apps/autorandr" = import ./desktop/apps/autorandr.nix inputs;
+  "desktop/apps/discord" = import ./desktop/apps/discord.nix inputs;
+  "desktop/apps/teams" = import ./desktop/apps/teams.nix inputs;
+
+  "desktop/browsers/firefox" = import ./desktop/browsers/firefox.nix inputs;
+  "desktop/browsers/chromium" = import ./desktop/browsers/chromium.nix inputs;
 
   "desktop/media/documents" = import ./desktop/media/documents.nix inputs;
   "desktop/term/alacritty" = import ./desktop/term/alacritty.nix inputs;

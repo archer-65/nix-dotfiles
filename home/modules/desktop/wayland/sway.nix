@@ -32,10 +32,11 @@ in {
       example = true;
     };
   };
-
+  
   imports = [ ./shared.nix ];
 
   config = mkIf cfg.enable {
+    
     wayland.windowManager.sway = {
       enable = true;
       xwayland = true;
@@ -45,6 +46,11 @@ in {
           xkb_layout = "us";
           xkb_variant = "altgr-intl";
           xkb_options = "ctrl:nocaps";
+        };
+
+        input."1390:268:ELECOM_TrackBall_Mouse_HUGE_TrackBall" = {
+          scroll_method = "on_button_down";
+          scroll_button = "BTN_TASK";
         };
 
         modifier = "Mod4";
@@ -66,8 +72,16 @@ in {
           border = 3;
 
           commands = [
-            { command = "floating enable"; criteria = { class = "Thunar"; }; }
-            { command = "floating enable"; criteria = { class = "mpv"; }; }
+            { command = "floating enable"; criteria = { app_id = "thunar"; }; }
+            { command = "floating enable"; criteria = { app_id = "ipv"; }; }
+            { command = "floating enable"; criteria = { app_id = "mpv"; }; }
+            { command = "floating enable position center, focus"; criteria = { app_id="GtkFileChooserDialog"; }; }
+            { command = "floating enable position center, focus"; criteria = { app_id="pop-up"; }; }
+            { command = "floating enable position center, focus"; criteria = { app_id="Organizer"; }; }
+            { command = "floating enable position center, focus"; criteria = { app_id="task_dialog"; }; }
+            { command = "floating enable"; criteria = { app_id = "pavucontrol"; }; }
+            { command = "floating enable, sticky enable"; criteria = { app_id = "firefox"; title = "^Picture-in-Picture$"; }; }
+            { command = "floating enable, sticky enable, border none, nofocus"; criteria = { title = "\ —\ Sharing\ Indicator$"; }; }
           ];
         };
 
@@ -78,6 +92,7 @@ in {
 
         startup = [
           { command = "if command -v corectrl &> /dev/null ; then corectrl & fi";  }
+          # { command = "sleep 2 && emacs --fg-daemon"; }
           # { command = "import-gsettings"; always = true; }
           # { command = "exec swhks & ; pkexec swhkd -c $HOME/.config/sway/swhkdrc"; }
         ];
@@ -86,6 +101,9 @@ in {
           let
             mod = config.wayland.windowManager.sway.config.modifier;
             term = config.wayland.windowManager.sway.config.terminal;
+            browser = "firefox";        
+            editor = "emacsclient -c";
+            fm = "thunar";
           in {
             # Base
             "${mod}+ctrl+r" = "reload";
@@ -158,9 +176,29 @@ in {
             # Move to next/previous and switch
             "${mod}+Shift+Right" = "move container to workspace next ; workspace next";
             "${mod}+Shift+Left" = " move container to workspace prev ; workspace prev";
-            
+
+            # XF86
+            "XF86AudioRaiseVolume" = "exec volume up";
+            "XF86AudioLowerVolume" = "exec volume down";
+            "XF86AudioMute" = "exec volume mute";
+
+            # Launchers
+            "${mod}+d" = "exec rofi_launcher";
+            "${mod}+Shift+q" = "exec rofi_powermenu";
+            "${mod}+slash" = "exec rofi_emoji";
+            "${mod}+p" = "exec rofi-rbw";
+
+            # Screenshots
+            "Print" = "exec grimshot --notify copy";
+            "Shift+Print" = "exec grimshot --notify save";
+            "${mod}+Print" = "exec grimshot --notify copy area";
+            "${mod}+Shift+Print" = "exec grimshot --notify save area";
+             
             # Apps
             "${mod}+Return" = "exec ${term}";
+            "${mod}+b" = "exec ${browser}";
+            "${mod}+e" = "exec ${editor}";
+            "${mod}+f" = "exec thunar";
           };
       };
 
