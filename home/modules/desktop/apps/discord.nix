@@ -4,7 +4,7 @@ _:
 with lib;
 let
   cfg = config.user-modules.desktop.apps.discord;
-  cfgWayland = config.user-modules.desktop.wayland.sway;
+  cfgWayland = config.user-modules.desktop.wayland;
 in {
   options.user-modules.desktop.apps.discord = {
     enable = mkOption {
@@ -21,7 +21,7 @@ in {
       home.packages = with pkgs; let
         discord-chromium = makeDesktopItem {
           name = "Discord";
-          desktopName = "Discord new";
+          desktopName = "Discord";
           genericName = "All-in-one cross-platform voice and text chat for gamers";
           exec = "${config.programs.chromium.package}/bin/chromium --app=\"https://discord.com/channels/@me\"";
           icon = "discord";

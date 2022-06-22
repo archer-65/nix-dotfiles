@@ -4,7 +4,7 @@ _:
 with lib;
 let
   cfg = config.user-modules.desktop.browsers.firefox;
-  cfgWayland = config.user-modules.desktop.wayland.sway;
+  cfgWayland = config.user-modules.desktop.wayland;
 in {
   options.user-modules.desktop.browsers.firefox = {
     enable = mkOption {

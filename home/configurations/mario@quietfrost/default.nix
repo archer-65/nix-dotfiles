@@ -22,8 +22,15 @@
         pdf.enablePlus = true;
       };
 
-      #xorg.qtile.enable = true;
-      wayland.sway.enable = true;
+      # xorg = {
+      #   enable = true;
+      #   qtile.enable = true;
+      # };
+      
+      wayland = {
+        enable = true;
+        sway.enable = true;
+      };          
 
       term.alacritty.enable = true;
     };

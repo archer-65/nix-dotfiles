@@ -4,7 +4,7 @@ _:
 with lib;
 let
   cfg = config.user-modules.desktop.apps.rofi;
-  cfgWayland = config.user-modules.desktop.wayland.sway;
+  cfgWayland = config.user-modules.desktop.wayland;
   configDir = config.dotfiles.configDir;
 in {
   options.user-modules.desktop.apps.rofi = {

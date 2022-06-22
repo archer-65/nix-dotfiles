@@ -4,25 +4,9 @@ _:
 with lib;
 let
   cfg = config.user-modules.desktop.wayland.sway;
+  cfgWayland = config.user-modules.desktop.wayland;
   cfgTheme = config.user-modules.themes;
   configDir = config.dotfiles.configDir;
-
-  # Maybe I don't need this anymore
-  import-gsettings = pkgs.writeShellScriptBin "import-gsettings" ''
-    config="''${XDG_CONFIG_HOME:-$HOME/.config}/gtk-3.0/settings.ini"
-    if [ ! -f "$config" ]; then exit 1; fi
-
-    gnome_schema="org.gnome.desktop.interface"
-    gtk_theme="$(grep 'gtk-theme-name' "$config" | cut -d'=' -f2)"
-    icon_theme="$(grep 'gtk-icon-theme-name' "$config" | cut -d'=' -f2)"
-    cursor_theme="$(grep 'gtk-cursor-theme-name' "$config" | cut -d'=' -f2)"
-    font_name="$(grep 'gtk-font-name' "$config" | cut -d'=' -f2)"
-
-    gsettings set "$gnome_schema" gtk-theme "$gtk_theme"
-    gsettings set "$gnome_schema" icon-theme "$icon_theme"
-    gsettings set "$gnome_schema" cursor-theme "$cursor_theme"
-    gsettings set "$gnome_schema" font-name "$font_name"
-  '';
 
 in {
   options.user-modules.desktop.wayland.sway = {
@@ -33,9 +17,7 @@ in {
     };
   };
   
-  imports = [ ./shared.nix ];
-
-  config = mkIf cfg.enable {
+  config = mkIf (cfgWayland.enable && cfg.enable) {
     
     wayland.windowManager.sway = {
       enable = true;
@@ -51,6 +33,10 @@ in {
         input."1390:268:ELECOM_TrackBall_Mouse_HUGE_TrackBall" = {
           scroll_method = "on_button_down";
           scroll_button = "BTN_TASK";
+        };
+
+        output."Unknown U34G2G4R3 0x0000241D" = {
+          mode = "3440x1440@144.001Hz";
         };
 
         modifier = "Mod4";
@@ -92,8 +78,6 @@ in {
 
         startup = [
           { command = "if command -v corectrl &> /dev/null ; then corectrl & fi";  }
-          # { command = "sleep 2 && emacs --fg-daemon"; }
-          # { command = "import-gsettings"; always = true; }
           # { command = "exec swhks & ; pkexec swhkd -c $HOME/.config/sway/swhkdrc"; }
         ];
 
@@ -232,7 +216,6 @@ in {
 
     home.packages = with pkgs; [
       gsettings-desktop-schemas
-      # import-gsettings
     ];
 
     user-modules.desktop = {

@@ -2,7 +2,10 @@ inputs: {
   "credentials/gpg" = import ./credentials/gpg.nix inputs;
   "credentials/mail" = import ./credentials/mail.nix inputs;
 
+  "desktop/xorg" = import ./desktop/xorg inputs;
   "desktop/xorg/qtile" = import ./desktop/xorg/qtile.nix inputs;
+
+  "desktop/wayland" = import ./desktop/wayland inputs;
   "desktop/wayland/sway" = import ./desktop/wayland/sway.nix inputs;
 
   "desktop/apps/greenclip" = import ./desktop/apps/greenclip.nix inputs;

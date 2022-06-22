@@ -4,6 +4,7 @@ _:
 with lib;
 let
   cfg = config.user-modules.desktop.xorg.qtile;
+  cfgXorg = config.user-modules.desktop.xorg;
   configDir = config.dotfiles.configDir;
 in {
   options.user-modules.desktop.xorg.qtile = {
@@ -14,9 +15,7 @@ in {
     };
   };
 
-  imports = [ ./shared.nix ];
-
-  config = mkIf cfg.enable {
+  config = mkIf (cfgXorg.enable && cfg.enable) {
 
     xsession.enable = true;
 
