@@ -46,7 +46,7 @@
     editors = {
       emacs = {
         enable = true;
-        daemon.enable = true;
+        #daemon.enable = true;
       };
 
       android.enable = true;

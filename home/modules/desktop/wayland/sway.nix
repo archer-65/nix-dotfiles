@@ -24,6 +24,8 @@ in {
       xwayland = true;
 
       config = {
+        bars = [{ command = "waybar"; }];
+        
         input."type:keyboard" = {
           xkb_layout = "us";
           xkb_variant = "altgr-intl";
@@ -39,6 +41,10 @@ in {
           mode = "3440x1440@144.001Hz";
         };
 
+        output."*" = {
+          bg = "~/pics/walls/weebie/wallhaven-95j8kw.jpg fill";
+        };
+
         modifier = "Mod4";
         terminal = "${pkgs.alacritty}/bin/alacritty";
 
@@ -49,7 +55,7 @@ in {
         };
 
         gaps.inner = 10;
-        gaps.outer = 10;
+        gaps.outer = 0;
 
         focus.followMouse = true;
 
@@ -78,6 +84,9 @@ in {
 
         startup = [
           { command = "if command -v corectrl &> /dev/null ; then corectrl & fi";  }
+          { command = "rm -f /tmp/sovpipe && mkfifo /tmp/sovpipe && tail -f /tmp/sovpipe | sov"; always = true; }
+          { command = "autotiling"; always = true; }
+          { command = "emacs --fg-daemon"; }
           # { command = "exec swhks & ; pkexec swhkd -c $HOME/.config/sway/swhkdrc"; }
         ];
 
@@ -128,19 +137,20 @@ in {
             "F11" = "fullscreen toggle";
 
             # Gaps
-            "${mod}+Shift+plus" = "gaps inner all plus 5 ; gaps outer all plus 5";
-            "${mod}+Shift+minus" = "gaps inner all minus 5 ; gaps outer all minus 5";
+            "${mod}+plus" = "gaps inner all plus 5";
+            "${mod}+Shift+minus" = "gaps inner all minus 5";
 
             # Workspaces
-            "${mod}+1" = "workspace 1";
-            "${mod}+2" = "workspace 2";
-            "${mod}+3" = "workspace 3";
-            "${mod}+4" = "workspace 4";
-            "${mod}+5" = "workspace 5";
-            "${mod}+6" = "workspace 6";
-            "${mod}+7" = "workspace 7";
-            "${mod}+8" = "workspace 8";
-            "${mod}+9" = "workspace 9";
+            # I'm using sov with complex binds now
+            # "${mod}+1" = "workspace 1";
+            # "${mod}+2" = "workspace 2";
+            # "${mod}+3" = "workspace 3";
+            # "${mod}+4" = "workspace 4";
+            # "${mod}+5" = "workspace 5";
+            # "${mod}+6" = "workspace 6";
+            # "${mod}+7" = "workspace 7";
+            # "${mod}+8" = "workspace 8";
+            # "${mod}+9" = "workspace 9";
 
             # Switch to next/previous ws
             "${mod}+Right" = "workspace next";
@@ -193,9 +203,30 @@ in {
       #     dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK
       # '';
 
-      extraConfig = ''
+      extraConfig = let
+        mod = config.wayland.windowManager.sway.config.modifier;
+      in ''
+        bindsym --no-repeat ${mod}+1 workspace number 1; exec "echo 1 > /tmp/sovpipe"
+        bindsym --no-repeat ${mod}+2 workspace number 2; exec "echo 1 > /tmp/sovpipe"
+        bindsym --no-repeat ${mod}+3 workspace number 3; exec "echo 1 > /tmp/sovpipe"
+        bindsym --no-repeat ${mod}+4 workspace number 4; exec "echo 1 > /tmp/sovpipe"
+        bindsym --no-repeat ${mod}+5 workspace number 5; exec "echo 1 > /tmp/sovpipe"
+        bindsym --no-repeat ${mod}+6 workspace number 6; exec "echo 1 > /tmp/sovpipe"
+        bindsym --no-repeat ${mod}+7 workspace number 7; exec "echo 1 > /tmp/sovpipe"
+        bindsym --no-repeat ${mod}+8 workspace number 8; exec "echo 1 > /tmp/sovpipe"
+        bindsym --no-repeat ${mod}+9 workspace number 9; exec "echo 1 > /tmp/sovpipe"
+
+        bindsym --release ${mod}+1 exec "echo 0 > /tmp/sovpipe"
+        bindsym --release ${mod}+2 exec "echo 0 > /tmp/sovpipe"
+        bindsym --release ${mod}+3 exec "echo 0 > /tmp/sovpipe"
+        bindsym --release ${mod}+4 exec "echo 0 > /tmp/sovpipe"
+        bindsym --release ${mod}+5 exec "echo 0 > /tmp/sovpipe"
+        bindsym --release ${mod}+6 exec "echo 0 > /tmp/sovpipe"
+        bindsym --release ${mod}+7 exec "echo 0 > /tmp/sovpipe"
+        bindsym --release ${mod}+8 exec "echo 0 > /tmp/sovpipe"
+        bindsym --release ${mod}+9 exec "echo 0 > /tmp/sovpipe"
+
         exec dbus-sway-environment
-        # exec configure-gtk
       '';
 
       extraSessionCommands = ''
@@ -212,15 +243,21 @@ in {
       '';
     };
 
-   # xdg.configFile."sway/swhkdrc".source = "${configDir}/sway/swhkdrc";
+    # xdg.configFile."sway/swhkdrc".source = "${configDir}/sway/swhkdrc";
 
+    xdg.configFile."sov/config".source = "${configDir}/sway/sov";
+    
     home.packages = with pkgs; [
       gsettings-desktop-schemas
+      autotiling
+      sov
     ];
 
     user-modules.desktop = {
       services = {
         dunst.enable = true;
+        locker-wayland.enable = true;
+        waybar.enable = true;
       };
     };
   };

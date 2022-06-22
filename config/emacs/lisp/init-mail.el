@@ -11,6 +11,7 @@
 (leaf mu4e
   :require t
   :commands mu4e mu4e-compose-new
+  :load-path "~/.nix-profile/share/emacs/site-lisp/mu4e"
   :init
   (provide 'html2text)
   :config

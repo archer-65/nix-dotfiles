@@ -14,7 +14,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    emacs-overlay.url = "github:nix-community/emacs-overlay?rev=859fbd8964ae5605e44020a559d73905f1e1cfa5";
+    emacs-overlay.url = "github:nix-community/emacs-overlay?rev=145e2a2a16a8faea0986c8bc87047bb15aa2c47b";
   };
 
   outputs = inputs@{ self, nixpkgs, nur, ... }:

@@ -4,6 +4,7 @@ _:
 with lib;
 let 
   cfg = config.user-modules.desktop.services.dunst;
+  cfgWayland = config.user-modules.desktop.wayland;
   cfgTheme = config.user-modules.themes;
 in {
   options.user-modules.desktop.services.dunst = {
@@ -30,7 +31,9 @@ in {
           width = "(300, 450)";
           height = "300";
           origin = "top-right";
-          offset = "5x40";
+          offset = let
+            vMargin = if cfgWayland.enable then "10" else "40";
+          in "10x${vMargin}";
 
           notification_limit = 3;
 
@@ -54,6 +57,7 @@ in {
           corner_radius = 0;
           frame_width = 2;
           frame_color = "#282C34";
+          #frame_color = "#31748f";
           separator_color = "frame";
 
           sort = "yes";

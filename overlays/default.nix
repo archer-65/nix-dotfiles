@@ -9,6 +9,7 @@ in _self: super: {
     volume = super.callPackage ../packages/scripts/volume.nix { };
     usedram = super.callPackage ../packages/scripts/usedram.nix { };
     usedcpu = super.callPackage ../packages/scripts/usedcpu.nix { };
+    hwmon_devices = super.callPackage ../packages/scripts/hwmon_devices.nix { };
   };
 
   scripts.rofi = {

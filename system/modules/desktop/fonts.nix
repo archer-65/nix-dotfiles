@@ -18,7 +18,8 @@ in {
       nerdFonts
       corefonts
       source-code-pro
-      source-han-sans
+      #source-han-sans
+      noto-fonts-cjk-sans
       font-awesome
       noto-fonts-emoji
       roboto

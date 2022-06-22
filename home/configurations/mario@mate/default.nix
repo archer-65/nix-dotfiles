@@ -8,6 +8,12 @@
     desktop = {
       apps = {
         rofi.enable = true;
+        discord.enable = true;
+        teams.enable = true;
+      };
+
+      browsers = {
+        firefox.enable = true;
       };
 
       media.documents = {
@@ -15,12 +21,22 @@
         pdf.enable = true;
       };
 
-      xorg.qtile.enable = true;
+      xorg = {
+        enable = true;
+        qtile.enable = true;
+      };
+
+      # wayland = {
+      #   enable = true;
+      #   sway.enable = true;
+      # };
 
       term.alacritty.enable = true;
     };
 
-    dev = { nix.enable = true; };
+    dev = {
+      nix.enable = true;
+    };
 
     editors = {
       emacs = {

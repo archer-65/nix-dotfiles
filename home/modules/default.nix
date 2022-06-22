@@ -18,10 +18,14 @@ inputs: {
   "desktop/browsers/chromium" = import ./desktop/browsers/chromium.nix inputs;
 
   "desktop/media/documents" = import ./desktop/media/documents.nix inputs;
+
   "desktop/term/alacritty" = import ./desktop/term/alacritty.nix inputs;
+
   "desktop/services/picom" = import ./desktop/services/picom.nix inputs;
   "desktop/services/dunst" = import ./desktop/services/dunst.nix inputs;
   "desktop/services/locker" = import ./desktop/services/locker.nix inputs;
+  "desktop/services/locker-wayland" = import ./desktop/services/locker-wayland.nix inputs;
+  "desktop/services/waybar" = import ./desktop/services/waybar.nix inputs;
 
   "/dev/c-c++" = import ./dev/cc.nix inputs;
   "/dev/javascript" = import ./dev/js inputs;

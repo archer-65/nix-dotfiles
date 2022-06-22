@@ -78,8 +78,10 @@ case $chosen in
         if [[ $ans == "Y" ]]; then
             if [[ "$DESKTOP_SESSION" =~ "qtile" ]]; then
                 qtile cmd-obj -o cmd -f shutdown
-                elif [[ "$DESKTOP_SESSION" =~ "i3" ]]; then
+            elif [[ "$DESKTOP_SESSION" =~ "i3" ]]; then
                 i3-msg exit
+	    elif [[ "$XDG_CURRENT_DESKTOP" =~ "sway" ]]; then
+		swaymsg exit
             fi
             elif [[ $ans == "N" ]]; then
             exit 0

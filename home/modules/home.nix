@@ -18,6 +18,7 @@ in rec {
 
   home.packages = [
     pkgs.scripts.volume
+    pkgs.scripts.hwmon_devices
     pkgs.ispell
     pkgs.exiftool
     pkgs.imagemagick
