@@ -656,6 +656,21 @@ Last but not least: [[https://github.com/jeremy-compostella/org-msg][org-msg]], 
 #+include: "lisp/init-mail.el" src emacs-lisp :tangle no
 
 
+** Productivity
+
+#+begin_src emacs-lisp
+
+  (leaf pomodoro
+    :straight t
+    :require t
+    :custom
+    (pomodoro-desktop-notification . t)
+    :config
+    (pomodoro-add-to-mode-line))
+
+#+end_src
+
+
 ** Reading
 
 #+begin_src emacs-lisp

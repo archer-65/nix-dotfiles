@@ -62,12 +62,12 @@ in {
 
        timeouts = [
          {
-           timeout = 300;
-           command = "swaymsg output * dpms off";
-           resumeCommand = "swaymsg output * dpms on";
+           timeout = 360;
+           command = "swaymsg 'output * dpms off'";
+           resumeCommand = "swaymsg 'output * dpms on'";
          }
          {
-           timeout = 360;
+           timeout = 300;
            command = "swaylock -fF";
          }
        ];

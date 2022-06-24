@@ -150,6 +150,14 @@
 
 (require 'init-mail)
 
+(leaf pomodoro
+  :straight t
+  :require t
+  :custom
+  (pomodoro-desktop-notification . t)
+  :config
+  (pomodoro-add-to-mode-line))
+
 (require 'init-pdf)
 
 (leaf daemons
