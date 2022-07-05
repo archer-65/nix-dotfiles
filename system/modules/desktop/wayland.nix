@@ -17,10 +17,10 @@ let
     executable = true;
 
     text = ''
-  dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
-  systemctl --user stop pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
-  systemctl --user start pipewire pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
-      '';
+      dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+      systemctl --user stop pipewire wireplumber pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
+      systemctl --user start pipewire wireplumber pipewire-media-session xdg-desktop-portal xdg-desktop-portal-wlr
+    '';
   };
 
   # # currently, there is some friction between sway and gtk:
@@ -63,8 +63,11 @@ in {
 
     programs.sway = {
       enable = true;
-      wrapperFeatures.gtk = true;
-      extraPackages = [ ];
+
+      wrapperFeatures = {
+        base = true;
+        gtk = true;
+      };
     };
   };
 }

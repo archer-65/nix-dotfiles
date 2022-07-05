@@ -12,13 +12,14 @@ in {
       xdg.portal = {
         enable = true;
         extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
-        gtkUsePortal = true;
+        # gtkUsePortal = true;
       };
     })
 
     (mkIf cfgWayland.enable {
       xdg.portal = {
-        wlr.enable = true;
+        # wlr.enable = true;
+        extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
       };
     })
   ]);

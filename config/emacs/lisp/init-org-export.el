@@ -45,6 +45,7 @@
 
 ;; Reveal.js
 (leaf ox-reveal
+  :require t
   :straight t
   :config
   (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js"))

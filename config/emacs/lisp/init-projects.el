@@ -18,8 +18,8 @@
   :blackout t
   :config
   (projectile-mode)
-  :bind-keymap
-  ("C-c p"   . projectile-command-map)
+  ;; :bind-keymap
+  ;; ("C-c p"   . projectile-command-map)
   :init
   ;; NOTE: Set this to the folder where you keep your Git repos!
   (when (file-directory-p "~/projects")

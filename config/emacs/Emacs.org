@@ -1,6 +1,7 @@
 #+TITLE: Archer-65 Emacs Configuration
 #+AUTHOR: Mario Liguori
 #+PROPERTY: header-args:emacs-lisp :tangle ./init.el :mkdirp yes
+#+REVEAL_THEME: solarized
 
 * Preface
 
