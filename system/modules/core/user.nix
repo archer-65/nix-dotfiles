@@ -31,10 +31,10 @@ with lib; {
 
     users.users.${config.user.name} = mkAliasDefinitions options.user;
 
-    nix = let users = [ "root" config.user.name ];
+    nix.settings = let users = [ "root" config.user.name ];
     in {
-      trustedUsers = users;
-      allowedUsers = users;
+      trusted-users = users;
+      allowed-users = users;
     };
 
     system.stateVersion = lib.mkDefault "22.05";

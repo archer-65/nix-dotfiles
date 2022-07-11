@@ -10,7 +10,7 @@ let
 
   monitorPkgs = with pkgs; [ btop s-tui ];
 
-  qt5Pkgs = with pkgs.libsForQt5; [ qtstyleplugin-kvantum breeze-qt5 ];
+  qt5Pkgs = with pkgs.libsForQt5; [ qtstyleplugin-kvantum breeze-qt5 qt5ct ];
 in rec {
   imports = [ ./desktop ];
 

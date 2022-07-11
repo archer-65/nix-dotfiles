@@ -19,5 +19,7 @@ in {
       commandLineArgs = ["--ozone-platform-hint=auto" ];
       #"--enable-features=WebRTCPipeWireCapturer" "--enable-usermedia-screen-capturing"];
     };
+
+    home.packages = with pkgs; [ google-chrome-dev ];
   };
 }
