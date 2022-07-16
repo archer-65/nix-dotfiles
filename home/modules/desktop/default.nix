@@ -45,6 +45,7 @@ in {
         ];
       })
       mate.engrampa
+      zip
       unzip
     ];
 

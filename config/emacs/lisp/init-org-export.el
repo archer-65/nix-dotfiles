@@ -46,7 +46,7 @@
 ;; Reveal.js
 (leaf ox-reveal
   :require t
-  :straight t
+  :straight (ox-reveal :type git :host github :repo "yjwen/org-reveal")
   :config
   (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js"))
 
