@@ -13,5 +13,5 @@ in {
     };
   };
 
-  config = mkIf cfg.enable { home.packages = with pkgs; [ android-studio ]; };
+  config = mkIf cfg.enable { home.packages = with pkgs; [ android-studio scrcpy ]; };
 }
