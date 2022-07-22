@@ -16,10 +16,10 @@ in {
   config = mkIf cfg.enable {
     programs.chromium = {
       enable = true;
+      package = pkgs.google-chrome-dev;
       commandLineArgs = ["--ozone-platform-hint=auto" ];
-      #"--enable-features=WebRTCPipeWireCapturer" "--enable-usermedia-screen-capturing"];
     };
 
-    home.packages = with pkgs; [ google-chrome-dev ];
+    # home.packages = with pkgs; [ google-chrome-dev ];
   };
 }

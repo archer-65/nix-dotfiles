@@ -27,7 +27,7 @@ in {
       activeOpacity = "1.0";
       inactiveOpacity = "1.0";
 
-      inactiveDim = "0";
+      # inactiveDim = "0";
 
       extraOptions = ''
         # Unredirect all windows if a full-screen opaque window is detected, to
