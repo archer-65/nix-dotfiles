@@ -22,6 +22,39 @@ in {
     };
 
     accounts.email.accounts = {
+
+      gmailPrimary = {
+        primary = false;
+        realName = "Mario Liguori";
+        address = "mario.liguori.056@gmail.com";
+        userName = "mario.liguori.056@gmail.com";
+
+        flavor = "gmail.com";
+        passwordCommand =
+          "${pkgs.libsecret}/bin/secret-tool lookup gmailPrimary password";
+
+        maildir.path = "GmailPrimary";
+
+        mu.enable = true;
+
+        msmtp.enable = true;
+
+        mbsync = {
+          enable = true;
+          patterns = [
+            "*"
+            "![Gmail]*"
+            "[Gmail]/Trash"
+            "[Gmail]/Drafts"
+            "[Gmail]/Sent Mail"
+            "[Gmail]/Starred"
+            "[Gmail]/All Mail"
+          ];
+          create = "both";
+        };
+      };
+
+
       outlook = {
         primary = true;
         realName = "Mario Liguori";

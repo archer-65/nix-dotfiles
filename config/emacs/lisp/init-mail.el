@@ -51,6 +51,24 @@
 
   (setq mu4e-contexts
         `(
+	  ;; Gmail Primary (new) Account
+          ,(make-mu4e-context
+            :name "Gmail Primary"
+            :match-func
+            (lambda (msg)
+              (when msg
+                (string-prefix-p "/GmailPrimary" (mu4e-message-field msg :maildir))))
+            :vars '((user-email-address . "mario.liguori.056@gmail.com")
+                    (smtpmail-smtp-user . "mario.liguori.056@gmail.com")
+                    (user-full-name     . "Mario Liguori")
+                    (mu4e-sent-folder   . "/Gmail/[Gmail]/Sent Mail")
+                    (mu4e-drafts-folder . "/Gmail/[Gmail]/Drafts")
+                    (mu4e-trash-folder  . "/Gmail/[Gmail]/Trash")
+                    (mu4e-maildir-shortcuts .
+                                            (("/Gmail/Inbox"     . ?i)
+                                             ("/Gmail/[Gmail]/Sent Mail" . ?s)
+                                             ("/Gmail/[Gmail]/Trash"     . ?t)
+                                             ("/Gmail/[Gmail]/Drafts"    . ?d)))))
           ;; Gmail Account
           ,(make-mu4e-context
             :name "Gmail"

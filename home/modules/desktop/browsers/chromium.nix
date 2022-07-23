@@ -19,7 +19,5 @@ in {
       package = pkgs.google-chrome-dev;
       commandLineArgs = ["--ozone-platform-hint=auto" ];
     };
-
-    # home.packages = with pkgs; [ google-chrome-dev ];
   };
 }
