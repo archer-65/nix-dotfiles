@@ -21,7 +21,7 @@
     services = {
       ssh.enable = true;
       gpg.enable = true;
-      flatpak.enable = true;
+      # flatpak.enable = true;
       printing.enable = true;
     };
 
@@ -29,8 +29,10 @@
     desktop.wayland.enable = true;
 
     core = {
-      #boot.splashBoot.enable = true;
+      # boot.splashBoot.enable = true;
       cachix.enable = true;
     };
   };
+
+  services.flatpak.enable = true;
 }

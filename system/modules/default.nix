@@ -23,7 +23,6 @@ inputs: {
   "hardware/razer" = import ./hardware/razer.nix inputs;
   "hardware/qmk" = import ./hardware/qmk.nix inputs;
 
-  "services/flatpak" = import ./services/flatpak.nix inputs;
   "services/plex" = import ./services/plex.nix inputs;
   "services/printing" = import ./services/printing.nix inputs;
   "services/ssh" = import ./services/ssh.nix inputs;

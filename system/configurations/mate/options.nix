@@ -10,7 +10,6 @@
     services = {
       ssh.enable = true;
       gpg.enable = true;
-      flatpak.enable = true;
     };
 
     desktop.xorg.enable = true;
@@ -20,4 +19,6 @@
       cachix.enable = true;
     };
   };
+
+  services.flatpak.enable = true;
 }

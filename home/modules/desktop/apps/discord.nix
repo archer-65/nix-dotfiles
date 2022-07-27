@@ -23,7 +23,7 @@ in {
           name = "Discord";
           desktopName = "Discord";
           genericName = "All-in-one cross-platform voice and text chat for gamers";
-          exec = "${config.programs.chromium.package}/bin/chromium --app=\"https://discord.com/channels/@me\"";
+          exec = "${config.programs.chromium.package}/bin/google-chrome-unstable --ozone-platform=wayland --enable-features=UseOzonePlatform --app=\"https://discord.com/channels/@me\"";
           icon = "discord";
           type = "Application";
           categories = [ "Network" "InstantMessaging" ];

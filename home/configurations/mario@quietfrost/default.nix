@@ -15,6 +15,10 @@
       browsers = {
         firefox.enable = true;
       };
+
+      gaming.emulators = {
+        switch.enable = true;
+      };
       
       media = {
         documents = {

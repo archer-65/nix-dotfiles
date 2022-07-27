@@ -17,6 +17,8 @@ inputs: {
   "desktop/browsers/firefox" = import ./desktop/browsers/firefox.nix inputs;
   "desktop/browsers/chromium" = import ./desktop/browsers/chromium.nix inputs;
 
+  "desktop/gaming/emulators" = import ./desktop/gaming/emulators.nix inputs;
+
   "desktop/media/documents" = import ./desktop/media/documents.nix inputs;
   "desktop/media/videos" = import ./desktop/media/videos.nix inputs;
 

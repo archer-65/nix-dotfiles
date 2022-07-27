@@ -47,6 +47,7 @@ in {
       mate.engrampa
       zip
       unzip
+      unrar
     ];
 
     xsession.enable = true;

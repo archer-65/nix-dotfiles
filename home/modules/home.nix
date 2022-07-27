@@ -23,5 +23,7 @@ in rec {
     pkgs.exiftool
     pkgs.imagemagick
     pkgs.transmission-gtk
+
+    pkgs.appimage-run
   ] ++ socialPkgs ++ mediaPkgs ++ utilPkgs ++ monitorPkgs ++ qt5Pkgs;
 }
