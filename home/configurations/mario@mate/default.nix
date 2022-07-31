@@ -36,6 +36,7 @@
 
     dev = {
       nix.enable = true;
+      tex.enable = true;
     };
 
     editors = {
@@ -75,14 +76,18 @@
     download = "${config.home.homeDirectory}/dl";
     music = "${config.home.homeDirectory}/music";
     pictures = "${config.home.homeDirectory}/pics";
-    publicShare = "${config.home.homeDirectory}/public";
-    templates = "${config.home.homeDirectory}/templates";
+    publicShare = "${config.home.homeDirectory}";
+    templates = "${config.home.homeDirectory}";
     videos = "${config.home.homeDirectory}/videos";
+
+    extraConfig = {
+      XDG_PROJECTS_DIR = "${config.home.homeDirectory}/projects";
+    };
   };
 
   xdg.configFile."rbw/config.json".text = ''
     {
-      "email" : "mariogt2009@live.it",
+      "email" : "mario.liguori.056@gmail.com",
       "pinentry" : "${pkgs.pinentry-gnome}/bin/pinentry-gnome3"
     }
   '';

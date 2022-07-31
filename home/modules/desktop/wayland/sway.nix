@@ -74,6 +74,7 @@ in {
             { command = "floating enable"; criteria = { app_id = "pavucontrol"; }; }
             { command = "floating enable, sticky enable"; criteria = { app_id = "firefox"; title = "^Picture-in-Picture$"; }; }
             { command = "floating enable, sticky enable, border none, nofocus"; criteria = { title = "\ —\ Sharing\ Indicator$"; }; }
+            { command = "shortcuts_inhibitor disable"; criteria = { app_id = "^chrome-.*"; }; }
           ];
         };
 

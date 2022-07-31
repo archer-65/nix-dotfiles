@@ -21,7 +21,6 @@
     services = {
       ssh.enable = true;
       gpg.enable = true;
-      # flatpak.enable = true;
       printing.enable = true;
     };
 

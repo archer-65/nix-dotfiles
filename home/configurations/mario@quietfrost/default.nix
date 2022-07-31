@@ -103,7 +103,7 @@
 
   xdg.configFile."rbw/config.json".text = ''
     {
-      "email" : "mariogt2009@live.it",
+      "email" : "mario.liguori.056@gmail.com",
       "pinentry" : "${pkgs.pinentry-gnome}/bin/pinentry-gnome3"
     }
   '';

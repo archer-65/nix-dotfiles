@@ -22,14 +22,14 @@ in {
 
       fade = true;
       fadeDelta = 4;
-      fadeSteps = [ "0.028" "0.03" ];
+      fadeSteps = [ 0.028 0.03 ];
 
-      activeOpacity = "1.0";
-      inactiveOpacity = "1.0";
+      activeOpacity = 1.0;
+      inactiveOpacity = 1.0;
 
-      # inactiveDim = "0";
+      # inactiveDim = 0;
 
-      extraOptions = ''
+      settings = {
         # Unredirect all windows if a full-screen opaque window is detected, to
         # maximize performance for full-screen windows. Known to cause
         # flickering when redirecting/unredirecting windows.
@@ -51,16 +51,16 @@ in {
         detect-client-opacity = true;
 
         focus-exclude = [
-            "class_g = 'Cairo-clock'",
-            "window_type = 'dock'",		
-            "! name~='''",
-            "class_g = 'Dunst'",
-            "class_g = 'Bar'",                    # lemonbar
-            "class_g = 'slop'"                    # maim
+            "class_g = 'Cairo-clock'"
+            "window_type = 'dock'"
+            "! name~=''"
+            "class_g = 'Dunst'"
+            "class_g = 'Bar'"       # lemonbar
+            "class_g = 'slop'"      # maim
         ];
         detect-transient = true;
         detect-client-leader = true;
-      '';
+      };
     };
   };
 }
