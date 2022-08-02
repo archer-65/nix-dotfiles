@@ -3,7 +3,8 @@ _:
 
 with lib;
 
-let cfg = config.modules.desktop.xorg;
+let
+  cfg = config.modules.desktop.xorg;
 in {
   options.modules.desktop.xorg = {
     enable = mkOption {
@@ -16,28 +17,26 @@ in {
   config = mkIf cfg.enable {
     services.xserver.enable = true;
 
-    services.xserver.displayManager = {
-      #lightdm.enable = true;
-      sddm = {
-        enable = true;
+    # services.xserver.displayManager = {
+    #   sddm = {
+    #     enable = true;
 
-        theme = "${(pkgs.fetchFromGitHub {
-          owner = "Kangie";
-          repo = "sddm-sugar-candy";
-          rev = "master";
-          sha256 = "sha256-p2d7I0UBP63baW/q9MexYJQcqSmZ0L5rkwK3n66gmqM=";
-        })}
-        ";
-      };
+    #     theme = "${(pkgs.fetchFromGitHub {
+    #       owner = "Kangie";
+    #       repo = "sddm-sugar-candy";
+    #       rev = "master";
+    #       sha256 = "sha256-p2d7I0UBP63baW/q9MexYJQcqSmZ0L5rkwK3n66gmqM=";
+    #     })}";
+    #   };
 
-      defaultSession = "none+qtile";
-    };
+    #   defaultSession = "sway";
+    # };
 
-    environment.systemPackages = with pkgs.libsForQt5.qt5; [
-      qtgraphicaleffects
-      qtsvg
-      qtquickcontrols2
-    ];
+    # environment.systemPackages = with pkgs.libsForQt5.qt5; [
+    #   qtgraphicaleffects
+    #   qtsvg
+    #   qtquickcontrols2
+    # ];
 
     services.xserver.windowManager = { qtile.enable = true; };
 

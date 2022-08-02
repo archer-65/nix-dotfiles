@@ -26,6 +26,7 @@
 
     desktop.xorg.enable = true;
     desktop.wayland.enable = true;
+    desktop.sddm.enable = true;
 
     core = {
       # boot.splashBoot.enable = true;

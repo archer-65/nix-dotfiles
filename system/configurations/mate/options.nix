@@ -13,6 +13,7 @@
     };
 
     desktop.xorg.enable = true;
+    desktop.sddm.enable = true;
 
     core = {
       boot.splashBoot.enable = true;
