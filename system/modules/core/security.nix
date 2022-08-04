@@ -68,4 +68,10 @@ _:
 
   # So we don't have to do this later...
   security.acme.acceptTerms = true;
+
+  # Sudo limited only to wheel group.
+  security.sudo = {
+    wheelNeedsPassword = true;
+    execWheelOnly = true;
+  };
 }

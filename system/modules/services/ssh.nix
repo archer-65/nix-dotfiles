@@ -17,6 +17,18 @@ in {
       enable = true;
       startWhenNeeded = true;
       openFirewall = true;
+
+      passwordAuthentication = false;
+      allowSFTP = false;
+      kbdInteractiveAuthentication = false;
+
+      forwardX11 = false;
+      extraConfig = ''
+        AllowTcpForwarding yes
+        AllowAgentForwarding no
+        AllowStreamLocalForwarding no
+        AuthenticationMethods publickey
+      '';
     };
 
     services.sshd.enable = true;
