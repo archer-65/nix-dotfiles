@@ -1,5 +1,5 @@
 _:
-{ options, config, lib, ... }:
+{ pkgs, options, config, lib, ... }:
 
 with lib;
 let cfg = config.user-modules.themes;
@@ -18,6 +18,7 @@ in {
     };
 
     font = {
+      # GTK & Co.
       name = mkOption {
         type = str;
         default = "Sans";
@@ -28,9 +29,37 @@ in {
         default = 12;
       };
     };
+
+    # Terminal font
+    font.term = {
+      name = mkOption {
+        type = str;
+        default = "Monospace";
+      };
+
+      size = mkOption {
+        type = int;
+        default = 14;
+      };
+    };
+
+    # Alternative (notifications, etc.)
+    font.alt = {
+      name = mkOption {
+        type = str;
+        default = "Monospace";
+      };
+
+      size = mkOption {
+        type = int;
+        default = 12;
+      };
+    };
   };
 
   config = mkIf (cfg.active != null) {
+    # Well, this file is called "options.nix", but I put every global theming utility here.
+    home.packages = with pkgs.libsForQt5; [ qtstyleplugin-kvantum breeze-qt5 qt5ct ];
     home.sessionVariables = { QT_QPA_PLATFORMTHEME = "qt5ct"; };
   };
 }

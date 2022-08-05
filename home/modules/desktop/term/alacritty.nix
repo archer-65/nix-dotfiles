@@ -36,20 +36,23 @@ in {
         };
 
         # Font configuration
-        font = {
+        font = let
+          fontName = cfgTheme.font.term.name;
+          fontSize = cfgTheme.font.term.size;
+        in {
           normal = {
-            family = "VictorMono Nerd Font";
+            family = fontName;
             style = "Regular";
           };
           bold = {
-            family = "VictorMono Nerd Font";
+            family = fontName;
             style = "Bold";
           };
           italic = {
-            family = "VictorMono Nerd Font";
+            family = fontName;
             style = "Italic";
           };
-          size = cfgTheme.font.size + 2.0;
+          size = fontSize;
         };
 
         # Colors (must find a better way to handle this)

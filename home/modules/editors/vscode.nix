@@ -15,13 +15,6 @@ in {
   config = mkIf cfg.enable {
     programs.vscode = {
       enable = true;
-
-      # Commented atm, cause of internal sync of vscode 
-      # and necessity ok out of store symlinks
-      # extensions = with pkgs.vscode-extensions; [
-      #   jnoortheen.nix-ide
-      #   mskelton.one-dark-theme
-      # ];
     };
   };
 }

@@ -25,15 +25,12 @@ in {
         enable = true;
         package = pkgs.emacsPgtkNativeComp;
         extraPackages = epkgs:
-          [
-            epkgs.vterm
-            # epkgs.telega
-          ];
+          [ epkgs.vterm ];
       };
 
       home.packages = [ pkgs.tdlib ];
 
-      home.file.".emacs.d" = {
+      xdg.configFile."emacs" = {
         source = "${configDir}/emacs";
         recursive = true;
       };
@@ -45,8 +42,6 @@ in {
         client.enable = true;
         defaultEditor = true;
       };
-
-      #systemd.user.services.emacs = lib.mkForce {};
     })
   ]);
 }

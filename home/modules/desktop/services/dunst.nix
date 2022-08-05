@@ -33,7 +33,8 @@ in {
           origin = "top-right";
           offset = let
             vMargin = if cfgWayland.enable then "10" else "40";
-          in "10x${vMargin}";
+          in
+            "10x${vMargin}";
 
           notification_limit = 3;
 
@@ -57,14 +58,18 @@ in {
           corner_radius = 0;
           frame_width = 2;
           frame_color = "#282C34";
-          #frame_color = "#31748f";
           separator_color = "frame";
 
           sort = "yes";
           idle_threshold = 60;
 
           # Text    
-          font = "Fira Code ${toString (cfgTheme.font.size - 2)}, Font Awesome ${toString (cfgTheme.font.size - 2)}";
+          font = let
+            fontName = cfgTheme.font.alt.name;
+            fontSize = cfgTheme.font.alt.size;
+          in
+            "${fontName} ${toString (fontSize)}, Font Awesome ${toString (fontSize)}";
+          
           line_height = 0;
           markup = "full";
 

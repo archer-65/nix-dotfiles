@@ -15,7 +15,7 @@
   :init
   ;; Basic UI settings
   (setq dashboard-banner-logo-title "SUCK(EMAC)S - Personal Workspace")
-  (setq dashboard-startup-banner "~/.emacs.d/img/stallman.png")
+  (setq dashboard-startup-banner "~/.config/emacs/img/stallman.png")
   (setq dashboard-center-content t)
   ;; Icons
   (setq dashboard-set-heading-icons t)
