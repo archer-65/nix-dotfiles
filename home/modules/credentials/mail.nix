@@ -54,7 +54,6 @@ in {
         };
       };
 
-
       outlook = {
         primary = true;
         realName = "Mario Liguori";

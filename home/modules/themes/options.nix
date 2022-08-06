@@ -59,7 +59,11 @@ in {
 
   config = mkIf (cfg.active != null) {
     # Well, this file is called "options.nix", but I put every global theming utility here.
-    home.packages = with pkgs.libsForQt5; [ qtstyleplugin-kvantum breeze-qt5 qt5ct ];
+    home.packages = with pkgs.libsForQt5; [
+      qtstyleplugin-kvantum
+      breeze-qt5
+      qt5ct
+    ];
     home.sessionVariables = { QT_QPA_PLATFORMTHEME = "qt5ct"; };
   };
 }

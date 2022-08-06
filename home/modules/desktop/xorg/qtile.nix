@@ -24,14 +24,10 @@ in {
       recursive = true;
     };
 
-    services = {
-      pasystray.enable = true;
-    };
+    services = { pasystray.enable = true; };
 
     user-modules.desktop = {
-      apps = {
-        autorandr.enable = true;
-      };
+      apps = { autorandr.enable = true; };
 
       services = {
         picom.enable = true;

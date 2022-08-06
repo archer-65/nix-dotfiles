@@ -14,8 +14,6 @@ in {
   };
 
   config = {
-    home.packages = with pkgs; [
-      (mkIf cfg.switch.enable yuzu-mainline)
-    ];
+    home.packages = with pkgs; [ (mkIf cfg.switch.enable yuzu-mainline) ];
   };
 }

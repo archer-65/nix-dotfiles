@@ -12,9 +12,7 @@
         teams.enable = true;
       };
 
-      browsers = {
-        firefox.enable = true;
-      };
+      browsers = { firefox.enable = true; };
 
       media.documents = {
         enable = true;

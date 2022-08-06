@@ -22,7 +22,7 @@ in {
 
       fade = true;
       fadeDelta = 4;
-      fadeSteps = [ 0.028 0.03 ];
+      fadeSteps = [ 2.8e-2 3.0e-2 ];
 
       activeOpacity = 1.0;
       inactiveOpacity = 1.0;
@@ -51,12 +51,12 @@ in {
         detect-client-opacity = true;
 
         focus-exclude = [
-            "class_g = 'Cairo-clock'"
-            "window_type = 'dock'"
-            "! name~=''"
-            "class_g = 'Dunst'"
-            "class_g = 'Bar'"       # lemonbar
-            "class_g = 'slop'"      # maim
+          "class_g = 'Cairo-clock'"
+          "window_type = 'dock'"
+          "! name~=''"
+          "class_g = 'Dunst'"
+          "class_g = 'Bar'" # lemonbar
+          "class_g = 'slop'" # maim
         ];
         detect-transient = true;
         detect-client-leader = true;

@@ -14,7 +14,7 @@ let
 
   # Creative XOR operator :D
   cfgExclusive = ((cfgXorg.enable || cfgWayland.enable)
-                  && (!(cfgXorg.enable && cfgWayland.enable)));
+    && (!(cfgXorg.enable && cfgWayland.enable)));
 in {
   config = {
     assertions = [

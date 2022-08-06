@@ -13,10 +13,8 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.screen-locker = {
-      xss-lock.extraOptions = [ "-l" ]; 
-    };
- 
+    services.screen-locker = { xss-lock.extraOptions = [ "-l" ]; };
+
     services.betterlockscreen = {
       enable = true;
       inactiveInterval = 10;

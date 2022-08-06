@@ -4,6 +4,7 @@ _:
 with lib;
 let
   cfg = config.user-modules.editors.emacs;
+  cfgSway = config.user-modules.desktop.wayland.sway;
   configDir = config.dotfiles.configDir;
 in {
   options.user-modules.editors.emacs = {
@@ -24,11 +25,10 @@ in {
       programs.emacs = {
         enable = true;
         package = pkgs.emacsPgtkNativeComp;
-        extraPackages = epkgs:
-          [ epkgs.vterm ];
+        extraPackages = epkgs: [ epkgs.vterm ];
       };
 
-      home.packages = [ pkgs.tdlib ];
+      # home.packages = [ pkgs.tdlib ];
 
       xdg.configFile."emacs" = {
         source = "${configDir}/emacs";
@@ -42,6 +42,11 @@ in {
         client.enable = true;
         defaultEditor = true;
       };
+    })
+
+    (mkIf (cfgSway.enable && cfg.daemon.enable) {
+      services.emacs.startWithUserSession = false;
+      systemd.user.services.emacs.Install.WantedBy = [ "sway-session.target" ];
     })
   ]);
 }

@@ -84,7 +84,8 @@ in {
         };
 
         temperature = {
-          hwmon-path = "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon3/temp1_input";
+          hwmon-path =
+            "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon3/temp1_input";
           format = " {temperatureC}°C";
           format-critical = " {temperatureC}°C";
           critical-threshold = 80;
@@ -119,88 +120,88 @@ in {
       }];
 
       style = ''
-        /* Colors */
-        #workspaces button,
-        #mode,
-        #tray,
-        #pulseaudio,
-        #memory,
-        #cpu,
-        #temperature,
-        #clock {
-            background: rgba(229, 231, 235, 0.9);
-            color: #374151;
-        }
+               /* Colors */
+               #workspaces button,
+               #mode,
+               #tray,
+               #pulseaudio,
+               #memory,
+               #cpu,
+               #temperature,
+               #clock {
+                   background: rgba(229, 231, 235, 0.9);
+                   color: #374151;
+               }
 
-        /* Effects */
-        #workspaces button:hover {
-            background: rgba(229, 231, 235, 0.4);
-        }
-        #workspaces button.focused {
-            background: #9CA3AF;
-            color: #1F2937;
-        }
-        /* #workspaces button.urgent {
-            background: 
-        } */
+               /* Effects */
+               #workspaces button:hover {
+                   background: rgba(229, 231, 235, 0.4);
+               }
+               #workspaces button.focused {
+                   background: #9CA3AF;
+                   color: #1F2937;
+               }
+               /* #workspaces button.urgent {
+                   background: 
+               } */
 
-        * {
-            border: none;
-            border-radius: 0;
-            font-family: "Roboto", "Noto Sans CJK JP", "Font Awesome 6 Free";
-            font-size: 20px;
-        }
+               * {
+                   border: none;
+                   border-radius: 0;
+                   font-family: "Roboto", "Noto Sans CJK JP", "Font Awesome 6 Free";
+                   font-size: 20px;
+               }
 
-        window#waybar {
-            background-color: rgba(0,0,0,0);
-        }
+               window#waybar {
+                   background-color: rgba(0,0,0,0);
+               }
 
-        window#waybar.hidden {
-            opacity: 0.2;
-        }
+               window#waybar.hidden {
+                   opacity: 0.2;
+               }
 
-        #waybar > .horizontal {
-            padding: 5px 10px 0;
-        }
+               #waybar > .horizontal {
+                   padding: 5px 10px 0;
+               }
 
-        #waybar > .horizontal > .horizontal:nth-child(1) {
-            margin-right: 10px;
-        }
+               #waybar > .horizontal > .horizontal:nth-child(1) {
+                   margin-right: 10px;
+               }
 
-        #workspaces button {
-        	  margin: 0px 0 0 5px;
-        	  font-size: 16px;
-        	  padding: 5px 3px;
-        	  border-radius: 5px;
-        }
+               #workspaces button {
+               	  margin: 0px 0 0 5px;
+               	  font-size: 16px;
+               	  padding: 5px 3px;
+               	  border-radius: 5px;
+               }
 
-        #workspaces button:hover {
-            box-shadow: inherit;
-            text-shadow: inherit;
-        }
+               #workspaces button:hover {
+                   box-shadow: inherit;
+                   text-shadow: inherit;
+               }
 
-        #mode {
-        	  margin: 10px 0 0 10px;
-        	  padding: 0 10px;
-        	  border-radius: 5px;
-        }
+               #mode {
+               	  margin: 10px 0 0 10px;
+               	  padding: 0 10px;
+               	  border-radius: 5px;
+               }
 
-        #window {
-            font-weight: 600;
-          	margin: 10px 0 0 10px;
-        }
+               #window {
+                   font-weight: 600;
+                 	margin: 10px 0 0 10px;
+               }
 
-        #tray,
-        #pulseaudio,
-        #network,
-        #memory,
-        #temperature,
-        #cpu,
-        #clock {
-       	    margin: 0px 10px 0 0;
- 	          padding: 7px 10px;
-            border-radius: 5px;
-        }           
+               #tray,
+               #pulseaudio,
+               #network,
+               #memory,
+               #temperature,
+               #cpu,
+               #clock {
+              	    margin: 0px 10px 0 0;
+        	          padding: 7px 10px;
+                   border-radius: 5px;
+               }           
       '';
     };
   };

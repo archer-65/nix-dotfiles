@@ -2,8 +2,7 @@ _:
 { config, options, lib, pkgs, ... }:
 
 with lib;
-let
-  cfg = config.user-modules.desktop.xorg;
+let cfg = config.user-modules.desktop.xorg;
 in {
   options.user-modules.desktop.xorg = {
     enable = mkOption {
@@ -14,15 +13,9 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      nitrogen
-      xclip
-      xdotool
-    ];
+    home.packages = with pkgs; [ nitrogen xclip xdotool ];
 
-    services = {
-      flameshot.enable = true;
-    };
+    services = { flameshot.enable = true; };
 
     user-modules.desktop = {
       apps = { greenclip.enable = true; };

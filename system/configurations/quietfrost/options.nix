@@ -11,7 +11,7 @@
       qmk.enable = true;
     };
 
-    dev = { 
+    dev = {
       adb.enable = true;
       virt-manager.enable = true;
     };

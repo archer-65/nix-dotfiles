@@ -26,7 +26,7 @@ in {
         openFirewall = true;
         user = "${config.user.name}";
       };
-      
+
       # Primary user
       user.extraGroups = [ "plex" ];
     }

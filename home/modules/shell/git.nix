@@ -19,7 +19,7 @@ in {
       userName = "archer-65";
     };
 
-    home.packages = [ 
+    home.packages = [
       #pkgs.bfg-repo-cleaner 
       #pkgs.trufflehog 
     ];

@@ -3,8 +3,7 @@ _:
 
 with lib;
 
-let
-  cfg = config.modules.desktop.xorg;
+let cfg = config.modules.desktop.xorg;
 in {
   options.modules.desktop.xorg = {
     enable = mkOption {

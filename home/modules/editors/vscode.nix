@@ -12,9 +12,5 @@ in {
     };
   };
 
-  config = mkIf cfg.enable {
-    programs.vscode = {
-      enable = true;
-    };
-  };
+  config = mkIf cfg.enable { programs.vscode = { enable = true; }; };
 }

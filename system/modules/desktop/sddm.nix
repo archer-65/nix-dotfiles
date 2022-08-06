@@ -3,8 +3,7 @@ _:
 
 with lib;
 
-let
-  cfg = config.modules.desktop.sddm;
+let cfg = config.modules.desktop.sddm;
 in {
   options.modules.desktop.sddm = {
     enable = mkOption {

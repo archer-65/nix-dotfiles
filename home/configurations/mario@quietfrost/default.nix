@@ -12,14 +12,10 @@
         teams.enable = true;
       };
 
-      browsers = {
-        firefox.enable = true;
-      };
+      browsers = { firefox.enable = true; };
 
-      gaming.emulators = {
-        switch.enable = true;
-      };
-      
+      gaming.emulators = { switch.enable = true; };
+
       media = {
         documents = {
           enable = true;
@@ -34,16 +30,16 @@
       #   enable = true;
       #   qtile.enable = true;
       # };
-      
+
       wayland = {
         enable = true;
         sway.enable = true;
-      };          
+      };
 
       term.alacritty.enable = true;
     };
 
-    dev = { 
+    dev = {
       cc.enable = true;
       nix.enable = true;
       java.enable = true;
@@ -54,7 +50,7 @@
     editors = {
       emacs = {
         enable = true;
-        #daemon.enable = true;
+        daemon.enable = true;
       };
 
       # android.enable = true;

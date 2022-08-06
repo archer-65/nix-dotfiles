@@ -12,7 +12,5 @@ in {
     };
   };
 
-  config = mkIf cfg.enable {
-    programs.neovim = { enable = true; };
-  };
+  config = mkIf cfg.enable { programs.neovim = { enable = true; }; };
 }

@@ -2,8 +2,7 @@ _:
 { config, options, lib, pkgs, ... }:
 
 with lib;
-let
-  cfg = config.user-modules.desktop.wayland;
+let cfg = config.user-modules.desktop.wayland;
 in {
   options.user-modules.desktop.wayland = {
     enable = mkOption {

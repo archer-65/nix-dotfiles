@@ -2,8 +2,7 @@ _:
 { config, options, lib, pkgs, ... }:
 
 with lib;
-let
-  cfg = config.modules.hardware.qmk;
+let cfg = config.modules.hardware.qmk;
 in {
   options.modules.hardware.qmk = {
     enable = mkOption {

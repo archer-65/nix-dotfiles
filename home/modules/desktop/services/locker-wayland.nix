@@ -15,8 +15,7 @@ in {
   config = mkIf cfg.enable {
     home.packages = with pkgs; [ swaylock-effects ];
 
-    xdg.configFile."swaylock/config".text = let
-      transparent = "#00000000";
+    xdg.configFile."swaylock/config".text = let transparent = "#00000000";
     in ''
       clock
       effect-blur=5x5
@@ -46,31 +45,31 @@ in {
       separator-color=${transparent}
     '';
 
-     services.swayidle = {
-       enable = true;
+    services.swayidle = {
+      enable = true;
 
-       events = [
-         {
-           event = "before-sleep";
-           command = "swaylock -fF";
-         }
-         {
-           event = "lock";
-           command = "swaylock -fF";
-         }
-       ];
+      events = [
+        {
+          event = "before-sleep";
+          command = "swaylock -fF";
+        }
+        {
+          event = "lock";
+          command = "swaylock -fF";
+        }
+      ];
 
-       timeouts = [
-         {
-           timeout = 360;
-           command = "swaymsg 'output * dpms off'";
-           resumeCommand = "swaymsg 'output * dpms on'";
-         }
-         {
-           timeout = 300;
-           command = "swaylock -fF";
-         }
-       ];
-     };
+      timeouts = [
+        {
+          timeout = 360;
+          command = "swaymsg 'output * dpms off'";
+          resumeCommand = "swaymsg 'output * dpms on'";
+        }
+        {
+          timeout = 300;
+          command = "swaylock -fF";
+        }
+      ];
+    };
   };
 }

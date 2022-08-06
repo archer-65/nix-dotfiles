@@ -77,12 +77,8 @@
   fileSystems."/home/${config.user.name}/stuff" = {
     device = "/dev/disk/by-uuid/cc458bb0-50d8-4184-8b4b-cab2b5fc5caf";
     fsType = "btrfs";
-    options = [
-      "noatime"
-      "compress-force=zstd:3"
-      "space_cache=v2"
-      "autodefrag"
-    ];
+    options =
+      [ "noatime" "compress-force=zstd:3" "space_cache=v2" "autodefrag" ];
   };
 
   services.btrfs.autoScrub = {

@@ -2,7 +2,7 @@ _:
 { options, config, lib, pkgs, ... }:
 
 with lib;
-let 
+let
   cfg = config.user-modules.dev.js;
   #node-pkgs = pkgs.callPackage ./node-pkgs { };
 in {
@@ -24,6 +24,9 @@ in {
       #node-pkgs."pkgs"
     ];
 
-    home.sessionVariables = { PATH = "$HOME/.mutable_node_modules/bin:$PATH"; NODE_PATH="$HOME/.mutable_node_modules/lib/node_modules"; };
+    home.sessionVariables = {
+      PATH = "$HOME/.mutable_node_modules/bin:$PATH";
+      NODE_PATH = "$HOME/.mutable_node_modules/lib/node_modules";
+    };
   };
 }

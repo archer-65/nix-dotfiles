@@ -14,7 +14,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    emacs-overlay.url = "github:nix-community/emacs-overlay?rev=f4d60d03ea621634ab3091f2c7c036b6a4ad49c3";
+    emacs-overlay.url =
+      "github:nix-community/emacs-overlay?rev=f4d60d03ea621634ab3091f2c7c036b6a4ad49c3";
   };
 
   outputs = inputs@{ self, nixpkgs, nur, ... }:
@@ -31,10 +32,7 @@
           overlays = extraOverlays ++ (lib.attrValues self.overlays);
         };
 
-      pkgs = mkPkgs nixpkgs [
-        inputs.emacs-overlay.overlay
-        inputs.nur.overlay
-      ];
+      pkgs = mkPkgs nixpkgs [ inputs.emacs-overlay.overlay inputs.nur.overlay ];
 
     in {
       pkgs = pkgs;

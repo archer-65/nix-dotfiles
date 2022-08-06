@@ -2,8 +2,7 @@ _:
 { options, config, lib, pkgs, ... }:
 
 with lib;
-let
-  cfg = config.user-modules.desktop.browsers.chromium;
+let cfg = config.user-modules.desktop.browsers.chromium;
 in {
   options.user-modules.desktop.browsers.chromium = {
     enable = mkOption {
@@ -17,7 +16,7 @@ in {
     programs.chromium = {
       enable = true;
       package = pkgs.google-chrome-dev;
-      commandLineArgs = ["--ozone-platform-hint=auto" ];
+      commandLineArgs = [ "--ozone-platform-hint=auto" ];
     };
   };
 }

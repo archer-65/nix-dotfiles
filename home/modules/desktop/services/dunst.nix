@@ -2,7 +2,7 @@ _:
 { options, config, lib, pkgs, ... }:
 
 with lib;
-let 
+let
   cfg = config.user-modules.desktop.services.dunst;
   cfgWayland = config.user-modules.desktop.wayland;
   cfgTheme = config.user-modules.themes;
@@ -31,10 +31,8 @@ in {
           width = "(300, 450)";
           height = "300";
           origin = "top-right";
-          offset = let
-            vMargin = if cfgWayland.enable then "10" else "40";
-          in
-            "10x${vMargin}";
+          offset = let vMargin = if cfgWayland.enable then "10" else "40";
+          in "10x${vMargin}";
 
           notification_limit = 3;
 
@@ -67,9 +65,10 @@ in {
           font = let
             fontName = cfgTheme.font.alt.name;
             fontSize = cfgTheme.font.alt.size;
-          in
-            "${fontName} ${toString (fontSize)}, Font Awesome ${toString (fontSize)}";
-          
+          in "${fontName} ${toString (fontSize)}, Font Awesome ${
+            toString (fontSize)
+          }";
+
           line_height = 0;
           markup = "full";
 
