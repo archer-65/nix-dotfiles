@@ -12,16 +12,16 @@ super + Escape
 ##### VOLUME #####
 
 # Up
-XF86AudioRaiseVolume
-  volume up
+# XF86AudioRaiseVolume
+#  volume up
 
 # Down
-XF86AudioLowerVolume
-  volume down
+# XF86AudioLowerVolume
+#  volume down
 
 # Toggle Mute
-XF86AudioMute
-  volume mute
+# XF86AudioMute
+#  volume mute
 
 ###################
 ##### GENERAL #####
@@ -30,12 +30,12 @@ XF86AudioMute
 ##### ROFI #####
 
 # Run-Drun-Win
-super + d
-  rofi_launcher
+# super + d
+#  rofi_launcher
 
 # Powermenu
-super + shift + q
-  rofi_powermenu
+# super + shift + q
+#  rofi_powermenu
 
 # Clipboard
 # super + comma
@@ -45,32 +45,32 @@ super + shift + q
 #  ~/.local/bin/rofi_clipboard paste
 
 # Emojis
-super + slash
-  rofi_emoji
+# super + slash
+#  rofi_emoji
 
 # Bitwarden
-super + p
-  rofi-rbw
+# super + p
+#  rofi-rbw
 
 ##### FLAMESHOT #####
 
 # Full capture
-Print
-  flameshot full -c
+# Print
+#  flameshot full -c
 
 # Open GUI
-super + Print  
-  flameshot gui  
+# super + Print  
+#  flameshot gui  
   
 ##### APPS #####
 
 # Terminal
-super + Return
-  alacritty
+# super + Return
+#  alacritty
 
 # File Manager
-super + f
-  thunar
+# super + f
+#  thunar
 
 # Browser
 super + b
@@ -81,9 +81,15 @@ super + b
 #  {$VISUAL, $VISUAL --eval '(mu4e)'}
 
 # Global Run
-#super + r; {t, d, c, g, p, s}
-#  {telegram-desktop, discord, code, github-desktop, zathura, env LD_PRELOAD=/usr/lib/spotify-adblock.so spotify %U}
+super + r
+    @enter run
 
+mode run
+q
+    @escape
+{t, d, c, p}
+    {telegram-desktop, discord, code, zathura}
+    
 # Sysmon
-#super + m; {b, h}
+# super + m; {b, h}
 #  {alacritty -e btop, alacritty -e htop}

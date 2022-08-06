@@ -28,8 +28,6 @@ in {
         extraPackages = epkgs: [ epkgs.vterm ];
       };
 
-      # home.packages = [ pkgs.tdlib ];
-
       xdg.configFile."emacs" = {
         source = "${configDir}/emacs";
         recursive = true;
@@ -45,8 +43,7 @@ in {
     })
 
     (mkIf (cfgSway.enable && cfg.daemon.enable) {
-      services.emacs.startWithUserSession = false;
-      systemd.user.services.emacs.Install.WantedBy = [ "sway-session.target" ];
+      systemd.user.services.emacs.Install.WantedBy = lib.mkForce [ "sway-session.target" ];
     })
   ]);
 }

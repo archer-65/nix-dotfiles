@@ -129,7 +129,7 @@ in {
             command = "autotiling";
             always = true;
           }
-          # { command = "exec swhks & ; pkexec swhkd -c $HOME/.config/sway/swhkdrc"; }
+          # { command = "exec swhks & ; pkexec swhkd -c $HOME/.config/sway/swhkdrc -D 'IDOBAO ID80 Keyboard'"; }
         ];
 
         keybindings = let
