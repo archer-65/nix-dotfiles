@@ -94,9 +94,11 @@ If you want to build your home-manager configuration:
      home-manager switch --flake '.#"${USER}"@"${HOSTNAME}"'
    #+end_src
 
-To rebuild system:
+To rebuild system/home:
 #+begin_src bash
-    nixos-rebuild switch --flake .#$HOSTNAME
+  nixos-rebuild switch --flake .#$HOSTNAME
+  
+  home-manager switch --flake '.#"${USER}"@"${HOSTNAME}"'
 #+end_src
 
 ** How did I accomplish this?
