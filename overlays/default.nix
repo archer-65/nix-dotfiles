@@ -1,10 +1,10 @@
 inputs:
+self: super:
 let
-  # Pass flake inputs to overlay so we can use the sources pinned in flake.lock
-  # instead of having to keep sha256 hashes in each package for src
-  inherit inputs;
-  inherit (inputs.self) pkgs;
-in _self: super: {
+  inherit (super) system;
+  pkgs = inputs.nixpkgs.legacyPackages.${system}.extend inputs.self.overlays.default;
+in
+{
   scripts = {
     volume = super.callPackage ../packages/scripts/volume.nix { };
     usedram = super.callPackage ../packages/scripts/usedram.nix { };
@@ -19,7 +19,7 @@ in _self: super: {
     powermenu = super.callPackage ../packages/rofi/powermenu.nix { };
   };
 
-  rofi-rbw = super.callPackage ../packages/rofi-rbw.nix {
+  rofi-rbw = super.callPackage ../packages/rofi/rofi-rbw.nix {
     pypkgs = pkgs.python39Packages;
   };
 

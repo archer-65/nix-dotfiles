@@ -1,22 +1,36 @@
-{ self, ... }@inputs:
+{ inputs, lib, ... }:
+
+with inputs;
+with builtins;
+
 let
-  inherit (inputs.nixpkgs) lib;
-  hosts = (import ../outputs/configs.nix).nixos.all;
-
-  hostPkgs = { nixpkgs.pkgs = inputs.self.pkgs; };
-
-  nixRegistry = { nix.registry = { nixpkgs.flake = inputs.nixpkgs; }; };
+  hostSet = (import ../outputs/configs.nix).nixos.all;
 
   genConfiguration = hostname:
     { localSystem, ... }:
-    lib.nixosSystem {
+    let
       system = localSystem;
+
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+        overlays = lib.attrValues self.overlays;
+      };
+
+      baseSystem = {
+        nixpkgs = { inherit pkgs; };
+        nix.registry = { nixpkgs.flake = nixpkgs; };
+        networking.hostName = lib.mkDefault hostname;
+      };
+
+    in lib.nixosSystem {
+      inherit system;
       specialArgs = { inherit lib inputs; };
       modules = [
-        ("${inputs.self}/system/configurations/${hostname}")
-        hostPkgs
-        nixRegistry
-        inputs.home-manager.nixosModules.home-manager
-      ] ++ __attrValues inputs.self.nixosModules;
+        baseSystem
+        ("${self}/system/configurations/${hostname}")
+        (import "${self}/mixed/options.nix" inputs)
+      ] ++ attrValues self.nixosModules;
     };
-in lib.mapAttrs genConfiguration hosts
+
+in { mkSystem = lib.mapAttrs genConfiguration hostSet; }

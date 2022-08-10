@@ -9,43 +9,25 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nur = {
-      url = "github:nix-community/NUR";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    flake-utils.url = "github:numtide/flake-utils";
 
     emacs-overlay.url =
-      "github:nix-community/emacs-overlay?rev=f4d60d03ea621634ab3091f2c7c036b6a4ad49c3";
+      "github:nix-community/emacs-overlay?rev=f54f1ef6a85f892b57c2d020d17afe52f163a651";
   };
 
-  outputs = inputs@{ self, nixpkgs, nur, ... }:
+  outputs = inputs@{ self, nixpkgs, ... }:
     let
-      system = "x86_64-linux";
-
-      lib = nixpkgs.lib;
-      helpers = import ./lib inputs;
-
-      mkPkgs = pkgs: extraOverlays:
-        import pkgs {
-          inherit system;
-          config.allowUnfree = true;
-          overlays = extraOverlays ++ (lib.attrValues self.overlays);
-        };
-
-      pkgs = mkPkgs nixpkgs [ inputs.emacs-overlay.overlay inputs.nur.overlay ];
-
+      lib = import ./lib { inherit inputs; };
     in {
-      pkgs = pkgs;
-
       # Expose overlay to flake outputs, to allow using it from other flakes.
       # Flake inputs are passed to the overlay so that the packages defined in
       # it can use the sources pinned in flake.lock
       overlays.default = final: prev: (import ./overlays inputs) final prev;
 
       nixosModules = import ./system/modules inputs;
-      nixosConfigurations = helpers.mkSystem;
+      nixosConfigurations = lib.mkSystem;
 
       homeModules = import ./home/modules inputs;
-      homeConfigurations = helpers.mkHome;
+      homeConfigurations = lib.mkHome;
     };
 }

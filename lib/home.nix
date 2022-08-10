@@ -1,21 +1,34 @@
-{ self, ... }@inputs:
+{ inputs, lib, ... }:
+
+with inputs;
+with builtins;
+
 let
-  inherit (inputs.nixpkgs) lib;
   homeSet = (import ../outputs/configs.nix).homeManager.all;
 
   genConfiguration = home:
     { localSystem, username, ... }:
-    inputs.home-manager.lib.homeManagerConfiguration {
-      pkgs = inputs.self.pkgs;
-      modules = [{
-        home = {
-          inherit username;
-          homeDirectory = "/home/${username}";
-          stateVersion = "22.05";
-        };
-      }] ++ [ (import "${inputs.self}/home/configurations/${home}") ]
-        ++ [ (import "${inputs.self}/mixed/options.nix" inputs) ]
-        ++ __attrValues inputs.self.homeModules;
-      # system = localSystem;
+    let
+      system = localSystem;
+
+      pkgs = import nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+        overlays = (lib.attrValues self.overlays) ++ [ emacs-overlay.overlay ];
+      };
+
+      baseHome = {
+        inherit username;
+        homeDirectory = "/home/${username}";
+        stateVersion = "22.05";
+      };
+
+    in home-manager.lib.homeManagerConfiguration {
+      inherit pkgs;
+      modules = [
+        { home = baseHome; }
+        ("${self}/home/configurations/${home}")
+        (import "${self}/mixed/options.nix" inputs)
+      ] ++ attrValues self.homeModules;
     };
-in lib.mapAttrs genConfiguration homeSet
+in { mkHome = lib.mapAttrs genConfiguration homeSet; }

@@ -18,6 +18,9 @@ in {
       enableBashIntegration = true;
     };
 
-    services.lorri.enable = true;
+    # Better than lorri?
+    programs.direnv.nix-direnv.enable = true;
+
+    # services.lorri.enable = true;
   };
 }

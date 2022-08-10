@@ -1,4 +1,12 @@
-inputs: {
-  mkSystem = import ./nixos.nix inputs;
-  mkHome = import ./home.nix inputs;
-}
+{ inputs, lib ? inputs.nixpkgs.lib, ... }:
+
+lib.makeExtensible (self:
+  with builtins;
+  with lib;
+  lib // pipe ./. [
+    filesystem.listFilesRecursive
+    (filter (file: hasSuffix ".nix" file && file != ./default.nix))
+    (map (file: import file { inherit inputs; lib = self; }))
+    (foldr recursiveUpdate { })
+  ]
+)

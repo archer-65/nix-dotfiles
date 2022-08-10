@@ -12,17 +12,14 @@ let
     quietfrost = {
       type = "nixos";
       localSystem = "x86_64-linux";
-      address = "quietfrost";
     };
     mate = {
       type = "nixos";
       localSystem = "x86_64-linux";
-      address = "mate";
     };
     vm = {
       type = "nixos";
       localSystem = "x86_64-linux";
-      address = "vm";
     };
 
     # Home-manager standalone

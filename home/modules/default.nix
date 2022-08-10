@@ -1,6 +1,7 @@
 inputs: {
   "credentials/gpg" = import ./credentials/gpg.nix inputs;
   "credentials/mail" = import ./credentials/mail.nix inputs;
+  "credentials/bitwarden" = import ./credentials/bitwarden.nix inputs;
 
   "desktop/xorg" = import ./desktop/xorg inputs;
   "desktop/xorg/qtile" = import ./desktop/xorg/qtile.nix inputs;

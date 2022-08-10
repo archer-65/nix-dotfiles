@@ -3,6 +3,7 @@
     credentials = {
       gpg.enable = true;
       mail-defaults.enable = true;
+      bitwarden.enable = true;
     };
 
     desktop = {
@@ -106,11 +107,4 @@
       XDG_GAMES_DIR = "${config.home.homeDirectory}/games";
     };
   };
-
-  xdg.configFile."rbw/config.json".text = ''
-    {
-      "email" : "mario.liguori.056@gmail.com",
-      "pinentry" : "${pkgs.pinentry-gnome}/bin/pinentry-gnome3"
-    }
-  '';
 }
