@@ -4,13 +4,13 @@
   imports = [ ./hardware-configuration.nix ./options.nix ];
 
   # Kernel related
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_5_18;
   boot.initrd.kernelModules = [ "amdgpu" ];
 
   # General EFI settings
   boot.loader.efi = {
     canTouchEfiVariables = true;
-    efiSysMountPoint = "/boot";
+    efiSysMountPoint = "/boot/efi";
   };
   boot.loader.timeout = 5;
 
