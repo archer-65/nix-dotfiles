@@ -19,9 +19,8 @@
 
       media = {
         documents = {
-          enable = true;
-          pdf.enable = true;
-          pdf.enablePlus = true;
+          # zathura.enable = true;
+          okular.enable = true;
         };
 
         videos.enable = true;

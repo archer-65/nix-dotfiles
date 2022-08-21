@@ -5,27 +5,21 @@ with lib;
 let cfg = config.user-modules.desktop.media.documents;
 in {
   options.user-modules.desktop.media.documents = {
-    enable = mkOption {
+    zathura.enable = mkOption {
       default = false;
       type = types.bool;
       example = true;
     };
 
-    pdf.enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
-
-    pdf.enablePlus = mkOption {
+    okular.enable = mkOption {
       default = false;
       type = types.bool;
       example = true;
     };
   };
 
-  config = mkIf cfg.enable (mkMerge [
-    (mkIf cfg.pdf.enable {
+  config = mkMerge [
+    (mkIf cfg.zathura.enable {
       programs.zathura = {
         enable = true;
         options = {
@@ -65,6 +59,6 @@ in {
       };
     })
 
-    (mkIf cfg.pdf.enablePlus { home.packages = with pkgs; [ okular ]; })
-  ]);
+    (mkIf cfg.okular.enable { home.packages = with pkgs; [ okular ]; })
+  ];
 }

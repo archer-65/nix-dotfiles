@@ -16,8 +16,7 @@
       browsers = { firefox.enable = true; };
 
       media.documents = {
-        enable = true;
-        pdf.enable = true;
+        # zathura.enable = true;
       };
 
       xorg = {
