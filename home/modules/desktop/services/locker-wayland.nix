@@ -51,23 +51,23 @@ in {
       events = [
         {
           event = "before-sleep";
-          command = "swaylock -fF";
+          command = "${pkgs.swaylock-effects}/bin/swaylock -fF";
         }
         {
           event = "lock";
-          command = "swaylock -fF";
+          command = "${pkgs.swaylock-effects}/bin/swaylock -fF";
         }
       ];
 
       timeouts = [
         {
-          timeout = 360;
+          timeout = 300;
           command = "swaymsg 'output * dpms off'";
           resumeCommand = "swaymsg 'output * dpms on'";
         }
         {
-          timeout = 300;
-          command = "swaylock -fF";
+          timeout = 360;
+          command = "${pkgs.swaylock-effects}/bin/swaylock -fF";
         }
       ];
     };
