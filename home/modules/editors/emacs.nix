@@ -38,7 +38,12 @@ in {
       services.emacs = {
         enable = true;
         client.enable = true;
-        defaultEditor = true;
+        # defaultEditor = true;
+      };
+
+      home.sessionVariables = {
+        EDITOR="emacsclient -t";
+        VISUAL="emacsclient -c -a emacs";
       };
     })
 

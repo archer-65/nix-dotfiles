@@ -12,7 +12,7 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     emacs-overlay.url =
-      "github:nix-community/emacs-overlay?rev=8a8ab5655af3e7a741b8230a2c36453622ea330d";
+      "github:nix-community/emacs-overlay?rev=9f50a8d3be2291db155cb751448eb2e34d12b5e4";
   };
 
   outputs = inputs@{ self, nixpkgs, ... }:

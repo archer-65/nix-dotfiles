@@ -25,6 +25,7 @@ inputs: {
   "hardware/qmk" = import ./hardware/qmk.nix inputs;
 
   "services/plex" = import ./services/plex.nix inputs;
+  "services/jellyfin" = import ./services/jellyfin.nix inputs;
   "services/printing" = import ./services/printing.nix inputs;
   "services/ssh" = import ./services/ssh.nix inputs;
   "services/gpg" = import ./services/gpg.nix inputs;

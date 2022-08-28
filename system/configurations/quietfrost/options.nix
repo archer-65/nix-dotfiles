@@ -16,7 +16,10 @@
       virt-manager.enable = true;
     };
 
-    media = { plex.enable = true; };
+    media = {
+      plex.enable = true;
+      #jellyfin.enable = true;
+    };
 
     services = {
       ssh.enable = true;

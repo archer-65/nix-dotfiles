@@ -1,6 +1,7 @@
 _:
-{ pkgs, ... }:
+{ pkgs, config, lib, options, ... }:
 
+with lib;
 let
   socialPkgs = with pkgs; [ tdesktop ];
 
@@ -9,7 +10,6 @@ let
   utilPkgs = with pkgs; [ neofetch ];
 
   monitorPkgs = with pkgs; [ btop s-tui ];
-
 in rec {
 
   imports = [ ./desktop ];

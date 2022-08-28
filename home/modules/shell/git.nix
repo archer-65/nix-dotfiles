@@ -18,10 +18,5 @@ in {
       userEmail = "mariogt2009@live.it";
       userName = "archer-65";
     };
-
-    home.packages = [
-      #pkgs.bfg-repo-cleaner 
-      #pkgs.trufflehog 
-    ];
   };
 }
