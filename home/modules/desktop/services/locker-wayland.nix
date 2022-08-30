@@ -21,7 +21,7 @@ in {
       effect-blur=5x5
       indicator-radius=80
       hide-keyboard-layout
-      image=~/pics/walls/weebie/wallhaven-95j8kw.jpg
+      image=~/pics/walls/weebie/wallhaven-j3mmdy.jpg
       ring-color=#D1D5DB
       ring-clear-color=#D1D5DB
       ring-ver-color=#D1D5DB
@@ -61,12 +61,12 @@ in {
 
       timeouts = [
         {
-          timeout = 300;
-          command = "swaymsg 'output * dpms off'";
-          resumeCommand = "swaymsg 'output * dpms on'";
+          timeout = 360;
+          command = "${pkgs.sway}/bin/swaymsg 'output * dpms off'";
+          resumeCommand = "${pkgs.sway}/bin/swaymsg 'output * dpms on'";
         }
         {
-          timeout = 360;
+          timeout = 300;
           command = "${pkgs.swaylock-effects}/bin/swaylock -fF";
         }
       ];

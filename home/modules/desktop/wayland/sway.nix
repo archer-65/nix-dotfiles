@@ -42,7 +42,7 @@ in {
           mode = "3440x1440@144.001Hz";
         };
 
-        output."*" = { bg = "~/pics/walls/weebie/wallhaven-95j8kw.jpg fill"; };
+        output."*" = { bg = "~/pics/walls/weebie/wallhaven-j3mmdy.jpg fill"; };
 
         modifier = "Mod4";
         terminal = "${pkgs.alacritty}/bin/alacritty";
