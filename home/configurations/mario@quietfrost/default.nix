@@ -19,7 +19,7 @@
 
       media = {
         documents = {
-          # zathura.enable = true;
+          zathura.enable = true;
           okular.enable = true;
         };
 
