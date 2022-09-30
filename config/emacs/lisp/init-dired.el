@@ -20,7 +20,8 @@
    ("C-c o" . archer/dired-open-file))
   :config
   (put 'dired-find-alternate-file 'disabled nil)
-  (setopt dired-mouse-drag-files t)
+  ;; ONLY EMACS 29
+  ;; (setopt dired-mouse-drag-files t)
   (add-hook 'dired-mode-hook
             (lambda ()
               (define-key dired-mode-map (kbd "<return>")

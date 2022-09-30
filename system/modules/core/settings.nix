@@ -14,7 +14,7 @@ _:
       options = "--delete-older-than 7d";
     };
 
-    package = pkgs.nixFlakes;
+    # package = pkgs.nixFlakes;
     extraOptions = ''
       experimental-features = nix-command flakes
       keep-outputs          = true

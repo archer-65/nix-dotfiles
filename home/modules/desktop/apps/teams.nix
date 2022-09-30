@@ -22,7 +22,7 @@ in {
           desktopName = "Teams";
           genericName = "Microsoft Teams";
           exec = ''
-            ${config.programs.chromium.package}/bin/google-chrome-unstable --ozone-platform=wayland --enable-features=UseOzonePlatform --app="https://teams.live.com"'';
+            ${config.programs.chromium.package}/bin/chromium --ozone-platform-hint=auto --app="https://teams.live.com"'';
           icon = "teams";
           categories = [ "Network" "InstantMessaging" ];
           mimeTypes = [ "x-scheme-handler/teams" ];

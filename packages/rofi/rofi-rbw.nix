@@ -23,7 +23,7 @@ pypkgs.buildPythonPackage rec {
   # };
 
   propagatedBuildInputs = with pkgs; [
-    pypkgs.ConfigArgParse
+    pypkgs.configargparse
     xdotool
     xclip
     wtype
