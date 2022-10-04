@@ -65,8 +65,8 @@ in {
           font = let
             fontName = cfgTheme.font.alt.name;
             fontSize = cfgTheme.font.alt.size;
-          in "${fontName} ${toString (fontSize)}, Font Awesome ${
-            toString (fontSize)
+          in "${fontName} ${toString fontSize}, Font Awesome ${
+            toString fontSize
           }";
 
           line_height = 0;

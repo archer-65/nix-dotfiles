@@ -27,7 +27,7 @@ let
       inherit pkgs;
       modules = [
         { home = baseHome; }
-        ("${self}/home/configurations/${home}")
+        "${self}/home/configurations/${home}"
         (import "${self}/mixed/options.nix" inputs)
       ] ++ attrValues self.homeModules;
     };

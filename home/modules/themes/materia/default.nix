@@ -25,8 +25,8 @@ in {
       };
 
       font = {
-        name = cfg.font.name;
-        size = cfg.font.size;
+        inherit (cfg.font) name;
+        inherit (cfg.font) size;
       };
     };
 

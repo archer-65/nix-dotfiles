@@ -1,5 +1,5 @@
 # VM, just for fun
-{ ... }:
+_:
 
 {
   modules = {

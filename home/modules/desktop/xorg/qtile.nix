@@ -5,7 +5,7 @@ with lib;
 let
   cfg = config.user-modules.desktop.xorg.qtile;
   cfgXorg = config.user-modules.desktop.xorg;
-  configDir = config.dotfiles.configDir;
+  inherit (config.dotfiles) configDir;
 in {
   options.user-modules.desktop.xorg.qtile = {
     enable = mkOption {

@@ -1,5 +1,4 @@
-_:
-{ ... }:
+_: _:
 
 {
   # This global flag is deprecated

@@ -7,7 +7,7 @@ let
   cfgWayland = config.modules.desktop.wayland;
 in {
   # XDG Portals, useful for wayland screen sharing and flatpak).
-  config = (mkMerge [
+  config = mkMerge [
     (mkIf (cfgXorg.enable || cfgWayland.enable) {
       xdg.portal = {
         enable = true;
@@ -22,5 +22,5 @@ in {
         extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
       };
     })
-  ]);
+  ];
 }

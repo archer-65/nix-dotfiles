@@ -13,6 +13,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [ manix deadnix nixfmt rnix-lsp ];
+    home.packages = with pkgs; [ statix manix deadnix nixfmt rnix-lsp ];
   };
 }

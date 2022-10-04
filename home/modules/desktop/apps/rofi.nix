@@ -5,9 +5,12 @@ with lib;
 let
   cfg = config.user-modules.desktop.apps.rofi;
   cfgWayland = config.user-modules.desktop.wayland;
-  configDir = config.dotfiles.configDir;
+  inherit (config.dotfiles) configDir;
 
-  bitwarden = if config.user-modules.credentials.bitwarden.enable then [ pkgs.rofi-rbw ] else [];
+  bitwarden = if config.user-modules.credentials.bitwarden.enable then
+    [ pkgs.rofi-rbw ]
+  else
+    [ ];
 in {
   options.user-modules.desktop.apps.rofi = {
     enable = mkOption {
@@ -36,14 +39,15 @@ in {
 
     xdg.configFile."rofi-rbw.rc".source = "${configDir}/rofi-rbw.rc";
 
-    home.packages = with pkgs; [
-      rofi-emoji
+    home.packages = with pkgs;
+      [
+        rofi-emoji
 
-      scripts.usedcpu
-      scripts.usedram
-      scripts.rofi.powermenu
-      scripts.rofi.launcher
-      scripts.rofi.emoji
-    ] ++ bitwarden;
+        scripts.usedcpu
+        scripts.usedram
+        scripts.rofi.powermenu
+        scripts.rofi.launcher
+        scripts.rofi.emoji
+      ] ++ bitwarden;
   };
 }

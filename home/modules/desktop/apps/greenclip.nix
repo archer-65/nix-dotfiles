@@ -3,7 +3,7 @@ _:
 
 with lib;
 let
-  configDir = config.dotfiles.configDir;
+  inherit (config.dotfiles) configDir;
   cfg = config.user-modules.desktop.apps.greenclip;
 in {
   options.user-modules.desktop.apps.greenclip = {

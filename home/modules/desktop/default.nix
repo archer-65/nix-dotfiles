@@ -4,8 +4,7 @@
 with lib;
 let
   # These functions should stay in another place, but right now I need them only here.
-  attrsToList = attrs:
-    mapAttrsToList (name: value: { inherit name value; }) attrs;
+  attrsToList = mapAttrsToList (name: value: { inherit name value; });
   countAttrs = pred: attrs:
     count (attr: pred attr.name attr.value) (attrsToList attrs);
 
@@ -13,8 +12,8 @@ let
   cfgWayland = config.user-modules.desktop.wayland;
 
   # Creative XOR operator :D
-  cfgExclusive = ((cfgXorg.enable || cfgWayland.enable)
-    && (!(cfgXorg.enable && cfgWayland.enable)));
+  cfgExclusive = (cfgXorg.enable || cfgWayland.enable)
+    && (!(cfgXorg.enable && cfgWayland.enable));
 in {
   config = {
     assertions = [

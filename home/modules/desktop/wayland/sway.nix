@@ -6,7 +6,7 @@ let
   cfg = config.user-modules.desktop.wayland.sway;
   cfgWayland = config.user-modules.desktop.wayland;
   cfgTheme = config.user-modules.themes;
-  configDir = config.dotfiles.configDir;
+  inherit (config.dotfiles) configDir;
 
 in {
   options.user-modules.desktop.wayland.sway = {

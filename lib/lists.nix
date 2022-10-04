@@ -1,10 +1,9 @@
-#Original file at: https://github.com/hlissner/dotfiles/blob/master/lib/lists.nix
+# Original file at: https://github.com/hlissner/dotfiles/blob/master/lib/lists.nix
 
 { lib, ... }:
 
 with builtins;
-with lib;
-{
+with lib; {
   # Prepend a value to a list
   prepend = x: xs: [ x ] ++ xs;
 

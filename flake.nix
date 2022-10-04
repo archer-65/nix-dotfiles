@@ -16,13 +16,12 @@
   };
 
   outputs = inputs@{ self, nixpkgs, ... }:
-    let
-      lib = import ./lib { inherit inputs; };
+    let lib = import ./lib { inherit inputs; };
     in {
       # Expose overlay to flake outputs, to allow using it from other flakes.
       # Flake inputs are passed to the overlay so that the packages defined in
       # it can use the sources pinned in flake.lock
-      overlays.default = final: prev: (import ./overlays inputs) final prev;
+      overlays.default = import ./overlays inputs;
 
       nixosModules = import ./system/modules inputs;
       nixosConfigurations = lib.mkSystem;

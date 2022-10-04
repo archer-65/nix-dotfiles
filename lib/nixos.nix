@@ -28,7 +28,7 @@ let
       specialArgs = { inherit lib inputs; };
       modules = [
         baseSystem
-        ("${self}/system/configurations/${hostname}")
+        "${self}/system/configurations/${hostname}"
         (import "${self}/mixed/options.nix" inputs)
       ] ++ attrValues self.nixosModules;
     };
