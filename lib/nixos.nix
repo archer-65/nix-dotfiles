@@ -7,7 +7,7 @@ let
   hostSet = (import ../outputs/configs.nix).nixos.all;
 
   genConfiguration = hostname:
-    { localSystem, ... }:
+    { localSystem, stateVersion, ... }:
     let
       system = localSystem;
 
@@ -19,7 +19,8 @@ let
 
       baseSystem = {
         nixpkgs = { inherit pkgs; };
-        nix.registry = { nixpkgs.flake = nixpkgs; };
+        system = { inherit stateVersion; };
+        nix.registry = { nixpkgs.flake = nixpkgs; };   
         networking.hostName = lib.mkDefault hostname;
       };
 

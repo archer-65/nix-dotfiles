@@ -12,14 +12,17 @@ let
     quietfrost = {
       type = "nixos";
       localSystem = "x86_64-linux";
+      stateVersion = "22.05";
     };
     mate = {
       type = "nixos";
       localSystem = "x86_64-linux";
+      stateVersion = "22.05";
     };
     vm = {
       type = "nixos";
       localSystem = "x86_64-linux";
+      stateVersion = "22.05";
     };
 
     # Home-manager standalone
@@ -27,16 +30,19 @@ let
       type = "home-manager";
       localSystem = "x86_64-linux";
       username = "mario";
+      stateVersion = "22.05";
     };
     "mario@mate" = rec {
       type = "home-manager";
       localSystem = "x86_64-linux";
       username = "mario";
+      stateVersion = "22.05";
     };
     "mario@vm" = rec {
       type = "home-manager";
       localSystem = "x86_64-linux";
       username = "mario";
+      stateVersion = "22.05";
     };
   };
 in {

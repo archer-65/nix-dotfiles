@@ -14,7 +14,7 @@ _:
       options = "--delete-older-than 7d";
     };
 
-    # package = pkgs.nixFlakes;
+    package = pkgs.nixVersions.stable;
     extraOptions = ''
       experimental-features = nix-command flakes
       keep-outputs          = true
@@ -22,8 +22,6 @@ _:
       warn-dirty = false
     '';
   };
-
-  system.stateVersion = "22.05";
 
   # system = {
   #   autoUpgrade = {

@@ -37,8 +37,6 @@ with lib; {
       allowed-users = users;
     };
 
-    system.stateVersion = lib.mkDefault "22.05";
-
     environment = {
       sessionVariables = {
         XDG_CACHE_HOME = "$HOME/.cache";

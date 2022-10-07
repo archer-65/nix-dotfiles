@@ -7,7 +7,7 @@ let
   homeSet = (import ../outputs/configs.nix).homeManager.all;
 
   genConfiguration = home:
-    { localSystem, username, ... }:
+    { localSystem, username, stateVersion, ... }:
     let
       system = localSystem;
 
@@ -19,8 +19,8 @@ let
 
       baseHome = {
         inherit username;
+        inherit stateVersion;
         homeDirectory = "/home/${username}";
-        stateVersion = "22.05";
       };
 
     in home-manager.lib.homeManagerConfiguration {

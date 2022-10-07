@@ -33,8 +33,6 @@ in {
     # We need to disable `lightdm` because it is enabled by default.
     services.xserver.displayManager.lightdm.enable = false;
 
-    systemd.services.greetd.aliases = [ "display-manager.service" ];
-
     services.greetd = {
       enable = true;
       settings = {
