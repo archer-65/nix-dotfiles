@@ -29,7 +29,8 @@ _: {
 
     desktop.xorg.enable = true;
     desktop.wayland.enable = true;
-    desktop.sddm.enable = true;
+    # desktop.sddm.enable = true;
+    desktop.greetd.enable = true;
 
     core = {
       # boot.splashBoot.enable = true;

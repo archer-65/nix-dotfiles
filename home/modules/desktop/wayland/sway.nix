@@ -40,6 +40,7 @@ in {
 
         output."Unknown U34G2G4R3 0x0000241D" = {
           mode = "3440x1440@144.001Hz";
+          # adaptive_sync = "on";
         };
 
         output."*" = { bg = "~/pics/walls/weebie/wallhaven-j3mmdy.jpg fill"; };

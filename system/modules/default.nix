@@ -14,6 +14,7 @@ inputs: {
   "desktop/xorg" = import ./desktop/xorg.nix inputs;
   "desktop/wayland" = import ./desktop/wayland.nix inputs;
   "desktop/sddm" = import ./desktop/sddm.nix inputs;
+  "desktop/greetd" = import ./desktop/greetd.nix inputs;
 
   "dev/adb" = import ./dev/adb.nix inputs;
   "dev/virt-manager" = import ./dev/virt-manager.nix inputs;
