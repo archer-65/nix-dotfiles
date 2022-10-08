@@ -105,7 +105,8 @@
         "emacs-overlay": "emacs-overlay",
         "flake-utils": "flake-utils_2",
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "vinceliuice-grub-theme": "vinceliuice-grub-theme"
       }
     },
     "utils": {
@@ -120,6 +121,26 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
+        "type": "github"
+      }
+    },
+    "vinceliuice-grub-theme": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1661882555,
+        "narHash": "sha256-XC7Zqy4AscFd2IzbEIoghMqsG3KkZHA4QB1T/k/72h4=",
+        "owner": "vinceliuice",
+        "repo": "grub2-themes",
+        "rev": "c6e2967f06549d760332476b11d9c83d1778ded8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "vinceliuice",
+        "repo": "grub2-themes",
         "type": "github"
       }
     }

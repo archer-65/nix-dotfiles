@@ -13,6 +13,11 @@
 
     emacs-overlay.url =
       "github:nix-community/emacs-overlay?rev=04351718792c2e50bf30a5d1a433c9af221168cf";
+
+    vinceliuice-grub-theme = {
+      url = github:vinceliuice/grub2-themes;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, ... }:

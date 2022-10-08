@@ -29,6 +29,7 @@ let
       specialArgs = { inherit lib inputs; };
       modules = [
         baseSystem
+        vinceliuice-grub-theme.nixosModule
         "${self}/system/configurations/${hostname}"
         (import "${self}/mixed/options.nix" inputs)
       ] ++ attrValues self.nixosModules;

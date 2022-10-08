@@ -5,7 +5,6 @@
 
   # Kernel related
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  #boot.kernelPackages = pkgs.linuxPackages_zen;
 
   boot.initrd.kernelModules = [ "amdgpu" ];
   boot.supportedFilesystems = [ "ntfs" ];
@@ -18,13 +17,23 @@
   boot.loader.timeout = 5;
 
   # Use the systemd-boot EFI boot loader.
-  boot.loader.grub = {
-    enable = true;
-    version = 2;
-    efiSupport = true;
-    device = "nodev";
-    gfxmodeEfi = "3440x1440";
-    useOSProber = true;
+  boot.loader = {
+    grub = {
+      enable = true;
+      version = 2;
+      efiSupport = true;
+      device = "nodev";
+      # gfxmodeEfi = "3440x1440";
+      useOSProber = true;
+    };
+
+    grub2-theme = {
+      enable = true;
+      theme = "whitesur";
+      icon = "whitesur";
+      screen = "ultrawide2k";
+      footer = true;
+    };
   };
 
   # networking.hostName = "quietfrost";
