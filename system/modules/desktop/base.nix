@@ -7,6 +7,8 @@ let cfgDependency = config.modules.desktop.xorg;
 in {
   config = mkIf cfgDependency.enable {
     services.gnome.gnome-keyring.enable = true;
+    #This should enable a pam `login` module to unlock gnome-keyring automatically after login.
+    security.pam.services.login.enableGnomeKeyring = true;
 
     programs.dconf.enable = true;
     services.dbus = {
