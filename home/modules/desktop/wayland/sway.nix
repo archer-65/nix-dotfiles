@@ -93,6 +93,10 @@ in {
               criteria = { app_id = "task_dialog"; };
             }
             {
+              command = "floating enable position center, focus";
+              criteria = { title = "^Polychromatic$"; };
+            }
+            {
               command = "floating enable";
               criteria = { app_id = "pavucontrol"; };
             }
@@ -129,6 +133,9 @@ in {
           {
             command = "autotiling";
             always = true;
+          }
+          {
+            command = "polychromatic-tray-applet";
           }
           # { command = "exec swhks & ; pkexec swhkd -c $HOME/.config/sway/swhkdrc -D 'IDOBAO ID80 Keyboard'"; }
         ];
