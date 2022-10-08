@@ -19,6 +19,6 @@ in {
 
     user.extraGroups = [ "openrazer" ];
 
-    environment.systemPackages = with pkgs; [ razergenie ];
+    environment.systemPackages = with pkgs; [ polychromatic ];
   };
 }
