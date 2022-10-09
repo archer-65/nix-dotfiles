@@ -16,36 +16,24 @@
   :commands (dired dired-jump)
   :bind
   ("C-x C-j" . dired-jump)
+  ("C-c d" . dired-omit-mode)
   (:dired-mode-map
    ("C-c o" . archer/dired-open-file))
   :config
   (put 'dired-find-alternate-file 'disabled nil)
-  ;; ONLY EMACS 29
-  ;; (setopt dired-mouse-drag-files t)
-  (add-hook 'dired-mode-hook
-            (lambda ()
-              (define-key dired-mode-map (kbd "<return>")
-                          'dired-find-alternate-file)
-              (define-key dired-mode-map (kbd "^")
-                          (lambda () (interactive) (find-alternate-file "..")))))
+  (setq dired-kill-when-opening-new-dired-buffer t)
+  (setq dired-omit-files "^\\.?#\\|^\\.$")
+  (unless (version< emacs-version "29")
+    (setopt dired-mouse-drag-files t))
   :custom
   (dired-listing-switches . "-agho --group-directories-first")
   :hook
-  (dired-load-hook . (lambda () (interactive) (dired-collapse))))
-
-(leaf dired-single
-  :straight t
-  :commands (dired dired-jump))
+  (dired-load-hook . dired-collapse)
+  (dired-mode-hook . dired-omit-mode))
 
 (leaf all-the-icons-dired
   :straight t
   :hook (dired-mode-hook . all-the-icons-dired-mode))
-
-(leaf dired-hide-dotfiles
-  :straight t
-  :hook (dired-mode-hook . dired-hide-dotfiles-mode)
-  :config
-  (define-key dired-mode-map (kbd "C-c d") 'dired-hide-dotfiles-mode))
 
 (leaf trashed
   :doc "Visit system trash."

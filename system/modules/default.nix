@@ -18,6 +18,7 @@ inputs: {
 
   "dev/adb" = import ./dev/adb.nix inputs;
   "dev/virt-manager" = import ./dev/virt-manager.nix inputs;
+  "dev/docker" = import ./dev/docker.nix inputs;
 
   "hardware/audio" = import ./hardware/audio.nix inputs;
   "hardware/bluetooth" = import ./hardware/bluetooth.nix inputs;

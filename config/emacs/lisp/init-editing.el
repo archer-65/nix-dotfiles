@@ -44,22 +44,6 @@
 ;; quickly self-correct.
 (setq fast-but-imprecise-scrolling t)
 
-;; Horizontal scrolling tweaks
-
-;; Horizontal scrolling mouse events should actually scroll left and right.
-;; (setq mouse-wheel-tilt-scroll t)
-;; (global-set-key (kbd "<mouse-6>") (lambda ()
-;;                                     (interactive)
-;; 				    (if truncate-lines (scroll-right 1))))
-;; (global-set-key (kbd "<mouse-7>") (lambda ()
-;;                                     (interactive)
-;; 				    (if truncate-lines (scroll-left 1))))
-
-;;; Prog-mode preference for truncating lines
-;; (add-hook 'prog-mode-hook #'(lambda ()
-;;                              (setq truncate-lines t
-;;                                    word-wrap nil)))
-
 ;; Editing enhancements for `prog-mode`
 (add-hook 'prog-mode-hook #'visual-line-mode)
 (add-hook 'prog-mode-hook #'hl-line-mode)
@@ -73,13 +57,6 @@
 
 ;;; Protesilaos Stavrou docet, system clipboard should have priority among kill-ring
 (setq save-interprogram-paste-before-kill t)
-
-;;; Tweak around!!!
-(leaf undo-tree
-  :doc "Simpler undo/redo tree, with textual tree mode."
-  :straight t
-  :init
-  (global-undo-tree-mode))
 
 (leaf delsel
   :doc "Should be default IMHO."

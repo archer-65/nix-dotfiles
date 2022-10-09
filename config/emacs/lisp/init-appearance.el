@@ -16,11 +16,6 @@
 
 (setq-default cursor-type 'bar) ; Cursor type default
 
-;;; Basic settings
-(defun archer/display-numbers-hook ()
-  "Turn on line numbers mode for certain modes."
-  (display-line-numbers-mode t))
-
 (leaf display-line-numbers
   :doc "Line numbers configuration."
   :setq
@@ -28,7 +23,7 @@
   (display-line-numbers-width-start . nil)
   (display-line-numbers-grow-only . t)
   :hook
-  (prog-mode-hook . archer/display-numbers-hook))
+  (prog-mode-hook . display-line-numbers-mode))
 
 ;; Themes section
 ;; For packaged versions which must use `require':
@@ -61,8 +56,7 @@
   (modus-themes-load-themes)
   :config
   ;; Load the theme of your choice:
-  (modus-themes-load-operandi)
-  :bind ("<f5>" . modus-themes-toggle))
+  (modus-themes-load-operandi))
 
 
 ;; Change based on time
@@ -80,15 +74,6 @@
   :doc "Needed for modeline and dired"
   :straight t
   :require t)
-
-(leaf emojify
-   :doc "Enhanced emoji support :D"
-   :straight t
-   :config
-   ;; Don't inhibit for mu4e
-   (delete 'mu4e-headers-mode emojify-inhibit-major-modes)
-   :hook
-   ((org-mode-hook mu4e-headers-mode-hook) . emojify-mode))
 
 (provide 'init-appearance)
 ;;; init-appearance.el ends here
