@@ -70,7 +70,8 @@
     };
 
     themes = {
-      active = "materia";
+      active = "adwaita";
+      darkTheme = true;
 
       font = {
         name = "Roboto";

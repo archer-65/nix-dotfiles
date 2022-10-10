@@ -52,6 +52,7 @@ inputs: {
 
   "themes/options" = import ./themes/options.nix inputs;
   "themes/materia" = import ./themes/materia inputs;
+  "themes/adwaita" = import ./themes/adwaita inputs;
 
   home = import ./home.nix inputs;
 }

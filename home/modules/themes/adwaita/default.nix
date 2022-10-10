@@ -4,18 +4,18 @@ _:
 with lib;
 let cfg = config.user-modules.themes;
 in {
-  config = mkIf (cfg.active == "materia") {
+  config = mkIf (cfg.active == "adwaita") {
     gtk = {
       enable = true;
 
       theme = {
-        name = "Materia-compact";
-        package = pkgs.materia-theme;
+        name = if cfg.darkTheme then "adw-gtk3-dark" else "adw-gtk3";
+        package = pkgs.adw-gtk3;
       };
 
       iconTheme = {
-        name = "kora";
-        package = pkgs.kora-icon-theme;
+        name = "Adwaita";
+        package = pkgs.gnome.adwaita-icon-theme;
       };
 
       cursorTheme = {

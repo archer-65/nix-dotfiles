@@ -17,6 +17,14 @@ in {
       '';
     };
 
+    darkTheme = mkOption {
+      type = types.bool;
+      default = false;
+      description = ''
+        If available, set the variant of chosen theme to light/dark one.
+      '';
+    };
+
     font = {
       # GTK & Co.
       name = mkOption {

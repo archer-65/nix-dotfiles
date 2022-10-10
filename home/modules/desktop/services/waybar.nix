@@ -150,6 +150,7 @@ in {
                    border-radius: 0;
                    font-family: "Roboto", "Noto Sans CJK JP", "Font Awesome 6 Free";
                    font-size: 20px;
+                   font-weight: normal;
                }
 
                window#waybar {
@@ -171,7 +172,7 @@ in {
                #workspaces button {
                	  margin: 0px 0 0 5px;
                	  font-size: 16px;
-               	  padding: 5px 3px;
+               	  padding: 5px 10px;
                	  border-radius: 5px;
                }
 
@@ -187,8 +188,8 @@ in {
                }
 
                #window {
-                   font-weight: 600;
-                 	margin: 10px 0 0 10px;
+                  font-weight: 600;
+                  margin: 10px 0 0 10px;
                }
 
                #tray,
@@ -198,8 +199,8 @@ in {
                #temperature,
                #cpu,
                #clock {
-              	    margin: 0px 10px 0 0;
-        	          padding: 7px 10px;
+                   margin: 0px 10px 0 0;
+        	         padding: 7px 10px;
                    border-radius: 5px;
                }           
       '';
