@@ -4,8 +4,6 @@ _:
 {
   # NixOS GC, Upgrades and Flakes
   nix = {
-    # trustedUsers = [ "root" "mario" ];   
-
     settings.auto-optimise-store = true;
 
     gc = {
