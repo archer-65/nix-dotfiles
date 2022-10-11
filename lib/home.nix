@@ -30,5 +30,6 @@ let
         "${self}/home/configurations/${home}"
         (import "${self}/mixed/options.nix" inputs)
       ] ++ attrValues self.homeModules;
+      extraSpecialArgs = { inherit nix-colors; };
     };
 in { mkHome = lib.mapAttrs genConfiguration homeSet; }

@@ -5,6 +5,7 @@ with lib;
 let
   cfg = config.user-modules.desktop.term.alacritty;
   cfgTheme = config.user-modules.themes;
+  colors = config.colorScheme.colors;
 in {
   options.user-modules.desktop.term.alacritty = {
     enable = mkOption {
@@ -59,39 +60,28 @@ in {
         # ONEDARK
         colors = {
           primary = {
-            background = "#1e2127";
-            foreground = "#abb2bf";
-            bright_foreground = "#e6efff";
+            background = "#${colors.base00}";
+            foreground = "#${colors.base05}";
           };
           normal = {
-            black = "#1e2127";
-            red = "#e06c75";
-            green = "#98c379";
-            yellow = "#d19a66";
-            blue = "#61afef";
-            magenta = "#c678dd";
-            cyan = "#56b6c2";
-            white = "#828791";
+            black = "#${colors.base00}";
+            red = "#${colors.base08}";
+            green = "#${colors.base0B}";
+            yellow = "#${colors.base09}";
+            blue = "#${colors.base0D}";
+            magenta = "#${colors.base0E}";
+            cyan = "#${colors.base0C}";
+            white = "#${colors.base05}";
           };
           bright = {
-            black = "#5c6370";
-            red = "#e06c75";
-            green = "#98c379";
-            yellow = "#d19a66";
-            blue = "#61afef";
-            magenta = "#c678dd";
-            cyan = "#56b6c2";
-            white = "#e6efff";
-          };
-          dim = {
-            black = "#1e2127";
-            red = "#e06c75";
-            green = "#98c379";
-            yellow = "#d19a66";
-            blue = "#61afef";
-            magenta = "#c678dd";
-            cyan = "#56b6c2";
-            white = "#828791";
+            black = "#${colors.base03}";
+            red = "#${colors.base06}";
+            green = "#${colors.base0B}";
+            yellow = "#${colors.base09}";
+            blue = "#${colors.base0D}";
+            magenta = "#${colors.base0E}";
+            cyan = "#${colors.base0C}";
+            white = "#${colors.base05}";
           };
         };
 

@@ -2,7 +2,10 @@ _:
 { options, config, lib, pkgs, ... }:
 
 with lib;
-let cfg = config.user-modules.desktop.media.documents;
+let
+  cfg = config.user-modules.desktop.media.documents;
+  cfgTheme = config.user-modules.themes;
+  colors = config.colorScheme.colors;
 in {
   options.user-modules.desktop.media.documents = {
     zathura.enable = mkOption {
@@ -23,35 +26,34 @@ in {
       programs.zathura = {
         enable = true;
         options = {
-          default-bg = "#191724";
-          default-fg = "#e0def4";
+          font = "${cfgTheme.font.term.name} " + (toString cfgTheme.font.term.size);
 
-          statusbar-fg = "#e0def4";
-          statusbar-bg = "#555169";
+          default-bg = "#${colors.base00}";
+          default-fg = "#${colors.base01}";
 
-          inputbar-bg = "#6e6a86";
-          inputbar-fg = "#ebbcba";
+          statusbar-fg = "#${colors.base04}";
+          statusbar-bg = "#${colors.base02}";
 
-          notification-bg = "#e0def4";
-          notification-fg = "#555169";
+          inputbar-bg = "#${colors.base00}";
+          inputbar-fg = "#${colors.base07}";
 
-          notification-error-bg = "#f6c177";
-          notification-error-fg = "#555169";
+          notification-bg = "#${colors.base00}";
+          notification-fg = "#${colors.base07}";
 
-          notification-warning-bg = "#ebbcba";
-          notification-warning-fg = "#555169";
+          notification-error-bg = "#${colors.base00}";
+          notification-error-fg = "#${colors.base06}";
 
-          highlight-color = "#ebbcba";
-          highlight-active-color = "#eb6f92";
+          notification-warning-bg = "#${colors.base00}";
+          notification-warning-fg = "#${colors.base06}";
 
-          completion-bg = "#6e6a86";
-          completion-fg = "#ebbcba";
+          highlight-color = "#${colors.base0A}";
+          highlight-active-color = "#${colors.base0D}";
 
-          completion-highlight-fg = "#26233a";
-          completion-highlight-bg = "#ebbcba";
+          completion-bg = "#${colors.base01}";
+          completion-fg = "#${colors.base0D}";
 
-          recolor-lightcolor = "#191724";
-          recolor-darkcolor = "#e0def4";
+          recolor-lightcolor = "#${colors.base00}";
+          recolor-darkcolor = "#${colors.base06}";
 
           recolor = "false";
           recolor-keephue = "false";

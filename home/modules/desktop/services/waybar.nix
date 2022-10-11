@@ -5,6 +5,7 @@ with lib;
 let
   cfg = config.user-modules.desktop.services.waybar;
   cfgTheme = config.user-modules.themes;
+  colors = config.colorScheme.colors;
 in {
   options.user-modules.desktop.services.waybar = {
     enable = mkOption {
@@ -130,21 +131,23 @@ in {
                #cpu,
                #temperature,
                #clock {
-                   background: rgba(229, 231, 235, 0.9);
-                   color: #374151;
+                   background: #${colors.base07};
+                   color: #${colors.base00};  
                }
 
                /* Effects */
+               #workspaces button.focused {
+                   background: #${colors.base05};
+                   color: #${colors.base00};
+               }
+
                #workspaces button:hover {
                    background: rgba(229, 231, 235, 0.4);
                }
-               #workspaces button.focused {
-                   background: #9CA3AF;
-                   color: #1F2937;
+
+               #workspaces button.urgent {
+                   background: #${colors.base08};
                }
-               /* #workspaces button.urgent {
-                   background: 
-               } */
 
                * {
                    border: none;
