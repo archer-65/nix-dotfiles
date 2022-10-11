@@ -13,7 +13,23 @@ let
 
   # Creative XOR operator :D
   cfgExclusive = (cfgXorg.enable || cfgWayland.enable)
-    && (!(cfgXorg.enable && cfgWayland.enable));
+                 && (!(cfgXorg.enable && cfgWayland.enable));
+
+  # Overriding nerd fonts (if you don't, all nerd fonts will be installed.)
+  nerdFonts = pkgs.nerdfonts.override {
+    fonts = [ "FiraCode" "JetBrainsMono" "VictorMono" "Iosevka" ];
+  };
+
+  userFonts = with pkgs; [
+    nerdFonts
+    corefonts
+    source-code-pro
+    roboto
+    noto-fonts
+    noto-fonts-emoji
+    noto-fonts-cjk-sans
+    font-awesome
+  ];
 in {
   config = {
     assertions = [
@@ -31,6 +47,9 @@ in {
       }
     ];
 
+
+    fonts.fontconfig.enable = true;
+
     home.packages = with pkgs; [
       brightnessctl
       playerctl
@@ -47,7 +66,7 @@ in {
       zip
       unzip
       unrar
-    ];
+    ] ++ userFonts;
 
     xsession.enable = true;
 

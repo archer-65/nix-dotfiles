@@ -26,7 +26,9 @@ in {
           "sway/mode"
           # "custom/media#0" "custom/media#1"
         ];
-        modules-center = [ ];
+        modules-center = [
+          "clock"
+        ];
         modules-right = [
           # "network"
           "tray"
@@ -34,7 +36,6 @@ in {
           "temperature"
           "memory"
           "pulseaudio"
-          "clock"
           #"custom/power"
         ];
 
@@ -172,7 +173,7 @@ in {
                #workspaces button {
                	  margin: 0px 0 0 5px;
                	  font-size: 16px;
-               	  padding: 5px 10px;
+               	  padding: 5px 2px;
                	  border-radius: 5px;
                }
 

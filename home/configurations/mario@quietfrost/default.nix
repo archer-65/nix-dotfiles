@@ -70,7 +70,7 @@
     };
 
     themes = {
-      active = "adwaita";
+      active = "materia";
       darkTheme = true;
 
       font = {
@@ -86,6 +86,10 @@
       font.alt = {
         name = "Fira Code";
         size = 14;
+      };
+
+      cursor = {
+        size = 24;
       };
     };
   };

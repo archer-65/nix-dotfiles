@@ -2,25 +2,29 @@ _:
 { config, lib, pkgs, ... }:
 
 with lib;
-let cfg = config.user-modules.themes;
+let
+  cfg = config.user-modules.themes;
+  theme = if cfg.darkTheme then "Materia-dark-compact" else "Materia-light-compact";
+  icons = if cfg.darkTheme then "kora" else "kora-light-panel";
+  cursor = if cfg.darkTheme then "Bibata-Modern-Ice" else "Bibata-Modern-Classic";
 in {
   config = mkIf (cfg.active == "materia") {
     gtk = {
       enable = true;
 
       theme = {
-        name = "Materia-compact";
+        name = theme;
         package = pkgs.materia-theme;
       };
 
       iconTheme = {
-        name = "kora";
+        name = icons;
         package = pkgs.kora-icon-theme;
       };
 
       cursorTheme = {
-        name = "Bibata-Modern-Ice";
-        size = 16;
+        name = cursor;
+        inherit (cfg.cursor) size;
         package = pkgs.bibata-cursors;
       };
 
@@ -31,13 +35,13 @@ in {
     };
 
     home.pointerCursor = {
-      x11.enable = true;
+      name = cursor;
+      inherit (cfg.cursor) size;
       package = pkgs.bibata-cursors;
-      name = "Bibata-Modern-Ice";
-      size = 16;
+      x11.enable = true;
       gtk.enable = true;
     };
 
-    xresources.properties = { "Xcursor.theme" = "Bibata-Modern-Ice"; };
+    xresources.properties = { "Xcursor.theme" = cursor; };
   };
 }

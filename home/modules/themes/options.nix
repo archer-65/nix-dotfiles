@@ -63,6 +63,11 @@ in {
         default = 12;
       };
     };
+
+    cursor.size = mkOption {
+      type = int;
+      default = 16;
+    };
   };
 
   config = mkIf (cfg.active != null) {

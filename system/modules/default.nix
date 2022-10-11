@@ -9,7 +9,6 @@ inputs: {
   "core/user" = import ./core/user.nix inputs;
 
   "desktop/base" = import ./desktop/base.nix inputs;
-  "desktop/fonts" = import ./desktop/fonts.nix inputs;
   "desktop/portals" = import ./desktop/portals.nix inputs;
   "desktop/xorg" = import ./desktop/xorg.nix inputs;
   "desktop/wayland" = import ./desktop/wayland.nix inputs;
