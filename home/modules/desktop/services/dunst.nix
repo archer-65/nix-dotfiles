@@ -6,6 +6,7 @@ let
   cfg = config.user-modules.desktop.services.dunst;
   cfgWayland = config.user-modules.desktop.wayland;
   cfgTheme = config.user-modules.themes;
+  colors = config.colorScheme.colors;
 in {
   options.user-modules.desktop.services.dunst = {
     enable = mkOption {
@@ -55,7 +56,7 @@ in {
 
           corner_radius = 0;
           frame_width = 2;
-          frame_color = "#282C34";
+          frame_color = "#${colors.base0D}";
           separator_color = "frame";
 
           sort = "yes";
@@ -65,7 +66,7 @@ in {
           font = let
             fontName = cfgTheme.font.alt.name;
             fontSize = cfgTheme.font.alt.size;
-          in "${fontName} ${toString fontSize}, Font Awesome ${
+          in "${fontName} ${toString fontSize}, Material Design Icons ${
             toString fontSize
           }";
 
@@ -110,20 +111,20 @@ in {
         };
 
         urgency_low = {
-          background = "#282C34";
-          foreground = "#ABB2BF";
+          background = "#${colors.base00}";
+          foreground = "#${colors.base05}";
           timeout = 5;
         };
 
         urgency_normal = {
-          background = "#282C34";
-          foreground = "#56B6C2";
+          background = "#${colors.base00}";
+          foreground = "#${colors.base05}";
           timeout = 5;
         };
 
         urgency_critical = {
-          background = "#282C34";
-          foreground = "#C678DD";
+          background = "#${colors.base0F}";
+          foreground = "#${colors.base05}";
           timeout = 0;
         };
 

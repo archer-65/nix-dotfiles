@@ -20,51 +20,37 @@ in {
       enable = true;
       package = pkgs.waybar.override { pulseSupport = true; };
       settings = [{
-        height = 35;
+        height = 36;
 
         modules-left = [
           "sway/workspaces"
-          "sway/mode"
-          # "custom/media#0" "custom/media#1"
         ];
+        
         modules-center = [
           "clock"
         ];
+        
         modules-right = [
-          # "network"
           "tray"
           "cpu"
           "temperature"
           "memory"
           "pulseaudio"
-          #"custom/power"
         ];
 
         "sway/workspaces" = {
           all-outputs = true;
           format = "{icon}";
           format-icons = {
-            "1" = "一";
-            "2" = "二";
-            "3" = "三";
-            "4" = "四";
-            "5" = "五";
-            "6" = "六";
-            "7" = "七";
-            "8" = "八";
-            "9" = "九";
-          };
-
-          persistent_workspaces = {
-            "1" = "[]";
-            "2" = "[]";
-            "3" = "[]";
-            "4" = "[]";
-            "5" = "[]";
-            "6" = "[]";
-            "7" = "[]";
-            "8" = "[]";
-            "9" = "[]";
+            "1" = "1";
+            "2" = "2";
+            "3" = "3";
+            "4" = "4";
+            "5" = "5";
+            "6" = "6";
+            "7" = "7";
+            "8" = "8";
+            "9" = "9";
           };
         };
 
@@ -74,47 +60,48 @@ in {
         };
 
         clock = {
+          format = "󰥔 {:%H:%M}";
+          format-alt = "{:%A, %d %b}";
           tooltip-format = ''
             <big>{:%Y %B}</big>
             <tt><small>{calendar}</small></tt>'';
-          format-alt = "{:%A, %d %b}";
         };
 
         cpu = {
-          format = " {usage}% ";
+          format = "󰻠 {usage}% ";
           interval = 10;
         };
 
         temperature = {
           hwmon-path =
             "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon3/temp1_input";
-          format = " {temperatureC}°C";
-          format-critical = " {temperatureC}°C";
+          format = "󰔏 {temperatureC}°C";
+          format-critical = "󱃂 {temperatureC}°C";
           critical-threshold = 80;
           interval = 10;
         };
 
         memory = {
-          format = " {}% ";
+          format = "󰍛 {used:0.1f}GB/{total:0.1f}GB ";
           interval = 10;
         };
 
         pulseaudio = {
           scroll-step = 1;
           format = "{icon} {volume}% {format_source}";
-          format-bluetooth = "{icon} {volume}% {format_source}";
-          format-bluetooth-muted = " {icon} {format_source}";
-          format-muted = " {format_source}";
-          format-source = " {volume}%";
-          format-source-muted = "";
+          format-bluetooth = "{icon}󰂯 {volume}% {format_source}";
+          format-bluetooth-muted = "{icon}󰂲 {format_source}";
+          format-muted = "󰖁 {format_source}";
+          format-source = "󰍬 {volume}%";
+          format-source-muted = "󰍭";
           format-icons = {
-            headphone = "";
+            headphone = "󰋋";
             hands-free = "";
-            headset = "";
-            phone = "";
-            portable = "";
-            car = "";
-            default = [ "" "" "" ];
+            headset = "󰋎";
+            phone = "󰄜";
+            portable = "󰄜";
+            car = "󰄋";
+            default = [ "󰕿" "󰖀" "󰕾" ];
           };
           on-click = "pavucontrol";
         };
@@ -122,91 +109,129 @@ in {
       }];
 
       style = ''
-               /* Colors */
-               #workspaces button,
-               #mode,
-               #tray,
-               #pulseaudio,
-               #memory,
-               #cpu,
-               #temperature,
-               #clock {
-                   background: #${colors.base07};
-                   color: #${colors.base00};  
+               * {
+                   border: none;
+                   border-radius: 0;
+                   font-family: "Iosevka", "Material Design Icons";
+                   font-size: 22px;
+                   font-weight: normal;
                }
 
-               /* Effects */
-               #workspaces button.focused {
-                   background: #${colors.base05};
-                   color: #${colors.base00};
+               tooltip {
+                   background-color: #${colors.base00};
+                   color: #${colors.base07};
+                   border-radius: 10px;
+                   padding: 4px;                   
+               }
+
+               window#waybar {
+                   background-color: #${colors.base00};
+                   color: #${colors.base07};
+                   transition-property: background-color;
+                   transition-duration: 0.5s;
+               }
+
+               #workspaces {
+                   margin-left: 2px;
+                   margin-right: 2px;
+               }
+
+               #workspaces button {
+                   background: #${colors.base02};
+                   color: #${colors.base07};
+                   padding: 1px 4px;
+                   margin-top: 5px;
+                   margin-bottom: 5px;
+                   margin-left: 2px;
+                   margin-right: 2px;
+                   border-radius: 14px;
+                   transition-duration: 0.2s;
                }
 
                #workspaces button:hover {
-                   background: rgba(229, 231, 235, 0.4);
+                   background-color: #${colors.base03};
+                   color: #${colors.base07};
+                   transition-duration: 0.2s;
+               }
+
+               #workspaces button.active {
+                   background-color: #${colors.base0B};
+                   color: #${colors.base00};
+                   padding: 1px 6px;
+                   transition-duration: 0.2s;
+               }
+
+               #workspaces button.focused {
+                   background-color: #${colors.base0B};
+                   color: #${colors.base00};
+                   padding: 1px 6px;
+                   transition-duration: 0.2s;
                }
 
                #workspaces button.urgent {
                    background: #${colors.base08};
-               }
-
-               * {
-                   border: none;
-                   border-radius: 0;
-                   font-family: "Roboto", "Noto Sans CJK JP", "Font Awesome 6 Free";
-                   font-size: 20px;
-                   font-weight: normal;
-               }
-
-               window#waybar {
-                   background-color: rgba(0,0,0,0);
-               }
-
-               window#waybar.hidden {
-                   opacity: 0.2;
-               }
-
-               #waybar > .horizontal {
-                   padding: 5px 10px 0;
-               }
-
-               #waybar > .horizontal > .horizontal:nth-child(1) {
-                   margin-right: 10px;
-               }
-
-               #workspaces button {
-               	  margin: 0px 0 0 5px;
-               	  font-size: 16px;
-               	  padding: 5px 2px;
-               	  border-radius: 5px;
-               }
-
-               #workspaces button:hover {
-                   box-shadow: inherit;
-                   text-shadow: inherit;
-               }
-
-               #mode {
-               	  margin: 10px 0 0 10px;
-               	  padding: 0 10px;
-               	  border-radius: 5px;
-               }
-
-               #window {
-                  font-weight: 600;
-                  margin: 10px 0 0 10px;
+                   color: #${colors.base00};
                }
 
                #tray,
-               #pulseaudio,
-               #network,
-               #memory,
-               #temperature,
                #cpu,
+               #temperature,
+               #memory,
+               #pulseaudio,
                #clock {
-                   margin: 0px 10px 0 0;
-        	         padding: 7px 10px;
-                   border-radius: 5px;
-               }           
+                   padding: 2px 10px;
+                   color: #${colors.base07};
+                   margin-top: 5px;
+                   margin-bottom: 5px;
+                   margin-left: 5px;
+                   margin-right: 5px;
+                   border-radius: 14px;
+               }
+
+               /* Tray */
+               #tray {
+                   background-color: #${colors.base02};
+                   color: #${colors.base00};
+               }
+
+               #tray > .passive {
+                   -gtk-icon-effect: dim;
+               }
+
+               #tray > .needs-attention {
+                   -gtk-icon-effect: highlight;
+                   background-color: #eb4d4b;
+               }
+
+               /* CPU */
+               #cpu {
+                   background-color: #${colors.base0C};
+                   color: #${colors.base00};
+               }
+
+               /* Temperature */
+               #temperature {
+                   background-color: #${colors.base09};
+                   color: #${colors.base00};
+               }
+
+               /* Memory */
+               #memory {
+                   background-color: #${colors.base0B};
+                   color: #${colors.base00};
+               }
+
+               /* Audio */
+               #pulseaudio {
+                   background-color: #${colors.base0E};
+                   color: #${colors.base00};
+               }
+
+               /* Clock */
+               #clock {
+                   background-color: #${colors.base0D};
+                   color: #${colors.base00};
+               }
       '';
     };
   };

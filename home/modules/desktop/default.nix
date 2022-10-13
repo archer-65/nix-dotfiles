@@ -29,6 +29,7 @@ let
     noto-fonts-emoji
     noto-fonts-cjk-sans
     font-awesome
+    material-design-icons
   ];
 in {
   config = {

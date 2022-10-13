@@ -12,7 +12,7 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     emacs-overlay.url =
-      "github:nix-community/emacs-overlay?rev=04351718792c2e50bf30a5d1a433c9af221168cf";
+      "github:nix-community/emacs-overlay?rev=977b205ab9ce857f3440dff2a114a35bf2758c05";
 
     vinceliuice-grub-theme = {
       url = github:vinceliuice/grub2-themes;
