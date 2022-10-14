@@ -1,4 +1,4 @@
-* Nix & Flakes
+* Nix & Flakes - Reproducible machines
 [[https://nixos.org][https://img.shields.io/badge/NixOS-grey.svg?style=flat-square&logo=NixOS&logoColor=white]]
 
 This is my *NixOS* and *home-manager* configuration. It aims for maximum reproducibility through *Flakes*, and it's composed by modules to provide plug&play configuration based on hosts and users. At this time the configuration is WIP (I want to polish it).
