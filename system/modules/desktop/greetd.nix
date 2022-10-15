@@ -46,6 +46,7 @@ in {
       # Definition of greetd environments
       "greetd/environments".text = ''
         sway
+        Hyprland
         qtile start
       '';
 

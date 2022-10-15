@@ -4,7 +4,7 @@
 with lib;
 let
   # These functions should stay in another place, but right now I need them only here.
-  attrsToList = mapAttrsToList (name: value: { inherit name value; });
+  attrsToList = attrs: mapAttrsToList (name: value: { inherit name value; }) attrs;
   countAttrs = pred: attrs:
     count (attr: pred attr.name attr.value) (attrsToList attrs);
 

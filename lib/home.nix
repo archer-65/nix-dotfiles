@@ -29,6 +29,7 @@ let
         { home = baseHome; }
         "${self}/home/configurations/${home}"
         (import "${self}/mixed/options.nix" inputs)
+        hyprland.homeManagerModules.default
       ] ++ attrValues self.homeModules;
       extraSpecialArgs = { inherit nix-colors; };
     };

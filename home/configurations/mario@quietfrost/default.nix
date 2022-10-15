@@ -34,6 +34,7 @@
       wayland = {
         enable = true;
         sway.enable = true;
+        # hyprland.enable = true;
       };
 
       term.alacritty.enable = true;

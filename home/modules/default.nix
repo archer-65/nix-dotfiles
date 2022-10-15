@@ -8,6 +8,7 @@ inputs: {
 
   "desktop/wayland" = import ./desktop/wayland inputs;
   "desktop/wayland/sway" = import ./desktop/wayland/sway.nix inputs;
+  "desktop/wayland/hyprland" = import ./desktop/wayland/hyprland.nix inputs;
 
   "desktop/apps/greenclip" = import ./desktop/apps/greenclip.nix inputs;
   "desktop/apps/rofi" = import ./desktop/apps/rofi.nix inputs;
