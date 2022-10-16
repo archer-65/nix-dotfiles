@@ -33,4 +33,14 @@ in {
       sha256 = "BBc4n6Q3xuBE13JS3gz/6EcwdOWW57NLp2saOlwOgMI=";
     };
   });
+
+  tdlib = super.tdlib.overrideAttrs (old: rec {
+    version = "1.8.7";
+    src = pkgs.fetchFromGitHub {
+      owner = "tdlib";
+      repo = "td";
+      rev = "a7a17b34b3c8fd3f7f6295f152746beb68f34d83";
+      sha256 = "sha256-Rv96dZPQruJlXoZaQQ8QWbjEdvYljE9XjDUfa2cCpig=";
+    };
+  });
 }

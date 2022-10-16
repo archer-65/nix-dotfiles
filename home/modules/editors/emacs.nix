@@ -25,10 +25,17 @@ in {
       programs.emacs = {
         enable = true;
         package = pkgs.emacsPgtkNativeComp;
+
         extraPackages = epkgs: [
           epkgs.vterm
-          # epkgs.telega
+          epkgs.melpaPackages.telega
         ];
+
+        # overrides = self: super: rec {
+        #   telega = pkgs.emacsPackages.telega.overrideAttrs (old: {
+        #     buildInputs = old.buildInputs ++ [ tdlib ];
+        #   });
+        # };
       };
 
       xdg.configFile."emacs" = {

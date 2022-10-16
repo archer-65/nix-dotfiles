@@ -166,8 +166,28 @@
 (leaf vterm
   :commands (vterm vterm-other-window))
 
-;; (leaf telega
-;;   :commands telega)
+(leaf telega
+  :commands (telega)
+  :init
+  (setq telega-directory (expand-file-name "~/.telega/"))
+  (setq telega-server-libs-prefix (expand-file-name "~/.nix-profile"))
+  (setq telega-use-images t)
+  (setq telega-emoji-font-family "Noto Color Emoji")
+  (setq telega-emoji-use-images nil)
+  :config
+  (require 'telega-mnz)
+  (setq telega-animation-play-inline 2)
+  (setq telega-inserter-for-chat-button 'telega-ins--chat-full-2lines)
+  (setq telega-chat-button-width 15)
+  (setq telega-root-fill-column (+ 20 telega-chat-button-width))
+  (put (get 'telega-chat 'button-category-symbol)
+       :inserter 'telega-ins--chat-full-2lines)
+  (setq switch-to-buffer-preserve-window-point t)
+  (setq telega-chat--display-buffer-action
+        '((display-buffer-reuse-window display-buffer-use-some-window)))
+  (define-key global-map (kbd "C-c t") telega-prefix-map)
+  :hook
+  (telega-load-hook . telega-notifications-mode))
 
 (leaf emms
   :straight t
