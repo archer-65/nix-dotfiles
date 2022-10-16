@@ -3,11 +3,6 @@
 
 with lib;
 let
-  # These functions should stay in another place, but right now I need them only here.
-  attrsToList = attrs: mapAttrsToList (name: value: { inherit name value; }) attrs;
-  countAttrs = pred: attrs:
-    count (attr: pred attr.name attr.value) (attrsToList attrs);
-
   cfgXorg = config.user-modules.desktop.xorg;
   cfgWayland = config.user-modules.desktop.wayland;
 
@@ -38,16 +33,7 @@ in {
         assertion = cfgExclusive;
         message = "Can't enable customization for both Xorg and Wayland.";
       }
-      {
-        assertion = (countAttrs (n: v: n == "enable" && v) cfgXorg) < 2;
-        message = "[Xorg] Can't have more than one WM/DE enable at a time.";
-      }
-      {
-        assertion = (countAttrs (n: v: n == "enable" && v) cfgWayland) < 2;
-        message = "[Wayland] Can't have more than one WM/DE enable at a time.";
-      }
     ];
-
 
     fonts.fontconfig.enable = true;
 

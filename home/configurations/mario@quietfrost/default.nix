@@ -28,13 +28,12 @@
 
       # xorg = {
       #   enable = true;
-      #   qtile.enable = true;
+      #   wm = "qtile";
       # };
 
       wayland = {
         enable = true;
-        sway.enable = true;
-        # hyprland.enable = true;
+        wm = "sway";
       };
 
       term.alacritty.enable = true;

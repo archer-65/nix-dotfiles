@@ -10,6 +10,12 @@ in {
       type = types.bool;
       example = true;
     };
+
+    wm = mkOption {
+      default = null;
+      type = types.nullOr (types.enum [ "sway" "hyprland" ]);
+      example = "sway";
+    };
   };
 
   config = mkIf cfg.enable {

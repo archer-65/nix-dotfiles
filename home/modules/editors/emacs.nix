@@ -4,7 +4,7 @@ _:
 with lib;
 let
   cfg = config.user-modules.editors.emacs;
-  cfgSway = config.user-modules.desktop.wayland.sway;
+  cfgWayland = config.user-modules.desktop.wayland;
   inherit (config.dotfiles) configDir;
 in {
   options.user-modules.editors.emacs = {
@@ -49,7 +49,7 @@ in {
       };
     })
 
-    (mkIf (cfgSway.enable && cfg.daemon.enable) {
+    (mkIf (cfgWayland.wm == "sway" && cfg.daemon.enable) {
       systemd.user.services.emacs.Install.WantedBy =
         lib.mkForce [ "sway-session.target" ];
     })

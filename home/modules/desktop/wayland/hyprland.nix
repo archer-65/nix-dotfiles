@@ -3,21 +3,13 @@ _:
 
 with lib;
 let
-  cfg = config.user-modules.desktop.wayland.hyprland;
-  cfgWayland = config.user-modules.desktop.wayland;
+  cfg = config.user-modules.desktop.wayland;
   cfgTheme = config.user-modules.themes;
   inherit (config.dotfiles) configDir;
 
 in {
-  options.user-modules.desktop.wayland.hyprland = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
-  };
 
-  config = mkIf (cfgWayland.enable && cfg.enable) {
+  config = mkIf (cfg.enable && cfg.wm == "hyprland") {
 
     wayland.windowManager.hyprland = {
       enable = true;

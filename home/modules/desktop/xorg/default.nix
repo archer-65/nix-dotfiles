@@ -10,6 +10,11 @@ in {
       type = types.bool;
       example = true;
     };
+
+    wm = mkOption {
+      default = false;
+      type = types.nullOr (types.enum [ "qtile" ]);
+    };
   };
 
   config = mkIf cfg.enable {

@@ -3,19 +3,11 @@ _:
 
 with lib;
 let
-  cfg = config.user-modules.desktop.xorg.qtile;
-  cfgXorg = config.user-modules.desktop.xorg;
+  cfg = config.user-modules.desktop.xorg;
   inherit (config.dotfiles) configDir;
 in {
-  options.user-modules.desktop.xorg.qtile = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
-  };
 
-  config = mkIf (cfgXorg.enable && cfg.enable) {
+  config = mkIf (cfg.enable && cfg.wm == "qtile") {
 
     xsession.enable = true;
 
