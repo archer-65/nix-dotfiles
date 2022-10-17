@@ -178,7 +178,7 @@
   (require 'telega-mnz)
   (setq telega-animation-play-inline 2)
   (setq telega-inserter-for-chat-button 'telega-ins--chat-full-2lines)
-  (setq telega-chat-button-width 15)
+  (setq telega-chat-button-width 30)
   (setq telega-root-fill-column (+ 20 telega-chat-button-width))
   (put (get 'telega-chat 'button-category-symbol)
        :inserter 'telega-ins--chat-full-2lines)

@@ -712,7 +712,7 @@ The best terminal emulator in Emacs.
 
 ** Telegram
 
-Currently I'm not using telega, it is constantly breaking, especially on NixOS
+Beautiful client, maybe the best telegram client around. A PITA, sometimes, due to tdlib compatibility.
 
 #+begin_src emacs-lisp
 
@@ -728,7 +728,7 @@ Currently I'm not using telega, it is constantly breaking, especially on NixOS
     (require 'telega-mnz)
     (setq telega-animation-play-inline 2)
     (setq telega-inserter-for-chat-button 'telega-ins--chat-full-2lines)
-    (setq telega-chat-button-width 15)
+    (setq telega-chat-button-width 30)
     (setq telega-root-fill-column (+ 20 telega-chat-button-width))
     (put (get 'telega-chat 'button-category-symbol)
          :inserter 'telega-ins--chat-full-2lines)
