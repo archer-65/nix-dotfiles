@@ -39,6 +39,7 @@ in {
 
     home.packages = with pkgs; [
       brightnessctl
+      ffmpeg-full
       playerctl
       xfce.xfconf
       xfce.exo

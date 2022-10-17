@@ -186,6 +186,7 @@
   (setq telega-chat--display-buffer-action
         '((display-buffer-reuse-window display-buffer-use-some-window)))
   (define-key global-map (kbd "C-c t") telega-prefix-map)
+  (setq telega-completing-read-function 'completing-read)
   :hook
   (telega-load-hook . telega-notifications-mode))
 
