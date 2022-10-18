@@ -69,43 +69,6 @@
                                              ("/Gmail/[Gmail]/Sent Mail" . ?s)
                                              ("/Gmail/[Gmail]/Trash"     . ?t)
                                              ("/Gmail/[Gmail]/Drafts"    . ?d)))))
-          ;; Gmail Account
-          ,(make-mu4e-context
-            :name "Gmail"
-            :match-func
-            (lambda (msg)
-              (when msg
-                (string-prefix-p "/Gmail" (mu4e-message-field msg :maildir))))
-            :vars '((user-email-address . "mariogt2009@gmail.com")
-                    (smtpmail-smtp-user . "mariogt2009@gmail.com")
-                    (user-full-name     . "Mario Liguori")
-                    (mu4e-sent-folder   . "/Gmail/[Gmail]/Sent Mail")
-                    (mu4e-drafts-folder . "/Gmail/[Gmail]/Drafts")
-                    (mu4e-trash-folder  . "/Gmail/[Gmail]/Trash")
-                    (mu4e-maildir-shortcuts .
-                                            (("/Gmail/Inbox"     . ?i)
-                                             ("/Gmail/[Gmail]/Sent Mail" . ?s)
-                                             ("/Gmail/[Gmail]/Trash"     . ?t)
-                                             ("/Gmail/[Gmail]/Drafts"    . ?d)))))
-          ;; Outlook
-          ,(make-mu4e-context
-            :name "Outlook"
-            :match-func
-            (lambda (msg)
-              (when msg
-                (string-prefix-p "/Outlook" (mu4e-message-field msg :maildir))))
-            :vars '((user-email-address . "mariogt2009@live.it")
-                    (smtpmail-smtp-user . "mariogt2009@live.it")
-                    (user-full-name     . "Mario Liguori")
-                    (mu4e-drafts-folder . "/Outlook/Drafts")
-                    (mu4e-sent-folder   . "/Outlook/Sent")
-                    (mu4e-refile-folder . "/Outlook/Archive")
-                    (mu4e-trash-folder  . "/Outlook/Deleted")
-                    (mu4e-maildir-shortcuts .
-                                            (("/Outlook/Inbox"   . ?i)
-                                             ("/Outlook/Sent"    . ?s)
-                                             ("/Outlook/Deleted" . ?t)
-                                             ("/Outlook/Drafts"  . ?d)))))
 
           ;;UniNa
           ,(make-mu4e-context

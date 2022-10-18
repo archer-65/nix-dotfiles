@@ -1,7 +1,13 @@
-#+TITLE: Archer-65 Emacs Configuration
+#+TITLE: Emacs Configuration
 #+AUTHOR: Mario Liguori
+#+DATE: {{{time(%Y-%m-%d)}}}
+
 #+PROPERTY: header-args:emacs-lisp :tangle ./init.el :mkdirp yes
-#+REVEAL_THEME: solarized
+
+#+HUGO_BASE_DIR: ~/projects/personal-website/
+#+HUGO_SECTION: posts
+#+HUGO_CATEGORIES: workflow
+#+HUGO_TAGS: emacs
 
 * Preface
 
@@ -351,7 +357,7 @@ Keybindings and configuration are in the =init-embark.el= file.
 
 #+end_src
 
-I'm currently using Company, but I've planned to switch on Corfu, especially for child frames instead of overlays.
+I'm using Corfu right now, while Company is here due to ~telega.el~, especially for child frames instead of overlays.
 
 Here =init-complete-in-buffer.el=.
 
@@ -401,15 +407,6 @@ Keybindings are listed in =init-meow.el=.
 #+include: "lisp/init-meow.el" src emacs-lisp :tangle no
 
 
-*** Evil
-
-#+begin_src emacs-lisp
-
-  ;; (require 'init-evil)
-
-#+end_src
-
-#+include: "lisp/init-evil.el" src emacs-lisp :tangle no
 
 ** Windows navigation
 
@@ -493,7 +490,7 @@ To execute or export code in =org-mode= code blocks, we need to set up =org-babe
 Org Mode's [[https://orgmode.org/manual/Structure-Templates.html][structure templates]] feature enables to quickly insert code blocks into your Org files in combination with =org-tempo= by typing =<= followed by the template name like =el= or =py= and then press =TAB=.
 To add more =src= block templates, just copy one of the lines and change the two strings at the end, the first to be the template name and the second to contain the name of the language ([[https://orgmode.org/worg/org-contrib/babel/languages.html][listed here]]).
 
-There's also a snippet that adds a hook to =org-mode= buffers so that =archer--org-babel-tangle-config= gets executed each time such a buffer gets saved. This function checks to see if the file being saved is the Emacs.org file you're looking at right now, and if so, automatically exports the configuration here to the associated output files. This function is inspired by David Wilson of System Crafters.
+There's also a snippet that adds a hook to =org-mode= buffers so that ~archer/org-babel-tangle-config~ gets executed each time such a buffer gets saved. This function checks to see if the file being saved is the Emacs.org file you're looking at right now, and if so, automatically exports the configuration here to the associated output files. This function is inspired by David Wilson of System Crafters.
 
 #+include: "lisp/init-org-languages.el" src emacs-lisp :tangle no
 
@@ -524,6 +521,8 @@ Structure every file like this:
 #+end_src
 
 Reveal.js presentations are exported through =ox-reveal=, which is very simple to configure.
+
+The hidden gem is =ox-hugo=, you can manage your website content from Emacs, that's cool. You can also manage your contents with a single file, multiple files, or both ways!
 
 #+include: "lisp/init-org-export.el" src emacs-lisp :tangle no
 
@@ -705,7 +704,9 @@ The best terminal emulator in Emacs.
 #+begin_src emacs-lisp
 
   (leaf vterm
-    :commands (vterm vterm-other-window))
+    :commands (vterm vterm-other-window)
+    :init
+    (unless (archer/using-nix-p) straight-use-package 'vterm))
 
 #+end_src
 
@@ -719,6 +720,7 @@ Beautiful client, maybe the best telegram client around. A PITA, sometimes, due 
   (leaf telega
     :commands (telega)
     :init
+    (unless (archer/using-nix-p) straight-use-package 'telega)
     (setq telega-directory (expand-file-name "~/.telega/"))
     (setq telega-server-libs-prefix (expand-file-name "~/.nix-profile"))
     (setq telega-use-images t)
@@ -776,7 +778,7 @@ Manage your music from Emacs? Possible!
     (setq emms-playing-time t)
 
     ;; Directory
-    ;; (setq emms-source-file-default-directory "~/stuff/")
+    ;; (setq emms-source-file-default-directory "~/idkrn/")
     (setq emms-info-asynchronously t)
 
     ;; Other infos, covers

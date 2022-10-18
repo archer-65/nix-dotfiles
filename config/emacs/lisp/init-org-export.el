@@ -50,5 +50,10 @@
   :config
   (setq org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js"))
 
+;; Hugo
+(leaf ox-hugo
+  :straight t
+  :after ox)
+
 (provide 'init-org-export)
 ;;; init-org-export.el ends here

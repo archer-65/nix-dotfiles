@@ -122,8 +122,6 @@
 
 ;; (require 'init-meow)
 
-;; (require 'init-evil)
-
 (require 'init-windows)
 
 (require 'init-buffers)
@@ -164,11 +162,14 @@
   :straight t)
 
 (leaf vterm
-  :commands (vterm vterm-other-window))
+  :commands (vterm vterm-other-window)
+  :init
+  (unless (archer/using-nix-p) straight-use-package 'vterm))
 
 (leaf telega
   :commands (telega)
   :init
+  (unless (archer/using-nix-p) straight-use-package 'telega)
   (setq telega-directory (expand-file-name "~/.telega/"))
   (setq telega-server-libs-prefix (expand-file-name "~/.nix-profile"))
   (setq telega-use-images t)
@@ -217,7 +218,7 @@
   (setq emms-playing-time t)
 
   ;; Directory
-  ;; (setq emms-source-file-default-directory "~/stuff/")
+  ;; (setq emms-source-file-default-directory "~/idkrn/")
   (setq emms-info-asynchronously t)
 
   ;; Other infos, covers

@@ -27,7 +27,7 @@
   (straight-use-package 'leaf)
   (straight-use-package 'leaf-keywords)
   (straight-use-package 'blackout)
-  
+
   (leaf leaf-keywords
     (straight-use-package 'leaf-keywords)
     :init
