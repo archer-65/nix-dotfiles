@@ -53,6 +53,8 @@
 ;; Hugo
 (leaf ox-hugo
   :straight t
+  :hook
+  (org-mode-hook . org-hugo-auto-export-mode)
   :after ox)
 
 (provide 'init-org-export)

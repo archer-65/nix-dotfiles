@@ -13,7 +13,7 @@
 
 ** Overview
 
-This is my personal configuration of ~GNU Emacs~. Many of these settings have been stolen from research and other configurations.
+This is my personal configuration of =GNU Emacs=. Many of these settings have been stolen from research and other configurations.
 I have a very basic use-case, and this configuration is, currently, pretty straightforward to read.
 
 Probably I'm using this +operating system+ editor/interactive-interpreter as daily driver now. In the last section I explain my "experience" and reasons why I'm using Emacs.
@@ -22,7 +22,7 @@ Probably I'm using this +operating system+ editor/interactive-interpreter as dai
 
 Every file is commented in a decent way, but I'm not very verbose. Sometimes I describe every single things written (in a decent way, I guess), other times, I'm awful.
 
-Anyway, this document is not intended as a way to show my ~elisp-fu~ or something like that. When you read this, imagine a diary, a tale of my [mis]adventures 🤣.
+Anyway, this document is not intended as a way to show my =elisp-fu= or something like that. When you read this, imagine a diary, a tale of my [mis]adventures 🤣.
 
 
 ** Before GUI: "early init"
@@ -169,7 +169,7 @@ Right now I'm good with 16MB for high threshold.
 *** Minor tweaks
 
 Aaand, here other code stolen from DOOM.
-Performance are really better with this snippet (for me).
+Performances are really better with this snippet (for me).
 
 #+begin_src emacs-lisp
 
@@ -210,7 +210,7 @@ Performance are really better with this snippet (for me).
 #+end_src
 
 
-** Pick up me mom, I'm scared!
+** Pick me up mom, I'm scared!
 
 
 #+begin_src emacs-lisp
@@ -219,10 +219,10 @@ Performance are really better with this snippet (for me).
 
 #+end_src
 
-Sometimes we forget shortcuts as we type them, [[https://github.com/justbur/emacs-which-key][which-Key]] is a minor mode for Emacs that displays the key bindings following your currently entered incomplete command in a popup.
+Sometimes we forget shortcuts as we type them, [[https://github.com/justbur/emacs-which-key][which-key]] is a minor mode for Emacs that displays the key bindings following your currently entered incomplete command in a popup.
 
 I'm not using helpful anymore.
-+[[https://github.com/Wilfred/helpful][Helpful]] adds a lot of very helpful information to =describe-= command buffers. For example, if you use =describe-function=, you will not only get the documentation about the function, you will also see the source code of the function and where it gets used in other places in the Emacs configuration.+
++The [[https://github.com/Wilfred/helpful][helpful]] adds a lot of very helpful information to =describe-= command buffers. For example, if you use =describe-function=, you will not only get the documentation about the function, you will also see the source code of the function and where it gets used in other places in the Emacs configuration.+
 
 This is the =init-help.el= file, nothing special.
 
@@ -823,7 +823,7 @@ My learning path has been discontinuous, but good enough to learn this beautiful
 
 - [[https://systemcrafters.cc/][System Crafters]] :: helped me a lot with the series `Emacs from Scratch`, in fact my first configuration was almost a copy-paste of David's configuration...This slowed me down *a lot*.
 
-- [[https://protesilaos.com/][Protesilaos Stavrou]] :: is a gold mine, he's a very clever and wonderful person. I appreciate his verbose explanations about any kind of magic trick he do with Emacs.
+- [[https://protesilaos.com/][Protesilaos Stavrou]] :: is a gold mine, he's a very clever and wonderful person. I appreciate his verbose explanations about any kind of magic trick he does with Emacs.
 
 - [[https://www.youtube.com/user/mzamansky][Mike Zamansky]] :: has a series dedicated to Emacs, he works well, and helped me to figure out some obscure matters.
 
