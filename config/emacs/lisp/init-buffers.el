@@ -68,6 +68,8 @@
 	   ("c/c++" (or (mode . c-mode)
 			(mode . c++-mode)))
 	   ("nix" (mode . nix-mode))
+	   ("telegram" (or (mode . telega-mode)
+			   (mode . telega-chat-mode)))
 	   ("documents" (or (name . "\\.pdf")
 			    (name . "\\.org")))
            ("emacs" (or

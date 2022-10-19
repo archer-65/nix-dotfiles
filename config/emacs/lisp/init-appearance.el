@@ -25,6 +25,13 @@
   :hook
   (prog-mode-hook . display-line-numbers-mode))
 
+ '(telega-entity-type-code        ((t (:inherit fixed-pitch))))
+
+(defun my-modus-themes-custom-faces ()
+  (modus-themes-with-colors
+    (custom-set-faces
+     `(telega-entity-type-code ((,class :inherit modus-themes-fixed-pitch :background ,bg-special-calm :foreground ,fg-special-calm))))))
+
 ;; Themes section
 ;; For packaged versions which must use `require':
 (leaf modus-themes
@@ -54,6 +61,8 @@
 	modus-themes-subtle-line-numbers nil
         modus-themes-mode-line '(borderless accented))
   (modus-themes-load-themes)
+  :hook
+  (modus-themes-after-load-theme-hook . my-modus-themes-custom-faces)
   :config
   ;; Load the theme of your choice:
   (modus-themes-load-operandi))

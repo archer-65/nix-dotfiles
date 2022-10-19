@@ -164,7 +164,17 @@
 (leaf vterm
   :commands (vterm vterm-other-window)
   :init
-  (unless (archer/using-nix-p) straight-use-package 'vterm))
+  (unless (archer/using-nix-p) straight-use-package 'vterm)
+  :bind
+  ("<f5>" . vterm)
+  :config
+  (setq-default vterm-buffer-name " <<Terminal>>")
+  (add-to-list 'display-buffer-alist
+               '("\xe795 <<Terminal>>" ;; Original regex: "\*vterm\*"
+                 (display-buffer-in-side-window)
+                 (window-height . 0.25)
+                 (side . bottom)
+                 (slot . 0))))
 
 (leaf telega
   :commands (telega)
@@ -189,7 +199,8 @@
   (define-key global-map (kbd "C-c t") telega-prefix-map)
   (setq telega-completing-read-function 'completing-read)
   :hook
-  (telega-load-hook . telega-notifications-mode))
+  (telega-load-hook . telega-notifications-mode)
+  (telega-chat-mode-hook . telega-mnz-mode))
 
 (leaf emms
   :straight t
