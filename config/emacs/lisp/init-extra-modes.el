@@ -18,16 +18,6 @@
   :straight t
   :mode "\\.json\\'")
 
-;; (leaf rust-mode
-;;   :straight t
-;;   :mode "\\.rs\\'"
-;;   :config
-;;   (setq rust-format-on-save t)
-;;   :bind
-;;   (rust-mode-map ("C-c C-c" . rust-run))
-;;   :hook
-;;   (rust-mode-hook . prettify-symbols-mode))
-
 (leaf rustic
   :straight t
   :mode "\\.rs\\'"

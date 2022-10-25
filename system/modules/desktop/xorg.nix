@@ -24,6 +24,8 @@ in {
 
     services.xserver.libinput.enable = true;
 
-    services.xserver.windowManager = { qtile.enable = true; };
+    services.xserver.windowManager = {
+      # qtile.enable = true;
+    };
   };
 }

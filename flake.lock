@@ -109,11 +109,11 @@
         "utils": "utils"
       },
       "locked": {
-        "lastModified": 1666463764,
-        "narHash": "sha256-NmayV9S0s7CgNEA2QbIxDU0VCIiX6bIHu8PCQPnYHDM=",
+        "lastModified": 1666649150,
+        "narHash": "sha256-kINnLxC0KFalUk4tVO/H5hUU7FVAOYYcUSWrsBpnl+I=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "69d19b9839638fc487b370e0600a03577a559081",
+        "rev": "7dc4e4ebd71280842b4d30975439980baaac9db8",
         "type": "github"
       },
       "original": {
@@ -128,11 +128,11 @@
         "wlroots": "wlroots"
       },
       "locked": {
-        "lastModified": 1666473034,
-        "narHash": "sha256-UfnSWkp4gWf2AA6hyru9Gv1Rb5Ixvsx1RkZ2iVhgC3w=",
+        "lastModified": 1666720398,
+        "narHash": "sha256-/r/BvG3ZOM1KUL6MdVIw5gh9b1vZbKgFDLg0Otv8Bo0=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "10303259f7c6f3e64e74e9ca8a31d4223071d5f0",
+        "rev": "f9a7b6bf26eec22448c90f1967d6d85835dcae70",
         "type": "github"
       },
       "original": {
@@ -189,6 +189,22 @@
         "type": "github"
       }
     },
+    "nixpkgs-stable": {
+      "locked": {
+        "lastModified": 1666610816,
+        "narHash": "sha256-q4F2VNe5bpxXOvp16DyLwE1SgNZMbNO29ZQJPIomedg=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "6107f97012a0c134c5848125b5aa1b149b76d2c9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "nixos-22.05",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "nixpkgs_2": {
       "locked": {
         "lastModified": 1666377499,
@@ -223,11 +239,11 @@
     },
     "nixpkgs_4": {
       "locked": {
-        "lastModified": 1666447894,
-        "narHash": "sha256-i9WHX4w/et4qPMzEXd9POmnO0/bthjr7R4cblKNHGms=",
+        "lastModified": 1666703756,
+        "narHash": "sha256-GwpMJ1hT+z1fMAUkaGtvbvofJQwdVFDEGVhfE82+AUk=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "95aeaf83c247b8f5aa561684317ecd860476fcd6",
+        "rev": "f994293d1eb8812f032e8919e10a594567cf6ef7",
         "type": "github"
       },
       "original": {
@@ -245,6 +261,7 @@
         "hyprland": "hyprland",
         "nix-colors": "nix-colors",
         "nixpkgs": "nixpkgs_4",
+        "nixpkgs-stable": "nixpkgs-stable",
         "vinceliuice-grub-theme": "vinceliuice-grub-theme"
       }
     },

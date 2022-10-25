@@ -3,6 +3,7 @@ let
   inherit (super) system;
   pkgs =
     inputs.nixpkgs.legacyPackages.${system}.extend inputs.self.overlays.default;
+  pkgs-stable = inputs.nixpkgs-2205.legacyPackages.${system};
 in {
   scripts = {
     volume = super.callPackage ../packages/scripts/volume.nix { };
@@ -47,12 +48,5 @@ in {
 
   # See https://github.com/NixOS/nixpkgs/issues/197408
   # and https://github.com/altdesktop/python-dbus-next/issues/135
-  dbus = super.dbus.overrideAttrs (old: rec {
-    version = "1.14.0";
-
-    src = pkgs.fetchurl {
-      url = "https://dbus.freedesktop.org/releases/dbus/dbus-${version}.tar.xz";
-      sha256 = "sha256-zNfM43WW4KGVWP1mSNEnKrQ/AR2AyGNa6o/QutWK69Q=";
-    };
-  });
+  # dbus = pkgs-stable.dbus;
 }
