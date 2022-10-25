@@ -15,7 +15,7 @@ in {
   config = mkIf cfg.enable {
     programs.git = {
       enable = true;
-      userEmail = "mariogt2009@live.it";
+      userEmail = "mario.liguori.056@gmail.com";
       userName = "archer-65";
     };
   };
