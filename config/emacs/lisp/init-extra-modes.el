@@ -18,5 +18,34 @@
   :straight t
   :mode "\\.json\\'")
 
+;; (leaf rust-mode
+;;   :straight t
+;;   :mode "\\.rs\\'"
+;;   :config
+;;   (setq rust-format-on-save t)
+;;   :bind
+;;   (rust-mode-map ("C-c C-c" . rust-run))
+;;   :hook
+;;   (rust-mode-hook . prettify-symbols-mode))
+
+(leaf rustic
+  :straight t
+  :mode "\\.rs\\'"
+  :bind (:rustic-mode-map
+	 ("M-j" . lsp-ui-imenu)
+         ("M-?" . lsp-find-references)
+         ("C-c C-c l" . flycheck-list-errors)
+         ("C-c C-c a" . lsp-execute-code-action)
+         ("C-c C-c r" . lsp-rename)
+         ("C-c C-c q" . lsp-workspace-restart)
+         ("C-c C-c Q" . lsp-workspace-shutdown)
+         ("C-c C-c s" . lsp-rust-analyzer-status))
+  :config
+  ;; uncomment for less flashiness
+  ;; (setq lsp-eldoc-hook nil)
+  ;; (setq lsp-enable-symbol-highlighting nil)
+  ;; (setq lsp-signature-auto-activate nil)
+  (setq rustic-format-on-save t))
+
 (provide 'init-extra-modes)
 ;;; init-extra-modes.el ends here

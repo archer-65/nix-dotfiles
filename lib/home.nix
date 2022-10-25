@@ -14,7 +14,7 @@ let
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        overlays = (lib.attrValues self.overlays) ++ [ emacs-overlay.overlay ];
+        overlays = (lib.attrValues self.overlays) ++ [ emacs-overlay.overlays.default ];
       };
 
       baseHome = {

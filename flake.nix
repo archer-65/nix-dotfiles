@@ -11,8 +11,14 @@
 
     flake-utils.url = "github:numtide/flake-utils";
 
-    emacs-overlay.url =
-      "github:nix-community/emacs-overlay?rev=977b205ab9ce857f3440dff2a114a35bf2758c05";
+    # emacs-overlay.url =
+    #   "github:nix-community/emacs-overlay?rev=977b205ab9ce857f3440dff2a114a35bf2758c05";
+
+    emacs-overlay = {
+      url = "github:jeslie0/emacs-overlay"; # This repository.
+      inputs.nixpkgs.url = "github:nixos/nixpkgs/301aada7a64812853f2e2634a530ef5d34505048";
+      inputs.emacs-overlay.url = "github:nix-community/emacs-overlay?rev=92c3c295daea9e71578b2e4f0cbe9906013c1adc";
+    };
 
     vinceliuice-grub-theme = {
       url = "github:vinceliuice/grub2-themes";

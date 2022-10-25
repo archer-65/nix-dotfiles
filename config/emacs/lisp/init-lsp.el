@@ -7,24 +7,32 @@
 ;;; Code:
 
 (leaf lsp-mode
-  :commands lsp
   :straight t
+  :commands lsp
   ;; :bind
   ;; (lsp-mode-map
   ;;   ("<tab>" . company-indent-or-complete-common))
   :init
   (setq lsp-keymap-prefix "C-c l")
+
+  (defun archer/lsp-mode-setup-completion ()
+    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
+          '(orderless))) ;; Configure flex
   :config
   (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
   (lsp-register-client (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
 					:major-modes '(nix-mode)
 					:server-id 'nix))
+  :custom
+  (lsp-completion-provider . :none)
   :hook
   (c-mode-hook    . lsp)
   (c++-mode-hook  . lsp)
   (java-mode-hook . lsp)
   (nix-mode-hook  . lsp)
-  (lsp-mode-hook  . lsp-enable-which-key-integration))
+  (rustic-mode-hook . lsp)
+  (lsp-mode-hook  . lsp-enable-which-key-integration)
+  (lsp-completion-mode . archer/lsp-mode-setup-completion))
 
 (leaf lsp-ui
   :straight t
