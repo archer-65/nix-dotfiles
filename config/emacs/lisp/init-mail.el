@@ -61,14 +61,14 @@
             :vars '((user-email-address . "mario.liguori.056@gmail.com")
                     (smtpmail-smtp-user . "mario.liguori.056@gmail.com")
                     (user-full-name     . "Mario Liguori")
-                    (mu4e-sent-folder   . "/Gmail/[Gmail]/Sent Mail")
-                    (mu4e-drafts-folder . "/Gmail/[Gmail]/Drafts")
-                    (mu4e-trash-folder  . "/Gmail/[Gmail]/Trash")
+                    (mu4e-sent-folder   . "/GmailPrimary/[Gmail]/Sent Mail")
+                    (mu4e-drafts-folder . "/GmailPrimary/[Gmail]/Drafts")
+                    (mu4e-trash-folder  . "/GmailPrimary/[Gmail]/Trash")
                     (mu4e-maildir-shortcuts .
-                                            (("/Gmail/Inbox"     . ?i)
-                                             ("/Gmail/[Gmail]/Sent Mail" . ?s)
-                                             ("/Gmail/[Gmail]/Trash"     . ?t)
-                                             ("/Gmail/[Gmail]/Drafts"    . ?d)))))
+                                            (("/GmailPrimary/Inbox"     . ?i)
+                                             ("/GmailPrimary/[Gmail]/Sent Mail" . ?s)
+                                             ("/GmailPrimary/[Gmail]/Trash"     . ?t)
+                                             ("/GmailPrimary/[Gmail]/Drafts"    . ?d)))))
 
           ;;UniNa
           ,(make-mu4e-context
