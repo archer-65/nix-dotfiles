@@ -70,6 +70,7 @@
 	   ("nix" (mode . nix-mode))
 	   ("rust" (or (mode . rustic-mode)
 		       (name . "\\.rs")))
+	   ("java" (mode . java-mode))
 	   ("telegram" (or (mode . telega-mode)
 			   (mode . telega-chat-mode)))
 	   ("documents" (or (name . "\\.pdf")

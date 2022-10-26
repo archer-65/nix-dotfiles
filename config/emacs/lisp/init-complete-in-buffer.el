@@ -7,16 +7,37 @@
 ;;; Code:
 
 (leaf company
-  ;; :after lsp-mode
   :straight t
   :bind
   (company-active-map
    ("<tab>" . company-complete-selection))
-  :hook
-  (telega-chat-mode-hook . company-mode))
+  ;; :hook
+  ;; (telega-chat-mode-hook . company-mode) ;; Only when Corfu is enabled!
+  :custom
+  (global-company-mode . t))
 
 (leaf corfu
   :straight t
+  :disabled t
+
+  ;; Recommended: Enable Corfu globally.
+  ;; This is recommended since Dabbrev can be used globally (M-/).
+  ;; See also `corfu-excluded-modes'.
+  :init
+  (global-corfu-mode)
+
+  ;; Function to enable corfu in lsp-mode
+  (defun archer/lsp-mode-setup-completion ()
+    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
+          '(orderless))) ;; Configure flex
+
+  ;; Load and enable corfu-history
+  (load "extensions/corfu-history")
+  (corfu-history-mode)
+  (add-to-list 'savehist-additional-variables 'corfu-history)
+
+  ;; TAB cycle if there are only few candidates
+  (setq completion-cycle-threshold t)
   :custom
   (corfu-cycle . t)                 ;; Enable cycling for `corfu-next/previous'
   (corfu-auto . t)                  ;; Enable auto completion
@@ -29,19 +50,8 @@
   (corfu-echo-documentation . 0.25) ;; Disable documentation in the echo area
   (corfu-scroll-margin . 5)         ;; Use scroll margin
 
-  ;; Recommended: Enable Corfu globally.
-  ;; This is recommended since Dabbrev can be used globally (M-/).
-  ;; See also `corfu-excluded-modes'.
-  :init
-  (global-corfu-mode)
-
-  ;; Load and enable corfu-history
-  (load "extensions/corfu-history")
-  (corfu-history-mode)
-  (add-to-list 'savehist-additional-variables 'corfu-history)
-
-  ;; TAB cycle if there are only few candidates
-  (setq completion-cycle-threshold t))
+  ;; Mandatory for LSP completion with Corfu
+  (lsp-completion-provider . :none))
 
 (provide 'init-complete-in-buffer)
 ;;; init-complete-in-buffer.el ends here
