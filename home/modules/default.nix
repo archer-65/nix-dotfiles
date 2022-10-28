@@ -38,6 +38,7 @@ inputs: {
   "/dev/java" = import ./dev/java.nix inputs;
   "/dev/nix-lang" = import ./dev/nix-lang.nix inputs;
   "/dev/rust" = import ./dev/rust.nix inputs;
+  "/dev/terraform" = import ./dev/terraform.nix inputs;
   "/dev/tex" = import ./dev/tex.nix inputs;
 
   "editors/android-studio" = import ./editors/android-studio.nix inputs;

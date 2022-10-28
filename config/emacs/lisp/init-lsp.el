@@ -2,7 +2,7 @@
 
 ;;; Commentary:
 
-;; Here the configuration for LSP-Mode/Eglot.
+;; Here the configuration for LSP-Mode.
 
 ;;; Code:
 
@@ -19,6 +19,7 @@
   (lsp-register-client (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
 					:major-modes '(nix-mode)
 					:server-id 'nix))
+  (setq lsp-disabled-clients '(tfls))
   :hook
   (c-mode-hook    . lsp)
   (c++-mode-hook  . lsp)

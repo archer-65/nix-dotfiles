@@ -13,6 +13,7 @@ _: {
 
     dev = {
       adb.enable = true;
+      docker.enable = true;
       virt-manager.enable = true;
     };
 

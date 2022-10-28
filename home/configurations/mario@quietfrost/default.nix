@@ -46,6 +46,7 @@
       js.enable = true;
       rust.enable = true;
       tex.enable = true;
+      terraform.enable = true;
     };
 
     editors = {
