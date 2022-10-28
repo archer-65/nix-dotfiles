@@ -37,5 +37,14 @@
   ;; (setq lsp-signature-auto-activate nil)
   (setq rustic-format-on-save t))
 
+(leaf terraform-mode
+  :straight t
+  :mode "\\.tf\\'"
+  :config
+  (leaf company-terraform
+    :straight t
+    :config
+    (company-terraform-init)))
+
 (provide 'init-extra-modes)
 ;;; init-extra-modes.el ends here

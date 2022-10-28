@@ -55,4 +55,16 @@ in {
       });
     };
   };
+
+  # See https://github.com/hashicorp/terraform-ls/issues/1067
+  terraform-ls = super.terraform-ls.overrideAttrs (old: rec {
+    pname = "terraform-ls";
+    version = "0.28.1";
+    src = pkgs.fetchFromGitHub {
+      owner = "hashicorp";
+      repo = pname;
+      rev = "v${version}";
+      sha256 = "sha256-CYbeRhwoffyELM0REZL14m4tTe/66GDToqNKcEfmums=";
+    };
+  });
 }
