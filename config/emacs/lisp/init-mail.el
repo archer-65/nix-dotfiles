@@ -30,7 +30,7 @@
 	message-kill-buffer-on-exit t
 	;; Start with default context
 	mu4e-context-policy 'pick-first
-	mu4e-compose-context-policy 'ask-if-none
+	mu4e-compose-context-policy 'ask
 	;; Why confirm quit?
 	mu4e-confirm-quit nil)
 
@@ -38,7 +38,7 @@
   (setq mail-user-agent 'mu4e-user-agent)
 
   ;; Use mu4e for sending e-mail
-  (setq send-mail-function #'smtpmail-send-it
+  (setq send-mail-function 'smtpmail-send-it
 	message-sendmail-f-is-evil t
 	message-sendmail-extra-arguments '("--read-envelope-from")
 	message-send-mail-function 'message-send-mail-with-sendmail)
@@ -58,7 +58,7 @@
             (lambda (msg)
               (when msg
                 (string-prefix-p "/GmailPrimary" (mu4e-message-field msg :maildir))))
-            :vars '((user-email-address . "mario.liguori.056@gmail.com")
+            :vars '((user-mail-address . "mario.liguori.056@gmail.com")
                     (smtpmail-smtp-user . "mario.liguori.056@gmail.com")
                     (user-full-name     . "Mario Liguori")
                     (mu4e-sent-folder   . "/GmailPrimary/[Gmail]/Sent Mail")
@@ -77,7 +77,7 @@
             (lambda (msg)
               (when msg
                 (string-prefix-p "/Unina" (mu4e-message-field msg :maildir))))
-            :vars '((user-email-address . "mario.liguori6@studenti.unina.it")
+            :vars '((user-mail-address . "mario.liguori6@studenti.unina.it")
                     (smtpmail-smtp-user . "mario.liguori6@studenti.unina.it")
                     (user-full-name     . "Mario Liguori")
                     (mu4e-drafts-folder . "/Unina/Bozze")

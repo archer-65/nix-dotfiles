@@ -9,8 +9,6 @@
 (leaf consult
   :doc "Practical commands based on the Emacs completion function completing-read."
   :straight t
-  :init
-  (add-to-list 'consult-buffer-sources 'coding-buffer-source 'append)
   ;; Replace bindings. Lazily loaded due by `use-package'.
   :bind (;; C-c bindings (mode specific)
          ("C-c h" . consult-history)

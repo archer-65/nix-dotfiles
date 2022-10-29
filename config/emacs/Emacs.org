@@ -843,3 +843,7 @@ My learning path has been discontinuous, but good enough to learn this beautiful
 - [[https://github.com/purcell/emacs.d][Steve Purcell]] :: has a dev-centered configuration, but everyone can take inspiration from its dotfiles.
 
 - [[https://github.com/seagle0128][Vincent Zhang]] :: author of [[https://github.com/seagle0128/.emacs.d][Centaur]], really good work.
+
+# Local Variables:
+# eval: (org-hugo-auto-export-mode)
+# End:

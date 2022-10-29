@@ -8,18 +8,24 @@
 
 (leaf company
   :straight t
-  :bind
-  (company-active-map
-   ("<tab>" . company-complete-selection))
+  :bind ((company-active-map ("C-n" . company-select-next)
+                             ("C-p" . company-select-previous)
+                             ("C-s" . company-filter-candidates)
+                             ("C-i" . company-complete-selection)
+                             ("<tab>" . company-complete-selection)
+                             ("M-d" . company-show-doc-buffer))
+         (company-search-map ("C-n" . company-select-next)
+                             ("C-p" . company-select-previous))
+	 ("C-c C-/" . company-files)
+	 ("C-c y" . company-yasnippet))
   ;; :hook
   ;; (telega-chat-mode-hook . company-mode) ;; Only when Corfu is enabled!
   :custom
   (global-company-mode . t))
 
 (leaf corfu
-  :straight t
   :disabled t
-
+  :straight t
   ;; Recommended: Enable Corfu globally.
   ;; This is recommended since Dabbrev can be used globally (M-/).
   ;; See also `corfu-excluded-modes'.
@@ -51,7 +57,10 @@
   (corfu-scroll-margin . 5)         ;; Use scroll margin
 
   ;; Mandatory for LSP completion with Corfu
-  (lsp-completion-provider . :none))
+  (lsp-completion-provider . :none)
+
+  :hook
+  (lsp-completion-mode . archer/lsp-mode-setup-completion))
 
 (provide 'init-complete-in-buffer)
 ;;; init-complete-in-buffer.el ends here
