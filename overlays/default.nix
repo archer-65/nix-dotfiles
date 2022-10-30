@@ -3,7 +3,7 @@ let
   inherit (super) system;
   pkgs =
     inputs.nixpkgs.legacyPackages.${system}.extend inputs.self.overlays.default;
-  pkgs-stable = inputs.nixpkgs-2205.legacyPackages.${system};
+  pkgs-stable = inputs.nixpkgs-stable.legacyPackages.${system};
 in {
   scripts = {
     volume = super.callPackage ../packages/scripts/volume.nix { };

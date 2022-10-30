@@ -20,6 +20,7 @@ in {
       valgrind
       gdb
       cmake
+      cmake-language-server
       gnumake
     ];
   };

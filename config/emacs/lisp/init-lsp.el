@@ -48,6 +48,7 @@
   (java-mode-hook . lsp)
   (nix-mode-hook  . lsp)
   (rustic-mode-hook . lsp)
+  (cmake-mode . lsp-deferred)
   (terraform-mode . lsp-deferred)
   (lsp-mode-hook  . lsp-enable-which-key-integration))
 

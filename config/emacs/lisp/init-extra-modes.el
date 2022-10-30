@@ -6,6 +6,10 @@
 
 ;;; Code:
 
+(leaf cmake-mode
+  :straight t
+  :mode "\\CMakeLists\\.txt\\'" "\\.cmake\\'")
+
 (leaf nix-mode
   :straight t
   :mode "\\.nix\\'")

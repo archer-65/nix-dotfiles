@@ -20,7 +20,6 @@ in {
 
     # Better than lorri?
     programs.direnv.nix-direnv.enable = true;
-
     # services.lorri.enable = true;
   };
 }
