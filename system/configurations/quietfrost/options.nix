@@ -25,6 +25,7 @@ _: {
     services = {
       ssh.enable = true;
       gpg.enable = true;
+      yubikey.enable = true;
       printing.enable = true;
     };
 

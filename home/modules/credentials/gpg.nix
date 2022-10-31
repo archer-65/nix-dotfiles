@@ -16,8 +16,8 @@ in {
   config = mkIf cfg.enable {
     services.gpg-agent = {
       enable = true;
-      pinentryFlavor = "gnome3";
       enableSshSupport = true;
+      pinentryFlavor = "gnome3";
     };
   };
 }
