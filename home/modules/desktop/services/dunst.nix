@@ -6,7 +6,7 @@ let
   cfg = config.user-modules.desktop.services.dunst;
   cfgWayland = config.user-modules.desktop.wayland;
   cfgTheme = config.user-modules.themes;
-  colors = config.colorScheme.colors;
+  inherit (config.colorScheme) colors;
 in {
   options.user-modules.desktop.services.dunst = {
     enable = mkOption {

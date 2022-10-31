@@ -5,7 +5,7 @@ with lib;
 let
   cfg = config.user-modules.desktop.media.documents;
   cfgTheme = config.user-modules.themes;
-  colors = config.colorScheme.colors;
+  inherit (config.colorScheme) colors;
 in {
   options.user-modules.desktop.media.documents = {
     zathura.enable = mkOption {
