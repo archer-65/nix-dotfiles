@@ -1,7 +1,11 @@
-{ config, options, lib, ... }:
-
-with lib;
-let cfg = config.modules.services.ssh;
+{
+  config,
+  options,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.modules.services.ssh;
 in {
   options.modules.services.ssh = {
     enable = mkEnableOption "ssh and a secure configuration";

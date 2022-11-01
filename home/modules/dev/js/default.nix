@@ -1,7 +1,11 @@
-{ options, config, lib, pkgs, ... }:
-
-with lib;
-let
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
   cfg = config.user-modules.dev.js;
   #node-pkgs = pkgs.callPackage ./node-pkgs { };
 in {

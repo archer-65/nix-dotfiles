@@ -1,7 +1,10 @@
-{ lib, config, pkgs, ... }:
-
-with lib;
-let
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+with lib; let
   cfgXorg = config.modules.desktop.xorg;
   cfgWayland = config.modules.desktop.wayland;
 in {
@@ -10,7 +13,7 @@ in {
     (mkIf (cfgXorg.enable || cfgWayland.enable) {
       xdg.portal = {
         enable = true;
-        extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+        extraPortals = [pkgs.xdg-desktop-portal-gtk];
         # gtkUsePortal = true;
       };
     })
@@ -18,7 +21,7 @@ in {
     (mkIf cfgWayland.enable {
       xdg.portal = {
         # wlr.enable = true;
-        extraPortals = [ pkgs.xdg-desktop-portal-wlr ];
+        extraPortals = [pkgs.xdg-desktop-portal-wlr];
       };
     })
   ];

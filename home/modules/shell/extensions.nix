@@ -1,7 +1,11 @@
-{ options, config, lib, pkgs, ... }:
-
-with lib;
-let
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
   cfg = config.user-modules.shell.extensions;
   cfgBash = config.user-modules.shell.bash;
 in {
@@ -20,7 +24,7 @@ in {
 
       programs.fzf.enable = true;
 
-      home.packages = with pkgs; [ bat-extras.batman fd ripgrep ];
+      home.packages = with pkgs; [bat-extras.batman fd ripgrep];
     }
 
     # Useful aliases for our shells

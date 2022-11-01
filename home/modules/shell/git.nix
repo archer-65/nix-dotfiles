@@ -1,7 +1,12 @@
-{ options, config, lib, pkgs, ... }:
-
-with lib;
-let cfg = config.user-modules.shell.git-defaults;
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.user-modules.shell.git-defaults;
 in {
   options.user-modules.shell.git-defaults = {
     enable = mkEnableOption "main user git configuration";

@@ -1,8 +1,11 @@
-{ options, config, lib, ... }:
-
-with lib;
-
-let cfg = config.modules.media.jellyfin;
+{
+  options,
+  config,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.modules.media.jellyfin;
 in {
   options.modules.media.jellyfin = {
     enable = mkEnableOption "jellyfin";
@@ -18,9 +21,9 @@ in {
       };
 
       # Primary user
-      user.extraGroups = [ "jellyfin" ];
+      user.extraGroups = ["jellyfin"];
     }
 
-    (mkIf (!cfg.systemd.disable) { systemd.services.plex.wantedBy = mkForce [ ]; })
+    (mkIf (!cfg.systemd.disable) {systemd.services.plex.wantedBy = mkForce [];})
   ]);
 }

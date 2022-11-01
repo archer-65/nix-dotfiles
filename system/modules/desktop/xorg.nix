@@ -1,8 +1,12 @@
-{ options, config, lib, pkgs, ... }:
-
-with lib;
-
-let cfg = config.modules.desktop.xorg;
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.modules.desktop.xorg;
 in {
   options.modules.desktop.xorg = {
     enable = mkEnableOption "xorg basic configuration and packages";
@@ -21,6 +25,6 @@ in {
 
     services.xserver.libinput.enable = true;
 
-    services.xserver.windowManager = { qtile.enable = true; };
+    services.xserver.windowManager = {qtile.enable = true;};
   };
 }

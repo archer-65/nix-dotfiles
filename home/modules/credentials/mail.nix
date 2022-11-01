@@ -1,7 +1,12 @@
-{ config, options, lib, pkgs, ... }:
-
-with lib;
-let cfg = config.user-modules.credentials.mail-defaults;
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.user-modules.credentials.mail-defaults;
 in {
   options.user-modules.credentials.mail-defaults = {
     enable = mkEnableOption "mail support";
@@ -17,7 +22,6 @@ in {
     };
 
     accounts.email.accounts = {
-
       gmailPrimary = {
         primary = true;
         realName = "Mario Liguori";
@@ -25,8 +29,7 @@ in {
         userName = "mario.liguori.056@gmail.com";
 
         flavor = "gmail.com";
-        passwordCommand =
-          "${pkgs.libsecret}/bin/secret-tool lookup gmailPrimary password";
+        passwordCommand = "${pkgs.libsecret}/bin/secret-tool lookup gmailPrimary password";
 
         maildir.path = "GmailPrimary";
 
@@ -55,8 +58,7 @@ in {
         address = "mario.liguori6@studenti.unina.it";
         userName = "mario.liguori6@studenti.unina.it";
 
-        passwordCommand =
-          "${pkgs.libsecret}/bin/secret-tool lookup unina password";
+        passwordCommand = "${pkgs.libsecret}/bin/secret-tool lookup unina password";
 
         maildir.path = "Unina";
 
@@ -78,10 +80,10 @@ in {
 
         mbsync = {
           enable = true;
-          patterns = [ "*" ];
+          patterns = ["*"];
           create = "both";
           expunge = "both";
-          extraConfig = { channel = { Sync = "All"; }; };
+          extraConfig = {channel = {Sync = "All";};};
         };
       };
     };

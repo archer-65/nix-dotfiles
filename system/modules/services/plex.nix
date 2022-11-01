@@ -1,8 +1,11 @@
-{ options, config, lib, ... }:
-
-with lib;
-
-let cfg = config.modules.media.plex;
+{
+  options,
+  config,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.modules.media.plex;
 in {
   options.modules.media.plex = {
     enable = mkEnableOption "plex";
@@ -18,9 +21,9 @@ in {
       };
 
       # Primary user
-      user.extraGroups = [ "plex" ];
+      user.extraGroups = ["plex"];
     }
 
-    (mkIf (!cfg.service.enable) { systemd.services.plex.wantedBy = mkForce [ ]; })
+    (mkIf (!cfg.service.enable) {systemd.services.plex.wantedBy = mkForce [];})
   ]);
 }

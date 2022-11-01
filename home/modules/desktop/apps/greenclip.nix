@@ -1,7 +1,11 @@
-{ pkgs, config, lib, options, ... }:
-
-with lib;
-let
+{
+  pkgs,
+  config,
+  lib,
+  options,
+  ...
+}:
+with lib; let
   inherit (config.dotfiles) configDir;
   cfg = config.user-modules.desktop.apps.greenclip;
 in {
@@ -20,9 +24,9 @@ in {
     systemd.user.services.greenclip = {
       Unit = {
         Description = "greenclip daemon";
-        After = [ "graphical-session.target" ];
+        After = ["graphical-session.target"];
       };
-      Install = { WantedBy = [ "graphical-session.target" ]; };
+      Install = {WantedBy = ["graphical-session.target"];};
       Service = {
         ExecStart = "${pkgs.haskellPackages.greenclip}/bin/greenclip daemon";
       };

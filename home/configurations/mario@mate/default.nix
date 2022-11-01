@@ -1,4 +1,8 @@
-{ config, pkgs, ... }: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   user-modules = {
     credentials = {
       gpg.enable = true;
@@ -13,7 +17,7 @@
         teams.enable = true;
       };
 
-      browsers = { firefox.enable = true; };
+      browsers = {firefox.enable = true;};
 
       media.documents = {
         # zathura.enable = true;

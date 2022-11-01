@@ -1,7 +1,11 @@
-{ options, config, lib, pkgs, ... }:
-
-with lib;
-let
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
   cfg = config.user-modules.desktop.services.waybar;
   cfgTheme = config.user-modules.themes;
   inherit (config.colorScheme) colors;
@@ -13,85 +17,85 @@ in {
   config = mkIf cfg.enable {
     programs.waybar = {
       enable = true;
-      package = pkgs.waybar.override { pulseSupport = true; };
-      settings = [{
-        height = 36;
+      package = pkgs.waybar.override {pulseSupport = true;};
+      settings = [
+        {
+          height = 36;
 
-        modules-left = [ "sway/workspaces" ];
+          modules-left = ["sway/workspaces"];
 
-        modules-center = [ "clock" ];
+          modules-center = ["clock"];
 
-        modules-right = [ "tray" "cpu" "temperature" "memory" "pulseaudio" ];
+          modules-right = ["tray" "cpu" "temperature" "memory" "pulseaudio"];
 
-        "sway/workspaces" = {
-          all-outputs = true;
-          format = "{icon}";
-          format-icons = {
-            "1" = "1";
-            "2" = "2";
-            "3" = "3";
-            "4" = "4";
-            "5" = "5";
-            "6" = "6";
-            "7" = "7";
-            "8" = "8";
-            "9" = "9";
+          "sway/workspaces" = {
+            all-outputs = true;
+            format = "{icon}";
+            format-icons = {
+              "1" = "1";
+              "2" = "2";
+              "3" = "3";
+              "4" = "4";
+              "5" = "5";
+              "6" = "6";
+              "7" = "7";
+              "8" = "8";
+              "9" = "9";
+            };
           };
-        };
 
-        tray = {
-          icon-size = 24;
-          spacing = 10;
-        };
-
-        clock = {
-          format = "󰥔 {:%H:%M}";
-          format-alt = "{:%A, %d %b}";
-          tooltip-format = ''
-            <big>{:%Y %B}</big>
-            <tt><small>{calendar}</small></tt>'';
-        };
-
-        cpu = {
-          format = "󰻠 {usage}% ";
-          interval = 10;
-        };
-
-        temperature = {
-          hwmon-path =
-            "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon3/temp1_input";
-          format = "󰔏 {temperatureC}°C";
-          format-critical = "󱃂 {temperatureC}°C";
-          critical-threshold = 80;
-          interval = 10;
-        };
-
-        memory = {
-          format = "󰍛 {used:0.1f}GB/{total:0.1f}GB ";
-          interval = 10;
-        };
-
-        pulseaudio = {
-          scroll-step = 1;
-          format = "{icon} {volume}% {format_source}";
-          format-bluetooth = "{icon}󰂯 {volume}% {format_source}";
-          format-bluetooth-muted = "{icon}󰂲 {format_source}";
-          format-muted = "󰖁 {format_source}";
-          format-source = "󰍬 {volume}%";
-          format-source-muted = "󰍭";
-          format-icons = {
-            headphone = "󰋋";
-            hands-free = "";
-            headset = "󰋎";
-            phone = "󰄜";
-            portable = "󰄜";
-            car = "󰄋";
-            default = [ "󰕿" "󰖀" "󰕾" ];
+          tray = {
+            icon-size = 24;
+            spacing = 10;
           };
-          on-click = "pavucontrol";
-        };
 
-      }];
+          clock = {
+            format = "󰥔 {:%H:%M}";
+            format-alt = "{:%A, %d %b}";
+            tooltip-format = ''
+              <big>{:%Y %B}</big>
+              <tt><small>{calendar}</small></tt>'';
+          };
+
+          cpu = {
+            format = "󰻠 {usage}% ";
+            interval = 10;
+          };
+
+          temperature = {
+            hwmon-path = "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon3/temp1_input";
+            format = "󰔏 {temperatureC}°C";
+            format-critical = "󱃂 {temperatureC}°C";
+            critical-threshold = 80;
+            interval = 10;
+          };
+
+          memory = {
+            format = "󰍛 {used:0.1f}GB/{total:0.1f}GB ";
+            interval = 10;
+          };
+
+          pulseaudio = {
+            scroll-step = 1;
+            format = "{icon} {volume}% {format_source}";
+            format-bluetooth = "{icon}󰂯 {volume}% {format_source}";
+            format-bluetooth-muted = "{icon}󰂲 {format_source}";
+            format-muted = "󰖁 {format_source}";
+            format-source = "󰍬 {volume}%";
+            format-source-muted = "󰍭";
+            format-icons = {
+              headphone = "󰋋";
+              hands-free = "";
+              headset = "󰋎";
+              phone = "󰄜";
+              portable = "󰄜";
+              car = "󰄋";
+              default = ["󰕿" "󰖀" "󰕾"];
+            };
+            on-click = "pavucontrol";
+          };
+        }
+      ];
 
       style = ''
         * {
@@ -106,7 +110,7 @@ in {
             background-color: #${colors.base00};
             color: #${colors.base07};
             border-radius: 10px;
-            padding: 4px;                   
+            padding: 4px;
         }
 
         window#waybar {

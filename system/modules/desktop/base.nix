@@ -1,8 +1,11 @@
-{ lib, config, pkgs, ... }:
-
-with lib;
-
-let cfgDependency = config.modules.desktop.xorg;
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfgDependency = config.modules.desktop.xorg;
 in {
   config = mkIf cfgDependency.enable {
     services.gnome.gnome-keyring.enable = true;
@@ -12,7 +15,7 @@ in {
     programs.dconf.enable = true;
     services.dbus = {
       enable = true;
-      packages = [ pkgs.dconf ];
+      packages = [pkgs.dconf];
     };
 
     # Trash and GTK apps features
@@ -26,6 +29,6 @@ in {
       pkgs.libinput
     ];
 
-    user.extraGroups = [ "video" ];
+    user.extraGroups = ["video"];
   };
 }

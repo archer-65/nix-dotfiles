@@ -1,7 +1,11 @@
-{ options, config, lib, ... }:
-
-with lib;
-let cfg = config.user-modules.desktop.services.picom;
+{
+  options,
+  config,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.user-modules.desktop.services.picom;
 in {
   options.user-modules.desktop.services.picom = {
     enable = mkEnableOption "picom configuration";
@@ -17,7 +21,7 @@ in {
 
       fade = true;
       fadeDelta = 4;
-      fadeSteps = [ 2.8e-2 3.0e-2 ];
+      fadeSteps = [2.8e-2 3.0e-2];
 
       activeOpacity = 1.0;
       inactiveOpacity = 1.0;

@@ -1,14 +1,19 @@
-{ config, options, lib, pkgs, ... }:
-
-with lib;
-let cfg = config.user-modules.credentials.bitwarden;
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.user-modules.credentials.bitwarden;
 in {
   options.user-modules.credentials.bitwarden = {
     enable = mkEnableOption "bitwarden";
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [ rbw ];
+    home.packages = with pkgs; [rbw];
 
     xdg.configFile."rbw/config.json".text = ''
       {

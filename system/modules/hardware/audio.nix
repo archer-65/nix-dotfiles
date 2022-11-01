@@ -1,8 +1,12 @@
-{ options, config, lib, pkgs, ... }:
-
-with lib;
-
-let cfg = config.modules.hardware.audio;
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.modules.hardware.audio;
 in {
   options.modules.hardware.audio = {
     enable = mkEnableOption "audio with pipewire";
@@ -25,6 +29,6 @@ in {
       pamixer
     ];
 
-    user.extraGroups = [ "audio" ];
+    user.extraGroups = ["audio"];
   };
 }

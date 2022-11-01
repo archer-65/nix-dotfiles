@@ -1,7 +1,12 @@
-{ options, config, lib, pkgs, ... }:
-
-with lib;
-let cfg = config.user-modules.desktop.browsers.chromium;
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.user-modules.desktop.browsers.chromium;
 in {
   options.user-modules.desktop.browsers.chromium = {
     enable = mkEnableOption "chromium";
@@ -11,7 +16,7 @@ in {
     programs.chromium = {
       enable = true;
       package = pkgs.chromium;
-      commandLineArgs = [ "--ozone-platform-hint=auto" ];
+      commandLineArgs = ["--ozone-platform-hint=auto"];
     };
   };
 }

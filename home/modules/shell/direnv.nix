@@ -1,7 +1,11 @@
-{ options, config, lib, ... }:
-
-with lib;
-let cfg = config.user-modules.shell.direnv;
+{
+  options,
+  config,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.user-modules.shell.direnv;
 in {
   options.user-modules.shell.direnv = {
     enable = mkEnableOption "direnv and extensions";

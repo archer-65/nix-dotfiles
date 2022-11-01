@@ -1,8 +1,8 @@
 {
   modules = {
-    hardware = { audio.enable = true; };
+    hardware = {audio.enable = true;};
 
-    services = { ssh.enable = true; };
+    services = {ssh.enable = true;};
 
     desktop.xorg.enable = true;
 

@@ -1,16 +1,22 @@
-{ options, config, lib, pkgs, ... }:
-
-with lib;
-let cfg = config.user-modules.desktop.services.locker-wayland;
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.user-modules.desktop.services.locker-wayland;
 in {
   options.user-modules.desktop.services.locker-wayland = {
     enable = mkEnableOption "wayland screen locker";
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [ swaylock-effects ];
+    home.packages = with pkgs; [swaylock-effects];
 
-    xdg.configFile."swaylock/config".text = let transparent = "#00000000";
+    xdg.configFile."swaylock/config".text = let
+      transparent = "#00000000";
     in ''
       clock
       effect-blur=5x5

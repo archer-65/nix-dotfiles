@@ -1,8 +1,11 @@
-{ options, config, lib, pkgs, ... }:
-
-with lib;
-
-let
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
   cfg = config.modules.desktop.greetd;
 
   inherit (config.dotfiles) assetsDir;

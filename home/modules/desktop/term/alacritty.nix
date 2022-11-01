@@ -1,7 +1,10 @@
-{ options, config, lib, ... }:
-
-with lib;
-let
+{
+  options,
+  config,
+  lib,
+  ...
+}:
+with lib; let
   cfg = config.user-modules.desktop.term.alacritty;
   cfgTheme = config.user-modules.themes;
   inherit (config.colorScheme) colors;

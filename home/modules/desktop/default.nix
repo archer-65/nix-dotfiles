@@ -1,18 +1,23 @@
 # Thank you hlissner!
-{ config, options, lib, pkgs, ... }:
-
-with lib;
-let
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
   cfgXorg = config.user-modules.desktop.xorg;
   cfgWayland = config.user-modules.desktop.wayland;
 
   # Creative XOR operator :D
-  cfgExclusive = (cfgXorg.enable || cfgWayland.enable)
+  cfgExclusive =
+    (cfgXorg.enable || cfgWayland.enable)
     && (!(cfgXorg.enable && cfgWayland.enable));
 
   # Overriding nerd fonts (if you don't, all nerd fonts will be installed.)
   nerdFonts = pkgs.nerdfonts.override {
-    fonts = [ "FiraCode" "JetBrainsMono" "VictorMono" "Iosevka" ];
+    fonts = ["FiraCode" "JetBrainsMono" "VictorMono" "Iosevka"];
   };
 
   userFonts = with pkgs; [
@@ -28,10 +33,12 @@ let
   ];
 in {
   config = {
-    assertions = [{
-      assertion = cfgExclusive;
-      message = "Can't enable customization for both Xorg and Wayland.";
-    }];
+    assertions = [
+      {
+        assertion = cfgExclusive;
+        message = "Can't enable customization for both Xorg and Wayland.";
+      }
+    ];
 
     fonts.fontconfig.enable = true;
 
@@ -53,7 +60,8 @@ in {
         zip
         unzip
         unrar
-      ] ++ userFonts;
+      ]
+      ++ userFonts;
 
     xsession.enable = true;
 
@@ -61,17 +69,16 @@ in {
       polkit = {
         Unit = {
           Description = "polkit-gnome";
-          Documentation = [ "man:polkit(8)" ];
-          PartOf = [ "graphical-session.target" ];
+          Documentation = ["man:polkit(8)"];
+          PartOf = ["graphical-session.target"];
         };
         Service = {
           Type = "simple";
-          ExecStart =
-            "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
+          ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
           RestartSec = 3;
           Restart = "always";
         };
-        Install = { WantedBy = [ "graphical-session.target" ]; };
+        Install = {WantedBy = ["graphical-session.target"];};
       };
     };
   };

@@ -1,7 +1,12 @@
-{ options, config, lib, pkgs, ... }:
-
-with lib;
-let cfg = config.modules.shell.bash;
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.modules.shell.bash;
 in {
   options.modules.shell.bash = {
     enable = mkEnableOption "bash system-wide completion and additions";

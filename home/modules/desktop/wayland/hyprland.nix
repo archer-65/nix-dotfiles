@@ -1,15 +1,16 @@
-{ config, options, lib, pkgs, ... }:
-
-with lib;
-let
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
   cfg = config.user-modules.desktop.wayland;
   cfgTheme = config.user-modules.themes;
   inherit (config.dotfiles) configDir;
-
 in {
-
   config = mkIf (cfg.enable && cfg.wm == "hyprland") {
-
     wayland.windowManager.hyprland = {
       enable = true;
       xwayland = {
@@ -17,7 +18,6 @@ in {
         hidpi = true;
       };
       systemdIntegration = true;
-
     };
 
     home.sessionVariables = {

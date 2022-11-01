@@ -1,14 +1,21 @@
-{ config, lib, pkgs, ... }:
-
-with lib;
-let cfg = config.user-modules.themes;
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.user-modules.themes;
 in {
   config = mkIf (cfg.active == "adwaita") {
     gtk = {
       enable = true;
 
       theme = {
-        name = if cfg.darkTheme then "adw-gtk3-dark" else "adw-gtk3";
+        name =
+          if cfg.darkTheme
+          then "adw-gtk3-dark"
+          else "adw-gtk3";
         package = pkgs.adw-gtk3;
       };
 
@@ -37,6 +44,6 @@ in {
       gtk.enable = true;
     };
 
-    xresources.properties = { "Xcursor.theme" = "Bibata-Modern-Ice"; };
+    xresources.properties = {"Xcursor.theme" = "Bibata-Modern-Ice";};
   };
 }

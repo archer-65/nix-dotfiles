@@ -1,11 +1,9 @@
-{ pkgs, ... }:
-
-{
-  imports = [ ./hardware-configuration.nix ./options.nix ];
+{pkgs, ...}: {
+  imports = [./hardware-configuration.nix ./options.nix];
 
   # Kernel related
   boot.kernelPackages = pkgs.linuxPackages_5_18;
-  boot.initrd.kernelModules = [ "amdgpu" ];
+  boot.initrd.kernelModules = ["amdgpu"];
 
   # General EFI settings
   boot.loader.efi = {
@@ -28,14 +26,13 @@
   hardware.opengl = {
     driSupport = true;
     driSupport32Bit = true;
-    extraPackages = with pkgs; [ amdvlk vaapiVdpau libvdpau-va-gl ];
+    extraPackages = with pkgs; [amdvlk vaapiVdpau libvdpau-va-gl];
   };
 
   services.xserver = {
     enable = true;
-    videoDrivers = [ "amdgpu" ];
+    videoDrivers = ["amdgpu"];
   };
 
-  services.auto-cpufreq = { enable = true; };
+  services.auto-cpufreq = {enable = true;};
 }
-

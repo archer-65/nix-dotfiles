@@ -1,7 +1,11 @@
-{ options, config, lib, pkgs, ... }:
-
-with lib;
-let
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
   cfg = config.user-modules.desktop.services.dunst;
   cfgWayland = config.user-modules.desktop.wayland;
   cfgTheme = config.user-modules.themes;
@@ -12,7 +16,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.packages = [ pkgs.libnotify ];
+    home.packages = [pkgs.libnotify];
 
     services.dunst = {
       enable = true;
@@ -27,7 +31,11 @@ in {
           width = "(300, 450)";
           height = "300";
           origin = "top-right";
-          offset = let vMargin = if cfgWayland.enable then "10" else "40";
+          offset = let
+            vMargin =
+              if cfgWayland.enable
+              then "10"
+              else "40";
           in "10x${vMargin}";
 
           notification_limit = 3;
@@ -57,7 +65,7 @@ in {
           sort = "yes";
           idle_threshold = 60;
 
-          # Text    
+          # Text
           font = let
             fontName = cfgTheme.font.alt.name;
             fontSize = cfgTheme.font.alt.size;

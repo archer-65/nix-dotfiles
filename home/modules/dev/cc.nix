@@ -1,7 +1,12 @@
-{ options, config, lib, pkgs, ... }:
-
-with lib;
-let cfg = config.user-modules.dev.cc;
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.user-modules.dev.cc;
 in {
   options.user-modules.dev.cc = {
     enable = mkEnableOption "c language support and language server";

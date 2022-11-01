@@ -1,7 +1,12 @@
-{ config, options, lib, pkgs, ... }:
-
-with lib;
-let cfg = config.user-modules.desktop.wayland;
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.user-modules.desktop.wayland;
 in {
   options.user-modules.desktop.wayland = {
     enable = mkEnableOption "wayland configuration management for user";
@@ -9,7 +14,7 @@ in {
     wm = mkOption {
       description = "An option to choose the window manager [wayland] configuration to enable";
       default = null;
-      type = types.nullOr (types.enum [ "sway" "hyprland" ]);
+      type = types.nullOr (types.enum ["sway" "hyprland"]);
       example = "sway";
     };
   };

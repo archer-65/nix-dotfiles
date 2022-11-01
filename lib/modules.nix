@@ -1,6 +1,5 @@
 # Original file at: https://github.com/ners/NixOS/blob/master/profiles/lib/modules.nix
-{ lib, ... }:
-
+{lib, ...}:
 with builtins;
 with lib; {
   # Recurse into a directory tree to find modules and build a nested attrset, with names corresponding to directory
@@ -11,22 +10,32 @@ with lib; {
     pipe dir [
       readDir
       attrsToList
-      (foldr ({ name, value }:
-        acc:
-        let
-          fullPath = dir + "/${name}";
-          isNixModule = value == "regular" && hasSuffix ".nix" name && name
-            != "default.nix";
-          isDir = value == "directory";
-          isDirModule = isDir && readDir fullPath ? "default.nix";
-          module = nameValuePair (removeSuffix ".nix" name)
-            (if isNixModule || isDirModule then
-              fullPath
-            else if isDir then
-              findModules fullPath
-            else
-              { });
-        in if module.value == { } then acc else append module acc) [ ])
+      (foldr ({
+        name,
+        value,
+      }: acc: let
+        fullPath = dir + "/${name}";
+        isNixModule =
+          value
+          == "regular"
+          && hasSuffix ".nix" name
+          && name
+          != "default.nix";
+        isDir = value == "directory";
+        isDirModule = isDir && readDir fullPath ? "default.nix";
+        module =
+          nameValuePair (removeSuffix ".nix" name)
+          (
+            if isNixModule || isDirModule
+            then fullPath
+            else if isDir
+            then findModules fullPath
+            else {}
+          );
+      in
+        if module.value == {}
+        then acc
+        else append module acc) [])
       listToAttrs
     ];
 }

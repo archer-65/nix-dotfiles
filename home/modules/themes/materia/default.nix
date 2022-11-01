@@ -1,18 +1,28 @@
-{ config, lib, pkgs, nix-colors, ... }:
-
-with lib;
-let
+{
+  config,
+  lib,
+  pkgs,
+  nix-colors,
+  ...
+}:
+with lib; let
   cfg = config.user-modules.themes;
   theme =
-    if cfg.darkTheme then "Materia-dark-compact" else "Materia-light-compact";
-  icons = if cfg.darkTheme then "kora" else "kora-light-panel";
+    if cfg.darkTheme
+    then "Materia-dark-compact"
+    else "Materia-light-compact";
+  icons =
+    if cfg.darkTheme
+    then "kora"
+    else "kora-light-panel";
   cursor =
-    if cfg.darkTheme then "Bibata-Modern-Ice" else "Bibata-Modern-Classic";
+    if cfg.darkTheme
+    then "Bibata-Modern-Ice"
+    else "Bibata-Modern-Classic";
 in {
-  imports = [ nix-colors.homeManagerModule ];
+  imports = [nix-colors.homeManagerModule];
 
   config = mkIf (cfg.active == "materia") {
-
     gtk = {
       enable = true;
 
@@ -48,6 +58,6 @@ in {
 
     colorScheme = nix-colors.colorSchemes.onedark;
 
-    xresources.properties = { "Xcursor.theme" = cursor; };
+    xresources.properties = {"Xcursor.theme" = cursor;};
   };
 }

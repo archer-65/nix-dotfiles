@@ -1,8 +1,12 @@
-{ options, config, lib, pkgs, ... }:
-
-with lib;
-
-let cfg = config.modules.dev.virt-manager;
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.modules.dev.virt-manager;
 in {
   options.modules.dev.virt-manager = {
     enable = mkEnableOption "virt-manager qemu-kvm";
@@ -15,14 +19,14 @@ in {
         package = pkgs.qemu_kvm;
         ovmf = {
           enable = true;
-          packages = [ pkgs.OVMFFull ];
+          packages = [pkgs.OVMFFull];
         };
         swtpm.enable = true;
       };
     };
 
-    environment.systemPackages = with pkgs; [ virt-manager swtpm ];
+    environment.systemPackages = with pkgs; [virt-manager swtpm];
 
-    user.extraGroups = [ "libvirtd" ];
+    user.extraGroups = ["libvirtd"];
   };
 }

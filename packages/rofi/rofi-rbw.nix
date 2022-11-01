@@ -1,16 +1,18 @@
 # Thanks to Matteo Joliveau.
 # Original file: `https://github.com/https://github.com/MatteoJoliveau/nix-dotfiles/blob/master/nixpkgs/pkgs/rofi-rbw.nix`
-
-{ pkgs, lib, pypkgs, fetchurl, }:
-
+{
+  pkgs,
+  lib,
+  pypkgs,
+  fetchurl,
+}:
 pypkgs.buildPythonPackage rec {
   pname = "rofi_rbw";
   version = "0.5.0";
   format = "wheel";
 
   src = fetchurl {
-    url =
-      "https://files.pythonhosted.org/packages/py3/r/rofi-rbw/${pname}-${version}-py3-none-any.whl";
+    url = "https://files.pythonhosted.org/packages/py3/r/rofi-rbw/${pname}-${version}-py3-none-any.whl";
     sha256 = "sha256-7TowxLxp4+4yGhcqMQa8po+uhnNbXShNEHJs6Vjwq+g=";
   };
 
@@ -29,7 +31,7 @@ pypkgs.buildPythonPackage rec {
     wtype
     wl-clipboard
   ];
-  buildInputs = with pkgs; [ rbw ];
+  buildInputs = with pkgs; [rbw];
 
   meta = with lib; {
     description = "A rofi frontend for Bitwarden";
@@ -40,6 +42,6 @@ pypkgs.buildPythonPackage rec {
     homepage = "https://github.com/fdw/rofi-rbw";
     license = "MIT";
     platforms = with platforms; linux;
-    maintainers = [ maintainers.fdw ];
+    maintainers = [maintainers.fdw];
   };
 }

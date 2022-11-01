@@ -1,7 +1,11 @@
-{ options, config, lib, ... }:
-
-with lib;
-let cfg = config.modules.core.boot;
+{
+  options,
+  config,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.modules.core.boot;
 in {
   options.modules.core.boot = {
     splashBoot.enable = mkEnableOption "splashboot";

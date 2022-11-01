@@ -1,4 +1,8 @@
-{ config, pkgs, ... }: {
+{
+  config,
+  pkgs,
+  ...
+}: {
   user-modules = {
     credentials = {
       gpg.enable = true;
@@ -13,9 +17,9 @@
         teams.enable = true;
       };
 
-      browsers = { firefox.enable = true; };
+      browsers = {firefox.enable = true;};
 
-      gaming.emulators = { switch.enable = true; };
+      gaming.emulators = {switch.enable = true;};
 
       media = {
         documents = {
@@ -90,7 +94,7 @@
         size = 14;
       };
 
-      cursor = { size = 24; };
+      cursor = {size = 24;};
     };
   };
 

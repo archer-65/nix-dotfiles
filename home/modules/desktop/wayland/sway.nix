@@ -1,22 +1,23 @@
-{ config, options, lib, pkgs, ... }:
-
-with lib;
-let
+{
+  config,
+  options,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
   cfg = config.user-modules.desktop.wayland;
   cfgTheme = config.user-modules.themes;
   inherit (config.dotfiles) configDir;
-
 in {
-
   config = mkIf (cfg.enable && cfg.wm == "sway") {
-
     wayland.windowManager.sway = {
       enable = true;
       xwayland = true;
       systemdIntegration = true;
 
       config = {
-        bars = [{ command = "waybar"; }];
+        bars = [{command = "waybar";}];
 
         input."type:keyboard" = {
           xkb_layout = "us";
@@ -34,13 +35,13 @@ in {
           # adaptive_sync = "on";
         };
 
-        output."*" = { bg = "~/pics/walls/weebie/wallhaven-j3mmdy.jpg fill"; };
+        output."*" = {bg = "~/pics/walls/weebie/wallhaven-j3mmdy.jpg fill";};
 
         modifier = "Mod4";
         terminal = "${pkgs.alacritty}/bin/alacritty";
 
         fonts = {
-          names = [ cfgTheme.font.name ];
+          names = [cfgTheme.font.name];
           # Sum required: floating point value but int option defined
           size = cfgTheme.font.size + 0.0;
         };
@@ -57,39 +58,39 @@ in {
           commands = [
             {
               command = "floating enable";
-              criteria = { app_id = "thunar"; };
+              criteria = {app_id = "thunar";};
             }
             {
               command = "floating enable";
-              criteria = { app_id = "ipv"; };
+              criteria = {app_id = "ipv";};
             }
             {
               command = "floating enable";
-              criteria = { app_id = "mpv"; };
+              criteria = {app_id = "mpv";};
             }
             {
               command = "floating enable position center, focus";
-              criteria = { app_id = "GtkFileChooserDialog"; };
+              criteria = {app_id = "GtkFileChooserDialog";};
             }
             {
               command = "floating enable position center, focus";
-              criteria = { app_id = "pop-up"; };
+              criteria = {app_id = "pop-up";};
             }
             {
               command = "floating enable position center, focus";
-              criteria = { app_id = "Organizer"; };
+              criteria = {app_id = "Organizer";};
             }
             {
               command = "floating enable position center, focus";
-              criteria = { app_id = "task_dialog"; };
+              criteria = {app_id = "task_dialog";};
             }
             {
               command = "floating enable position center, focus";
-              criteria = { title = "^Polychromatic$"; };
+              criteria = {title = "^Polychromatic$";};
             }
             {
               command = "floating enable";
-              criteria = { app_id = "pavucontrol"; };
+              criteria = {app_id = "pavucontrol";};
             }
             {
               command = "floating enable, sticky enable";
@@ -100,11 +101,11 @@ in {
             }
             {
               command = "floating enable, sticky enable, border none, nofocus";
-              criteria = { title = " — Sharing Indicator$"; };
+              criteria = {title = " — Sharing Indicator$";};
             }
             {
               command = "shortcuts_inhibitor disable";
-              criteria = { app_id = "^chrome-.*"; };
+              criteria = {app_id = "^chrome-.*";};
             }
           ];
         };
@@ -115,10 +116,9 @@ in {
         };
 
         startup = [
-          { command = "corectrl"; }
+          {command = "corectrl";}
           {
-            command =
-              "rm -f /tmp/sovpipe && mkfifo /tmp/sovpipe && tail -f /tmp/sovpipe | sov";
+            command = "rm -f /tmp/sovpipe && mkfifo /tmp/sovpipe && tail -f /tmp/sovpipe | sov";
             always = true;
           }
           {
@@ -213,10 +213,8 @@ in {
           "${mod}+Shift+9" = "move container to workspace 9  ; workspace 9";
 
           # Move to next/previous and switch
-          "${mod}+Shift+Right" =
-            "move container to workspace next ; workspace next";
-          "${mod}+Shift+Left" =
-            " move container to workspace prev ; workspace prev";
+          "${mod}+Shift+Right" = "move container to workspace next ; workspace next";
+          "${mod}+Shift+Left" = " move container to workspace prev ; workspace prev";
 
           # Scratchpad
           "${mod}+minus" = "move scratchpad";
@@ -290,7 +288,7 @@ in {
 
     xdg.configFile."sov/config".source = "${configDir}/sway/sov";
 
-    home.packages = with pkgs; [ gsettings-desktop-schemas autotiling sov clipman ];
+    home.packages = with pkgs; [gsettings-desktop-schemas autotiling sov clipman];
 
     user-modules.desktop = {
       services = {

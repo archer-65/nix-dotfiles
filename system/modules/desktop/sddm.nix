@@ -1,8 +1,12 @@
-{ options, config, lib, pkgs, ... }:
-
-with lib;
-
-let cfg = config.modules.desktop.sddm;
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.modules.desktop.sddm;
 in {
   options.modules.desktop.sddm = {
     enable = mkEnableOption "sddm with dependencies and theme";

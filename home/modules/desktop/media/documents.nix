@@ -1,7 +1,11 @@
-{ options, config, lib, pkgs, ... }:
-
-with lib;
-let
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
   cfg = config.user-modules.desktop.media.documents;
   cfgTheme = config.user-modules.themes;
   inherit (config.colorScheme) colors;
@@ -17,7 +21,8 @@ in {
       programs.zathura = {
         enable = true;
         options = {
-          font = "${cfgTheme.font.term.name} "
+          font =
+            "${cfgTheme.font.term.name} "
             + (toString cfgTheme.font.term.size);
 
           default-bg = "#${colors.base00}";
@@ -53,6 +58,6 @@ in {
       };
     })
 
-    (mkIf cfg.okular.enable { home.packages = with pkgs; [ okular ]; })
+    (mkIf cfg.okular.enable {home.packages = with pkgs; [okular];})
   ];
 }

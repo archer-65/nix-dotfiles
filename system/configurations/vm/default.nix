@@ -1,6 +1,5 @@
-{ pkgs, ... }: {
-
-  imports = [ ./hardware-configuration.nix ./options.nix ];
+{pkgs, ...}: {
+  imports = [./hardware-configuration.nix ./options.nix];
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
@@ -20,8 +19,10 @@
 
   networking.interfaces.enp1s0.useDHCP = true;
 
-  services.xserver.resolutions = [{
-    x = 1920;
-    y = 1080;
-  }];
+  services.xserver.resolutions = [
+    {
+      x = 1920;
+      y = 1080;
+    }
+  ];
 }

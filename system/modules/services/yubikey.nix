@@ -1,7 +1,12 @@
-{ pkgs, config, options, lib, ... }:
-
-with lib;
-let cfg = config.modules.services.yubikey;
+{
+  pkgs,
+  config,
+  options,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.modules.services.yubikey;
 in {
   options.modules.services.yubikey = {
     enable = mkEnableOption "yubikey";
@@ -18,8 +23,8 @@ in {
     '';
 
     # Setup yubikey
-    services.udev.packages = [ pkgs.yubikey-personalization ];
+    services.udev.packages = [pkgs.yubikey-personalization];
     services.pcscd.enable = true;
-    environment.systemPackages = [ pkgs.yubioath-desktop ];
+    environment.systemPackages = [pkgs.yubioath-desktop];
   };
 }

@@ -1,13 +1,11 @@
-{ pkgs, ... }:
-
-{
-  imports = [ ./hardware-configuration.nix ./options.nix ];
+{pkgs, ...}: {
+  imports = [./hardware-configuration.nix ./options.nix];
 
   # Kernel related
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-  boot.initrd.kernelModules = [ "amdgpu" ];
-  boot.supportedFilesystems = [ "ntfs" ];
+  boot.initrd.kernelModules = ["amdgpu"];
+  boot.supportedFilesystems = ["ntfs"];
 
   # General EFI settings
   boot.loader.efi = {
@@ -43,15 +41,15 @@
   hardware.opengl = {
     driSupport = true;
     driSupport32Bit = true;
-    extraPackages = with pkgs; [ amdvlk vaapiVdpau libvdpau-va-gl ];
+    extraPackages = with pkgs; [amdvlk vaapiVdpau libvdpau-va-gl];
   };
 
   services.xserver = {
     enable = true;
-    videoDrivers = [ "amdgpu" ];
+    videoDrivers = ["amdgpu"];
   };
 
-  boot.kernelParams = [ "zswap.enabled=0" ];
+  boot.kernelParams = ["zswap.enabled=0"];
   zramSwap = {
     enable = true;
     memoryPercent = 40;
@@ -71,5 +69,5 @@
     };
   };
 
-  environment.systemPackages = [ pkgs.compsize ];
+  environment.systemPackages = [pkgs.compsize];
 }

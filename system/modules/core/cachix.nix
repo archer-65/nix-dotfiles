@@ -1,14 +1,19 @@
-{ options, config, lib, pkgs, ... }:
-
-with lib;
-let cfg = config.modules.core.cachix;
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.modules.core.cachix;
 in {
   options.modules.core.cachix = {
     enable = mkEnableOption "cachix configuration";
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = [ pkgs.cachix ];
+    environment.systemPackages = [pkgs.cachix];
 
     nix.settings = {
       substituters = [

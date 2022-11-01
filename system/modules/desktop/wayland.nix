@@ -1,14 +1,18 @@
-{ lib, config, pkgs, ... }:
-
-with lib;
-let cfg = config.modules.desktop.wayland;
+{
+  lib,
+  config,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.modules.desktop.wayland;
 in {
   options.modules.desktop.wayland = {
     enable = mkEnableOption "wayland basic configuration and packages";
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [ sway wayland glib ];
+    environment.systemPackages = with pkgs; [sway wayland glib];
 
     programs.sway = {
       enable = true;

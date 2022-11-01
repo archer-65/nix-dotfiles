@@ -1,8 +1,11 @@
-{ options, config, lib, ... }:
-
-with lib;
-
-let cfg = config.modules.dev.adb;
+{
+  options,
+  config,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.modules.dev.adb;
 in {
   options.modules.dev.adb = {
     enable = mkEnableOption "adb configuration";
@@ -10,6 +13,6 @@ in {
 
   config = mkIf cfg.enable {
     programs.adb.enable = true;
-    user.extraGroups = [ "adbusers" ];
+    user.extraGroups = ["adbusers"];
   };
 }

@@ -1,7 +1,11 @@
-{ options, config, lib, ... }:
-
-with lib;
-let cfg = config.user-modules.shell.starship;
+{
+  options,
+  config,
+  lib,
+  ...
+}:
+with lib; let
+  cfg = config.user-modules.shell.starship;
 in {
   options.user-modules.shell.starship = {
     enable = mkEnableOption "starship configuration";
@@ -22,7 +26,7 @@ in {
           style = "bold purple";
         };
 
-        directory = { repo_root_style = "bold blue"; };
+        directory = {repo_root_style = "bold blue";};
 
         memory_usage = {
           disabled = false;

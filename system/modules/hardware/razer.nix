@@ -1,8 +1,12 @@
-{ options, config, lib, pkgs, ... }:
-
-with lib;
-
-let cfg = config.modules.hardware.razer;
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
+  cfg = config.modules.hardware.razer;
 in {
   options.modules.hardware.razer = {
     enable = mkEnableOption "razer devices support";
@@ -11,8 +15,8 @@ in {
   config = mkIf cfg.enable {
     hardware.openrazer.enable = true;
 
-    user.extraGroups = [ "openrazer" ];
+    user.extraGroups = ["openrazer"];
 
-    environment.systemPackages = with pkgs; [ polychromatic ];
+    environment.systemPackages = with pkgs; [polychromatic];
   };
 }

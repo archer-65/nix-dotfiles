@@ -1,6 +1,8 @@
-inputs:
-{ options, lib, ... }:
-
+inputs: {
+  options,
+  lib,
+  ...
+}:
 with lib; {
   options.dotfiles = with types; {
     configDir = mkOption {

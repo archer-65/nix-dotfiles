@@ -1,7 +1,11 @@
-{ config, lib, pkgs, inputs, ... }:
-
-with lib;
-let
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
+with lib; let
   cfg = config.user-modules.editors.emacs;
   cfgWayland = config.user-modules.desktop.wayland;
   inherit (config.dotfiles) configDir;
@@ -17,7 +21,7 @@ in {
         enable = true;
         package = pkgs.emacsPgtkNativeComp;
 
-        extraPackages = epkgs: [ epkgs.vterm epkgs.melpaPackages.telega ];
+        extraPackages = epkgs: [epkgs.vterm epkgs.melpaPackages.telega];
       };
 
       xdg.configFile."emacs" = {
@@ -40,7 +44,7 @@ in {
 
     (mkIf (cfgWayland.wm == "sway" && cfg.daemon.enable) {
       systemd.user.services.emacs.Install.WantedBy =
-        lib.mkForce [ "sway-session.target" ];
+        lib.mkForce ["sway-session.target"];
     })
   ]);
 }

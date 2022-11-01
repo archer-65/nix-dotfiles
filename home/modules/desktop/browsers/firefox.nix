@@ -1,7 +1,11 @@
-{ options, config, lib, pkgs, ... }:
-
-with lib;
-let
+{
+  options,
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+with lib; let
   cfg = config.user-modules.desktop.browsers.firefox;
   cfgWayland = config.user-modules.desktop.wayland;
 in {
@@ -13,7 +17,9 @@ in {
     programs.firefox = {
       enable = true;
       package =
-        if cfgWayland.enable then pkgs.firefox-wayland else pkgs.firefox;
+        if cfgWayland.enable
+        then pkgs.firefox-wayland
+        else pkgs.firefox;
 
       profiles.default = {
         name = "Default";

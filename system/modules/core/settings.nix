@@ -1,6 +1,4 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   # NixOS GC, Upgrades and Flakes
   nix = {
     settings.auto-optimise-store = true;
