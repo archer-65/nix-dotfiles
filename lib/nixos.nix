@@ -26,7 +26,10 @@ let
 
     in lib.nixosSystem {
       inherit system;
-      specialArgs = { inherit lib; flake-self = self; };
+      specialArgs = {
+        inherit lib;
+        flake-self = self;
+      };
       modules = [
         baseSystem
         vinceliuice-grub-theme.nixosModule

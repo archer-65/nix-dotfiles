@@ -4,9 +4,11 @@ _:
 with lib;
 let
   cfg = config.user-modules.themes;
-  theme = if cfg.darkTheme then "Materia-dark-compact" else "Materia-light-compact";
+  theme =
+    if cfg.darkTheme then "Materia-dark-compact" else "Materia-light-compact";
   icons = if cfg.darkTheme then "kora" else "kora-light-panel";
-  cursor = if cfg.darkTheme then "Bibata-Modern-Ice" else "Bibata-Modern-Classic";
+  cursor =
+    if cfg.darkTheme then "Bibata-Modern-Ice" else "Bibata-Modern-Classic";
 in {
   imports = [ nix-colors.homeManagerModule ];
 

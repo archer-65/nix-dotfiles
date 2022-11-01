@@ -1,6 +1,3 @@
-# VM, just for fun
-_:
-
 {
   modules = {
     hardware = { audio.enable = true; };

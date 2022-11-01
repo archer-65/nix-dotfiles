@@ -1,5 +1,5 @@
 # modules/hardware/razer.nix --- support for razer devices
-_:
+
 { options, config, lib, pkgs, ... }:
 
 with lib;

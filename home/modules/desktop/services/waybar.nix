@@ -22,21 +22,11 @@ in {
       settings = [{
         height = 36;
 
-        modules-left = [
-          "sway/workspaces"
-        ];
-        
-        modules-center = [
-          "clock"
-        ];
-        
-        modules-right = [
-          "tray"
-          "cpu"
-          "temperature"
-          "memory"
-          "pulseaudio"
-        ];
+        modules-left = [ "sway/workspaces" ];
+
+        modules-center = [ "clock" ];
+
+        modules-right = [ "tray" "cpu" "temperature" "memory" "pulseaudio" ];
 
         "sway/workspaces" = {
           all-outputs = true;
@@ -109,129 +99,129 @@ in {
       }];
 
       style = ''
-               * {
-                   border: none;
-                   border-radius: 0;
-                   font-family: "Iosevka", "Material Design Icons";
-                   font-size: 22px;
-                   font-weight: normal;
-               }
+        * {
+            border: none;
+            border-radius: 0;
+            font-family: "Iosevka", "Material Design Icons";
+            font-size: 22px;
+            font-weight: normal;
+        }
 
-               tooltip {
-                   background-color: #${colors.base00};
-                   color: #${colors.base07};
-                   border-radius: 10px;
-                   padding: 4px;                   
-               }
+        tooltip {
+            background-color: #${colors.base00};
+            color: #${colors.base07};
+            border-radius: 10px;
+            padding: 4px;                   
+        }
 
-               window#waybar {
-                   background-color: #${colors.base00};
-                   color: #${colors.base07};
-                   transition-property: background-color;
-                   transition-duration: 0.5s;
-               }
+        window#waybar {
+            background-color: #${colors.base00};
+            color: #${colors.base07};
+            transition-property: background-color;
+            transition-duration: 0.5s;
+        }
 
-               #workspaces {
-                   margin-left: 2px;
-                   margin-right: 2px;
-               }
+        #workspaces {
+            margin-left: 2px;
+            margin-right: 2px;
+        }
 
-               #workspaces button {
-                   background: #${colors.base02};
-                   color: #${colors.base07};
-                   padding: 1px 4px;
-                   margin-top: 5px;
-                   margin-bottom: 5px;
-                   margin-left: 2px;
-                   margin-right: 2px;
-                   border-radius: 14px;
-                   transition-duration: 0.2s;
-               }
+        #workspaces button {
+            background: #${colors.base02};
+            color: #${colors.base07};
+            padding: 1px 4px;
+            margin-top: 5px;
+            margin-bottom: 5px;
+            margin-left: 2px;
+            margin-right: 2px;
+            border-radius: 14px;
+            transition-duration: 0.2s;
+        }
 
-               #workspaces button:hover {
-                   background-color: #${colors.base03};
-                   color: #${colors.base07};
-                   transition-duration: 0.2s;
-               }
+        #workspaces button:hover {
+            background-color: #${colors.base03};
+            color: #${colors.base07};
+            transition-duration: 0.2s;
+        }
 
-               #workspaces button.active {
-                   background-color: #${colors.base0B};
-                   color: #${colors.base00};
-                   padding: 1px 6px;
-                   transition-duration: 0.2s;
-               }
+        #workspaces button.active {
+            background-color: #${colors.base0B};
+            color: #${colors.base00};
+            padding: 1px 6px;
+            transition-duration: 0.2s;
+        }
 
-               #workspaces button.focused {
-                   background-color: #${colors.base0B};
-                   color: #${colors.base00};
-                   padding: 1px 6px;
-                   transition-duration: 0.2s;
-               }
+        #workspaces button.focused {
+            background-color: #${colors.base0B};
+            color: #${colors.base00};
+            padding: 1px 6px;
+            transition-duration: 0.2s;
+        }
 
-               #workspaces button.urgent {
-                   background: #${colors.base08};
-                   color: #${colors.base00};
-               }
+        #workspaces button.urgent {
+            background: #${colors.base08};
+            color: #${colors.base00};
+        }
 
-               #tray,
-               #cpu,
-               #temperature,
-               #memory,
-               #pulseaudio,
-               #clock {
-                   padding: 2px 10px;
-                   color: #${colors.base07};
-                   margin-top: 5px;
-                   margin-bottom: 5px;
-                   margin-left: 5px;
-                   margin-right: 5px;
-                   border-radius: 14px;
-               }
+        #tray,
+        #cpu,
+        #temperature,
+        #memory,
+        #pulseaudio,
+        #clock {
+            padding: 2px 10px;
+            color: #${colors.base07};
+            margin-top: 5px;
+            margin-bottom: 5px;
+            margin-left: 5px;
+            margin-right: 5px;
+            border-radius: 14px;
+        }
 
-               /* Tray */
-               #tray {
-                   background-color: #${colors.base02};
-                   color: #${colors.base00};
-               }
+        /* Tray */
+        #tray {
+            background-color: #${colors.base02};
+            color: #${colors.base00};
+        }
 
-               #tray > .passive {
-                   -gtk-icon-effect: dim;
-               }
+        #tray > .passive {
+            -gtk-icon-effect: dim;
+        }
 
-               #tray > .needs-attention {
-                   -gtk-icon-effect: highlight;
-                   background-color: #eb4d4b;
-               }
+        #tray > .needs-attention {
+            -gtk-icon-effect: highlight;
+            background-color: #eb4d4b;
+        }
 
-               /* CPU */
-               #cpu {
-                   background-color: #${colors.base0C};
-                   color: #${colors.base00};
-               }
+        /* CPU */
+        #cpu {
+            background-color: #${colors.base0C};
+            color: #${colors.base00};
+        }
 
-               /* Temperature */
-               #temperature {
-                   background-color: #${colors.base09};
-                   color: #${colors.base00};
-               }
+        /* Temperature */
+        #temperature {
+            background-color: #${colors.base09};
+            color: #${colors.base00};
+        }
 
-               /* Memory */
-               #memory {
-                   background-color: #${colors.base0B};
-                   color: #${colors.base00};
-               }
+        /* Memory */
+        #memory {
+            background-color: #${colors.base0B};
+            color: #${colors.base00};
+        }
 
-               /* Audio */
-               #pulseaudio {
-                   background-color: #${colors.base0E};
-                   color: #${colors.base00};
-               }
+        /* Audio */
+        #pulseaudio {
+            background-color: #${colors.base0E};
+            color: #${colors.base00};
+        }
 
-               /* Clock */
-               #clock {
-                   background-color: #${colors.base0D};
-                   color: #${colors.base00};
-               }
+        /* Clock */
+        #clock {
+            background-color: #${colors.base0D};
+            color: #${colors.base00};
+        }
       '';
     };
   };

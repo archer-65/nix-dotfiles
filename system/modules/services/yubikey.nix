@@ -1,9 +1,7 @@
-_:
 { pkgs, config, options, lib, ... }:
 
 with lib;
-let
-  cfg = config.modules.services.yubikey;
+let cfg = config.modules.services.yubikey;
 in {
   options.modules.services.yubikey = {
     enable = mkOption {

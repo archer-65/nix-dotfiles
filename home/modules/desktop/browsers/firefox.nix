@@ -29,10 +29,10 @@ in {
           "svg.context-properties.content.enabled" = true;
         };
         userChrome = ''
-            @import "firefox-gnome-theme/userChrome.css";
+          @import "firefox-gnome-theme/userChrome.css";
         '';
         userContent = ''
-            @import "firefox-gnome-theme/userContent.css";
+          @import "firefox-gnome-theme/userContent.css";
         '';
       };
     };
