@@ -22,7 +22,7 @@ in {
 
     environment.systemPackages = with pkgs; [
       easyeffects
-      # pamixer # not needed, wpctl (wireplumber) is enough
+      pamixer
     ];
 
     user.extraGroups = [ "audio" ];
