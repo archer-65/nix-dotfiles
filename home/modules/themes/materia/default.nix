@@ -1,4 +1,3 @@
-_:
 { config, lib, pkgs, nix-colors, ... }:
 
 with lib;

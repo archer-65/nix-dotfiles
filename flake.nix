@@ -44,7 +44,7 @@
       nixosModules = import ./system/modules;
       nixosConfigurations = lib.mkSystem;
 
-      homeModules = import ./home/modules inputs;
+      homeModules = import ./home/modules;
       homeConfigurations = lib.mkHome;
     };
 }
