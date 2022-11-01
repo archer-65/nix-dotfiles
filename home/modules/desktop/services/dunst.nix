@@ -6,12 +6,12 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.desktop.services.dunst;
-  cfgWayland = config.user-modules.desktop.wayland;
-  cfgTheme = config.user-modules.themes;
+  cfg = config.home.modules.desktop.services.dunst;
+  cfgWayland = config.home.modules.desktop.wayland;
+  cfgTheme = config.home.modules.themes;
   inherit (config.colorScheme) colors;
 in {
-  options.user-modules.desktop.services.dunst = {
+  options.home.modules.desktop.services.dunst = {
     enable = mkEnableOption "dunst configuration";
   };
 

@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.desktop.wayland;
+  cfg = config.system.modules.desktop.wayland;
 in {
-  options.modules.desktop.wayland = {
+  options.system.modules.desktop.wayland = {
     enable = mkEnableOption "wayland basic configuration and packages";
   };
 

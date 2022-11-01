@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.desktop.services.locker-wayland;
+  cfg = config.home.modules.desktop.services.locker-wayland;
 in {
-  options.user-modules.desktop.services.locker-wayland = {
+  options.home.modules.desktop.services.locker-wayland = {
     enable = mkEnableOption "wayland screen locker";
   };
 

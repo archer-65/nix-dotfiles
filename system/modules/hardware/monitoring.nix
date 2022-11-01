@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.hardware.monitoring;
+  cfg = config.system.modules.hardware.monitoring;
 in {
-  options.modules.hardware.monitoring = {
+  options.system.modules.hardware.monitoring = {
     enable = mkEnableOption "monitoring packages";
 
     corectrl.enable = mkEnableOption "corectrl and polkit config to avoid password";

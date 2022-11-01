@@ -5,7 +5,7 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.themes;
+  cfg = config.home.modules.themes;
 in {
   config = mkIf (cfg.active == "adwaita") {
     gtk = {

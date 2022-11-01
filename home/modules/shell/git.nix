@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.shell.git-defaults;
+  cfg = config.home.modules.shell.git-defaults;
 in {
-  options.user-modules.shell.git-defaults = {
+  options.home.modules.shell.git-defaults = {
     enable = mkEnableOption "main user git configuration";
   };
 

@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.editors.android;
+  cfg = config.home.modules.editors.android;
 in {
-  options.user-modules.editors.android = {
+  options.home.modules.editors.android = {
     enable = mkEnableOption "android IDE and screen mirroring";
   };
 

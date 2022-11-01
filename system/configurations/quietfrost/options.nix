@@ -1,6 +1,6 @@
 # Mate, main laptop
 {
-  modules = {
+  system.modules = {
     hardware = {
       audio.enable = true;
       monitoring = {

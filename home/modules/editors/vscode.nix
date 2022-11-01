@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.editors.vscode;
+  cfg = config.home.modules.editors.vscode;
 in {
-  options.user-modules.editors.vscode = {
+  options.home.modules.editors.vscode = {
     enable = mkEnableOption "vscode";
   };
 

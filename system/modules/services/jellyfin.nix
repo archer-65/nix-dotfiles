@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.media.jellyfin;
+  cfg = config.system.modules.media.jellyfin;
 in {
-  options.modules.media.jellyfin = {
+  options.system.modules.media.jellyfin = {
     enable = mkEnableOption "jellyfin";
     service.enable = mkEnableOption "enable jellyfin systemd service";
   };

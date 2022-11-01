@@ -5,8 +5,8 @@
   ...
 }:
 with lib; let
-  cfgXorg = config.modules.desktop.xorg;
-  cfgWayland = config.modules.desktop.wayland;
+  cfgXorg = config.system.modules.desktop.xorg;
+  cfgWayland = config.system.modules.desktop.wayland;
 in {
   # XDG Portals, useful for wayland screen sharing and flatpak).
   config = mkMerge [

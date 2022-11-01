@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.dev.adb;
+  cfg = config.system.modules.dev.adb;
 in {
-  options.modules.dev.adb = {
+  options.system.modules.dev.adb = {
     enable = mkEnableOption "adb configuration";
   };
 

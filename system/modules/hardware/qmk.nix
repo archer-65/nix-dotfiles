@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.hardware.qmk;
+  cfg = config.system.modules.hardware.qmk;
 in {
-  options.modules.hardware.qmk = {
+  options.system.modules.hardware.qmk = {
     enable = mkEnableOption "qmk and vial support";
   };
 

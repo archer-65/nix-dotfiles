@@ -6,14 +6,14 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.services.yubikey;
+  cfg = config.system.modules.services.yubikey;
 in {
-  options.modules.services.yubikey = {
+  options.system.modules.services.yubikey = {
     enable = mkEnableOption "yubikey";
   };
 
   config = mkIf cfg.enable {
-    modules.services.gpg.enable = true;
+    system.modules.services.gpg.enable = true;
 
     # Needed for yubikey to work
     environment.shellInit = ''

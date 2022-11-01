@@ -6,11 +6,11 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.desktop.media.documents;
-  cfgTheme = config.user-modules.themes;
+  cfg = config.home.modules.desktop.media.documents;
+  cfgTheme = config.home.modules.themes;
   inherit (config.colorScheme) colors;
 in {
-  options.user-modules.desktop.media.documents = {
+  options.home.modules.desktop.media.documents = {
     zathura.enable = mkEnableOption "pdf support (zathura)";
 
     okular.enable = mkEnableOption "pdf support (okular)";

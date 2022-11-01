@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.dev.terraform;
+  cfg = config.home.modules.dev.terraform;
 in {
-  options.user-modules.dev.terraform = {
+  options.home.modules.dev.terraform = {
     enable = mkEnableOption "terraform and official language server";
   };
 

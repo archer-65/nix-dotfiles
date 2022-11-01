@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.hardware.bluetooth;
+  cfg = config.system.modules.hardware.bluetooth;
 in {
-  options.modules.hardware.bluetooth = {
+  options.system.modules.hardware.bluetooth = {
     enable = mkEnableOption "bluetooth and blueman service";
   };
 

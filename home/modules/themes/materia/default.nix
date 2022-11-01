@@ -6,7 +6,7 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.themes;
+  cfg = config.home.modules.themes;
   theme =
     if cfg.darkTheme
     then "Materia-dark-compact"

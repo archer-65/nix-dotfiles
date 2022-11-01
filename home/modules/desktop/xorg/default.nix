@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.desktop.xorg;
+  cfg = config.home.modules.desktop.xorg;
 in {
-  options.user-modules.desktop.xorg = {
+  options.home.modules.desktop.xorg = {
     enable = mkEnableOption "xorg configuration management for user";
 
     wm = mkOption {
@@ -24,7 +24,7 @@ in {
 
     services = {flameshot.enable = true;};
 
-    user-modules.desktop = {
+    home.modules.desktop = {
       apps = {greenclip.enable = true;};
       services = {locker.enable = true;};
     };

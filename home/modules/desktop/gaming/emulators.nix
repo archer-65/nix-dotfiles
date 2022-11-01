@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.desktop.gaming.emulators;
+  cfg = config.home.modules.desktop.gaming.emulators;
 in {
-  options.user-modules.desktop.gaming.emulators = {
+  options.home.modules.desktop.gaming.emulators = {
     switch.enable = mkEnableOption "switch emulator";
   };
 

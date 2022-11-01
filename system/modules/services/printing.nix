@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.services.printing;
+  cfg = config.system.modules.services.printing;
 in {
-  options.modules.services.printing = {
+  options.system.modules.services.printing = {
     enable = mkEnableOption "cups";
   };
 

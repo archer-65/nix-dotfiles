@@ -6,10 +6,10 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.desktop.browsers.firefox;
-  cfgWayland = config.user-modules.desktop.wayland;
+  cfg = config.home.modules.desktop.browsers.firefox;
+  cfgWayland = config.home.modules.desktop.wayland;
 in {
-  options.user-modules.desktop.browsers.firefox = {
+  options.home.modules.desktop.browsers.firefox = {
     enable = mkEnableOption "firefox with a decent configuration";
   };
 

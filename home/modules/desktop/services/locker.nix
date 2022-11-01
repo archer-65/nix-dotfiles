@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.desktop.services.locker;
+  cfg = config.home.modules.desktop.services.locker;
 in {
-  options.user-modules.desktop.services.locker = {
+  options.home.modules.desktop.services.locker = {
     enable = mkEnableOption "xorg screen locker";
   };
 

@@ -6,14 +6,14 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.desktop.apps.teams;
+  cfg = config.home.modules.desktop.apps.teams;
 in {
-  options.user-modules.desktop.apps.teams = {
+  options.home.modules.desktop.apps.teams = {
     enable = mkEnableOption "teams";
   };
 
   config = mkIf cfg.enable {
-    user-modules.desktop.browsers.chromium.enable = true;
+    home.modules.desktop.browsers.chromium.enable = true;
 
     home.packages = with pkgs; let
       teams-chromium = makeDesktopItem {

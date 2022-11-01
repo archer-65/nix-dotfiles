@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.themes;
+  cfg = config.home.modules.themes;
 in {
-  options.user-modules.themes = with types; {
+  options.home.modules.themes = with types; {
     active = mkOption {
       type = nullOr str;
       default = null;

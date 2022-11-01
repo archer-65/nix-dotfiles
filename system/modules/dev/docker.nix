@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.dev.docker;
+  cfg = config.system.modules.dev.docker;
 in {
-  options.modules.dev.docker = {
+  options.system.modules.dev.docker = {
     enable = mkEnableOption "docker configuration";
   };
 

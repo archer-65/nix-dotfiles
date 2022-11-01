@@ -6,16 +6,16 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.desktop.apps.rofi;
-  cfgWayland = config.user-modules.desktop.wayland;
+  cfg = config.home.modules.desktop.apps.rofi;
+  cfgWayland = config.home.modules.desktop.wayland;
   inherit (config.dotfiles) configDir;
 
   rbw =
-    if config.user-modules.credentials.bitwarden.enable
+    if config.home.modules.credentials.bitwarden.enable
     then [pkgs.rofi-rbw]
     else [];
 in {
-  options.user-modules.desktop.apps.rofi = {
+  options.home.modules.desktop.apps.rofi = {
     enable = mkEnableOption "rofi configuration";
   };
 

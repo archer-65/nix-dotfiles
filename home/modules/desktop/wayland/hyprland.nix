@@ -6,8 +6,8 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.desktop.wayland;
-  cfgTheme = config.user-modules.themes;
+  cfg = config.home.modules.desktop.wayland;
+  cfgTheme = config.home.modules.themes;
   inherit (config.dotfiles) configDir;
 in {
   config = mkIf (cfg.enable && cfg.wm == "hyprland") {
@@ -33,7 +33,7 @@ in {
       NIXOS_OZONE_WL = "1";
     };
 
-    user-modules.desktop = {
+    home.modules.desktop = {
       services = {
         dunst.enable = true;
         locker-wayland.enable = true;

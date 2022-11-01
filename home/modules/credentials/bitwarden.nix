@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.credentials.bitwarden;
+  cfg = config.home.modules.credentials.bitwarden;
 in {
-  options.user-modules.credentials.bitwarden = {
+  options.home.modules.credentials.bitwarden = {
     enable = mkEnableOption "bitwarden";
   };
 

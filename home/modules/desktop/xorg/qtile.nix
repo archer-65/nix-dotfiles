@@ -5,7 +5,7 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.desktop.xorg;
+  cfg = config.home.modules.desktop.xorg;
   inherit (config.dotfiles) configDir;
 in {
   config = mkIf (cfg.enable && cfg.wm == "qtile") {
@@ -18,7 +18,7 @@ in {
 
     services = {pasystray.enable = true;};
 
-    user-modules.desktop = {
+    home.modules.desktop = {
       apps = {autorandr.enable = true;};
 
       services = {

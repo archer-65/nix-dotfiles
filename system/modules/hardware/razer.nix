@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.hardware.razer;
+  cfg = config.system.modules.hardware.razer;
 in {
-  options.modules.hardware.razer = {
+  options.system.modules.hardware.razer = {
     enable = mkEnableOption "razer devices support";
   };
 

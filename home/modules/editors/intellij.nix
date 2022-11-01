@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.editors.intellij;
+  cfg = config.home.modules.editors.intellij;
 in {
-  options.user-modules.editors.intellij = {
+  options.home.modules.editors.intellij = {
     enable = mkEnableOption "intellij";
   };
 

@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.desktop.sddm;
+  cfg = config.system.modules.desktop.sddm;
 in {
-  options.modules.desktop.sddm = {
+  options.system.modules.desktop.sddm = {
     enable = mkEnableOption "sddm with dependencies and theme";
   };
 

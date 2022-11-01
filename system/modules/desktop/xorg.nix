@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.desktop.xorg;
+  cfg = config.system.modules.desktop.xorg;
 in {
-  options.modules.desktop.xorg = {
+  options.system.modules.desktop.xorg = {
     enable = mkEnableOption "xorg basic configuration and packages";
   };
 

@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.core.boot;
+  cfg = config.system.modules.core.boot;
 in {
-  options.modules.core.boot = {
+  options.system.modules.core.boot = {
     splashBoot.enable = mkEnableOption "splashboot";
   };
 

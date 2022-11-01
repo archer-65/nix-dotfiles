@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.desktop.media.videos;
+  cfg = config.home.modules.desktop.media.videos;
 in {
-  options.user-modules.desktop.media.videos = {
+  options.home.modules.desktop.media.videos = {
     enable = mkEnableOption "an option to watch videos";
   };
 

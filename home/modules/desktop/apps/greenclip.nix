@@ -7,9 +7,9 @@
 }:
 with lib; let
   inherit (config.dotfiles) configDir;
-  cfg = config.user-modules.desktop.apps.greenclip;
+  cfg = config.home.modules.desktop.apps.greenclip;
 in {
-  options.user-modules.desktop.apps.greenclip = {
+  options.home.modules.desktop.apps.greenclip = {
     enable = mkEnableOption "greenclip support";
   };
 

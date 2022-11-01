@@ -5,11 +5,11 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.desktop.term.alacritty;
-  cfgTheme = config.user-modules.themes;
+  cfg = config.home.modules.desktop.term.alacritty;
+  cfgTheme = config.home.modules.themes;
   inherit (config.colorScheme) colors;
 in {
-  options.user-modules.desktop.term.alacritty = {
+  options.home.modules.desktop.term.alacritty = {
     enable = mkEnableOption "alacritty configuration";
   };
 

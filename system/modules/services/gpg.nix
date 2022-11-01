@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.services.gpg;
+  cfg = config.system.modules.services.gpg;
 in {
-  options.modules.services.gpg = {
+  options.system.modules.services.gpg = {
     enable = mkEnableOption "gpg configuration";
   };
 

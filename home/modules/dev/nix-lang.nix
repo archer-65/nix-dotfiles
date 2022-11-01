@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.dev.nix;
+  cfg = config.home.modules.dev.nix;
 in {
-  options.user-modules.dev.nix = {
+  options.home.modules.dev.nix = {
     enable = mkEnableOption "nix language extra tools and language server";
   };
 

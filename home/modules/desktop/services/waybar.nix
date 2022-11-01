@@ -6,11 +6,11 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.desktop.services.waybar;
-  cfgTheme = config.user-modules.themes;
+  cfg = config.home.modules.desktop.services.waybar;
+  cfgTheme = config.home.modules.themes;
   inherit (config.colorScheme) colors;
 in {
-  options.user-modules.desktop.services.waybar = {
+  options.home.modules.desktop.services.waybar = {
     enable = mkEnableOption "waybar configuration";
   };
 

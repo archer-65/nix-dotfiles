@@ -5,7 +5,7 @@
   ...
 }:
 with lib; let
-  cfgDependency = config.modules.desktop.xorg;
+  cfgDependency = config.system.modules.desktop.xorg;
 in {
   config = mkIf cfgDependency.enable {
     services.gnome.gnome-keyring.enable = true;

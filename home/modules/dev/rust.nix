@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.dev.rust;
+  cfg = config.home.modules.dev.rust;
 in {
-  options.user-modules.dev.rust = {
+  options.home.modules.dev.rust = {
     enable = mkEnableOption "rust language support and language server";
   };
 

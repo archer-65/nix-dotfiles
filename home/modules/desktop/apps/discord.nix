@@ -6,16 +6,16 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.desktop.apps.discord;
-  cfgWayland = config.user-modules.desktop.wayland;
+  cfg = config.home.modules.desktop.apps.discord;
+  cfgWayland = config.home.modules.desktop.wayland;
 in {
-  options.user-modules.desktop.apps.discord = {
+  options.home.modules.desktop.apps.discord = {
     enable = mkEnableOption "discord";
   };
 
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfgWayland.enable {
-      user-modules.desktop.browsers.chromium.enable = true;
+      home.modules.desktop.browsers.chromium.enable = true;
 
       home.packages = with pkgs; let
         discord-chromium = makeDesktopItem {

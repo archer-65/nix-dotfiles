@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.shell.bash;
+  cfg = config.home.modules.shell.bash;
 in {
-  options.user-modules.shell.bash = {
+  options.home.modules.shell.bash = {
     enable = mkOption {
       default = false;
       type = types.bool;

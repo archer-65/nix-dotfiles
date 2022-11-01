@@ -7,8 +7,8 @@
   ...
 }:
 with lib; let
-  cfgXorg = config.user-modules.desktop.xorg;
-  cfgWayland = config.user-modules.desktop.wayland;
+  cfgXorg = config.home.modules.desktop.xorg;
+  cfgWayland = config.home.modules.desktop.wayland;
 
   # Creative XOR operator :D
   cfgExclusive =

@@ -6,10 +6,10 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.dev.js;
+  cfg = config.home.modules.dev.js;
   #node-pkgs = pkgs.callPackage ./node-pkgs { };
 in {
-  options.user-modules.dev.js = {
+  options.home.modules.dev.js = {
     enable = mkEnableOption "javascript language tools";
   };
 

@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.core.cachix;
+  cfg = config.system.modules.core.cachix;
 in {
-  options.modules.core.cachix = {
+  options.system.modules.core.cachix = {
     enable = mkEnableOption "cachix configuration";
   };
 

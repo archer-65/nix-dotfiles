@@ -4,9 +4,9 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.editors.neovim;
+  cfg = config.home.modules.editors.neovim;
 in {
-  options.user-modules.editors.neovim = {
+  options.home.modules.editors.neovim = {
     enable = mkEnableOption "neovim";
   };
 

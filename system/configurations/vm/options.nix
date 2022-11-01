@@ -1,5 +1,5 @@
 {
-  modules = {
+  system.modules = {
     hardware = {audio.enable = true;};
 
     services = {ssh.enable = true;};

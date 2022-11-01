@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.dev.tex;
+  cfg = config.home.modules.dev.tex;
 in {
-  options.user-modules.dev.tex = {
+  options.home.modules.dev.tex = {
     enable = mkEnableOption "texlive";
   };
 

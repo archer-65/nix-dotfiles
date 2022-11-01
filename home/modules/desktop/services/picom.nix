@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.desktop.services.picom;
+  cfg = config.home.modules.desktop.services.picom;
 in {
-  options.user-modules.desktop.services.picom = {
+  options.home.modules.desktop.services.picom = {
     enable = mkEnableOption "picom configuration";
   };
 

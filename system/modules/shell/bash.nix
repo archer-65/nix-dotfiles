@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.shell.bash;
+  cfg = config.system.modules.shell.bash;
 in {
-  options.modules.shell.bash = {
+  options.system.modules.shell.bash = {
     enable = mkEnableOption "bash system-wide completion and additions";
   };
 

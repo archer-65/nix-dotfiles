@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.media.plex;
+  cfg = config.system.modules.media.plex;
 in {
-  options.modules.media.plex = {
+  options.system.modules.media.plex = {
     enable = mkEnableOption "plex";
     service.enable = mkEnableOption "enable plex systemd service";
   };

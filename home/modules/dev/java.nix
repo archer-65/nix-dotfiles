@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.dev.java;
+  cfg = config.home.modules.dev.java;
 in {
-  options.user-modules.dev.java = {
+  options.home.modules.dev.java = {
     enable = mkEnableOption "java full support (maven and gradle included)";
   };
 

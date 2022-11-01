@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.credentials.mail-defaults;
+  cfg = config.home.modules.credentials.mail-defaults;
 in {
-  options.user-modules.credentials.mail-defaults = {
+  options.home.modules.credentials.mail-defaults = {
     enable = mkEnableOption "mail support";
   };
 

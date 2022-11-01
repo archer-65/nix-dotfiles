@@ -6,10 +6,10 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.shell.extensions;
-  cfgBash = config.user-modules.shell.bash;
+  cfg = config.home.modules.shell.extensions;
+  cfgBash = config.home.modules.shell.bash;
 in {
-  options.user-modules.shell.extensions = {
+  options.home.modules.shell.extensions = {
     enable = mkEnableOption "shell useful commands (e.g. bat, exa) ";
   };
 

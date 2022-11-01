@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.shell.starship;
+  cfg = config.home.modules.shell.starship;
 in {
-  options.user-modules.shell.starship = {
+  options.home.modules.shell.starship = {
     enable = mkEnableOption "starship configuration";
   };
 

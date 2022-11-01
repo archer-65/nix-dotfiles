@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.desktop.browsers.chromium;
+  cfg = config.home.modules.desktop.browsers.chromium;
 in {
-  options.user-modules.desktop.browsers.chromium = {
+  options.home.modules.desktop.browsers.chromium = {
     enable = mkEnableOption "chromium";
   };
 

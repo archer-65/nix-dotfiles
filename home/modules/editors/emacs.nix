@@ -6,11 +6,11 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.editors.emacs;
-  cfgWayland = config.user-modules.desktop.wayland;
+  cfg = config.home.modules.editors.emacs;
+  cfgWayland = config.home.modules.desktop.wayland;
   inherit (config.dotfiles) configDir;
 in {
-  options.user-modules.editors.emacs = {
+  options.home.modules.editors.emacs = {
     enable = mkEnableOption "emacs and its configuration";
     daemon.enable = mkEnableOption "emacs daemon";
   };

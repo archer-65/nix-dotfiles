@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.dev.cc;
+  cfg = config.home.modules.dev.cc;
 in {
-  options.user-modules.dev.cc = {
+  options.home.modules.dev.cc = {
     enable = mkEnableOption "c language support and language server";
   };
 

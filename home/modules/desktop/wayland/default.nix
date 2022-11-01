@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.user-modules.desktop.wayland;
+  cfg = config.home.modules.desktop.wayland;
 in {
-  options.user-modules.desktop.wayland = {
+  options.home.modules.desktop.wayland = {
     enable = mkEnableOption "wayland configuration management for user";
 
     wm = mkOption {

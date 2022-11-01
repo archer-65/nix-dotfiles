@@ -6,7 +6,7 @@
   ...
 }:
 with lib; let
-  cfg = config.modules.desktop.greetd;
+  cfg = config.system.modules.desktop.greetd;
 
   inherit (config.dotfiles) assetsDir;
   background = "${assetsDir}/greeter.png";
@@ -23,7 +23,7 @@ with lib; let
     include /etc/sway/config.d/*
   '';
 in {
-  options.modules.desktop.greetd = {
+  options.system.modules.desktop.greetd = {
     enable = mkEnableOption "greetd configuration";
   };
 
