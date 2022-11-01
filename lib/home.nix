@@ -14,7 +14,8 @@ let
       pkgs = import nixpkgs {
         inherit system;
         config.allowUnfree = true;
-        overlays = (lib.attrValues self.overlays) ++ [ emacs-overlay.overlays.default ];
+        overlays = (lib.attrValues self.overlays)
+          ++ [ emacs-overlay.overlays.default ];
       };
 
       baseHome = {
@@ -31,6 +32,9 @@ let
         (import "${self}/mixed/options.nix" inputs)
         hyprland.homeManagerModules.default
       ] ++ attrValues self.homeModules;
-      extraSpecialArgs = { inherit nix-colors; flake-self = self; };
+      extraSpecialArgs = {
+        inherit nix-colors;
+        flake-self = self;
+      };
     };
 in { mkHome = lib.mapAttrs genConfiguration homeSet; }

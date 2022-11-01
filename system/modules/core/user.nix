@@ -1,4 +1,3 @@
-_:
 { config, lib, options, ... }:
 
 with lib; {

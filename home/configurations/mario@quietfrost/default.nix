@@ -90,9 +90,7 @@
         size = 14;
       };
 
-      cursor = {
-        size = 24;
-      };
+      cursor = { size = 24; };
     };
   };
 

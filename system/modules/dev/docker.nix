@@ -1,4 +1,3 @@
-_:
 { options, config, lib, pkgs, ... }:
 
 with lib;
@@ -14,9 +13,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    virtualisation.docker = {
-      enable = true;
-    };
+    virtualisation.docker = { enable = true; };
 
     user.extraGroups = [ "docker" ];
   };

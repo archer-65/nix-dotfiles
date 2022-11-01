@@ -1,4 +1,3 @@
-_:
 { options, config, lib, pkgs, ... }:
 
 with lib;
@@ -24,8 +23,6 @@ in {
 
     services.xserver.libinput.enable = true;
 
-    services.xserver.windowManager = {
-      qtile.enable = true;
-    };
+    services.xserver.windowManager = { qtile.enable = true; };
   };
 }

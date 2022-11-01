@@ -1,4 +1,3 @@
-_:
 { options, config, lib, pkgs, ... }:
 
 with lib;
@@ -12,10 +11,6 @@ in {
     };
   };
 
-  config = mkIf cfg.enable {
-    home.packages = with pkgs; [
-      rustup
-      rust-analyzer
-    ];
-  };
+  config =
+    mkIf cfg.enable { home.packages = with pkgs; [ rustup rust-analyzer ]; };
 }

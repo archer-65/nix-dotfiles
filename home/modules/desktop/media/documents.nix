@@ -1,4 +1,3 @@
-_:
 { options, config, lib, pkgs, ... }:
 
 with lib;
@@ -26,7 +25,8 @@ in {
       programs.zathura = {
         enable = true;
         options = {
-          font = "${cfgTheme.font.term.name} " + (toString cfgTheme.font.term.size);
+          font = "${cfgTheme.font.term.name} "
+            + (toString cfgTheme.font.term.size);
 
           default-bg = "#${colors.base00}";
           default-fg = "#${colors.base01}";

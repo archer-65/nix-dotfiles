@@ -8,7 +8,7 @@ let
 
   # Creative XOR operator :D
   cfgExclusive = (cfgXorg.enable || cfgWayland.enable)
-                 && (!(cfgXorg.enable && cfgWayland.enable));
+    && (!(cfgXorg.enable && cfgWayland.enable));
 
   # Overriding nerd fonts (if you don't, all nerd fonts will be installed.)
   nerdFonts = pkgs.nerdfonts.override {
@@ -28,33 +28,32 @@ let
   ];
 in {
   config = {
-    assertions = [
-      {
-        assertion = cfgExclusive;
-        message = "Can't enable customization for both Xorg and Wayland.";
-      }
-    ];
+    assertions = [{
+      assertion = cfgExclusive;
+      message = "Can't enable customization for both Xorg and Wayland.";
+    }];
 
     fonts.fontconfig.enable = true;
 
-    home.packages = with pkgs; [
-      brightnessctl
-      ffmpeg-full
-      playerctl
-      xfce.xfconf
-      xfce.exo
-      (xfce.thunar.override {
-        thunarPlugins = with pkgs; [
-          xfce.thunar-volman
-          xfce.thunar-archive-plugin
-          xfce.thunar-media-tags-plugin
-        ];
-      })
-      mate.engrampa
-      zip
-      unzip
-      unrar
-    ] ++ userFonts;
+    home.packages = with pkgs;
+      [
+        brightnessctl
+        ffmpeg-full
+        playerctl
+        xfce.xfconf
+        xfce.exo
+        (xfce.thunar.override {
+          thunarPlugins = with pkgs; [
+            xfce.thunar-volman
+            xfce.thunar-archive-plugin
+            xfce.thunar-media-tags-plugin
+          ];
+        })
+        mate.engrampa
+        zip
+        unzip
+        unrar
+      ] ++ userFonts;
 
     xsession.enable = true;
 

@@ -1,5 +1,3 @@
-_: _:
-
 {
   # This global flag is deprecated
   networking.useDHCP = false;

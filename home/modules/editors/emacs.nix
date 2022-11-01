@@ -1,4 +1,3 @@
-_:
 { config, lib, pkgs, inputs, ... }:
 
 with lib;
@@ -26,10 +25,7 @@ in {
         enable = true;
         package = pkgs.emacsPgtkNativeComp;
 
-        extraPackages = epkgs: [
-          epkgs.vterm
-          epkgs.melpaPackages.telega
-        ];
+        extraPackages = epkgs: [ epkgs.vterm epkgs.melpaPackages.telega ];
 
         # overrides = self: super: rec {
         #   telega = pkgs.emacsPackages.telega.overrideAttrs (old: {

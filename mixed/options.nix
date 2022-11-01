@@ -8,7 +8,7 @@ with lib; {
       default = "${inputs.self}/config";
     };
 
-    assetsDir =  mkOption {
+    assetsDir = mkOption {
       type = path;
       default = "${inputs.self}/assets";
     };
