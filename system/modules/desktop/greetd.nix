@@ -21,17 +21,10 @@ let
   '';
 in {
   options.modules.desktop.greetd = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "greetd configuration";
   };
 
   config = mkIf cfg.enable {
-    # We need to disable `lightdm` because it is enabled by default.
-    services.xserver.displayManager.lightdm.enable = false;
-
     services.greetd = {
       enable = true;
       settings = {

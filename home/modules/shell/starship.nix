@@ -4,11 +4,7 @@ with lib;
 let cfg = config.user-modules.shell.starship;
 in {
   options.user-modules.shell.starship = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "starship configuration";
   };
 
   config = mkIf cfg.enable {

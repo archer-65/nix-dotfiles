@@ -8,11 +8,7 @@ let
   inherit (config.colorScheme) colors;
 in {
   options.user-modules.desktop.services.dunst = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "dunst configuration";
   };
 
   config = mkIf cfg.enable {

@@ -6,11 +6,7 @@ let
   cfgWayland = config.user-modules.desktop.wayland;
 in {
   options.user-modules.desktop.apps.discord = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "discord";
   };
 
   config = mkIf cfg.enable (mkMerge [

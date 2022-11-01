@@ -5,17 +5,8 @@ with lib;
 let cfg = config.modules.media.plex;
 in {
   options.modules.media.plex = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
-
-    systemd.disable = mkOption {
-      default = true;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "plex";
+    service.enable = mkEnableOption "enable plex systemd service";
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -30,6 +21,6 @@ in {
       user.extraGroups = [ "plex" ];
     }
 
-    (mkIf cfg.systemd.disable { systemd.services.plex.wantedBy = mkForce [ ]; })
+    (mkIf (!cfg.service.enable) { systemd.services.plex.wantedBy = mkForce [ ]; })
   ]);
 }

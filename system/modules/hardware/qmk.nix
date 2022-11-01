@@ -4,11 +4,7 @@ with lib;
 let cfg = config.modules.hardware.qmk;
 in {
   options.modules.hardware.qmk = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "qmk and vial support";
   };
 
   config = mkIf cfg.enable {

@@ -4,11 +4,7 @@ with lib;
 let cfg = config.user-modules.dev.rust;
 in {
   options.user-modules.dev.rust = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "rust language support and language server";
   };
 
   config =

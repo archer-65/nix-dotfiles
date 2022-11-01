@@ -4,23 +4,19 @@ with lib;
 let cfg = config.user-modules.dev.cc;
 in {
   options.user-modules.dev.cc = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "c language support and language server";
   };
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      gcc
+      clang
       clang-tools
-      #clang
-      valgrind
-      gdb
       cmake
       cmake-language-server
-      gnumake
+      valgrind
+      gdb
+      # gcc
+      # gnumake
     ];
   };
 }

@@ -4,11 +4,7 @@ with lib;
 let cfg = config.user-modules.dev.java;
 in {
   options.user-modules.dev.java = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "java full support (maven and gradle included)";
   };
 
   config = mkIf cfg.enable {

@@ -4,11 +4,7 @@ with lib;
 let cfg = config.user-modules.desktop.services.locker-wayland;
 in {
   options.user-modules.desktop.services.locker-wayland = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "wayland screen locker";
   };
 
   config = mkIf cfg.enable {

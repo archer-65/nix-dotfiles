@@ -1,5 +1,3 @@
-# modules/hardware/razer.nix --- support for razer devices
-
 { options, config, lib, pkgs, ... }:
 
 with lib;
@@ -7,11 +5,7 @@ with lib;
 let cfg = config.modules.hardware.razer;
 in {
   options.modules.hardware.razer = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "razer devices support";
   };
 
   config = mkIf cfg.enable {

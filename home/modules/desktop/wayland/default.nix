@@ -4,13 +4,10 @@ with lib;
 let cfg = config.user-modules.desktop.wayland;
 in {
   options.user-modules.desktop.wayland = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "wayland configuration management for user";
 
     wm = mkOption {
+      description = "An option to choose the window manager [wayland] configuration to enable";
       default = null;
       type = types.nullOr (types.enum [ "sway" "hyprland" ]);
       example = "sway";

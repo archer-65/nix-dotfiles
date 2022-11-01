@@ -5,17 +5,9 @@ with lib;
 let cfg = config.modules.hardware.monitoring;
 in {
   options.modules.hardware.monitoring = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "monitoring packages";
 
-    corectrl.enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    corectrl.enable = mkEnableOption "corectrl and polkit config to avoid password";
   };
 
   config = mkIf cfg.enable (mkMerge [

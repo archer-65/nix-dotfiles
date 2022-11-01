@@ -4,11 +4,7 @@ with lib;
 let cfg = config.user-modules.desktop.services.locker;
 in {
   options.user-modules.desktop.services.locker = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "xorg screen locker";
   };
 
   config = mkIf cfg.enable {

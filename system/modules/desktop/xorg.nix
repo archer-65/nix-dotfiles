@@ -5,15 +5,13 @@ with lib;
 let cfg = config.modules.desktop.xorg;
 in {
   options.modules.desktop.xorg = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "xorg basic configuration and packages";
   };
 
   config = mkIf cfg.enable {
     services.xserver.enable = true;
+    # Disable `lightdm` because it is enabled by default sometimes (e.g. greetd with also `xserver` option enabled).
+    services.xserver.displayManager.lightdm.enable = mkForce false;
 
     services.xserver = {
       layout = "us";

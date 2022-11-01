@@ -4,11 +4,7 @@ with lib;
 let cfg = config.user-modules.desktop.apps.teams;
 in {
   options.user-modules.desktop.apps.teams = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "teams";
   };
 
   config = mkIf cfg.enable {

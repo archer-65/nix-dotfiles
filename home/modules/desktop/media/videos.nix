@@ -4,11 +4,7 @@ with lib;
 let cfg = config.user-modules.desktop.media.videos;
 in {
   options.user-modules.desktop.media.videos = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "an option to watch videos";
   };
 
   config = mkIf cfg.enable {

@@ -4,11 +4,7 @@ with lib;
 let cfg = config.modules.core.boot;
 in {
   options.modules.core.boot = {
-    splashBoot.enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    splashBoot.enable = mkEnableOption "splashboot";
   };
 
   config = mkIf cfg.splashBoot.enable {

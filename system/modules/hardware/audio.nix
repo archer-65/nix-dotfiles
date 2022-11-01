@@ -5,11 +5,7 @@ with lib;
 let cfg = config.modules.hardware.audio;
 in {
   options.modules.hardware.audio = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "audio with pipewire";
   };
 
   config = mkIf cfg.enable {
@@ -24,7 +20,10 @@ in {
 
     security.rtkit.enable = true;
 
-    environment.systemPackages = with pkgs; [ easyeffects pamixer ];
+    environment.systemPackages = with pkgs; [
+      easyeffects
+      # pamixer # not needed, wpctl (wireplumber) is enough
+    ];
 
     user.extraGroups = [ "audio" ];
   };

@@ -3,13 +3,8 @@
 with lib;
 let cfg = config.user-modules.credentials.gpg;
 in {
-  options.user-modules.credentials.gpg = with types; {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
-    #cacheTTL = mkOpt int 3600;   # 1hr
+  options.user-modules.credentials.gpg = {
+    enable = mkEnableOption "gpg-agent user configuration";
   };
 
   config = mkIf cfg.enable {

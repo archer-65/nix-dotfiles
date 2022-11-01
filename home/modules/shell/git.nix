@@ -3,12 +3,8 @@
 with lib;
 let cfg = config.user-modules.shell.git-defaults;
 in {
-  options.user-modules.shell.git-defaults = with types; {
-    enable = mkOption {
-      default = false;
-      type = bool;
-      example = true;
-    };
+  options.user-modules.shell.git-defaults = {
+    enable = mkEnableOption "main user git configuration";
   };
 
   config = mkIf cfg.enable {

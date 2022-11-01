@@ -5,11 +5,7 @@ with lib;
 let cfg = config.modules.dev.docker;
 in {
   options.modules.dev.docker = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "docker configuration";
   };
 
   config = mkIf cfg.enable {

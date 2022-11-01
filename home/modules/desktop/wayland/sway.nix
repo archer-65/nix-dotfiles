@@ -128,7 +128,12 @@ in {
           {
             command = "polychromatic-tray-applet";
           }
-          # { command = "exec swhks & ; pkexec swhkd -c $HOME/.config/sway/swhkdrc -D 'IDOBAO ID80 Keyboard'"; }
+          {
+            command = "wl-paste -t text --watch clipman store --no-persist";
+          }
+          {
+            command = "exec wl-paste -p -t text --watch clipman store -P --histpath=\"~/.local/share/clipman-primary.json\"";
+          }
         ];
 
         keybindings = let
@@ -228,6 +233,9 @@ in {
           "${mod}+slash" = "exec rofi_emoji";
           "${mod}+p" = "exec rofi-rbw";
 
+          # Clipboard
+          "${mod}+comma" = "clipman pick -t rofi";
+
           # Screenshots
           "Print" = "exec grimshot --notify copy";
           "Shift+Print" = "exec grimshot --notify save";
@@ -238,7 +246,7 @@ in {
           "${mod}+Return" = "exec ${term}";
           "${mod}+b" = "exec ${browser}";
           "${mod}+e" = "exec ${editor}";
-          "${mod}+f" = "exec thunar";
+          "${mod}+f" = "exec ${fm}";
         };
       };
 
@@ -280,11 +288,9 @@ in {
       '';
     };
 
-    # xdg.configFile."sway/swhkdrc".source = "${configDir}/sway/swhkdrc";
-
     xdg.configFile."sov/config".source = "${configDir}/sway/sov";
 
-    home.packages = with pkgs; [ gsettings-desktop-schemas autotiling sov ];
+    home.packages = with pkgs; [ gsettings-desktop-schemas autotiling sov clipman ];
 
     user-modules.desktop = {
       services = {

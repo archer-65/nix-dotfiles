@@ -4,11 +4,7 @@ with lib;
 let cfg = config.user-modules.editors.neovim;
 in {
   options.user-modules.editors.neovim = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "neovim";
   };
 
   config = mkIf cfg.enable { programs.neovim = { enable = true; }; };

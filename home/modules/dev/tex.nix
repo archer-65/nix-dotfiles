@@ -4,14 +4,10 @@ with lib;
 let cfg = config.user-modules.dev.tex;
 in {
   options.user-modules.dev.tex = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "texlive";
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs.texlive; [ combined.scheme-full ];
+    home.packages = [ pkgs.texlive.combined.scheme-full ];
   };
 }

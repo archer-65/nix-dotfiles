@@ -5,11 +5,7 @@ with lib;
 let cfg = config.modules.dev.virt-manager;
 in {
   options.modules.dev.virt-manager = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "virt-manager qemu-kvm";
   };
 
   config = mkIf cfg.enable {

@@ -4,15 +4,13 @@ with lib;
 let cfg = config.user-modules.desktop.xorg;
 in {
   options.user-modules.desktop.xorg = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "xorg configuration management for user";
 
     wm = mkOption {
-      default = false;
+      description = "An option to choose the window manager [xorg] configuration to enable";
+      default = null;
       type = types.nullOr (types.enum [ "qtile" ]);
+      example = "qtile";
     };
   };
 

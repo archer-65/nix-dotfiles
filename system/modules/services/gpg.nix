@@ -4,11 +4,7 @@ with lib;
 let cfg = config.modules.services.gpg;
 in {
   options.modules.services.gpg = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "gpg configuration";
   };
 
   config = mkIf cfg.enable {

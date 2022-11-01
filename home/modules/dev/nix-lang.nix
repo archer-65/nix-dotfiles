@@ -4,19 +4,14 @@ with lib;
 let cfg = config.user-modules.dev.nix;
 in {
   options.user-modules.dev.nix = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "nix language extra tools and language server";
   };
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       statix
-      manix
       deadnix
-      nixfmt
+      alejandra
       rnix-lsp
       # nil
     ];

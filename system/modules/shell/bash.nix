@@ -4,11 +4,7 @@ with lib;
 let cfg = config.modules.shell.bash;
 in {
   options.modules.shell.bash = {
-    enable = mkOption {
-      default = true;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "bash system-wide completion and additions";
   };
 
   config = mkIf cfg.enable {

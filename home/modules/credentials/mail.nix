@@ -3,12 +3,8 @@
 with lib;
 let cfg = config.user-modules.credentials.mail-defaults;
 in {
-  options.user-modules.credentials.mail-defaults = with types; {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+  options.user-modules.credentials.mail-defaults = {
+    enable = mkEnableOption "mail support";
   };
 
   config = mkIf cfg.enable {

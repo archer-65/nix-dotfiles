@@ -7,17 +7,9 @@ let
   inherit (config.colorScheme) colors;
 in {
   options.user-modules.desktop.media.documents = {
-    zathura.enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    zathura.enable = mkEnableOption "pdf support (zathura)";
 
-    okular.enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    okular.enable = mkEnableOption "pdf support (okular)";
   };
 
   config = mkMerge [

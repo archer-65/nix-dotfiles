@@ -7,16 +7,8 @@ let
   inherit (config.dotfiles) configDir;
 in {
   options.user-modules.editors.emacs = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
-    daemon.enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "emacs and its configuration";
+    daemon.enable = mkEnableOption "emacs daemon";
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -26,12 +18,6 @@ in {
         package = pkgs.emacsPgtkNativeComp;
 
         extraPackages = epkgs: [ epkgs.vterm epkgs.melpaPackages.telega ];
-
-        # overrides = self: super: rec {
-        #   telega = pkgs.emacsPackages.telega.overrideAttrs (old: {
-        #     buildInputs = old.buildInputs ++ [ tdlib ];
-        #   });
-        # };
       };
 
       xdg.configFile."emacs" = {

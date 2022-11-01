@@ -4,11 +4,7 @@ with lib;
 let cfg = config.user-modules.desktop.services.picom;
 in {
   options.user-modules.desktop.services.picom = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "picom configuration";
   };
 
   config = mkIf cfg.enable {

@@ -6,11 +6,7 @@ let
   cfg = config.user-modules.desktop.apps.greenclip;
 in {
   options.user-modules.desktop.apps.greenclip = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "greenclip support";
   };
 
   config = mkIf cfg.enable {

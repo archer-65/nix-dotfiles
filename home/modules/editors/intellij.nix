@@ -5,11 +5,7 @@ with lib;
 let cfg = config.user-modules.editors.intellij;
 in {
   options.user-modules.editors.intellij = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "intellij";
   };
 
   config = mkIf cfg.enable {

@@ -4,11 +4,7 @@ with lib;
 let cfg = config.modules.services.printing;
 in {
   options.modules.services.printing = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "cups";
   };
 
   config = mkIf cfg.enable {

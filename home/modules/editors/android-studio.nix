@@ -5,11 +5,7 @@ with lib;
 let cfg = config.user-modules.editors.android;
 in {
   options.user-modules.editors.android = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "android IDE and screen mirroring";
   };
 
   config =

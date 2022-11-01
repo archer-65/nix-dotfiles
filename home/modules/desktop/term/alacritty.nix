@@ -7,11 +7,7 @@ let
   inherit (config.colorScheme) colors;
 in {
   options.user-modules.desktop.term.alacritty = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "alacritty configuration";
   };
 
   config = mkIf cfg.enable {

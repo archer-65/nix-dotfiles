@@ -4,11 +4,7 @@ with lib;
 let cfg = config.user-modules.dev.terraform;
 in {
   options.user-modules.dev.terraform = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "terraform and official language server";
   };
 
   config =

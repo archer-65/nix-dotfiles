@@ -5,11 +5,7 @@ with lib;
 let cfg = config.modules.desktop.sddm;
 in {
   options.modules.desktop.sddm = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "sddm with dependencies and theme";
   };
 
   config = mkIf cfg.enable {

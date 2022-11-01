@@ -5,17 +5,8 @@ with lib;
 let cfg = config.modules.media.jellyfin;
 in {
   options.modules.media.jellyfin = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
-
-    systemd.disable = mkOption {
-      default = true;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "jellyfin";
+    service.enable = mkEnableOption "enable jellyfin systemd service";
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -30,6 +21,6 @@ in {
       user.extraGroups = [ "jellyfin" ];
     }
 
-    (mkIf cfg.systemd.disable { systemd.services.plex.wantedBy = mkForce [ ]; })
+    (mkIf (!cfg.systemd.disable) { systemd.services.plex.wantedBy = mkForce [ ]; })
   ]);
 }

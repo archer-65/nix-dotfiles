@@ -14,7 +14,7 @@ in {
   config = mkIf cfg.enable {
     programs.bash = {
       enable = true;
-      shellAliases = { cat = "bat"; };
+      shellAliases = {};
     };
   };
 }

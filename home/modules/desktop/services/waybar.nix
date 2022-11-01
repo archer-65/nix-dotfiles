@@ -7,11 +7,7 @@ let
   inherit (config.colorScheme) colors;
 in {
   options.user-modules.desktop.services.waybar = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "waybar configuration";
   };
 
   config = mkIf cfg.enable {

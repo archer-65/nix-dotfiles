@@ -3,12 +3,8 @@
 with lib;
 let cfg = config.user-modules.credentials.bitwarden;
 in {
-  options.user-modules.credentials.bitwarden = with types; {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+  options.user-modules.credentials.bitwarden = {
+    enable = mkEnableOption "bitwarden";
   };
 
   config = mkIf cfg.enable {

@@ -4,11 +4,7 @@ with lib;
 let cfg = config.user-modules.shell.direnv;
 in {
   options.user-modules.shell.direnv = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "direnv and extensions";
   };
 
   config = mkIf cfg.enable {
@@ -17,8 +13,7 @@ in {
       enableBashIntegration = true;
     };
 
-    # Better than lorri?
-    programs.direnv.nix-direnv.enable = true;
+    programs.direnv.nix-direnv.enable = true; # better than lorri?
     # services.lorri.enable = true;
   };
 }

@@ -4,11 +4,7 @@ with lib;
 let cfg = config.modules.services.yubikey;
 in {
   options.modules.services.yubikey = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "yubikey";
   };
 
   config = mkIf cfg.enable {

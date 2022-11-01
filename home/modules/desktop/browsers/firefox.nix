@@ -6,11 +6,7 @@ let
   cfgWayland = config.user-modules.desktop.wayland;
 in {
   options.user-modules.desktop.browsers.firefox = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "firefox with a decent configuration";
   };
 
   config = mkIf cfg.enable {

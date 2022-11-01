@@ -4,11 +4,7 @@ with lib;
 let cfg = config.user-modules.desktop.browsers.chromium;
 in {
   options.user-modules.desktop.browsers.chromium = {
-    enable = mkOption {
-      default = false;
-      type = types.bool;
-      example = true;
-    };
+    enable = mkEnableOption "chromium";
   };
 
   config = mkIf cfg.enable {
