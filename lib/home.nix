@@ -31,6 +31,6 @@ let
         (import "${self}/mixed/options.nix" inputs)
         hyprland.homeManagerModules.default
       ] ++ attrValues self.homeModules;
-      extraSpecialArgs = { inherit nix-colors; };
+      extraSpecialArgs = { inherit nix-colors; flake-self = self; };
     };
 in { mkHome = lib.mapAttrs genConfiguration homeSet; }

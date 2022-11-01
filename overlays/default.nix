@@ -46,16 +46,6 @@ in {
   #   };
   # });
 
-  # See https://github.com/NixOS/nixpkgs/issues/197408
-  # and https://github.com/altdesktop/python-dbus-next/issues/135
-  python3Packages = super.python3Packages.override {
-    overrides = pfinal: pprev: {
-      dbus-next = pprev.dbus-next.overridePythonAttrs (old: {
-        checkPhase = builtins.replaceStrings ["not test_peer_interface"] ["not test_peer_interface and not test_tcp_connection_with_forwarding"] old.checkPhase;
-      });
-    };
-  };
-
   # See https://github.com/hashicorp/terraform-ls/issues/1067
   terraform-ls = super.terraform-ls.overrideAttrs (old: rec {
     pname = "terraform-ls";

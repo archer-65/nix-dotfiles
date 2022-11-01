@@ -20,13 +20,13 @@ let
       baseSystem = {
         nixpkgs = { inherit pkgs; };
         system = { inherit stateVersion; };
-        nix.registry = { nixpkgs.flake = nixpkgs; };   
+        nix.registry = { nixpkgs.flake = nixpkgs; };
         networking.hostName = lib.mkDefault hostname;
       };
 
     in lib.nixosSystem {
       inherit system;
-      specialArgs = { inherit lib inputs; };
+      specialArgs = { inherit lib; flake-self = self; };
       modules = [
         baseSystem
         vinceliuice-grub-theme.nixosModule
