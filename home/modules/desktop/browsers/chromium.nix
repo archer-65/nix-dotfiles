@@ -15,7 +15,6 @@ in {
   config = mkIf cfg.enable {
     programs.chromium = {
       enable = true;
-      package = pkgs.chromium;
       commandLineArgs = ["--ozone-platform-hint=auto --force-dark-mode --enable-features=WebUIDarkMode"];
     };
   };
