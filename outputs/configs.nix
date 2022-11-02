@@ -1,5 +1,4 @@
-lib:
-let
+lib: let
   inherit (lib) filterAttrs;
 
   configurations = {
@@ -45,5 +44,5 @@ in {
   nixos = filterAttrs (_: v: v.type == "nixos") configurations;
 
   # Get home-manager configurations set
-  home-manager =  filterAttrs (_: v: v.type == "home-manager") configurations;
+  home-manager = filterAttrs (_: v: v.type == "home-manager") configurations;
 }

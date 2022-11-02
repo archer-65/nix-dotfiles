@@ -58,8 +58,16 @@
 ;;; Protesilaos Stavrou docet, system clipboard should have priority among kill-ring
 (setq save-interprogram-paste-before-kill t)
 
+(leaf format-all
+  :doc "Same command to auto-format source code in many languages"
+  :straight t
+  ;; :hook
+  ;; (prog-mode-hook . format-all-ensure-formatter)
+  :bind
+  ("<f1>" . format-all-buffer))
+
 (leaf delsel
-  :doc "Should be default IMHO."
+  :doc "Should be default IMHO"
   :blackout t
   :hook
   (after-init-hook . delete-selection-mode))

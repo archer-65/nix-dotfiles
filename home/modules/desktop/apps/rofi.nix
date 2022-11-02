@@ -16,11 +16,11 @@ with lib; let
     else [];
 
   utils = with pkgs; [
-    scripts.usedcpu
-    scripts.usedram
-    rofi-plugins.powermenu
-    rofi-plugins.launcher
-    rofi-plugins.emoji
+    script-usedcpu
+    script-usedram
+    script-powermenu
+    script-launcher
+    script-emoji
   ];
 in {
   options.home.modules.desktop.apps.rofi = {

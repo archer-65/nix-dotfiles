@@ -2,7 +2,8 @@
   imports = [./hardware-configuration.nix ./options.nix];
 
   # Kernel related
-  boot.kernelPackages = pkgs.linuxPackages_5_18;
+  # boot.kernelPackages = pkgs.linuxPackages_5_18;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.initrd.kernelModules = ["amdgpu"];
 
   # General EFI settings

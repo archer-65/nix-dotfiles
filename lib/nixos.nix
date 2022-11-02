@@ -1,10 +1,13 @@
 {
   inputs,
   lib,
+  flake-self,
   ...
 }:
-with inputs;
 with builtins; let
+  inherit (inputs) vinceliuice-grub-theme nixpkgs;
+  inherit (flake-self) overlays nixosModules sharedModules;
+
   genConfiguration = hostname: {
     localSystem,
     stateVersion,
@@ -15,7 +18,7 @@ with builtins; let
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
-      overlays = lib.attrValues self.overlays;
+      overlays = lib.attrValues overlays;
     };
 
     baseSystem = {
@@ -29,15 +32,16 @@ with builtins; let
       inherit system;
       specialArgs = {
         inherit lib;
-        flake-self = self;
+        inherit flake-self;
       };
       modules =
         [
           baseSystem
-          vinceliuice-grub-theme.nixosModule
-          "${self}/system/configurations/${hostname}"
-          (import "${self}/mixed/options.nix" inputs)
+          "${flake-self}/system/configurations/${hostname}"
         ]
-        ++ attrValues self.nixosModules;
+        ++ [vinceliuice-grub-theme.nixosModule]
+        ++ attrValues nixosModules
+        ++ attrValues sharedModules;
     };
-in {mkSystem = hostSet: lib.mapAttrs genConfiguration hostSet;}
+in
+  hostSet: lib.mapAttrs genConfiguration hostSet

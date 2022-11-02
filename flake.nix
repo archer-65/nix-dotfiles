@@ -17,7 +17,7 @@
 
     # This to follow another nixpkgs input
     emacs-overlay = {
-      url = "github:jeslie0/emacs-overlay"; # This repository.
+      url = "github:jeslie0/emacs-overlay";
       inputs.nixpkgs.url = "github:nixos/nixpkgs/fdebb81f45a1ba2c4afca5fd9f526e1653ad0949";
       inputs.emacs-overlay.url = "github:nix-community/emacs-overlay?rev=4a44c7dfdea3e794b25eae37773c9a89c4fb1526";
     };
@@ -35,29 +35,37 @@
   outputs = inputs @ {
     self,
     nixpkgs,
+    home-manager,
     utils,
     ...
   }: let
     lib = import ./lib {inherit inputs;};
 
-    supportedSystems = ["x86_64-linux"];
-    forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
+    hosts = (import ./outputs/configs.nix nixpkgs.lib).nixos;
+    homes = (import ./outputs/configs.nix nixpkgs.lib).home-manager;
 
-    hosts = (import ./outputs/configs.nix lib).nixos;
-    homes = (import ./outputs/configs.nix lib).home-manager;
-  in {
-    nixosModules = import ./system/modules {inherit utils;};
-    nixosConfigurations = lib.mkSystem hosts;
+    inherit (utils.lib) eachDefaultSystem;
+  in
+    {
+      nixosModules = import ./system/modules {inherit utils;};
+      homeModules = import ./home/modules {inherit utils;};
+      sharedModules = import ./shared {inherit utils;};
 
-    homeModules = import ./home/modules {inherit utils;};
-    homeConfigurations = lib.mkHome homes;
+      nixosConfigurations = lib.mkSystem hosts;
+      homeConfigurations = lib.mkHome homes;
 
-    overlays = import ./overlays inputs;
+      overlays = import ./overlays inputs;
+    }
+    // eachDefaultSystem (
+      system: let
+        pkgs = nixpkgs.legacyPackages.${system};
+      in {
+        # Generate formatter (alejandra) attribute set for all systems
+        formatter = pkgs.alejandra;
 
-    # Generate formatter (alejandra) attribute set for all systems
-    formatter = forAllSystems (
-      system:
-        nixpkgs.legacyPackages.${system}.alejandra
+        packages = import ./packages {inherit pkgs;};
+
+        devShell = import ./shell.nix {inherit pkgs;};
+      }
     );
-  };
 }

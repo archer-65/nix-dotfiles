@@ -33,32 +33,47 @@ with lib; let
 
   socialPkgs = with pkgs; [tdesktop];
 
-  mediaPkgs = with pkgs; [pavucontrol];
+  mediaPkgs = with pkgs; [
+    pavucontrol
+    brightnessctl
+    ffmpeg-full
+    playerctl
+    ispell
+    exiftool
+    imagemagick
+  ];
 
-  utilPkgs = with pkgs; [neofetch];
+  archivePkgs = with pkgs; [
+    zip
+    unzip
+    unrar
+  ];
 
-  monitorPkgs = with pkgs; [btop s-tui];
+  monitorPkgs = with pkgs; [btop s-tui neofetch];
 
-  desktopPkgs = with pkgs;
-    [
-      brightnessctl
-      ffmpeg-full
-      playerctl
-      xfce.xfconf
-      xfce.exo
-      (xfce.thunar.override {
+  xfcePkgs = with pkgs; [
+    xfce.xfconf
+    xfce.exo
+    (xfce.thunar.override
+      {
         thunarPlugins = with pkgs; [
           xfce.thunar-volman
           xfce.thunar-archive-plugin
           xfce.thunar-media-tags-plugin
         ];
       })
-      mate.engrampa
-      zip
-      unzip
-      unrar
-    ]
-    ++ userFonts;
+  ];
+
+  scriptsPkgs = with pkgs; [
+    script-volume
+    script-hwmon_devices
+  ];
+
+  desktopPkgs = with pkgs; [
+    mate.engrampa
+    transmission-gtk
+    appimage-run
+  ];
 in {
   config = {
     assertions = [
@@ -71,20 +86,14 @@ in {
     programs.home-manager.enable = true;
 
     home.packages =
-      [
-        pkgs.scripts.volume
-        pkgs.scripts.hwmon_devices
-        pkgs.ispell
-        pkgs.exiftool
-        pkgs.imagemagick
-        pkgs.transmission-gtk
-        pkgs.appimage-run
-      ]
-      ++ socialPkgs
-      ++ mediaPkgs
-      ++ utilPkgs
+      desktopPkgs
+      ++ xfcePkgs
+      ++ userFonts
+      ++ archivePkgs
       ++ monitorPkgs
-      ++ desktopPkgs;
+      ++ mediaPkgs
+      ++ socialPkgs
+      ++ scriptsPkgs;
 
     fonts.fontconfig.enable = true;
 
