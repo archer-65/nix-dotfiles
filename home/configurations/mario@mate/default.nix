@@ -61,7 +61,7 @@
     };
 
     themes = {
-      active = "materia";
+      active = "onedark";
 
       font = {
         name = "Roboto";

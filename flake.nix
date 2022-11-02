@@ -10,11 +10,13 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    flake-utils.url = "github:numtide/flake-utils";
+    utils.url = "github:numtide/flake-utils";
+    utils-plus.url = "github:gytis-ivaskevicius/flake-utils-plus";
 
-    # emacs-overlay.url =
-    #   "github:nix-community/emacs-overlay?rev=977b205ab9ce857f3440dff2a114a35bf2758c05";
+    # This for direct use of the overlay
+    # emacs-overlay.url = "github:nix-community/emacs-overlay?rev=977b205ab9ce857f3440dff2a114a35bf2758c05";
 
+    # This to follow another nixpkgs input
     emacs-overlay = {
       url = "github:jeslie0/emacs-overlay"; # This repository.
       inputs.nixpkgs.url = "github:nixos/nixpkgs/fdebb81f45a1ba2c4afca5fd9f526e1653ad0949";
@@ -34,19 +36,26 @@
   outputs = inputs @ {
     self,
     nixpkgs,
+    utils,
+    utils-plus,
     ...
   }: let
     lib = import ./lib {inherit inputs;};
-  in {
-    # Expose overlay to flake outputs, to allow using it from other flakes.
-    # Flake inputs are passed to the overlay so that the packages defined in
-    # it can use the sources pinned in flake.lock
-    overlays.default = import ./overlays inputs;
+  in
+    {
+      nixosConfigurations = lib.mkSystem;
+      nixosModules = import ./system/modules {inherit utils-plus;};
 
-    nixosModules = import ./system/modules;
-    nixosConfigurations = lib.mkSystem;
+      homeConfigurations = lib.mkHome;
+      homeModules = import ./home/modules {inherit utils-plus;};
 
-    homeModules = import ./home/modules;
-    homeConfigurations = lib.mkHome;
-  };
+      # Expose overlay to flake outputs, to allow using it from other flakes.
+      # Flake inputs are passed to the overlay so that the packages defined in
+      # it can use the sources pinned in flake.lock
+      overlays.default = import ./overlays inputs;
+    }
+    # Relevant, this is useful to generate system-dependent `tools`, like devShells
+    // utils.lib.eachDefaultSystem (
+      system: {formatter = nixpkgs.legacyPackages.${system}.alejandra;}
+    );
 }

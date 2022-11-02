@@ -1,9 +1,8 @@
-# Thank you hlissner!
 {
-  config,
-  options,
-  lib,
   pkgs,
+  config,
+  lib,
+  options,
   ...
 }:
 with lib; let
@@ -31,6 +30,35 @@ with lib; let
     font-awesome
     material-design-icons
   ];
+
+  socialPkgs = with pkgs; [tdesktop];
+
+  mediaPkgs = with pkgs; [pavucontrol];
+
+  utilPkgs = with pkgs; [neofetch];
+
+  monitorPkgs = with pkgs; [btop s-tui];
+
+  desktopPkgs = with pkgs;
+    [
+      brightnessctl
+      ffmpeg-full
+      playerctl
+      xfce.xfconf
+      xfce.exo
+      (xfce.thunar.override {
+        thunarPlugins = with pkgs; [
+          xfce.thunar-volman
+          xfce.thunar-archive-plugin
+          xfce.thunar-media-tags-plugin
+        ];
+      })
+      mate.engrampa
+      zip
+      unzip
+      unrar
+    ]
+    ++ userFonts;
 in {
   config = {
     assertions = [
@@ -40,28 +68,25 @@ in {
       }
     ];
 
-    fonts.fontconfig.enable = true;
+    programs.home-manager.enable = true;
 
-    home.packages = with pkgs;
+    home.packages =
       [
-        brightnessctl
-        ffmpeg-full
-        playerctl
-        xfce.xfconf
-        xfce.exo
-        (xfce.thunar.override {
-          thunarPlugins = with pkgs; [
-            xfce.thunar-volman
-            xfce.thunar-archive-plugin
-            xfce.thunar-media-tags-plugin
-          ];
-        })
-        mate.engrampa
-        zip
-        unzip
-        unrar
+        pkgs.scripts.volume
+        pkgs.scripts.hwmon_devices
+        pkgs.ispell
+        pkgs.exiftool
+        pkgs.imagemagick
+        pkgs.transmission-gtk
+        pkgs.appimage-run
       ]
-      ++ userFonts;
+      ++ socialPkgs
+      ++ mediaPkgs
+      ++ utilPkgs
+      ++ monitorPkgs
+      ++ desktopPkgs;
+
+    fonts.fontconfig.enable = true;
 
     xsession.enable = true;
 

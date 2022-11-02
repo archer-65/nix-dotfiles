@@ -76,7 +76,7 @@
     };
 
     themes = {
-      active = "materia";
+      active = "onedark";
       darkTheme = true;
 
       font = {

@@ -24,7 +24,6 @@ in {
       wl-clipboard
       wtype
       # azote
-      # swhkd
       grim
       slurp
       sway-contrib.grimshot

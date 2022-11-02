@@ -22,7 +22,7 @@ with lib; let
 in {
   imports = [nix-colors.homeManagerModule];
 
-  config = mkIf (cfg.active == "materia") {
+  config = mkIf (cfg.active == "onedark") {
     gtk = {
       enable = true;
 

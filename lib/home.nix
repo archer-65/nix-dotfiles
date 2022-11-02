@@ -14,6 +14,7 @@ with builtins; let
     ...
   }: let
     system = localSystem;
+    configurations = "${self}/home/configurations";
 
     pkgs = import nixpkgs {
       inherit system;
@@ -31,14 +32,17 @@ with builtins; let
   in
     home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
+
       modules =
         [
           {home = baseHome;}
-          "${self}/home/configurations/${home}"
+          "${configurations}/${home}"
+          "${configurations}/common.nix"
           (import "${self}/mixed/options.nix" inputs)
           hyprland.homeManagerModules.default
         ]
         ++ attrValues self.homeModules;
+
       extraSpecialArgs = {
         inherit nix-colors;
         flake-self = self;
