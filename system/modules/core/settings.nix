@@ -9,7 +9,7 @@
       options = "--delete-older-than 7d";
     };
 
-    package = pkgs.nixVersions.stable;
+    package = pkgs.nixFlakes;
     extraOptions = ''
       experimental-features = nix-command flakes
       keep-outputs          = true
@@ -17,12 +17,4 @@
       warn-dirty = false
     '';
   };
-
-  # system = {
-  #   autoUpgrade = {
-  #     enable = true;
-  #     channel = "https://nixos.org/channels/nixos-unstable";
-  #   };
-  #   stateVersion = "22.05";
-  # };
 }

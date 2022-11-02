@@ -5,7 +5,7 @@ pkgs.mkShell {
 
   # Dependencies
   nativeBuildInputs = with pkgs; [
-    nix
+    nixFlakes
     git
     home-manager
   ];
