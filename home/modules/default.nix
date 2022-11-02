@@ -1,5 +1,5 @@
-{utils-plus}:
-utils-plus.lib.exportModules [
+{utils}:
+utils.lib.exportModules [
   ./credentials/gpg.nix
   ./credentials/mail.nix
   ./credentials/bitwarden.nix

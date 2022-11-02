@@ -1,5 +1,5 @@
-{utils-plus}:
-utils-plus.lib.exportModules [
+{utils}:
+utils.lib.exportModules [
   ./core/boot.nix
   ./core/cachix.nix
   ./core/locale.nix

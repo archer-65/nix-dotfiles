@@ -1,7 +1,6 @@
 inputs: final: prev: let
   inherit (prev) system;
-  pkgs =
-    inputs.nixpkgs.legacyPackages.${system}.extend inputs.self.overlays.default;
+  pkgs-latest = inputs.nixpkgs.legacyPackages.${system};
   pkgs-stable = inputs.nixpkgs-stable.legacyPackages.${system};
 in {
   scripts = {

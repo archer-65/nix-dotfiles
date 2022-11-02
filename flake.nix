@@ -10,8 +10,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    utils.url = "github:numtide/flake-utils";
-    utils-plus.url = "github:gytis-ivaskevicius/flake-utils-plus";
+    utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
 
     # This for direct use of the overlay
     # emacs-overlay.url = "github:nix-community/emacs-overlay?rev=977b205ab9ce857f3440dff2a114a35bf2758c05";
@@ -37,21 +36,17 @@
     self,
     nixpkgs,
     utils,
-    utils-plus,
     ...
   }: let
     lib = import ./lib {inherit inputs;};
   in
     {
+      nixosModules = import ./system/modules {inherit utils;};
       nixosConfigurations = lib.mkSystem;
-      nixosModules = import ./system/modules {inherit utils-plus;};
 
+      homeModules = import ./home/modules {inherit utils;};
       homeConfigurations = lib.mkHome;
-      homeModules = import ./home/modules {inherit utils-plus;};
 
-      # Expose overlay to flake outputs, to allow using it from other flakes.
-      # Flake inputs are passed to the overlay so that the packages defined in
-      # it can use the sources pinned in flake.lock
       overlays.default = import ./overlays inputs;
     }
     # Relevant, this is useful to generate system-dependent `tools`, like devShells
