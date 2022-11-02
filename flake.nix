@@ -39,18 +39,25 @@
     ...
   }: let
     lib = import ./lib {inherit inputs;};
-  in
-    {
-      nixosModules = import ./system/modules {inherit utils;};
-      nixosConfigurations = lib.mkSystem;
 
-      homeModules = import ./home/modules {inherit utils;};
-      homeConfigurations = lib.mkHome;
+    supportedSystems = ["x86_64-linux"];
+    forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
 
-      overlays.default = import ./overlays inputs;
-    }
-    # Relevant, this is useful to generate system-dependent `tools`, like devShells
-    // utils.lib.eachDefaultSystem (
-      system: {formatter = nixpkgs.legacyPackages.${system}.alejandra;}
+    hosts = (import ./outputs/configs.nix lib).nixos;
+    homes = (import ./outputs/configs.nix lib).home-manager;
+  in {
+    nixosModules = import ./system/modules {inherit utils;};
+    nixosConfigurations = lib.mkSystem hosts;
+
+    homeModules = import ./home/modules {inherit utils;};
+    homeConfigurations = lib.mkHome homes;
+
+    overlays = import ./overlays inputs;
+
+    # Generate formatter (alejandra) attribute set for all systems
+    formatter = forAllSystems (
+      system:
+        nixpkgs.legacyPackages.${system}.alejandra
     );
+  };
 }

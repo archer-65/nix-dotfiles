@@ -5,8 +5,6 @@
 }:
 with inputs;
 with builtins; let
-  homeSet = (import ../outputs/configs.nix).homeManager.all;
-
   genConfiguration = home: {
     localSystem,
     username,
@@ -48,4 +46,4 @@ with builtins; let
         flake-self = self;
       };
     };
-in {mkHome = lib.mapAttrs genConfiguration homeSet;}
+in {mkHome = homeSet: lib.mapAttrs genConfiguration homeSet;}

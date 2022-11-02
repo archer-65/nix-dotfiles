@@ -5,8 +5,6 @@
 }:
 with inputs;
 with builtins; let
-  hostSet = (import ../outputs/configs.nix).nixos.all;
-
   genConfiguration = hostname: {
     localSystem,
     stateVersion,
@@ -42,4 +40,4 @@ with builtins; let
         ]
         ++ attrValues self.nixosModules;
     };
-in {mkSystem = lib.mapAttrs genConfiguration hostSet;}
+in {mkSystem = hostSet: lib.mapAttrs genConfiguration hostSet;}

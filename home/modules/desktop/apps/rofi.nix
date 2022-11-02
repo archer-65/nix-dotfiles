@@ -14,6 +14,14 @@ with lib; let
     if config.home.modules.credentials.bitwarden.enable
     then [pkgs.rofi-rbw]
     else [];
+
+  utils = with pkgs; [
+    scripts.usedcpu
+    scripts.usedram
+    rofi-plugins.powermenu
+    rofi-plugins.launcher
+    rofi-plugins.emoji
+  ];
 in {
   options.home.modules.desktop.apps.rofi = {
     enable = mkEnableOption "rofi configuration";
@@ -41,15 +49,6 @@ in {
 
     xdg.configFile."rofi-rbw.rc".source = "${configDir}/rofi-rbw.rc";
 
-    home.packages = with pkgs;
-      [
-        rofi-emoji
-        scripts.usedcpu
-        scripts.usedram
-        scripts.rofi.powermenu
-        scripts.rofi.launcher
-        scripts.rofi.emoji
-      ]
-      ++ rbw;
+    home.packages = with pkgs; [rofi-emoji] ++ rbw ++ utils;
   };
 }

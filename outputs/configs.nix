@@ -1,14 +1,6 @@
+lib:
 let
-  inherit (builtins) attrNames concatMap listToAttrs;
-
-  filterAttrs = pred: set:
-    listToAttrs (concatMap (name: let
-      value = set.${name};
-    in
-      if pred name value
-      then [{inherit name value;}]
-      else [])
-    (attrNames set));
+  inherit (lib) filterAttrs;
 
   configurations = {
     # System configurations
@@ -49,17 +41,9 @@ let
     };
   };
 in {
-  all = configurations;
+  # Get nixos configurations set
+  nixos = filterAttrs (_: v: v.type == "nixos") configurations;
 
-  nixos = rec {
-    all = filterAttrs (_: v: v.type == "nixos") configurations;
-    x86_64-linux = filterAttrs (_: v: v.localSystem == "x86_64-linux") all;
-    aarch64-linux = filterAttrs (_: v: v.localSystem == "aarch64-linux") all;
-  };
-
-  homeManager = rec {
-    all = filterAttrs (_: v: v.type == "home-manager") configurations;
-    x86_64-linux = filterAttrs (_: v: v.localSystem == "x86_64-linux") all;
-    aarch64-linux = filterAttrs (_: v: v.localSystem == "aarch64-linux") all;
-  };
+  # Get home-manager configurations set
+  home-manager =  filterAttrs (_: v: v.type == "home-manager") configurations;
 }

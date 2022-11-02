@@ -16,7 +16,7 @@ in {
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       haskellPackages.greenclip
-      scripts.rofi.greenclip
+      rofi-plugins.greenclip
     ];
 
     xdg.configFile."greenclip.cfg".source = "${configDir}/greenclip.toml";
