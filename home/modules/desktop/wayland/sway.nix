@@ -226,9 +226,9 @@ in {
           "XF86AudioMute" = "exec volume mute";
 
           # Launchers
-          "${mod}+d" = "exec rofi_launcher";
-          "${mod}+Shift+q" = "exec rofi_powermenu";
-          "${mod}+slash" = "exec rofi_emoji";
+          "${mod}+d" = "exec rofi-launcher";
+          "${mod}+Shift+q" = "exec rofi-powermenu";
+          "${mod}+slash" = "exec rofi-emoji";
           "${mod}+p" = "exec rofi-rbw";
 
           # Clipboard

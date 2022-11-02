@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# pkgs.writeShellScriptBin "rofi_powermenu" ''
+# pkgs.writeShellScriptBin "rofi-powermenu" ''
 rofi_dir="$HOME/.config/rofi"
 dir="$rofi_dir/themes"
 

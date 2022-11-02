@@ -1,7 +1,7 @@
 {pkgs, ...}: let
   rofi = "${pkgs.rofi}/bin/rofi";
 in
-  pkgs.writeShellScriptBin "rofi_launcher" ''
+  pkgs.writeShellScriptBin "rofi-launcher" ''
     dir="$HOME/.config/rofi/themes/launcher"
 
     if [[ $XDG_SESSION_TYPE == "wayland" ]]; then

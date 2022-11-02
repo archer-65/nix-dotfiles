@@ -22,10 +22,10 @@ editor      = "emacsclient -c -a emacs"
 filemanager = "thunar"
 
 # Rofi launchers
-launcher    = path.join(scripts, "rofi_launcher")
-powermenu   = path.join(scripts, "rofi_powermenu")
-clipboard   = path.join(scripts, "rofi_clipboard")
-emoji       = path.join(scripts, "rofi_emoji")
+launcher    = path.join(scripts, "rofi-launcher")
+powermenu   = path.join(scripts, "rofi-powermenu")
+clipboard   = path.join(scripts, "rofi-clipboard")
+emoji       = path.join(scripts, "rofi-emoji")
 
 # Media scripts
 volume      = path.join(scripts, "volume")

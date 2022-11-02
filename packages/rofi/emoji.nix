@@ -1,5 +1,5 @@
 {pkgs, ...}:
-pkgs.writeShellScriptBin "rofi_emoji" ''
+pkgs.writeShellScriptBin "rofi-emoji" ''
   dir="$HOME/.config/rofi/themes/emoji"
 
   rofi -show emoji \

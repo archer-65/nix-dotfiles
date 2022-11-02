@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# pkgs.writeShellScriptBin "rofi_clipboard" ''
+# pkgs.writeShellScriptBin "rofi-clipboard" ''
 dir="$HOME/.config/rofi/themes/greenclip"
 
 greenclip_copy() {

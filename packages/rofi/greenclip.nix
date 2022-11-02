@@ -4,7 +4,7 @@
   pkgs,
   lib,
 }: let
-  name = "rofi_clipboard";
+  name = "rofi-clipboard";
 in
   stdenv.mkDerivation {
     name = "${name}";

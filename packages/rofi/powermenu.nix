@@ -4,7 +4,7 @@
   pkgs,
   lib,
 }: let
-  name = "rofi_powermenu";
+  name = "rofi-powermenu";
 in
   stdenv.mkDerivation {
     name = "${name}";

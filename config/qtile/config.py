@@ -28,10 +28,10 @@ qtile_path = path.join(home, ".config", "qtile")
 # scripts    = path.join(home, ".local", "bin")
 
 # Rofi launchers
-# launcher    = path.join(scripts, "rofi_launcher")
-# powermenu   = path.join(scripts, "rofi_powermenu")
-# clipboard   = path.join(scripts, "rofi_clipboard")
-# emoji       = path.join(scripts, "rofi_emoji")
+# launcher    = path.join(scripts, "rofi-launcher")
+# powermenu   = path.join(scripts, "rofi-powermenu")
+# clipboard   = path.join(scripts, "rofi-clipboard")
+# emoji       = path.join(scripts, "rofi-emoji")
 
 # Media scripts
 # volume      = path.join(scripts, "volume")
@@ -237,23 +237,23 @@ keys = [
     
     ##### Rofi #####
     Key([mod], "d",
-        lazy.spawn("rofi_launcher"),
+        lazy.spawn("rofi-launcher"),
         desc="Rofi launcher"),
     
     Key([mod, "shift"], "q",
-        lazy.spawn("rofi_powermenu"),
+        lazy.spawn("rofi-powermenu"),
         desc="Rofi powermenu"),
 
     Key([mod], "comma",
-        lazy.spawn("rofi_clipboard copy"),
+        lazy.spawn("rofi-clipboard copy"),
         desc="Rofi clipboard"),
     
     Key([mod], "period",
-        lazy.spawn("rofi_clipboard paste"),
+        lazy.spawn("rofi-clipboard paste"),
         desc="Rofi clipboard direct paste"),
 
     Key([mod], "slash",
-        lazy.spawn("rofi_emoji"),
+        lazy.spawn("rofi-emoji"),
         desc="Rofi emoji"),
 
     Key([mod], "p",
