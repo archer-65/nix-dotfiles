@@ -15,7 +15,7 @@ in {
   config = mkIf cfg.enable {
     hardware.openrazer.enable = true;
 
-    user.extraGroups = ["openrazer"];
+    primaryUser.extraGroups = ["openrazer"];
 
     environment.systemPackages = with pkgs; [polychromatic];
   };

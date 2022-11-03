@@ -17,11 +17,11 @@ in {
       services.jellyfin = {
         enable = true;
         openFirewall = true;
-        user = "${config.user.name}";
+        user = "${config.primaryUser.name}";
       };
 
       # Primary user
-      user.extraGroups = ["jellyfin"];
+      primaryUser.extraGroups = ["jellyfin"];
     }
 
     (mkIf (!cfg.systemd.disable) {systemd.services.plex.wantedBy = mkForce [];})

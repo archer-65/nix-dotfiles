@@ -19,7 +19,7 @@ in {
 
     boot = {
       initrd.verbose = false;
-      boot.consoleLogLevel = 0;
+      consoleLogLevel = 0;
     };
 
     boot.kernelParams = [

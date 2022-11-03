@@ -1,4 +1,3 @@
-{utils}:
-utils.lib.exportModules [
-  ./options.nix
-]
+{
+  options = import ./options.nix;
+}

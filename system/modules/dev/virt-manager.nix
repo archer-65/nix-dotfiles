@@ -27,6 +27,6 @@ in {
 
     environment.systemPackages = with pkgs; [virt-manager swtpm];
 
-    user.extraGroups = ["libvirtd"];
+    primaryUser.extraGroups = ["libvirtd"];
   };
 }

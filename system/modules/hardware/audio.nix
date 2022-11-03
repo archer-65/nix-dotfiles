@@ -29,6 +29,6 @@ in {
       pamixer
     ];
 
-    user.extraGroups = ["audio"];
+    primaryUser.extraGroups = ["audio"];
   };
 }

@@ -13,6 +13,6 @@ in {
 
   config = mkIf cfg.enable {
     programs.adb.enable = true;
-    user.extraGroups = ["adbusers"];
+    primaryUser.extraGroups = ["adbusers"];
   };
 }

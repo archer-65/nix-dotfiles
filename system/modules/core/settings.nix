@@ -1,7 +1,11 @@
 {pkgs, ...}: {
   # NixOS GC, Upgrades and Flakes
   nix = {
-    settings.auto-optimise-store = true;
+    settings = {
+      auto-optimise-store = true;
+      trusted-users = ["root" "@wheel "];
+      allowed-users = ["root" "@wheel "];
+    };
 
     gc = {
       automatic = true;

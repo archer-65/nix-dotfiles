@@ -4,10 +4,10 @@
   "credentials/bitwarden" = import ./credentials/bitwarden.nix;
 
   "desktop/xorg" = import ./desktop/xorg;
-  "desktop/xorg/qtile" = import ./desktop/xorg/qtile;
+  "desktop/xorg/qtile" = import ./desktop/xorg/qtile.nix;
 
   "desktop/wayland" = import ./desktop/wayland;
-  "desktop/wayland/sway" = import ./desktop/wayland/sway;
+  "desktop/wayland/sway" = import ./desktop/wayland/sway.nix;
   "desktop/wayland/hyprland" = import ./desktop/wayland/hyprland.nix;
 
   "desktop/apps/greenclip" = import ./desktop/apps/greenclip.nix;
@@ -34,7 +34,7 @@
 
   "dev/cc" = import ./dev/cc.nix;
   "dev/js" = import ./dev/js;
-  "dev/java" = import ./dev/java;
+  "dev/java" = import ./dev/java.nix;
   "dev-lang.nix" = import ./dev/nix-lang.nix;
   "dev/rust" = import ./dev/rust.nix;
   "dev/terraform" = import ./dev/terraform.nix;

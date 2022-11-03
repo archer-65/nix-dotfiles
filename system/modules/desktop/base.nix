@@ -29,6 +29,6 @@ in {
       pkgs.libinput
     ];
 
-    user.extraGroups = ["video"];
+    primaryUser.extraGroups = ["video"];
   };
 }

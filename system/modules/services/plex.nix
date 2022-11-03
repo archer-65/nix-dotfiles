@@ -17,11 +17,11 @@ in {
       services.plex = {
         enable = true;
         openFirewall = true;
-        user = "${config.user.name}";
+        user = "${config.primaryUser.name}";
       };
 
       # Primary user
-      user.extraGroups = ["plex"];
+      primaryUser.extraGroups = ["plex"];
     }
 
     (mkIf (!cfg.service.enable) {systemd.services.plex.wantedBy = mkForce [];})

@@ -15,6 +15,6 @@ in {
   config = mkIf cfg.enable {
     virtualisation.docker = {enable = true;};
 
-    user.extraGroups = ["docker"];
+    primaryUser.extraGroups = ["docker"];
   };
 }
