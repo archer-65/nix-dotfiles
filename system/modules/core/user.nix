@@ -24,11 +24,15 @@ with lib; {
       home = "/home/mario";
       isNormalUser = true;
       group = "users";
+      initialPassword = "nixos";
       uid = 1000;
       extraGroups = ["wheel"];
     };
 
     users.users.${config.primaryUser.name} = mkAliasDefinitions options.primaryUser;
+
+    # Change me later!
+    users.users.root.initialPassword = "nixos";
 
     environment = {
       sessionVariables = {

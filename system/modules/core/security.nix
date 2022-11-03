@@ -63,10 +63,6 @@
   };
   boot.kernelModules = ["tcp_bbr"];
 
-  # Change me later!
-  primaryUser.initialPassword = "nixos";
-  users.users.root.initialPassword = "nixos";
-
   # So we don't have to do this later...
   security.acme.acceptTerms = true;
 

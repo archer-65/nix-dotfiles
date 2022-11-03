@@ -17,11 +17,11 @@ in {
       services.jellyfin = {
         enable = true;
         openFirewall = true;
-        user = "${config.primaryUser.name}";
       };
 
-      # Primary user
-      primaryUser.extraGroups = ["jellyfin"];
+      # Jellyfin needs read/exec permissions on files.
+      # I have my drive under /home/myself/stuff, that dir has `r-x` as "others" permissions.
+      users.users.jellyfin.extraGroups = ["users"];
     }
 
     (mkIf (!cfg.systemd.disable) {systemd.services.plex.wantedBy = mkForce [];})
