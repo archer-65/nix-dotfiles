@@ -15,7 +15,7 @@
     desktop.sddm.enable = true;
 
     core = {
-      boot.splashBoot.enable = true;
+      boot.quietboot.enable = true;
       cachix.enable = true;
     };
   };

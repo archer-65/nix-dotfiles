@@ -10,8 +10,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    utils.url = "github:gytis-ivaskevicius/flake-utils-plus";
-
     # This for direct use of the overlay
     # emacs-overlay.url = "github:nix-community/emacs-overlay?rev=977b205ab9ce857f3440dff2a114a35bf2758c05";
 
@@ -36,36 +34,34 @@
     self,
     nixpkgs,
     home-manager,
-    utils,
     ...
   }: let
     lib = import ./lib {inherit inputs;};
 
     hosts = (import ./outputs/configs.nix nixpkgs.lib).nixos;
     homes = (import ./outputs/configs.nix nixpkgs.lib).home-manager;
+  in {
+    nixosModules = import ./system/modules;
+    homeModules = import ./home/modules;
+    sharedModules = import ./shared;
 
-    inherit (utils.lib) eachDefaultSystem;
-  in
-    {
-      nixosModules = import ./system/modules {inherit utils;};
-      homeModules = import ./home/modules {inherit utils;};
-      sharedModules = import ./shared {inherit utils;};
+    nixosConfigurations = lib.mkSystem hosts;
+    homeConfigurations = lib.mkHome homes;
 
-      nixosConfigurations = lib.mkSystem hosts;
-      homeConfigurations = lib.mkHome homes;
+    overlays = import ./overlays inputs;
 
-      overlays = import ./overlays inputs;
-    }
-    // eachDefaultSystem (
-      system: let
-        pkgs = nixpkgs.legacyPackages.${system};
-      in {
-        # Generate formatter (alejandra) attribute set for all systems
-        formatter = pkgs.alejandra;
-
-        packages = import ./packages {inherit pkgs;};
-
-        devShell = import ./shell.nix {inherit pkgs;};
-      }
+    formatter = lib.forAllSystems (
+      system:
+        nixpkgs.legacyPackages.${system}.alejandra
     );
+
+    packages = lib.forAllSystems (
+      system:
+        import ./packages {pkgs = nixpkgs.legacyPackages.${system};}
+    );
+
+    devShell =
+      lib.forAllSystems (system:
+        import ./shell.nix {pkgs = nixpkgs.legacyPackages.${system};});
+  };
 }
