@@ -20,7 +20,7 @@ in {
       userName = "archer-65";
 
       signing = mkIf cfgSign.enable {
-        key = cfgSign.key;
+        key = "BAC570B2172822A3";
         signByDefault = true;
       };
     };

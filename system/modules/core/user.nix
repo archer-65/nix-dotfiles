@@ -44,7 +44,6 @@ with lib; {
       variables = {
         # Make some programs "XDG" compliant
         LESSHISTFILE = "$XDG_CACHE_HOME/lesshst";
-        WGETRC = "$XDG_CONFIG_HOME/wgetrc";
       };
     };
   };

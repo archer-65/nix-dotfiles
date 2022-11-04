@@ -25,6 +25,6 @@ in {
     # Setup yubikey
     services.udev.packages = [pkgs.yubikey-personalization];
     services.pcscd.enable = true;
-    environment.systemPackages = [pkgs.yubioath-desktop];
+    environment.systemPackages = [pkgs.yubioath-desktop pkgs.yubikey-manager-qt];
   };
 }
