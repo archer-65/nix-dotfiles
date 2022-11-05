@@ -18,18 +18,20 @@ in {
       openFirewall = true;
 
       passwordAuthentication = false;
-      allowSFTP = false;
+      permitRootLogin = "no";
+
       kbdInteractiveAuthentication = false;
+      
+      allowSFTP = false;
 
       forwardX11 = false;
+
       extraConfig = ''
-        AllowTcpForwarding yes
+        AllowTcpForwarding no
         AllowAgentForwarding no
         AllowStreamLocalForwarding no
         AuthenticationMethods publickey
       '';
     };
-
-    services.sshd.enable = true;
   };
 }
