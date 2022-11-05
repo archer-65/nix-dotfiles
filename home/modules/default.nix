@@ -2,6 +2,7 @@
   "credentials/gpg" = import ./credentials/gpg.nix;
   "credentials/mail" = import ./credentials/mail.nix;
   "credentials/bitwarden" = import ./credentials/bitwarden.nix;
+  "credentials/yubikey" = import ./credentials/yubikey.nix;
 
   "desktop/xorg" = import ./desktop/xorg;
   "desktop/xorg/qtile" = import ./desktop/xorg/qtile.nix;
