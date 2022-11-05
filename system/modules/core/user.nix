@@ -34,16 +34,19 @@ with lib; {
     # Change me later!
     users.users.root.initialPassword = "nixos";
 
+    primaryUser.openssh.authorizedKeys.keys = let
+      yubikey = "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBR9GjKkCrbAbfuQJXuMTh1I6agrhiHrxlEXhWgidvLS";
+    in [
+      yubikey
+    ];
+
+
     environment = {
       sessionVariables = {
         XDG_CACHE_HOME = "$HOME/.cache";
         XDG_CONFIG_HOME = "$HOME/.config";
         XDG_DATA_HOME = "$HOME/.local/share";
         XDG_BIN_HOME = "$HOME/.local/bin";
-      };
-      variables = {
-        # Make some programs "XDG" compliant
-        LESSHISTFILE = "$XDG_CACHE_HOME/lesshst";
       };
     };
   };
