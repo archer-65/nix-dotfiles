@@ -12,7 +12,6 @@
       };
       mail-defaults.enable = true;
       bitwarden.enable = true;
-      yubikey.enable = true;
     };
 
     desktop = {
