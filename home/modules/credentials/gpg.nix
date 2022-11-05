@@ -36,7 +36,7 @@ in {
       enable = true;
       enableSshSupport = true;
       pinentryFlavor = "gnome3";
-      sshKeys = [ "19953CB0EC3A2941EF36DA2D7BDA72F1E2404770" ];
+      sshKeys = ["19953CB0EC3A2941EF36DA2D7BDA72F1E2404770"];
     };
   };
 }
