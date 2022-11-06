@@ -47,7 +47,7 @@ in {
           terminal = false;
           mimeTypes = ["x-scheme-handler/discord"];
         };
-      in [ discord-chromium ];
+      in [discord-chromium];
     })
 
     (mkIf (!cfgWayland.enable) {home.packages = with pkgs; [discord];})

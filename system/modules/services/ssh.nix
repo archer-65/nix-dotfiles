@@ -21,7 +21,7 @@ in {
       permitRootLogin = "no";
 
       kbdInteractiveAuthentication = false;
-      
+
       allowSFTP = false;
 
       forwardX11 = false;

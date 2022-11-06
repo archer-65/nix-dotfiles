@@ -3,8 +3,11 @@
 
   # Kernel related
   boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelModules = ["amdgpu"];
+  boot.kernelParams = ["amdgpu.dcfeaturemask=0x8" "zswap.enabled=0"];
 
-  boot.initrd.kernelModules = ["amdgpu"];
+  boot.initrd.kernelModules = [];
+  boot.initrd.availableKernelModules = [];
   boot.supportedFilesystems = ["ntfs"];
 
   # General EFI settings
@@ -49,7 +52,6 @@
     videoDrivers = ["amdgpu"];
   };
 
-  boot.kernelParams = ["zswap.enabled=0"];
   zramSwap = {
     enable = true;
     memoryPercent = 40;

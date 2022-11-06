@@ -35,7 +35,7 @@
     desktop.greetd.enable = true;
 
     core = {
-      # boot.quietboot.enable = true;
+      boot.quietboot.enable = true;
       cachix.enable = true;
     };
   };

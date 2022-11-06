@@ -39,8 +39,8 @@ in {
       systemd.user.services.emacs = {
         # Needed for Wayland sessions
         Unit = {
-          After = [ "default.target" ];
-          PartOf = [ "default.target" ];
+          After = ["default.target"];
+          PartOf = ["default.target"];
         };
       };
 
