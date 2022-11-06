@@ -3,11 +3,14 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 with lib; let
   cfg = config.home.modules.desktop.apps.discord;
   cfgWayland = config.home.modules.desktop.wayland;
+  inherit (inputs) webcord;
+  webcord-pkg = webcord.packages.${pkgs.system}.default;
 in {
   options.home.modules.desktop.apps.discord = {
     enable = mkEnableOption "discord";
@@ -16,6 +19,20 @@ in {
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfgWayland.enable {
       home.modules.desktop.browsers.chromium.enable = true;
+
+      programs.webcord = {
+        enable = true;
+        themes = let
+          catppuccin = pkgs.fetchFromGitHub {
+            owner = "catppuccin";
+            repo = "discord";
+            rev = "159aac939d8c18da2e184c6581f5e13896e11697";
+            sha256 = "sha256-cWpog52Ft4hqGh8sMWhiLUQp/XXipOPnSTG6LwUAGGA=";
+          };
+        in {
+          CatpuccinMocha = "${catppuccin}/themes/mocha.theme.css";
+        };
+      };
 
       home.packages = with pkgs; let
         discord-chromium = makeDesktopItem {
@@ -30,7 +47,7 @@ in {
           terminal = false;
           mimeTypes = ["x-scheme-handler/discord"];
         };
-      in [discord-chromium];
+      in [ discord-chromium ];
     })
 
     (mkIf (!cfgWayland.enable) {home.packages = with pkgs; [discord];})
