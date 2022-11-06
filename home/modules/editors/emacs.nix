@@ -36,15 +36,18 @@ in {
         client.enable = true;
       };
 
+      systemd.user.services.emacs = {
+        # Needed for Wayland sessions
+        Unit = {
+          After = [ "default.target" ];
+          PartOf = [ "default.target" ];
+        };
+      };
+
       home.sessionVariables = {
         EDITOR = "emacsclient -t";
         VISUAL = "emacsclient -c -a emacs";
       };
-    })
-
-    (mkIf (cfgWayland.wm == "sway" && cfg.daemon.enable) {
-      systemd.user.services.emacs.Install.WantedBy =
-        lib.mkForce ["sway-session.target"];
     })
   ]);
 }

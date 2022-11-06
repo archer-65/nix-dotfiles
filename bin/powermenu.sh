@@ -82,6 +82,7 @@ case $chosen in
                 i3-msg exit
 	    elif [[ "$XDG_CURRENT_DESKTOP" =~ "sway" ]]; then
 		swaymsg exit
+		systemctl stop --user sway-session.target
             fi
             elif [[ $ans == "N" ]]; then
             exit 0
