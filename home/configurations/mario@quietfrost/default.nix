@@ -119,4 +119,8 @@
       XDG_GAMES_DIR = "${config.home.homeDirectory}/games";
     };
   };
+
+  services = {
+    keybase.enable = true;
+  };
 }

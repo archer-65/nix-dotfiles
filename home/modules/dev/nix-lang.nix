@@ -17,8 +17,8 @@ in {
       statix
       deadnix
       alejandra
-      rnix-lsp
-      # nil
+      # rnix-lsp
+      nil
     ];
   };
 }

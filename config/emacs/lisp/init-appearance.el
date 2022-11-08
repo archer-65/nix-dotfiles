@@ -36,7 +36,7 @@
 ;; For packaged versions which must use `require':
 (leaf modus-themes
   :doc "Wonderful built-in themes by Protesilaos Stavrou"
-  :straight t
+  :straight (modus-themes :type built-in)
   :init
   (setq modus-themes-region '(accented no-extend bg-only) ;; Region highlight
         modus-themes-org-blocks 'gray-background ;; Org source blocks background
