@@ -61,7 +61,8 @@
 (leaf format-all
   :doc "Same command to auto-format source code in many languages"
   :straight t
-  ;; :hook
+  :hook
+  (prog-mode-hook . format-all-mode)
   ;; (prog-mode-hook . format-all-ensure-formatter)
   :bind
   ("<f1>" . format-all-buffer))

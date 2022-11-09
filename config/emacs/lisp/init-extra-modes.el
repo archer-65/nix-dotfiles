@@ -22,6 +22,9 @@
   :straight t
   :mode "\\.json\\'")
 
+(leaf c-mode
+  :mode "\\.c\\'")
+
 (leaf rustic
   :straight t
   :mode "\\.rs\\'"
@@ -35,24 +38,25 @@
          ("C-c C-c Q" . lsp-workspace-shutdown)
          ("C-c C-c s" . lsp-rust-analyzer-status))
   :config
-  (setq rustic-format-on-save t)
+  (setq rustic-format-on-save nil)
+  :custom
   ;; lsp-mode related
   ;; what to use when checking on-save. "check" is default, I prefer clippy
-  (lsp-rust-analyzer-cargo-watch-command "clippy")
-  ;; enable / disable the hints as you prefer:
-  (lsp-rust-analyzer-server-display-inlay-hints t)
-  (lsp-rust-analyzer-display-lifetime-elision-hints-enable "skip_trivial")
-  (lsp-rust-analyzer-display-chaining-hints t)
-  (lsp-rust-analyzer-display-lifetime-elision-hints-use-parameter-names nil)
-  (lsp-rust-analyzer-display-closure-return-type-hints t)
-  (lsp-rust-analyzer-display-parameter-hints nil)
-  (lsp-rust-analyzer-display-reborrow-hints nil))
+  (lsp-rust-analyzer-cargo-watch-command . "clippy")
+  (lsp-rust-analyzer-display-lifetime-elision-hints-enable . "skip_trivial")
+  (lsp-rust-analyzer-display-lifetime-elision-hints-use-parameter-names . nil)
+  (lsp-rust-analyzer-display-closure-return-type-hints . t)
+  (lsp-rust-analyzer-display-reborrow-hints . nil)
+  (lsp-rust-analyzer-display-parameter-hints . nil)
+  (lsp-rust-analyzer-display-chaining-hints . t)
+  (lsp-rust-analyzer-server-display-inlay-hints . t))
 
 (leaf terraform-mode
   :straight t
   :mode "\\.tf\\'"
   :config
   (leaf company-terraform
+    :when (fboundp 'company-mode)
     :straight t
     :config
     (company-terraform-init)))

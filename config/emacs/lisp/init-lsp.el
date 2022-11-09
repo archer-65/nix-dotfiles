@@ -16,6 +16,7 @@
   "Deploys universal GC and IPC optimizations for `lsp-mode' and `eglot'."
   :global t
   :init-value nil
+  :group 'lsp
   (if (not +lsp-optimization-mode)
       (setq-default read-process-output-max +lsp--default-read-process-output-max
                     gcmh-high-cons-threshold +lsp--default-gcmh-high-cons-threshold
@@ -41,29 +42,29 @@
   :straight t
   :commands lsp
   :init
-  (setq lsp-keymap-prefix "C-c l")
   :config
-  (setq lsp-keep-workspace-alive nil)
-  (setq lsp-auto-guess-root nil)
-  (setq lsp-log-io nil)
-  (setq lsp-restart 'auto-restart)
-  (setq lsp-enable-symbol-highlighting nil)
-  (setq lsp-enable-on-type-formatting t)
-  (setq lsp-signature-auto-activate nil)
-  (setq lsp-signature-render-documentation nil)
-  (setq lsp-eldoc-hook nil)
-  (setq lsp-modeline-code-actions-enable nil)
-  (setq lsp-modeline-diagnostics-enable nil)
-  (setq lsp-headerline-breadcrumb-enable nil)
-  (setq lsp-semantic-tokens-enable nil)
-  (setq lsp-enable-folding nil)
-  (setq lsp-enable-imenu nil)
-  (setq lsp-enable-snippet nil)
-  (setq lsp-idle-delay 0.5)
   :custom
+  (lsp-keymap-prefix . "C-c l")
+  (lsp-keep-workspace-alive . nil)
+  (lsp-auto-guess-root . nil)
+  (lsp-log-io . nil)
+  (lsp-restart . 'auto-restart)
+  (lsp-enable-symbol-highlighting . t)
+  (lsp-enable-on-type-formatting . t)
+  (lsp-signature-auto-activate . nil)
+  (lsp-signature-render-documentation . t)
+  (lsp-modeline-code-actions-enable . nil)
+  (lsp-modeline-diagnostics-enable . nil)
+  (lsp-headerline-breadcrumb-enable . t)
+  (lsp-semantic-tokens-enable . nil)
   (lsp-eldoc-render-all . t)
+  (lsp-idle-delay . 0.5)
+  (lsp-enable-snippet . t)
+  (lsp-enable-folding . nil)
+  (lsp-enable-imenu . t)
+  (lsp-eldoc-hook . '(lsp-hover))
   :hook
-  ((c-mode c++-mode java-mode nix-mode rustic-mode cmake-mode terraform-mode) . lsp-deferred)
+  ((c-mode-hook c++-mode-hook java-mode-hook nix-mode-hook rustic-mode-hook cmake-mode-hook terraform-mode-hook) . lsp-deferred)
   (lsp-mode-hook . +lsp-optimization-mode)
   (lsp-mode-hook  . lsp-enable-which-key-integration))
 
@@ -71,13 +72,13 @@
   :straight t
   :after lsp
   :commands lsp-ui-mode
-  :config
-  (setq lsp-ui-doc-enable t)
-  (setq lsp-ui-doc-header t)
-  (setq lsp-ui-doc-include-signature t)
-  (setq lsp-ui-doc-border (face-foreground 'default))
-  (setq lsp-ui-sideline-show-code-actions t)
-  (setq lsp-ui-sideline-delay 0.05))
+  :custom
+  (lsp-ui-doc-enable . t)
+  (lsp-ui-doc-header . t)
+  (lsp-ui-doc-include-signature . t)
+  (lsp-ui-doc-border . '(face-foreground 'default))
+  (lsp-ui-sideline-show-code-actions . t)
+  (lsp-ui-sideline-delay . 0.05))
 
 (leaf lsp-treemacs
   :straight t
