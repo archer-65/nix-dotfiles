@@ -36,7 +36,7 @@
 ;; For packaged versions which must use `require':
 (leaf modus-themes
   :doc "Wonderful built-in themes by Protesilaos Stavrou"
-  :straight (modus-themes :type built-in)
+  :straight t
   :init
   (setq modus-themes-region '(accented no-extend bg-only) ;; Region highlight
         modus-themes-org-blocks 'gray-background ;; Org source blocks background
@@ -60,7 +60,7 @@
 	modus-themes-mail-citations 'intense ; {nil,'intense,'faint,'monochrome}
 	modus-themes-subtle-line-numbers nil
         modus-themes-mode-line '(borderless accented))
-  (modus-themes-load-themes)
+  (modus-themes-load-themes) ;; Needed for packaged version
   :hook
   (modus-themes-after-load-theme-hook . my-modus-themes-custom-faces)
   :config

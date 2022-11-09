@@ -14,6 +14,10 @@
   :load-path "~/.nix-profile/share/emacs/site-lisp/mu4e"
   :init
   (provide 'html2text)
+  :hook
+  (mu4e-context-changed-hook . (lambda()
+				 (when (buffer-live-p (get-buffer "*mu4e-main*"))
+				   revert-buffer)))
   :config
    ;; Load org-mode integration
   (require 'org-mu4e)

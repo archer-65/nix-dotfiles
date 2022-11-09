@@ -8,18 +8,22 @@
 
 (leaf company
   :straight t
-  :bind ((company-active-map ("C-n" . company-select-next)
-                             ("C-p" . company-select-previous)
-                             ("C-s" . company-filter-candidates)
-                             ("C-i" . company-complete-selection)
-                             ("<tab>" . company-complete-selection)
-                             ("M-d" . company-show-doc-buffer))
-         (company-search-map ("C-n" . company-select-next)
-                             ("C-p" . company-select-previous))
-	 ("C-c C-/" . company-files)
-	 ("C-c y" . company-yasnippet))
-  ;; :hook
-  ;; (telega-chat-mode-hook . company-mode) ;; Only when Corfu is enabled!
+  :bind
+  (:lsp-mode-map
+   ("<tab>" . company-indent-or-complete-common))
+  (:company-active-map
+   ("C-n" . company-select-next)
+   ("C-p" . company-select-previous)
+   ("C-s" . company-filter-candidates)
+   ("C-i" . company-complete-selection)
+   ("<tab>" . company-complete-selection)
+   ("M-d" . company-show-doc-buffer))
+  (:company-search-map ("C-n" . company-select-next)
+                       ("C-p" . company-select-previous))
+  ("C-c C-/" . company-files)
+  ("C-c y" . company-yasnippet)
+  :hook
+  (telega-chat-mode-hook . company-mode)
   :custom
   (global-company-mode . t))
 

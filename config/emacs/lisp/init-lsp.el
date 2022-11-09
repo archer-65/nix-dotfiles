@@ -6,56 +6,78 @@
 
 ;;; Code:
 
+;;
+;;; NOTE: These are taken from https://github.com/doomemacs/doomemacs/blob/master/modules/tools/lsp/config.el
+(defvar +lsp--default-read-process-output-max nil)
+(defvar +lsp--default-gcmh-high-cons-threshold nil)
+(defvar +lsp--optimization-init-p nil)
+
+(define-minor-mode +lsp-optimization-mode
+  "Deploys universal GC and IPC optimizations for `lsp-mode' and `eglot'."
+  :global t
+  :init-value nil
+  (if (not +lsp-optimization-mode)
+      (setq-default read-process-output-max +lsp--default-read-process-output-max
+                    gcmh-high-cons-threshold +lsp--default-gcmh-high-cons-threshold
+                    +lsp--optimization-init-p nil)
+    ;; Only apply these settings once!
+    (unless +lsp--optimization-init-p
+      (setq +lsp--default-read-process-output-max (default-value 'read-process-output-max)
+            +lsp--default-gcmh-high-cons-threshold (default-value 'gcmh-high-cons-threshold))
+      (setq-default read-process-output-max (* 1024 1024))
+      ;; REVIEW LSP causes a lot of allocations, with or without the native JSON
+      ;;        library, so we up the GC threshold to stave off GC-induced
+      ;;        slowdowns/freezes. Doom uses `gcmh' to enforce its GC strategy,
+      ;;        so we modify its variables rather than `gc-cons-threshold'
+      ;;        directly.
+      (setq-default gcmh-high-cons-threshold (* 2 +lsp--default-gcmh-high-cons-threshold))
+      (gcmh-set-high-threshold)
+      (setq +lsp--optimization-init-p t))))
+
+;;
+;;; LSP-MODE
+
 (leaf lsp-mode
   :straight t
   :commands lsp
-  :bind
-  (lsp-mode-map
-    ("<tab>" . company-indent-or-complete-common))
   :init
   (setq lsp-keymap-prefix "C-c l")
   :config
-  ;; (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
-  ;; (lsp-register-client (make-lsp-client :new-connection (lsp-stdio-connection '("rnix-lsp"))
-  ;; 					:major-modes '(nix-mode)
-  ;;  					:server-id 'nix))
-  ;; (add-to-list 'lsp-language-id-configuration '(nix-mode . "nix"))
-  ;; (lsp-register-client (make-lsp-client :new-connection (lsp-stdio-connection '("nil"))
-  ;;					:major-modes '(nix-mode)
-  ;; 					:activation-fn (lsp-activate-on "nix")
-  ;;					:server-id 'nix-nil))
   (setq lsp-keep-workspace-alive nil)
-  ;; uncomment for less flashiness
-  ;; (setq lsp-eldoc-hook nil)
-  ;; (setq lsp-enable-symbol-highlighting nil)
-  ;; (setq lsp-signature-auto-activate nil)
+  (setq lsp-auto-guess-root nil)
+  (setq lsp-log-io nil)
+  (setq lsp-restart 'auto-restart)
+  (setq lsp-enable-symbol-highlighting nil)
+  (setq lsp-enable-on-type-formatting t)
+  (setq lsp-signature-auto-activate nil)
+  (setq lsp-signature-render-documentation nil)
+  (setq lsp-eldoc-hook nil)
+  (setq lsp-modeline-code-actions-enable nil)
+  (setq lsp-modeline-diagnostics-enable nil)
+  (setq lsp-headerline-breadcrumb-enable nil)
+  (setq lsp-semantic-tokens-enable nil)
+  (setq lsp-enable-folding nil)
+  (setq lsp-enable-imenu nil)
+  (setq lsp-enable-snippet nil)
+  (setq lsp-idle-delay 0.5)
   :custom
-  ;; what to use when checking on-save. "check" is default, I prefer clippy
-  (lsp-rust-analyzer-cargo-watch-command "clippy")
-  (lsp-eldoc-render-all t)
-  (lsp-idle-delay 0.6)
-  ;; enable / disable the hints as you prefer:
-  (lsp-rust-analyzer-server-display-inlay-hints t)
-  (lsp-rust-analyzer-display-lifetime-elision-hints-enable "skip_trivial")
-  (lsp-rust-analyzer-display-chaining-hints t)
-  (lsp-rust-analyzer-display-lifetime-elision-hints-use-parameter-names nil)
-  (lsp-rust-analyzer-display-closure-return-type-hints t)
-  (lsp-rust-analyzer-display-parameter-hints nil)
-  (lsp-rust-analyzer-display-reborrow-hints nil)
+  (lsp-eldoc-render-all . t)
   :hook
-  (c-mode-hook    . lsp)
-  (c++-mode-hook  . lsp)
-  (java-mode-hook . lsp)
-  (nix-mode-hook  . lsp)
-  (rustic-mode-hook . lsp)
-  (cmake-mode . lsp-deferred)
-  (terraform-mode . lsp-deferred)
+  ((c-mode c++-mode java-mode nix-mode rustic-mode cmake-mode terraform-mode) . lsp-deferred)
+  (lsp-mode-hook . +lsp-optimization-mode)
   (lsp-mode-hook  . lsp-enable-which-key-integration))
 
 (leaf lsp-ui
   :straight t
   :after lsp
-  :commands lsp-ui-mode)
+  :commands lsp-ui-mode
+  :config
+  (setq lsp-ui-doc-enable t)
+  (setq lsp-ui-doc-header t)
+  (setq lsp-ui-doc-include-signature t)
+  (setq lsp-ui-doc-border (face-foreground 'default))
+  (setq lsp-ui-sideline-show-code-actions t)
+  (setq lsp-ui-sideline-delay 0.05))
 
 (leaf lsp-treemacs
   :straight t
@@ -72,6 +94,9 @@
 ;; optionally if you want to use debugger
 ;; (leaf dap-mode)
 ;; (leaf dap-LANGUAGE) to load the dap adapter for your language
+
+;;
+;;; EGLOT
 
 ;; Not working now, I need time to try :(
 (leaf eglot
