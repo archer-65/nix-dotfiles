@@ -18,6 +18,7 @@
   "dev/adb" = import ./dev/adb.nix;
   "dev/virt-manager" = import ./dev/virt-manager.nix;
   "dev/docker" = import ./dev/docker.nix;
+  "dev/manpages" = import ./dev/manpages.nix;
 
   "hardware/audio" = import ./hardware/audio.nix;
   "hardware/bluetooth" = import ./hardware/bluetooth.nix;

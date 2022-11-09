@@ -15,6 +15,7 @@
       adb.enable = true;
       docker.enable = true;
       virt-manager.enable = true;
+      manpages.enable = true;
     };
 
     media = {
