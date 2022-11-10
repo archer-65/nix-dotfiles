@@ -19,9 +19,32 @@ in {
       mbsync.enable = true;
       mu.enable = true;
       msmtp.enable = true;
+      # lieer.enable = true;
+      # notmuch.enable = true;
     };
 
     accounts.email.accounts = {
+      # gmail = {
+      #   primary = false;
+      #   realName = "Mario Liguori";
+      #   address = "mario.liguori.056@gmail.com";
+      #   userName = "mario.liguori.056@gmail.com";
+      #   flavor = "gmail.com";
+      #   passwordCommand = "${pkgs.libsecret}/bin/secret-tool lookup gmail password";
+
+      #   notmuch.enable = true;
+      #   lieer = {
+      #     enable = true;
+      #     sync.enable = true;
+      #     settings = {
+      #       replace_slash_with_dot = true;
+      #       ignore_tags = [ "new" ];
+      #       ignore_remote_labels = [ ];
+      #       drop_non_existing_label = true;
+      #     };
+      #   };
+      # };
+
       gmailPrimary = {
         primary = true;
         realName = "Mario Liguori";

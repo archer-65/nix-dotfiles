@@ -7,10 +7,27 @@ inputs: {
   modifications = final: prev: {
     discord = prev.discord.overrideAttrs (old: rec {
       version = "0.0.20";
+
       src = final.fetchurl {
         url = "https://dl.discordapp.net/apps/linux/${version}/discord-${version}.tar.gz";
         sha256 = "BBc4n6Q3xuBE13JS3gz/6EcwdOWW57NLp2saOlwOgMI=";
       };
+    });
+
+    lieer = prev.lieer.overrideAttrs (old: rec {
+      pname = "lieer";
+      # version = "244c9bfe11d87cd8a09c38ef5470e798ad41359e";
+
+      # src = prev.fetchFromGitHub {
+      #   owner = "gauteh";
+      #   repo = "lieer";
+      #   rev = version;
+      #   sha256 = "sha256-CaHI8sdM1jBubszjqaOkxaDA2zZxwufgjFeDkuTHRIo=";
+      # };
+
+      # propagatedBuildInputs = old.propagatedBuildInputs;
+
+      patches = (old.patches or []) ++ [ ./gmi-init.patch ];
     });
 
     # See https://github.com/hashicorp/terraform-ls/issues/1067
