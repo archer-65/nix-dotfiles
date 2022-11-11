@@ -7,6 +7,11 @@
 }:
 with lib; let
   cfg = config.home.modules.credentials.mail-defaults;
+
+  channelExtraConfig = {
+    Create = "Near";
+    SyncState = "*";
+  };
 in {
   options.home.modules.credentials.mail-defaults = {
     enable = mkEnableOption "mail support";
@@ -45,16 +50,13 @@ in {
       #   };
       # };
 
-      gmailPrimary = {
+      gmail = rec {
         primary = true;
+        flavor = "gmail.com";
         realName = "Mario Liguori";
         address = "mario.liguori.056@gmail.com";
-        userName = "mario.liguori.056@gmail.com";
-
-        flavor = "gmail.com";
+        userName = address;
         passwordCommand = "${pkgs.libsecret}/bin/secret-tool lookup gmailPrimary password";
-
-        maildir.path = "GmailPrimary";
 
         mu.enable = true;
 
@@ -62,28 +64,89 @@ in {
 
         mbsync = {
           enable = true;
-          patterns = [
-            "*"
-            "![Gmail]*"
-            "[Gmail]/Trash"
-            "[Gmail]/Drafts"
-            "[Gmail]/Sent Mail"
-            "[Gmail]/Starred"
-            "[Gmail]/All Mail"
-          ];
-          create = "both";
+          subFolders = "Verbatim";
+
+          groups = {
+            gmail = {
+              channels = {
+                inbox = {
+                  farPattern = "INBOX";
+                  nearPattern = "inbox";
+                  extraConfig =
+                    {
+                      Sync = "All";
+                      Expunge = "Both";
+                    }
+                    // channelExtraConfig;
+                };
+
+                sent = {
+                  farPattern = "[Gmail]/Sent Mail";
+                  nearPattern = "sent";
+                  extraConfig =
+                    {
+                      Sync = "All";
+                      Expunge = "Both";
+                    }
+                    // channelExtraConfig;
+                };
+
+                archive = {
+                  farPattern = "[Gmail]/All Mail";
+                  nearPattern = "archive";
+                  extraConfig =
+                    {
+                      Sync = "All";
+                      Expunge = "None";
+                    }
+                    // channelExtraConfig;
+                };
+
+                drafts = {
+                  farPattern = "[Gmail]/Drafts";
+                  nearPattern = "drafts";
+                  extraConfig =
+                    {
+                      Sync = "Pull";
+                      Expunge = "Both";
+                    }
+                    // channelExtraConfig;
+                };
+
+                trash = {
+                  farPattern = "[Gmail]/Trash";
+                  nearPattern = "trash";
+                  extraConfig =
+                    {
+                      Sync = "All";
+                      Expunge = "None";
+                    }
+                    // channelExtraConfig;
+                };
+
+                spam = {
+                  farPattern = "[Gmail]/Spam";
+                  nearPattern = "spam";
+                  extraConfig =
+                    {
+                      Sync = "Pull";
+                      Expunge = "Both";
+                    }
+                    // channelExtraConfig;
+                };
+              };
+            };
+          };
         };
       };
 
-      unina = {
+      unina = rec {
         primary = false;
         realName = "Mario Liguori";
         address = "mario.liguori6@studenti.unina.it";
-        userName = "mario.liguori6@studenti.unina.it";
+        userName = address;
 
         passwordCommand = "${pkgs.libsecret}/bin/secret-tool lookup unina password";
-
-        maildir.path = "Unina";
 
         imap = {
           host = "studenti.unina.it";

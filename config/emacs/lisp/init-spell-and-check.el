@@ -14,6 +14,21 @@
 (leaf flycheck
   :straight t
   :commands (flycheck-list-errors flycheck-buffer)
+  :init
+  ;; HACK: without this, the keywords added by leaf-keywords don't
+  ;; take effect in the checker process, so they all trigger an
+  ;; "unrecognized keyword" error.
+  (setq flycheck-emacs-lisp-check-form
+	(if (string-match-p "leaf-keywords"
+                            flycheck-emacs-lisp-check-form)
+            ;; Don't do anything on subsequent evals
+            flycheck-emacs-lisp-check-form
+          (format
+           "(progn %s %s)"
+           '(progn
+              (require 'leaf-keywords nil t)
+              (leaf-keywords-init))
+           flycheck-emacs-lisp-check-form)))
   :config
   (global-flycheck-mode)
   :custom
