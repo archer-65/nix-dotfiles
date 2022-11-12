@@ -3,6 +3,7 @@ inputs: {
   # Overlays for personal pkgs (callPackage)
   additions = final: _: import ../packages {pkgs = final;};
 
+
   # Overlays for various pkgs (e.g. broken, not updated)
   modifications = final: prev: {
     discord = prev.discord.overrideAttrs (old: rec {
@@ -14,21 +15,12 @@ inputs: {
       };
     });
 
-    lieer = prev.lieer.overrideAttrs (old: rec {
-      pname = "lieer";
-      # version = "244c9bfe11d87cd8a09c38ef5470e798ad41359e";
+    notmuch-mailmover = inputs.notmuch-mailmover.packages.x86_64-linux.default;
 
-      # src = prev.fetchFromGitHub {
-      #   owner = "gauteh";
-      #   repo = "lieer";
-      #   rev = version;
-      #   sha256 = "sha256-CaHI8sdM1jBubszjqaOkxaDA2zZxwufgjFeDkuTHRIo=";
-      # };
-
-      # propagatedBuildInputs = old.propagatedBuildInputs;
-
-      patches = (old.patches or []) ++ [ ./gmi-init.patch ];
-    });
+    # lieer = prev.lieer.overrideAttrs (old: rec {
+    #   pname = "lieer";
+    #   patches = (old.patches or []) ++ [ ./gmi-init.patch ];
+    # });
 
     # See https://github.com/hashicorp/terraform-ls/issues/1067
     # terraform-ls = prev.terraform-ls.overrideAttrs (old: rec {

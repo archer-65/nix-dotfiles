@@ -17,12 +17,12 @@
   :group 'archer:notmuch)
 
 (defcustom archer:notmuch-mark-delete-tags
-  `(,(format "+%s" archer:notmuch-delete-tag) "-inbox" "-archived" "-unread")
+  `(,(format "+%s" archer:notmuch-delete-tag) "-inbox" "-unread")
   "List of tags to mark for deletion."
   :type '(repeat string)
   :group 'archer:notmuch)
 
-(defcustom archer:notmuch-mark-archive-tags '( "+archived" "-deleted" "-inbox" "-unread")
+(defcustom archer:notmuch-mark-archive-tags '( "-deleted" "-inbox" "-unread")
   "List of tags to mark for archive."
   :type '(repeat string)
   :group 'archer:notmuch)
@@ -79,11 +79,11 @@
   (setopt notmuch-saved-searches
 	  ;; Personal
 	  `(( :name "📥 inbox (personal)"
-	      :query "tag:inbox and tag:personal not tag:archived"
+	      :query "tag:inbox and tag:personal"
 	      :sort-order newest-first
 	      :key ,(kbd "p i"))
 	    ( :name "📔 unread (personal)"
-              :query "tag:unread and tag:inbox and tag:personal not tag:archived"
+              :query "tag:unread and tag:inbox and tag:personal"
               :sort-order newest-first
               :key ,(kbd "p u"))
 	    ;; University

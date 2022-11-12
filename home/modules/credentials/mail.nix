@@ -26,11 +26,38 @@ in {
     programs = {
       mbsync.enable = true;
       msmtp.enable = true;
-      # mu.enable = true;
       # lieer.enable = true;
     };
 
-    home.packages = [pkgs.notmuch.emacs];
+    services.mbsync = {
+      enable = true;
+      frequency = "*:0/10";
+      preExec = "${pkgs.notmuch-mailmover}/bin/notmuch-mailmover";
+      postExec = "${pkgs.notmuch}/bin/notmuch new";
+    };
+
+    home.packages = [pkgs.notmuch.emacs pkgs.notmuch-mailmover];
+    xdg.configFile."notmuch-mailmover/config.yaml".text = ''
+      notmuch_config: ~/.config/notmuch/default/config
+      maildir: ~/mails
+
+      # Rename with mbsync
+      rename: true
+      rules:
+        - folder: gmail/archive
+          query: tag:personal and not tag:deleted and not tag:spam and not tag:inbox
+        - folder: gmail/trash
+          query: tag:personal and tag:deleted
+        - folder: gmail/spam
+          query: tag:personal and tag:spam
+        - folder: gmail/inbox
+          query: tag:personal and tag:inbox and not tag:deleted and not tag:spam
+        - folder: unina/trash
+          query: tag:university and tag:deleted
+        - folder: unina/inbox
+          query: tag:university and tag:inbox and not tag:deleted
+    '';
+
     programs.notmuch = {
       enable = true;
 
@@ -48,14 +75,15 @@ in {
       };
 
       hooks = {
-        preNew = "${pkgs.isync}/bin/mbsync --verbose --all";
+        # I let notmuch manage post-indexing stuff like this
         postNew = ''
           ${pkgs.afew}/bin/afew --verbose --tag --new
 
           SEARCH="tag:notify"
           NOTIFY_COUNT=$(${pkgs.notmuch}/bin/notmuch count "$SEARCH");
+
           if [ "$NOTIFY_COUNT" -gt 0 ]; then
-            RESULTS=''$(${pkgs.notmuch} search --format=json --output=summary --limit=5 --sort="newest-first" "$SEARCH" | ${pkgs.jq}/bin/jq -r '.[] | "\(.authors): \(.subject)"')
+            RESULTS=''$(${pkgs.notmuch}/bin/notmuch search --format=json --output=summary --limit=5 --sort="newest-first" "$SEARCH" | ${pkgs.jq}/bin/jq -r '.[] | "\(.authors): \(.subject)"')
             ${pkgs.libnotify}/bin/notify-send "$NOTIFY_COUNT New Emails:" "$RESULTS"
           fi
 
@@ -66,6 +94,8 @@ in {
 
     programs.afew = {
       enable = true;
+      # I'm not assigning a tag to `gmail/archive`. I just remove the tag `inbox` if I'm archiving something.
+      # [TODO] FolderNameFilter.0 and FolderNameFilter.2 to improve.
       extraConfig = ''
         [ArchiveSentMailsFilter]
         sent_tag = sent
@@ -78,8 +108,8 @@ in {
         folder_lowercases = true
 
         [FolderNameFilter.1]
-        folder_explicit_list = gmail/inbox gmail/archive gmail/drafts gmail/sent gmail/trash gmail/spam
-        folder_transforms = gmail/inbox:inbox gmail/archive:archived gmail/drafts:draft gmail/sent:sent gmail/trash:deleted gmail/spam:spam
+        folder_explicit_list = gmail/inbox gmail/drafts gmail/sent gmail/trash gmail/spam
+        folder_transforms = gmail/inbox:inbox gmail/drafts:draft gmail/sent:sent gmail/trash:deleted gmail/spam:spam
         folder_lowercases = true
 
         [FolderNameFilter.2]
@@ -93,21 +123,9 @@ in {
         folder_lowercases = true
 
         [Filter.0]
-        message = Untagged 'archived' from 'inbox'
-        query = 'tag:inbox and tag:archived and tag:personal'
-        tags = -archived
-
-        [Filter.1]
-        message = Untagged 'archived' from 'flagged'
-        query = 'tag:flagged'
-        tags = -archived
-
-        [Filter.2]
-        message = Applying notify tag
-        query = 'tag:unread and tag:new and tag:inbox and not tag:archived'
-        tags = +notify
-
-        [InboxFilter]
+        message = Applying notify tag and removing new tag
+        query = tag:unread and tag:new and tag:inbox
+        tags = +notify;-new
       '';
     };
 
@@ -190,7 +208,7 @@ in {
                 nearPattern = "spam";
                 extraConfig =
                   {
-                    Sync = "Pull";
+                    Sync = "All";
                     Expunge = "Both";
                   }
                   // channelExtraConfig;
