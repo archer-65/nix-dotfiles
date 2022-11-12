@@ -105,7 +105,7 @@
   xdg.userDirs = {
     enable = true;
     createDirectories = true;
-    desktop = "${config.home.homeDirectory}/desktop";
+    desktop = "${config.home.homeDirectory}";
     documents = "${config.home.homeDirectory}/docs";
     download = "${config.home.homeDirectory}/dl";
     music = "${config.home.homeDirectory}/music";
@@ -117,6 +117,7 @@
     extraConfig = {
       XDG_PROJECTS_DIR = "${config.home.homeDirectory}/projects";
       XDG_GAMES_DIR = "${config.home.homeDirectory}/games";
+      XDG_MAILS_DIR = "${config.home.homeDirectory}/mails";
     };
   };
 

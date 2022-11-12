@@ -21,7 +21,7 @@ in {
         enable = true;
         package = pkgs.emacsPgtkNativeComp;
 
-        extraPackages = epkgs: [epkgs.vterm epkgs.melpaPackages.telega];
+        extraPackages = epkgs: [epkgs.vterm  epkgs.melpaPackages.telega];
       };
 
       xdg.configFile."emacs" = {

@@ -7,9 +7,143 @@
 
 ;;; Code:
 
+(defgroup archer:notmuch()
+  "Extensions for notmuch"
+  :group 'notmuch)
+
+(defcustom archer:notmuch-delete-tag "deleted"
+  "Tag that applies to mail marked for deletion"
+  :type 'string
+  :group 'archer:notmuch)
+
+(defcustom archer:notmuch-mark-delete-tags
+  `(,(format "+%s" archer:notmuch-delete-tag) "-inbox" "-archived" "-unread")
+  "List of tags to mark for deletion."
+  :type '(repeat string)
+  :group 'archer:notmuch)
+
+(defcustom archer:notmuch-mark-archive-tags '( "+archived" "-deleted" "-inbox" "-unread")
+  "List of tags to mark for archive."
+  :type '(repeat string)
+  :group 'archer:notmuch)
+
+(defcustom archer:notmuch-mark-flag-tags '("+flagged" "-unread")
+  "List of tags to mark as important (flagged is a special tag)"
+  :type '(repeat string)
+  :group 'archer:notmuch)
+
+(defcustom archer:notmuch-mark-spam-tags '("+spam" "-inbox" "-unread")
+  "List of tags to mark as spam."
+  :type '(repeat string)
+  :group 'archer:notmuch)
+
 ;; Actual client for mails
+(leaf notmuch
+  :load-path "~/.nix-profile/share/emacs/site-lisp"
+  :commands notmuch
+  :config
+  ;; UI
+  (setopt notmuch-show-logo t
+	  notmuch-column-control 0.5
+	  notmuch-hello-auto-refresh t
+	  notmuch-hello-recent-searches-max 15
+	  notmuch-hello-thousands-separator "."
+	  notmuch-show-all-tags-list t
+	  notmuch-hello-sections '(notmuch-hello-insert-header
+				   notmuch-hello-insert-saved-searches
+				   notmuch-hello-insert-search
+				   notmuch-hello-insert-recent-searches
+				   notmuch-hello-insert-alltags
+				   notmuch-hello-insert-footer))
+  ;; Search
+  (setopt notmuch-search-oldest-first nil
+	  notmuch-show-empty-saved-searches t
+	  notmuch-search-result-format
+	  '(("date" . "%12s ")
+	    ("count" . "%-7s ")
+	    ("authors" . "%-20s ")
+	    ("subject" . "%80s ")
+	    ("tags" . "[%s]"))
+	  notmuch-tree-result-format
+	  '(("date" . "%12s  ")
+	    ("authors" . "%-20s")
+	    ((("tree" . "%s")
+	      ("subject" . "%s"))
+	     . " %-80s ")
+	    ("tags" . "[%s]"))
+	  notmuch-search-line-faces
+	  '(("unread" . notmuch-search-unread-face)
+	    ("flagged" . notmuch-search-flagged-face)))
+
+  ;; Saved searches
+  (setopt notmuch-saved-searches
+	  ;; Personal
+	  `(( :name "📥 inbox (personal)"
+	      :query "tag:inbox and tag:personal not tag:archived"
+	      :sort-order newest-first
+	      :key ,(kbd "p i"))
+	    ( :name "📔 unread (personal)"
+              :query "tag:unread and tag:inbox and tag:personal not tag:archived"
+              :sort-order newest-first
+              :key ,(kbd "p u"))
+	    ;; University
+	    ( :name "📥 inbox (university)"
+	      :query "tag:inbox and tag:university"
+	      :sort-order newest-first
+	      :key ,(kbd "u i"))
+	    ( :name "📔 unread (university)"
+              :query "tag:unread and tag:inbox and tag:university"
+              :sort-order newest-first
+              :key ,(kbd "u u"))))
+
+  ;; Tags
+  (setopt notmuch-archive-tags archer:notmuch-mark-archive-tags
+	  notmuch-message-replied-tags '("+replied")
+	  notmuch-message-forwarded-tags '("+forwarded")
+	  notmuch-show-mark-read-tags '("-unread")
+	  notmuch-draft-tags '("+draft")
+	  notmuch-draft-folder "drafts"
+	  notmuch-draft-save-plaintext 'ask)
+
+  ;; Tag formats (with emojis)
+  (setq notmuch-tag-formats
+	'(("unread" (propertize tag 'face 'notmuch-tag-unread))
+          ("flagged" (propertize tag 'face 'notmuch-tag-flagged) ;; Icon is enough
+           (concat "🚩")))
+        notmuch-tag-deleted-formats
+        '(("unread" (notmuch-apply-face bare-tag 'notmuch-tag-deleted)
+           (concat "🚫" tag))
+          (".*" (notmuch-apply-face tag 'notmuch-tag-deleted)
+           (concat "🚫" tag)))
+        notmuch-tag-added-formats
+        '((".*" (notmuch-apply-face tag 'notmuch-tag-added)
+           (concat "✏️" tag))))
+
+  ;; Reading
+  (setopt notmuch-show-relative-dates t
+          notmuch-show-all-multipart/alternative-parts nil
+          notmuch-show-indent-messages-width 1
+          notmuch-show-indent-multipart t
+          notmuch-show-part-button-default-action 'notmuch-show-view-part
+          notmuch-show-text/html-blocked-images "." ; block everything
+          notmuch-wash-wrap-lines-length 120
+          notmuch-unthreaded-show-out nil
+          notmuch-message-headers '("To" "Cc" "Subject" "Date")
+          notmuch-message-headers-visible t)
+
+  (setopt notmuch-wash-citation-lines-prefix 3
+          notmuch-wash-citation-lines-suffix 3)
+
+  ;; TODO Composition
+
+  ;; Hooks
+
+  ;; Bindings
+  )
+
 (leaf mu4e
   :require t
+  :disabled t
   :commands mu4e mu4e-compose-new
   :load-path "~/.nix-profile/share/emacs/site-lisp/mu4e"
   :init
@@ -79,14 +213,14 @@
             :vars '((user-mail-address . "mario.liguori6@studenti.unina.it")
                     (smtpmail-smtp-user . "mario.liguori6@studenti.unina.it")
                     (user-full-name     . "Mario Liguori")
-                    (mu4e-drafts-folder . "/unina/Bozze")
-                    (mu4e-sent-folder   . "/unina/Posta inviata")
-                    (mu4e-trash-folder  . "/unina/Posta eliminata")
+                    (mu4e-sent-folder   . "/unina/sent")
+                    (mu4e-drafts-folder . "/unina/drafts")
+                    (mu4e-trash-folder  . "/unina/trash")
                     (mu4e-maildir-shortcuts .
-                                            (("/unina/Inbox"         . ?i)
-                                             ("/unina/Posta inviata" . ?s)
-                                             ("/unina/Posta eliminata" . ?t)
-                                             ("/unina/Bozze"         . ?d)))))))
+                                            (("/unina/inbox"  . ?i)
+                                             ("/unina/sent"   . ?s)
+                                             ("/unina/trash"  . ?t)
+                                             ("/unina/drafts" . ?d)))))))
   ;; Set Bookmarks for all
   (setq  mu4e-bookmarks '(( :name  "Unread messages"
                             :query "flag:unread AND NOT flag:trashed"
@@ -101,6 +235,7 @@
 (leaf mu4e-alert
   :doc "Enable notifications for mu4e"
   :straight t
+  :disabled t
   :after mu4e
   :config
   (mu4e-alert-set-default-style 'libnotify)
@@ -110,6 +245,7 @@
 ;; Org enhanced messages
 (leaf org-msg
   :straight t
+  :disabled t
   :after (mu4e org)
   :config
   (setq org-msg-options "html-postamble:nil H:5 num:nil ^:{} toc:nil author:nil email:nil \\n:t"

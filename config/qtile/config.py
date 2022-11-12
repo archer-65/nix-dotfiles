@@ -2,7 +2,7 @@ from os import path
 import subprocess
 import platform
 
-from typing import List 
+from typing import List
 
 from libqtile import bar, layout, widget, hook, qtile
 from libqtile.config import Click, Drag, Group, Key, KeyChord, Match, Screen
@@ -341,7 +341,7 @@ keys = [
 
         Key([], "h",
             lazy.spawn(terminal + " -e htop")),
-    ]) 
+    ])
 ]
 
 ##### MOUSE #####
