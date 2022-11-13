@@ -2,8 +2,12 @@
 
 ;;; Commentary:
 
-;; Right now I'm using MU4E, I'm good with it, is used by many people, so finding snippets
-;; is easy.  I could try Notmuch, however.
+;; `Notmuch' is a fast, tag-based email indexer to use with your favorite interface (e.g. Emacs :D).
+;; I previously used `mu4e', I didn't really like it though.
+
+;; This code is heavily based on Prot's code.
+;; https://github.com/protesilaos/dotfiles/blob/master/emacs/.emacs.d/prot-lisp/prot-notmuch.el
+;; https://github.com/protesilaos/dotfiles/blob/master/emacs/.emacs.d/prot-emacs-modules/prot-emacs-email.el
 
 ;;; Code:
 
@@ -37,10 +41,87 @@
   :type '(repeat string)
   :group 'archer:notmuch)
 
-;; Actual client for mails
+;;;; Autoload of commands
+(autoload 'notmuch-interactive-region "notmuch")
+(autoload 'notmuch-tag-change-list "notmuch")
+(autoload 'notmuch-search-next-thread "notmuch")
+(autoload 'notmuch-search-tag "notmuch")
+
+(defmacro archer:notmuch-search-tag-thread (name tags)
+  "Produce NAME function parsing TAGS."
+  (declare (indent defun))
+  `(defun ,name (&optional untag beg end)
+     ,(format
+       "Mark with `%s' the currently selected thread.
+Operate on each message in the currently selected thread.  With
+optional BEG and END as points delimiting a region that
+encompasses multiple threads, operate on all those messages
+instead.
+With optional prefix argument (\\[universal-argument]) as UNTAG,
+reverse the application of the tags.
+This function advances to the next thread when finished."
+       tags)
+     (interactive (cons current-prefix-arg (notmuch-interactive-region)))
+     (when ,tags
+       (notmuch-search-tag
+        (notmuch-tag-change-list ,tags untag) beg end))
+     (when (eq beg end)
+       (notmuch-search-next-thread))))
+
+(archer:notmuch-search-tag-thread
+ archer:notmuch-search-delete-thread
+ archer:notmuch-mark-delete-tags)
+
+(archer:notmuch-search-tag-thread
+ archer:notmuch-search-flag-thread
+ archer:notmuch-mark-flag-tags)
+
+(archer:notmuch-search-tag-thread
+ archer:notmuch-search-spam-thread
+ archer:notmuch-mark-spam-tags)
+
+(defmacro archer:notmuch-show-tag-message (name tags)
+  "Produce NAME function parsing TAGS."
+  (declare (indent defun))
+  `(defun ,name (&optional untag)
+     ,(format
+       "Apply `%s' to message.
+With optional prefix argument (\\[universal-argument]) as UNTAG,
+reverse the application of the tags."
+       tags)
+     (interactive "P")
+     (when ,tags
+       (apply 'notmuch-show-tag-message
+	      (notmuch-tag-change-list ,tags untag)))))
+
+(archer:notmuch-show-tag-message
+ archer:notmuch-show-delete-message
+ archer:notmuch-mark-delete-tags)
+
+(archer:notmuch-show-tag-message
+ archer:notmuch-show-flag-message
+ archer:notmuch-mark-flag-tags)
+
+(archer:notmuch-show-tag-message
+ archer:notmuch-show-spam-message
+ archer:notmuch-mark-spam-tags)
+
+(autoload 'notmuch-refresh-this-buffer "notmuch")
+(autoload 'notmuch-refresh-all-buffers "notmuch")
+
+(defun archer:notmuch-refresh-buffer (&optional arg)
+  "Run `notmuch-refresh-this-buffer'.
+With optional prefix ARG (\\[universal-argument]) call
+`notmuch-refresh-all-buffers'."
+  (interactive "P")
+  (if arg
+      (notmuch-refresh-all-buffers)
+    (notmuch-refresh-this-buffer)))
+
+;; Current client for mails
 (leaf notmuch
   :load-path "~/.nix-profile/share/emacs/site-lisp"
-  :commands notmuch
+  :commands (notmuch notmuch-mua-new-mail)
   :config
   ;; UI
   (setopt notmuch-show-logo t
@@ -135,11 +216,68 @@
           notmuch-wash-citation-lines-suffix 3)
 
   ;; TODO Composition
+  (setopt notmuch-mua-compose-in 'current-window
+          notmuch-mua-hidden-headers nil
+          notmuch-address-command 'internal
+          notmuch-always-prompt-for-sender t
+          notmuch-mua-cite-function 'message-cite-original
+          notmuch-mua-reply-insert-header-p-function 'notmuch-show-reply-insert-header-p-never
+          notmuch-mua-user-agent-function nil
+          notmuch-maildir-use-notmuch-insert t
+          notmuch-crypto-process-mime t
+          notmuch-crypto-get-keys-asynchronously t
+          notmuch-mua-attachment-regexp   ; see `notmuch-mua-send-hook'
+          (concat "\\b\\(attache\?ment\\|attached\\|attach\\|"
+                  "pi[èe]ce\s+jointe?\\)\\b"))
 
-  ;; Hooks
+  ;; Tagging keys
+  (setopt notmuch-tagging-keys
+          `((,(kbd "d") archer:notmuch-mark-delete-tags "⛔ Mark for deletion")
+            (,(kbd "a") archer:notmuch-mark-archive-tags "📫 Mark to archive")
+	    (,(kbd "f") archer:notmuch-mark-flag-tags "🚩 Flag as important")
+            (,(kbd "s") archer:notmuch-mark-spam-tags "⚠️ Mark as spam")
+            (,(kbd "r") ("-unread") "✅ Mark as read")
+            (,(kbd "u") ("+unread") "📔 Mark as unread")))
 
-  ;; Bindings
-  )
+  ;; Identities
+  (setopt notmuch-identies '("mario.liguori.056@gmail.com" "mario.liguori6@studenti.unina.it")
+	  notmuch-fcc-dirs '(("mario.liguori.056@gmail.com" . "gmail/sent")
+			     ("mario.liguori6@studenti.unina.it" . "unina/sent")))
+
+  ;; Other cosmetic formatting
+  (add-to-list 'notmuch-tag-formats '("encrypted" (concat tag "🔒")))
+  (add-to-list 'notmuch-tag-formats '("attachment" (concat tag "📎")))
+  :hook
+  (notmuch-mua-send-hook . notmuch-mua-attachment-check)
+  :bind
+  (:global-map
+   ("C-c m" . notmuch)
+   ("C-x m" . notmuch-mua-new-mail))
+  (:notmuch-search-mode-map
+   ("/" . notmuch-search-filter)
+   ("r" . notmuch-search-reply-to-thread)
+   ("R" . notmuch-search-reply-to-thread-sender))
+  (:notmuch-show-mode-map
+   ("r" . notmuch-show-reply)
+   ("R" . notmuch-show-reply-sender))
+  (:notmuch-search-mode-map
+   ("a" . nil)
+   ("A" . notmuch-search-archive-thread)
+   ("D" . archer:notmuch-search-delete-thread)
+   ("S" . archer:notmcuh-search-spam-thread)
+   ("g" . archer:notmuch-refresh-buffer))
+  (:notmuch-show-mode-map
+   ("a" . nil)
+   ("A" . notmuch-show-archive-message-then-next-or-next-thread)
+   ("D" . archer:notmuch-show-delete-message)
+   ("S" . archer:notmuch-show-spam-message)))
+
+(leaf sendmail
+  :config
+  (setq send-mail-function 'sendmail-send-it
+	mail-specify-envelope-from t
+	message-sendmail-envelope-from 'header
+	mail-envelope-from 'header))
 
 (leaf mu4e
   :require t

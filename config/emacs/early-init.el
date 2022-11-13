@@ -81,6 +81,7 @@
 
 ;; UTF-8 coding system.
 (set-language-environment "UTF-8")
+;; (set-default-coding-systems 'utf-8)
 
 ;; Minor message for gc after loading
 (add-hook 'emacs-startup-hook

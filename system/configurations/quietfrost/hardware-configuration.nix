@@ -48,7 +48,7 @@
       "subvol=@nix"
       "autodefrag"
       "space_cache=v2"
-      "relatime"
+      "noatime"
       "compress=zstd:2"
       "discard=async"
     ];
