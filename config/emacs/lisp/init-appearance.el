@@ -30,7 +30,8 @@
 (defun my-modus-themes-custom-faces ()
   (modus-themes-with-colors
     (custom-set-faces
-     `(telega-entity-type-code ((,class :inherit modus-themes-fixed-pitch :background ,bg-special-calm :foreground ,fg-special-calm))))))
+     `(telega-entity-type-code ((,class :inherit modus-themes-fixed-pitch :background ,bg-special-calm :foreground ,fg-special-calm)))
+     `(header-line ((,class :inherit modus-themes-fixed-pitch :background ,bg-active-accent))))))
 
 ;; Themes section
 ;; For packaged versions which must use `require':
@@ -58,7 +59,7 @@
                                    (selection . (bold accented))
                                    (popup . (accented intense)))
 	modus-themes-mail-citations 'intense ; {nil,'intense,'faint,'monochrome}
-	modus-themes-subtle-line-numbers nil
+	modus-themes-subtle-line-numbers t
         modus-themes-mode-line '(borderless accented))
   (modus-themes-load-themes) ;; Needed for packaged version
   :hook
