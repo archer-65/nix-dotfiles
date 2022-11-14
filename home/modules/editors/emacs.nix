@@ -6,11 +6,11 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.editors.emacs;
-  cfgWayland = config.home.modules.desktop.wayland;
+  cfg = config.mario.modules.editors.emacs;
+  cfgWayland = config.mario.modules.desktop.wayland;
   inherit (config.dotfiles) configDir;
 in {
-  options.home.modules.editors.emacs = {
+  options.mario.modules.editors.emacs = {
     enable = mkEnableOption "emacs and its configuration";
     daemon.enable = mkEnableOption "emacs daemon";
   };

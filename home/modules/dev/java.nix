@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.dev.java;
+  cfg = config.mario.modules.dev.java;
 in {
-  options.home.modules.dev.java = {
+  options.mario.modules.dev.java = {
     enable = mkEnableOption "java full support (maven and gradle included)";
   };
 

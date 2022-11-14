@@ -6,14 +6,14 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.desktop.apps.teams;
+  cfg = config.mario.modules.desktop.apps.teams;
 in {
-  options.home.modules.desktop.apps.teams = {
+  options.mario.modules.desktop.apps.teams = {
     enable = mkEnableOption "teams";
   };
 
   config = mkIf cfg.enable {
-    home.modules.desktop.browsers.chromium.enable = true;
+    mario.modules.desktop.browsers.chromium.enable = true;
 
     home.packages = with pkgs; let
       teams-chromium = makeDesktopItem {

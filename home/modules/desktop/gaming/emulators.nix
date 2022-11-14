@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.desktop.gaming.emulators;
+  cfg = config.mario.modules.desktop.gaming.emulators;
 in {
-  options.home.modules.desktop.gaming.emulators = {
+  options.mario.modules.desktop.gaming.emulators = {
     switch.enable = mkEnableOption "switch emulator";
   };
 

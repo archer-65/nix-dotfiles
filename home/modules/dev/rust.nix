@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.dev.rust;
+  cfg = config.mario.modules.dev.rust;
 in {
-  options.home.modules.dev.rust = {
+  options.mario.modules.dev.rust = {
     enable = mkEnableOption "rust language support and language server";
   };
 

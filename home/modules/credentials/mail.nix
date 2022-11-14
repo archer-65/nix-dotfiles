@@ -6,7 +6,7 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.credentials.mail-defaults;
+  cfg = config.mario.modules.credentials.mail-defaults;
 
   channelExtraConfig = {
     Create = "Near";
@@ -16,7 +16,7 @@ with lib; let
     CopyArrivalDate = "yes";
   };
 in {
-  options.home.modules.credentials.mail-defaults = {
+  options.mario.modules.credentials.mail-defaults = {
     enable = mkEnableOption "mail support";
   };
 

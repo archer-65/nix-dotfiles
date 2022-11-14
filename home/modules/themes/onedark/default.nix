@@ -6,7 +6,7 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.themes;
+  cfg = config.mario.modules.themes;
   theme =
     if cfg.darkTheme
     then "Materia-dark-compact"

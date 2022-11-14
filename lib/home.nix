@@ -42,7 +42,7 @@ with builtins; let
         ]
         ++ [hyprland.homeManagerModules.default]
         ++ [webcord.homeManagerModules.default]
-        ++ attrValues homeModules
+        ++ attrValues homeModules.${username}
         ++ attrValues sharedModules;
 
       extraSpecialArgs = {

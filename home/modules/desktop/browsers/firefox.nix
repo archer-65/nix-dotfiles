@@ -6,10 +6,10 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.desktop.browsers.firefox;
-  cfgWayland = config.home.modules.desktop.wayland;
+  cfg = config.mario.modules.desktop.browsers.firefox;
+  cfgWayland = config.mario.modules.desktop.wayland;
 in {
-  options.home.modules.desktop.browsers.firefox = {
+  options.mario.modules.desktop.browsers.firefox = {
     enable = mkEnableOption "firefox with a decent configuration";
   };
 

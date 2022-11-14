@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.themes;
+  cfg = config.mario.modules.themes;
 in {
-  options.home.modules.themes = with types; {
+  options.mario.modules.themes = with types; {
     active = mkOption {
       type = nullOr str;
       default = null;

@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.desktop.services.locker-wayland;
+  cfg = config.mario.modules.desktop.services.locker-wayland;
 in {
-  options.home.modules.desktop.services.locker-wayland = {
+  options.mario.modules.desktop.services.locker-wayland = {
     enable = mkEnableOption "wayland screen locker";
   };
 

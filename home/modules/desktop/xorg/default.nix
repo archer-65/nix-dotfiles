@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.desktop.xorg;
+  cfg = config.mario.modules.desktop.xorg;
 in {
-  options.home.modules.desktop.xorg = {
+  options.mario.modules.desktop.xorg = {
     enable = mkEnableOption "xorg configuration management for user";
 
     wm = mkOption {
@@ -24,7 +24,7 @@ in {
 
     services = {flameshot.enable = true;};
 
-    home.modules.desktop = {
+    mario.modules.desktop = {
       apps = {greenclip.enable = true;};
       services = {locker.enable = true;};
     };

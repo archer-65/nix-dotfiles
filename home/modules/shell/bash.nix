@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.shell.bash;
+  cfg = config.mario.modules.shell.bash;
 in {
-  options.home.modules.shell.bash = {
+  options.mario.modules.shell.bash = {
     enable = mkOption {
       default = false;
       type = types.bool;

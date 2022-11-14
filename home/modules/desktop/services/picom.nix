@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.desktop.services.picom;
+  cfg = config.mario.modules.desktop.services.picom;
 in {
-  options.home.modules.desktop.services.picom = {
+  options.mario.modules.desktop.services.picom = {
     enable = mkEnableOption "picom configuration";
   };
 

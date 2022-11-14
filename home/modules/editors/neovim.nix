@@ -4,9 +4,9 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.editors.neovim;
+  cfg = config.mario.modules.editors.neovim;
 in {
-  options.home.modules.editors.neovim = {
+  options.mario.modules.editors.neovim = {
     enable = mkEnableOption "neovim";
   };
 

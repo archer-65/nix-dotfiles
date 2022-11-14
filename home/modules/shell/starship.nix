@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.shell.starship;
+  cfg = config.mario.modules.shell.starship;
 in {
-  options.home.modules.shell.starship = {
+  options.mario.modules.shell.starship = {
     enable = mkEnableOption "starship configuration";
   };
 

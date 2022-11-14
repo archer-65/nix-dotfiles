@@ -3,7 +3,7 @@
   pkgs,
   ...
 }: {
-  home.modules = {
+  mario.modules = {
     credentials = {
       gpg.enable = true;
       mail-defaults.enable = true;

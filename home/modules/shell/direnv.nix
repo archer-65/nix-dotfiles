@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.shell.direnv;
+  cfg = config.mario.modules.shell.direnv;
 in {
-  options.home.modules.shell.direnv = {
+  options.mario.modules.shell.direnv = {
     enable = mkEnableOption "direnv and extensions";
   };
 

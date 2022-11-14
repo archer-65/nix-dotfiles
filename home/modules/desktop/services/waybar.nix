@@ -6,11 +6,11 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.desktop.services.waybar;
-  cfgTheme = config.home.modules.themes;
+  cfg = config.mario.modules.desktop.services.waybar;
+  cfgTheme = config.mario.modules.themes;
   inherit (config.colorScheme) colors;
 in {
-  options.home.modules.desktop.services.waybar = {
+  options.mario.modules.desktop.services.waybar = {
     enable = mkEnableOption "waybar configuration";
   };
 

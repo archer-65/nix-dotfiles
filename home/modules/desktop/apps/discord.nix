@@ -7,18 +7,18 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.desktop.apps.discord;
-  cfgWayland = config.home.modules.desktop.wayland;
+  cfg = config.mario.modules.desktop.apps.discord;
+  cfgWayland = config.mario.modules.desktop.wayland;
   inherit (inputs) webcord;
   webcord-pkg = webcord.packages.${pkgs.system}.default;
 in {
-  options.home.modules.desktop.apps.discord = {
+  options.mario.modules.desktop.apps.discord = {
     enable = mkEnableOption "discord";
   };
 
   config = mkIf cfg.enable (mkMerge [
     (mkIf cfgWayland.enable {
-      home.modules.desktop.browsers.chromium.enable = true;
+      mario.modules.desktop.browsers.chromium.enable = true;
 
       programs.webcord = {
         enable = true;

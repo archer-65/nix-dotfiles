@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.editors.android;
+  cfg = config.mario.modules.editors.android;
 in {
-  options.home.modules.editors.android = {
+  options.mario.modules.editors.android = {
     enable = mkEnableOption "android IDE and screen mirroring";
   };
 

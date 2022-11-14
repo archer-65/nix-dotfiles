@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.dev.nix;
+  cfg = config.mario.modules.dev.nix;
 in {
-  options.home.modules.dev.nix = {
+  options.mario.modules.dev.nix = {
     enable = mkEnableOption "nix language extra tools and language server";
   };
 

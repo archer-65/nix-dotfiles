@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.credentials.bitwarden;
+  cfg = config.mario.modules.credentials.bitwarden;
 in {
-  options.home.modules.credentials.bitwarden = {
+  options.mario.modules.credentials.bitwarden = {
     enable = mkEnableOption "bitwarden";
   };
 

@@ -6,12 +6,12 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.desktop.services.dunst;
-  cfgWayland = config.home.modules.desktop.wayland;
-  cfgTheme = config.home.modules.themes;
+  cfg = config.mario.modules.desktop.services.dunst;
+  cfgWayland = config.mario.modules.desktop.wayland;
+  cfgTheme = config.mario.modules.themes;
   inherit (config.colorScheme) colors;
 in {
-  options.home.modules.desktop.services.dunst = {
+  options.mario.modules.desktop.services.dunst = {
     enable = mkEnableOption "dunst configuration";
   };
 

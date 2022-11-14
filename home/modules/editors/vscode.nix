@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.editors.vscode;
+  cfg = config.mario.modules.editors.vscode;
 in {
-  options.home.modules.editors.vscode = {
+  options.mario.modules.editors.vscode = {
     enable = mkEnableOption "vscode";
   };
 

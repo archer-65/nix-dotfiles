@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.dev.tex;
+  cfg = config.mario.modules.dev.tex;
 in {
-  options.home.modules.dev.tex = {
+  options.mario.modules.dev.tex = {
     enable = mkEnableOption "texlive";
   };
 

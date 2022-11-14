@@ -6,8 +6,8 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.desktop.wayland;
-  cfgTheme = config.home.modules.themes;
+  cfg = config.mario.modules.desktop.wayland;
+  cfgTheme = config.mario.modules.themes;
   inherit (config.dotfiles) configDir;
 in {
   config = mkIf (cfg.enable && cfg.wm == "sway") {
@@ -290,7 +290,7 @@ in {
 
     home.packages = with pkgs; [gsettings-desktop-schemas autotiling sov clipman];
 
-    home.modules.desktop = {
+    mario.modules.desktop = {
       services = {
         dunst.enable = true;
         locker-wayland.enable = true;

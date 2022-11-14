@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.desktop.services.locker;
+  cfg = config.mario.modules.desktop.services.locker;
 in {
-  options.home.modules.desktop.services.locker = {
+  options.mario.modules.desktop.services.locker = {
     enable = mkEnableOption "xorg screen locker";
   };
 

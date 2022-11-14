@@ -6,10 +6,10 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.dev.js;
+  cfg = config.mario.modules.dev.js;
   #node-pkgs = pkgs.callPackage ./node-pkgs { };
 in {
-  options.home.modules.dev.js = {
+  options.mario.modules.dev.js = {
     enable = mkEnableOption "javascript language tools";
   };
 

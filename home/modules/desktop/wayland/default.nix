@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.desktop.wayland;
+  cfg = config.mario.modules.desktop.wayland;
 in {
-  options.home.modules.desktop.wayland = {
+  options.mario.modules.desktop.wayland = {
     enable = mkEnableOption "wayland configuration management for user";
 
     wm = mkOption {

@@ -5,11 +5,11 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.desktop.term.alacritty;
-  cfgTheme = config.home.modules.themes;
+  cfg = config.mario.modules.desktop.term.alacritty;
+  cfgTheme = config.mario.modules.themes;
   inherit (config.colorScheme) colors;
 in {
-  options.home.modules.desktop.term.alacritty = {
+  options.mario.modules.desktop.term.alacritty = {
     enable = mkEnableOption "alacritty configuration";
   };
 

@@ -5,7 +5,7 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.desktop.xorg;
+  cfg = config.mario.modules.desktop.xorg;
   inherit (config.dotfiles) configDir;
 in {
   config = mkIf (cfg.enable && cfg.wm == "qtile") {
@@ -18,7 +18,7 @@ in {
 
     services = {pasystray.enable = true;};
 
-    home.modules.desktop = {
+    mario.modules.desktop = {
       apps = {autorandr.enable = true;};
 
       services = {

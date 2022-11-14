@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.editors.intellij;
+  cfg = config.mario.modules.editors.intellij;
 in {
-  options.home.modules.editors.intellij = {
+  options.mario.modules.editors.intellij = {
     enable = mkEnableOption "intellij";
   };
 

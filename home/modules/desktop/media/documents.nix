@@ -6,11 +6,11 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.desktop.media.documents;
-  cfgTheme = config.home.modules.themes;
+  cfg = config.mario.modules.desktop.media.documents;
+  cfgTheme = config.mario.modules.themes;
   inherit (config.colorScheme) colors;
 in {
-  options.home.modules.desktop.media.documents = {
+  options.mario.modules.desktop.media.documents = {
     zathura.enable = mkEnableOption "pdf support (zathura)";
 
     okular.enable = mkEnableOption "pdf support (okular)";

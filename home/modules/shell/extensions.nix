@@ -6,10 +6,10 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.shell.extensions;
-  cfgBash = config.home.modules.shell.bash;
+  cfg = config.mario.modules.shell.extensions;
+  cfgBash = config.mario.modules.shell.bash;
 in {
-  options.home.modules.shell.extensions = {
+  options.mario.modules.shell.extensions = {
     enable = mkEnableOption "shell useful commands (e.g. bat, exa) ";
   };
 

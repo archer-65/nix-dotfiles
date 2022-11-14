@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.dev.cc;
+  cfg = config.mario.modules.dev.cc;
 in {
-  options.home.modules.dev.cc = {
+  options.mario.modules.dev.cc = {
     enable = mkEnableOption "c language support and language server";
   };
 

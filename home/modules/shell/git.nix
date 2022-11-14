@@ -6,10 +6,10 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.shell.git-defaults;
-  cfgSign = config.home.modules.credentials.gpg.signing;
+  cfg = config.mario.modules.shell.git-defaults;
+  cfgSign = config.mario.modules.credentials.gpg.signing;
 in {
-  options.home.modules.shell.git-defaults = {
+  options.mario.modules.shell.git-defaults = {
     enable = mkEnableOption "main user git configuration";
   };
 

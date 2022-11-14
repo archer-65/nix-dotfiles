@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.desktop.browsers.chromium;
+  cfg = config.mario.modules.desktop.browsers.chromium;
 in {
-  options.home.modules.desktop.browsers.chromium = {
+  options.mario.modules.desktop.browsers.chromium = {
     enable = mkEnableOption "chromium";
   };
 

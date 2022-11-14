@@ -6,9 +6,9 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.desktop.media.videos;
+  cfg = config.mario.modules.desktop.media.videos;
 in {
-  options.home.modules.desktop.media.videos = {
+  options.mario.modules.desktop.media.videos = {
     enable = mkEnableOption "an option to watch videos";
   };
 

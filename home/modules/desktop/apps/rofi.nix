@@ -6,12 +6,12 @@
   ...
 }:
 with lib; let
-  cfg = config.home.modules.desktop.apps.rofi;
-  cfgWayland = config.home.modules.desktop.wayland;
+  cfg = config.mario.modules.desktop.apps.rofi;
+  cfgWayland = config.mario.modules.desktop.wayland;
   inherit (config.dotfiles) configDir;
 
   rbw =
-    if config.home.modules.credentials.bitwarden.enable
+    if config.mario.modules.credentials.bitwarden.enable
     then [pkgs.rofi-rbw]
     else [];
 
@@ -23,7 +23,7 @@ with lib; let
     script-emoji
   ];
 in {
-  options.home.modules.desktop.apps.rofi = {
+  options.mario.modules.desktop.apps.rofi = {
     enable = mkEnableOption "rofi configuration";
   };
 
