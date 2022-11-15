@@ -357,7 +357,7 @@ Keybindings and configuration are in the =init-embark.el= file.
 
 #+end_src
 
-+I'm using Corfu right now, while Company is here due to ~telega.el~, especially for child frames instead of overlays.+ Nevermind, I'm using Company again, ~rust-analyzer~ and ~jdtls~ give me trouble with Corfu :(.
+I'm using Corfu right now, while Company stuff is here due to ~telega.el~, especially for child frames instead of overlays.
 
 Here =init-complete-in-buffer.el=.
 
