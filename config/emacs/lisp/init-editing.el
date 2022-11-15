@@ -53,7 +53,22 @@
 (show-paren-mode 1)
 
 ;; Save place
-(save-place-mode 1)
+(leaf saveplace
+  :config
+  (setq save-place-file (expand-file-name "var/saveplace" user-emacs-directory))
+  (setq save-place-forget-unreadable-files t)
+  (save-place-mode 1))
+
+
+;; Managed by no-littering
+;; (setq backup-directory-alist
+;;       `(("." . ,(expand-file-name "var/backup" user-emacs-directory))))
+(setq backup-by-copying t)
+(setq version-control t)
+(setq delete-old-versions t)
+(setq kept-new-versions 5)
+(setq kept-old-versions 2)
+(setq create-lockfiles nil)
 
 ;;; Protesilaos Stavrou docet, system clipboard should have priority among kill-ring
 (setq save-interprogram-paste-before-kill t)

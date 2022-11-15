@@ -10,6 +10,9 @@
 (setq use-dialog-box t     ; Mouse events dialog (yes or no predicate)
       use-file-dialog nil) ; Disable dialog for files
 
+(setq window-divider-default-right-width 8)
+(window-divider-mode 1)
+
 ;; Favor vertical splits over horizontal ones.
 (setq split-width-threshold 160
       split-height-threshold nil)
@@ -27,11 +30,10 @@
 
  '(telega-entity-type-code        ((t (:inherit fixed-pitch))))
 
-(defun my-modus-themes-custom-faces ()
+(defun archer-modus-themes-custom-faces ()
   (modus-themes-with-colors
     (custom-set-faces
-     `(telega-entity-type-code ((,class :inherit modus-themes-fixed-pitch :background ,bg-special-calm :foreground ,fg-special-calm)))
-     `(header-line ((,class :inherit modus-themes-fixed-pitch :background ,bg-active-accent))))))
+     `(telega-entity-type-code ((,class :inherit modus-themes-fixed-pitch :background ,bg-special-calm :foreground ,fg-special-calm))))))
 
 ;; Themes section
 ;; For packaged versions which must use `require':
@@ -61,9 +63,16 @@
 	modus-themes-mail-citations 'intense ; {nil,'intense,'faint,'monochrome}
 	modus-themes-subtle-line-numbers t
         modus-themes-mode-line '(borderless accented))
+
+  (setq modus-themes-operandi-color-overrides
+        `((fg-window-divider-inner . "#ffffff")
+          (fg-window-divider-outer . "#ffffff")))
+  (setq modus-themes-vivendi-color-overrides
+        `((fg-window-divider-inner . "#000000")
+          (fg-window-divider-outer . "#000000")))
   (modus-themes-load-themes) ;; Needed for packaged version
   :hook
-  (modus-themes-after-load-theme-hook . my-modus-themes-custom-faces)
+  (modus-themes-after-load-theme-hook . archer-modus-themes-custom-faces)
   :config
   ;; Load the theme of your choice:
   (modus-themes-load-operandi))

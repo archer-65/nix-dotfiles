@@ -24,6 +24,11 @@ in {
 
       programs.fzf.enable = true;
 
+      programs.nix-index = {
+        enable = true;
+        enableBashIntegration = true;
+      };
+
       home.packages = with pkgs; [bat-extras.batman fd ripgrep];
     }
 

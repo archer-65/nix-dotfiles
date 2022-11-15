@@ -17,7 +17,7 @@
 ;; Set the right directory to store the native comp cache
 (when (and (fboundp 'native-comp-available-p)
            (native-comp-available-p))
-  (add-to-list 'native-comp-eln-load-path (expand-file-name "eln-cache/" user-emacs-directory)))
+  (add-to-list 'native-comp-eln-load-path (expand-file-name "var/eln-cache/" user-emacs-directory)))
 
 ;; Disable damn sleep!
 ;; Yep, it's mandatory, that's the worst keybind ever.

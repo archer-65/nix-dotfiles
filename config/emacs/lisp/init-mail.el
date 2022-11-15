@@ -120,7 +120,6 @@ With optional prefix ARG (\\[universal-argument]) call
 
 ;; Current client for mails
 (leaf notmuch
-  :load-path "~/.nix-profile/share/emacs/site-lisp"
   :commands (notmuch notmuch-mua-new-mail)
   :config
   ;; UI
