@@ -109,7 +109,5 @@
   (autoload 'projectile-project-root "projectile")
   (setq consult-project-root-function #'projectile-project-root))
 
-(setq header-line-format nil)
-
 (provide 'init-consult)
 ;;; init-consult.el ends here

@@ -148,14 +148,6 @@
 
 (require 'init-mail)
 
-(leaf pomodoro
-  :straight t
-  :require t
-  :custom
-  (pomodoro-desktop-notification . t)
-  :config
-  (pomodoro-add-to-mode-line))
-
 (require 'init-pdf)
 
 (leaf daemons
@@ -198,6 +190,24 @@
         '((display-buffer-reuse-window display-buffer-use-some-window)))
   (define-key global-map (kbd "C-c t") telega-prefix-map)
   (setq telega-completing-read-function 'completing-read)
+  :config
+  (setq telega-emoji-company-backend 'telega-company-emoji)
+  (setq telega-completing-read-function completing-read-function)
+
+  (defun archer-telega-chat-mode ()
+    "Add completion at point functions made from company backends."
+    (setq-local
+     completion-at-point-functions
+     (append
+      (mapcar
+       'cape-company-to-capf
+       (append (list telega-emoji-company-backend
+                     'telega-company-username
+                     'telega-company-hashtag)
+               (when (telega-chat-bot-p telega-chatbuf--chat)
+                 '(telega-company-botcmd))))
+      completion-at-point-functions)))
+  (add-hook 'telega-chat-mode-hook 'archer-telega-chat-mode)
   :hook
   (telega-load-hook . telega-notifications-mode)
   (telega-chat-mode-hook . telega-mnz-mode))

@@ -28,8 +28,6 @@
   :hook
   (prog-mode-hook . display-line-numbers-mode))
 
- '(telega-entity-type-code        ((t (:inherit fixed-pitch))))
-
 (defun archer-modus-themes-custom-faces ()
   (modus-themes-with-colors
     (custom-set-faces

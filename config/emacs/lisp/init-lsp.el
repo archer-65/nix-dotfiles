@@ -38,11 +38,20 @@
 ;;
 ;;; LSP-MODE
 
+
 (leaf lsp-mode
   :straight t
   :commands lsp
   :init
+  ;; Function to enable corfu in lsp-mode
+  (defun archer/lsp-mode-setup-completion ()
+    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
+          '(orderless))) ;; Configure orderless
   :config
+  ;; LSP completion with Corfu
+  (when (corfu-mode)
+    (customize-set-variable lsp-completion-provider :none)
+    (add-hook 'lsp-completion-mode-hook #'archer/lsp-mode-setup-completion))
   :custom
   (lsp-keymap-prefix . "C-c l")
   (lsp-keep-workspace-alive . nil)
@@ -109,6 +118,7 @@
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
   (add-to-list 'eglot-server-programs '(nix-mode . ("rnix-lsp")))
   :hook
+  (eglot-managed-mode-hook . +lsp-optimization-mode)
   (c-mode-hook    . eglot-ensure)
   (c++-mode-hook  . eglot-ensure)
   (java-mode-hook . eglot-ensure)

@@ -8,6 +8,7 @@
 
 (leaf company
   :straight t
+  :disabled t
   :bind
   (:lsp-mode-map
    ("<tab>" . company-indent-or-complete-common))
@@ -28,18 +29,11 @@
   (global-company-mode . t))
 
 (leaf corfu
-  :disabled t
   :straight t
-  ;; Recommended: Enable Corfu globally.
   ;; This is recommended since Dabbrev can be used globally (M-/).
   ;; See also `corfu-excluded-modes'.
   :init
   (global-corfu-mode)
-
-  ;; Function to enable corfu in lsp-mode
-  (defun archer/lsp-mode-setup-completion ()
-    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
-          '(orderless))) ;; Configure flex
 
   ;; Load and enable corfu-history
   (load "extensions/corfu-history")
@@ -47,24 +41,100 @@
   (add-to-list 'savehist-additional-variables 'corfu-history)
 
   ;; TAB cycle if there are only few candidates
-  (setq completion-cycle-threshold t)
+  ;; (setq completion-cycle-threshold t)
+
+  ;; SECTION FOR SPECIAL FUNCTIONS
+  ;; Movement
+  (defun corfu-beginning-of-prompt ()
+    "Move to beginning of completion input."
+    (interactive)
+    (corfu--goto -1)
+    (goto-char (car completion-in-region--data)))
+
+  (defun corfu-end-of-prompt ()
+    "Move to end of completion input."
+    (interactive)
+    (corfu--goto -1)
+    (goto-char (cadr completion-in-region--data)))
+
+  (define-key corfu-map [remap move-beginning-of-line] #'corfu-beginning-of-prompt)
+  (define-key corfu-map [remap move-end-of-line] #'corfu-end-of-prompt)
+
+  (defun contrib/corfu-move-to-minibuffer ()
+    (interactive)
+    (let ((completion-extra-properties corfu--extra)
+          completion-cycle-threshold completion-cycling)
+      (apply #'consult-completion-in-region completion-in-region--data)))
+  (define-key corfu-map "\M-m" #'corfu-move-to-minibuffer)
+
+  ;; Adapted from Corfu's manual.
+  ;; (Found in Prot's configuration)
+  (defun contrib/corfu-enable-always-in-minibuffer ()
+    "Enable Corfu in the minibuffer if Vertico is not active.
+Useful for prompts such as `eval-expression' and `shell-command'."
+    (unless (bound-and-true-p vertico--input)
+      (corfu-mode 1)))
+
+  (add-hook 'minibuffer-setup-hook #'contrib/corfu-enable-always-in-minibuffer 1)
+  ;; END OF SECTION (TODO Refactor)
+
   :custom
-  (corfu-cycle . t)                 ;; Enable cycling for `corfu-next/previous'
-  (corfu-auto . t)                  ;; Enable auto completion
-  (corfu-separator . ?\s)           ;; Orderless field separator
-  (corfu-quit-at-boundary . nil)    ;; Never quit at completion boundary
-  (corfu-quit-no-match . nil)       ;; Never quit, even if there is no match
-  (corfu-preview-current . nil)     ;; Disable current candidate preview
-  (corfu-preselect-first . nil)     ;; Disable candidate preselection
-  (corfu-on-exact-match . nil)      ;; Configure handling of exact matches
-  (corfu-echo-documentation . 0.25) ;; Disable documentation in the echo area
-  (corfu-scroll-margin . 5)         ;; Use scroll margin
+  (corfu-cycle . t)
+  (corfu-auto . t)
+  (corfu-separator . ?\s)
+  (corfu-quit-at-boundary . nil)
+  (corfu-quit-no-match . 'separator)
+  (corfu-preview-current . #'insert)
+  (corfu-preselect-first . t)
+  (corfu-on-exact-match . #'insert)
+  (corfu-echo-documentation . 0.25)
+  (corfu-min-width . 30)
+  (corfu-scroll-margin . 5))
 
-  ;; Mandatory for LSP completion with Corfu
-  (lsp-completion-provider . :none)
-
+(leaf corfu-doc
+  :straight t
+  :after corfu
+  :config
+  (define-key corfu-map (kbd "M-p") #'corfu-doc-scroll-down)
+  (define-key corfu-map (kbd "M-n") #'corfu-doc-scroll-up)
+  (define-key corfu-map (kbd "M-d") #'corfu-doc-toggle)
   :hook
-  (lsp-completion-mode . archer/lsp-mode-setup-completion))
+  (corfu-mode-hook . corfu-doc-mode))
+
+(leaf kind-icon
+  :straight t
+  :after corfu
+  :custom
+  (kind-icon-default-face . 'corfu-default)
+  (kind-icon-default-style . '(:padding 0 :stroke 0 :margin 0 :radius 0 :height 0.7 :scale 1.0))
+  (set)
+  :config
+  (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter))
+
+(leaf cape
+  :straight t
+  :init
+  (straight-use-package 'company)
+  (autoload 'company-grab "company")
+  :config
+  (dolist (backend '(cape-symbol cape-keyword cape-file cape-dabbrev))
+    (add-to-list 'completion-at-point-functions backend))
+  :bind (("C-c p p" . completion-at-point) ;; capf
+         ("C-c p t" . complete-tag)        ;; etags
+         ("C-c p d" . cape-dabbrev)        ;; or dabbrev-completion
+         ("C-c p h" . cape-history)
+         ("C-c p f" . cape-file)
+         ("C-c p k" . cape-keyword)
+         ("C-c p s" . cape-symbol)
+         ("C-c p a" . cape-abbrev)
+         ("C-c p i" . cape-ispell)
+         ("C-c p l" . cape-line)
+         ("C-c p w" . cape-dict)
+         ("C-c p \\" . cape-tex)
+         ("C-c p _" . cape-tex)
+         ("C-c p ^" . cape-tex)
+         ("C-c p &" . cape-sgml)
+         ("C-c p r" . cape-rfc1345)))
 
 (provide 'init-complete-in-buffer)
 ;;; init-complete-in-buffer.el ends here
