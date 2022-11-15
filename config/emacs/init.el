@@ -23,7 +23,7 @@
 ;; Yep, it's mandatory, that's the worst keybind ever.
 (global-unset-key (kbd "C-z"))
 
-(defun archer/using-nix-p ()
+(defun archer-using-nix-p ()
   "Verifies if the running Emacs executable is under the `/nix/store/' path."
   (unless (or (equal system-type 'ms-dos)
               (equal system-type 'windows-nt))
@@ -33,8 +33,8 @@
                       (executable-find
                        (car command-line-args))))))
 
-(defvar archer/config-path
-  (if (archer/using-nix-p)
+(defvar archer-config-path
+  (if (archer-using-nix-p)
       (if (file-exists-p (expand-file-name ".dotfiles/config/emacs/" (getenv "HOME")))
           (expand-file-name ".dotfiles/config/emacs/" (getenv "HOME")))
     (expand-file-name user-emacs-directory)))
@@ -164,7 +164,7 @@
 (leaf vterm
   :commands (vterm vterm-other-window)
   :init
-  (unless (archer/using-nix-p) straight-use-package 'vterm)
+  (unless (archer-using-nix-p) straight-use-package 'vterm)
   :bind
   ("<f5>" . vterm)
   :config
@@ -179,7 +179,7 @@
 (leaf telega
   :commands (telega)
   :init
-  (unless (archer/using-nix-p) straight-use-package 'telega)
+  (unless (archer-using-nix-p) straight-use-package 'telega)
   (setq telega-directory (expand-file-name "~/.telega/"))
   (setq telega-server-libs-prefix (expand-file-name "~/.nix-profile"))
   (setq telega-use-images t)

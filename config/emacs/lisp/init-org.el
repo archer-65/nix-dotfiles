@@ -7,7 +7,7 @@
 
 ;;; Code:
 
-(defun archer/org-mode-setup ()
+(defun archer-org-mode-setup ()
   "Set important modes for me while editing org documents.
 
 - Indentation to distinguish headings is essential;
@@ -17,7 +17,7 @@
   (variable-pitch-mode 1)
   (visual-line-mode 1))
 
-(defun archer/org-mode-visual-fill ()
+(defun archer-org-mode-visual-fill ()
   "Width of visual fill and centered text are configured here."
   (setq visual-fill-column-width 170
         visual-fill-column-center-text t)
@@ -27,7 +27,7 @@
   :straight t
   :require t
   :hook
-  (org-mode-hook . archer/org-mode-setup)
+  (org-mode-hook . archer-org-mode-setup)
   :config
   (setq org-ellipsis " ▾")
   (setq org-pretty-entities 't)
@@ -51,7 +51,7 @@
   :disabled t
   :straight t
   :hook
-  (org-mode-hook . archer/org-mode-visual-fill))
+  (org-mode-hook . archer-org-mode-visual-fill))
 
 (leaf olivetti
   :doc "Focused writing, like visual-fill-column, but seems better."

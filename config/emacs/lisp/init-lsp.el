@@ -44,14 +44,14 @@
   :commands lsp
   :init
   ;; Function to enable corfu in lsp-mode
-  (defun archer/lsp-mode-setup-completion ()
+  (defun archer-lsp-mode-setup-completion ()
     (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
           '(orderless))) ;; Configure orderless
   :config
   ;; LSP completion with Corfu
   (when (corfu-mode)
-    (customize-set-variable lsp-completion-provider :none)
-    (add-hook 'lsp-completion-mode-hook #'archer/lsp-mode-setup-completion))
+    (setq lsp-completion-provider :none)
+    (add-hook 'lsp-completion-mode-hook #'archer-lsp-mode-setup-completion))
   :custom
   (lsp-keymap-prefix . "C-c l")
   (lsp-keep-workspace-alive . nil)

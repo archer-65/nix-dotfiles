@@ -11,35 +11,35 @@
 
 ;;; Code:
 
-(defgroup archer:notmuch()
+(defgroup archer-notmuch()
   "Extensions for notmuch"
   :group 'notmuch)
 
-(defcustom archer:notmuch-delete-tag "deleted"
+(defcustom archer-notmuch-delete-tag "deleted"
   "Tag that applies to mail marked for deletion"
   :type 'string
-  :group 'archer:notmuch)
+  :group 'archer-notmuch)
 
-(defcustom archer:notmuch-mark-delete-tags
-  `(,(format "+%s" archer:notmuch-delete-tag) "-inbox" "-unread")
+(defcustom archer-notmuch-mark-delete-tags
+  `(,(format "+%s" archer-notmuch-delete-tag) "-inbox" "-unread")
   "List of tags to mark for deletion."
   :type '(repeat string)
-  :group 'archer:notmuch)
+  :group 'archer-notmuch)
 
-(defcustom archer:notmuch-mark-archive-tags '( "-deleted" "-inbox" "-unread")
+(defcustom archer-notmuch-mark-archive-tags '( "-deleted" "-inbox" "-unread")
   "List of tags to mark for archive."
   :type '(repeat string)
-  :group 'archer:notmuch)
+  :group 'archer-notmuch)
 
-(defcustom archer:notmuch-mark-flag-tags '("+flagged" "-unread")
+(defcustom archer-notmuch-mark-flag-tags '("+flagged" "-unread")
   "List of tags to mark as important (flagged is a special tag)"
   :type '(repeat string)
-  :group 'archer:notmuch)
+  :group 'archer-notmuch)
 
-(defcustom archer:notmuch-mark-spam-tags '("+spam" "-inbox" "-unread")
+(defcustom archer-notmuch-mark-spam-tags '("+spam" "-inbox" "-unread")
   "List of tags to mark as spam."
   :type '(repeat string)
-  :group 'archer:notmuch)
+  :group 'archer-notmuch)
 
 ;;;; Autoload of commands
 (autoload 'notmuch-interactive-region "notmuch")
@@ -47,7 +47,7 @@
 (autoload 'notmuch-search-next-thread "notmuch")
 (autoload 'notmuch-search-tag "notmuch")
 
-(defmacro archer:notmuch-search-tag-thread (name tags)
+(defmacro archer-notmuch-search-tag-thread (name tags)
   "Produce NAME function parsing TAGS."
   (declare (indent defun))
   `(defun ,name (&optional untag beg end)
@@ -68,19 +68,19 @@ This function advances to the next thread when finished."
      (when (eq beg end)
        (notmuch-search-next-thread))))
 
-(archer:notmuch-search-tag-thread
- archer:notmuch-search-delete-thread
- archer:notmuch-mark-delete-tags)
+(archer-notmuch-search-tag-thread
+ archer-notmuch-search-delete-thread
+ archer-notmuch-mark-delete-tags)
 
-(archer:notmuch-search-tag-thread
- archer:notmuch-search-flag-thread
- archer:notmuch-mark-flag-tags)
+(archer-notmuch-search-tag-thread
+ archer-notmuch-search-flag-thread
+ archer-notmuch-mark-flag-tags)
 
-(archer:notmuch-search-tag-thread
- archer:notmuch-search-spam-thread
- archer:notmuch-mark-spam-tags)
+(archer-notmuch-search-tag-thread
+ archer-notmuch-search-spam-thread
+ archer-notmuch-mark-spam-tags)
 
-(defmacro archer:notmuch-show-tag-message (name tags)
+(defmacro archer-notmuch-show-tag-message (name tags)
   "Produce NAME function parsing TAGS."
   (declare (indent defun))
   `(defun ,name (&optional untag)
@@ -94,22 +94,22 @@ reverse the application of the tags."
        (apply 'notmuch-show-tag-message
 	      (notmuch-tag-change-list ,tags untag)))))
 
-(archer:notmuch-show-tag-message
- archer:notmuch-show-delete-message
- archer:notmuch-mark-delete-tags)
+(archer-notmuch-show-tag-message
+ archer-notmuch-show-delete-message
+ archer-notmuch-mark-delete-tags)
 
-(archer:notmuch-show-tag-message
- archer:notmuch-show-flag-message
- archer:notmuch-mark-flag-tags)
+(archer-notmuch-show-tag-message
+ archer-notmuch-show-flag-message
+ archer-notmuch-mark-flag-tags)
 
-(archer:notmuch-show-tag-message
- archer:notmuch-show-spam-message
- archer:notmuch-mark-spam-tags)
+(archer-notmuch-show-tag-message
+ archer-notmuch-show-spam-message
+ archer-notmuch-mark-spam-tags)
 
 (autoload 'notmuch-refresh-this-buffer "notmuch")
 (autoload 'notmuch-refresh-all-buffers "notmuch")
 
-(defun archer:notmuch-refresh-buffer (&optional arg)
+(defun archer-notmuch-refresh-buffer (&optional arg)
   "Run `notmuch-refresh-this-buffer'.
 With optional prefix ARG (\\[universal-argument]) call
 `notmuch-refresh-all-buffers'."
@@ -177,7 +177,7 @@ With optional prefix ARG (\\[universal-argument]) call
               :key ,(kbd "u u"))))
 
   ;; Tags
-  (setopt notmuch-archive-tags archer:notmuch-mark-archive-tags
+  (setopt notmuch-archive-tags archer-notmuch-mark-archive-tags
 	  notmuch-message-replied-tags '("+replied")
 	  notmuch-message-forwarded-tags '("+forwarded")
 	  notmuch-show-mark-read-tags '("-unread")
@@ -231,10 +231,10 @@ With optional prefix ARG (\\[universal-argument]) call
 
   ;; Tagging keys
   (setopt notmuch-tagging-keys
-          `((,(kbd "d") archer:notmuch-mark-delete-tags "⛔ Mark for deletion")
-            (,(kbd "a") archer:notmuch-mark-archive-tags "📫 Mark to archive")
-	    (,(kbd "f") archer:notmuch-mark-flag-tags "🚩 Flag as important")
-            (,(kbd "s") archer:notmuch-mark-spam-tags "⚠️ Mark as spam")
+          `((,(kbd "d") archer-notmuch-mark-delete-tags "⛔ Mark for deletion")
+            (,(kbd "a") archer-notmuch-mark-archive-tags "📫 Mark to archive")
+	    (,(kbd "f") archer-notmuch-mark-flag-tags "🚩 Flag as important")
+            (,(kbd "s") archer-notmuch-mark-spam-tags "⚠️ Mark as spam")
             (,(kbd "r") ("-unread") "✅ Mark as read")
             (,(kbd "u") ("+unread") "📔 Mark as unread")))
 
@@ -262,14 +262,14 @@ With optional prefix ARG (\\[universal-argument]) call
   (:notmuch-search-mode-map
    ("a" . nil)
    ("A" . notmuch-search-archive-thread)
-   ("D" . archer:notmuch-search-delete-thread)
-   ("S" . archer:notmcuh-search-spam-thread)
-   ("g" . archer:notmuch-refresh-buffer))
+   ("D" . archer-notmuch-search-delete-thread)
+   ("S" . archer-notmcuh-search-spam-thread)
+   ("g" . archer-notmuch-refresh-buffer))
   (:notmuch-show-mode-map
    ("a" . nil)
    ("A" . notmuch-show-archive-message-then-next-or-next-thread)
-   ("D" . archer:notmuch-show-delete-message)
-   ("S" . archer:notmuch-show-spam-message)))
+   ("D" . archer-notmuch-show-delete-message)
+   ("S" . archer-notmuch-show-spam-message)))
 
 (leaf sendmail
   :config

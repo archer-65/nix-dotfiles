@@ -6,7 +6,7 @@
 
 ;;; Code:
 
-(defun archer/dired-open-file ()
+(defun archer-dired-open-file ()
   "In Dired, open the file named on this line through xdg-open."
   (interactive)
   (let* ((file (dired-get-filename nil t)))
@@ -18,7 +18,7 @@
   ("C-x C-j" . dired-jump)
   ("C-c d" . dired-omit-mode)
   (:dired-mode-map
-   ("C-c o" . archer/dired-open-file))
+   ("C-c o" . archer-dired-open-file))
   :config
   (put 'dired-find-alternate-file 'disabled nil)
   (setq dired-kill-when-opening-new-dired-buffer t)

@@ -78,7 +78,7 @@ Functions to determine if we are on NixOS, or not, then set our path, that's use
 
 #+begin_src emacs-lisp
 
-  (defun archer/using-nix-p ()
+  (defun archer-using-nix-p ()
     "Verifies if the running Emacs executable is under the `/nix/store/' path."
     (unless (or (equal system-type 'ms-dos)
                 (equal system-type 'windows-nt))
@@ -88,8 +88,8 @@ Functions to determine if we are on NixOS, or not, then set our path, that's use
                         (executable-find
                          (car command-line-args))))))
 
-  (defvar archer/config-path
-    (if (archer/using-nix-p)
+  (defvar archer-config-path
+    (if (archer-using-nix-p)
         (if (file-exists-p (expand-file-name ".dotfiles/config/emacs/" (getenv "HOME")))
             (expand-file-name ".dotfiles/config/emacs/" (getenv "HOME")))
       (expand-file-name user-emacs-directory)))
@@ -490,7 +490,7 @@ To execute or export code in =org-mode= code blocks, we need to set up =org-babe
 Org Mode's [[https://orgmode.org/manual/Structure-Templates.html][structure templates]] feature enables to quickly insert code blocks into your Org files in combination with =org-tempo= by typing =<= followed by the template name like =el= or =py= and then press =TAB=.
 To add more =src= block templates, just copy one of the lines and change the two strings at the end, the first to be the template name and the second to contain the name of the language ([[https://orgmode.org/worg/org-contrib/babel/languages.html][listed here]]).
 
-There's also a snippet that adds a hook to =org-mode= buffers so that ~archer/org-babel-tangle-config~ gets executed each time such a buffer gets saved. This function checks to see if the file being saved is the Emacs.org file you're looking at right now, and if so, automatically exports the configuration here to the associated output files. This function is inspired by David Wilson of System Crafters.
+There's also a snippet that adds a hook to =org-mode= buffers so that ~archer-org-babel-tangle-config~ gets executed each time such a buffer gets saved. This function checks to see if the file being saved is the Emacs.org file you're looking at right now, and if so, automatically exports the configuration here to the associated output files. This function is inspired by David Wilson of System Crafters.
 
 #+include: "lisp/init-org-languages.el" src emacs-lisp :tangle no
 
@@ -706,7 +706,7 @@ The best terminal emulator in Emacs.
   (leaf vterm
     :commands (vterm vterm-other-window)
     :init
-    (unless (archer/using-nix-p) straight-use-package 'vterm)
+    (unless (archer-using-nix-p) straight-use-package 'vterm)
     :bind
     ("<f5>" . vterm)
     :config
@@ -730,7 +730,7 @@ Beautiful client, maybe the best telegram client around. A PITA, sometimes, due 
     (leaf telega
       :commands (telega)
       :init
-      (unless (archer/using-nix-p) straight-use-package 'telega)
+      (unless (archer-using-nix-p) straight-use-package 'telega)
       (setq telega-directory (expand-file-name "~/.telega/"))
       (setq telega-server-libs-prefix (expand-file-name "~/.nix-profile"))
       (setq telega-use-images t)

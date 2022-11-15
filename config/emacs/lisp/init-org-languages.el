@@ -34,7 +34,7 @@
 (defun archer-65/org-babel-tangle-config ()
   "Auto tangle configuration on save if we are in the right directory."
   (when (string-equal (file-name-directory (buffer-file-name))
-                      (expand-file-name archer/config-path))
+                      (expand-file-name archer-config-path))
     ;; Dynamic scoping to the rescue
     (let ((org-confirm-babel-evaluate nil))
       (org-babel-tangle))))
