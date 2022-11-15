@@ -13,8 +13,6 @@
 ;; enabling `gcmh-mode'.
 (setq gc-cons-threshold  most-positive-fixnum)
 
-
-
 ;; From DOOM
 ;; Prevent unwanted runtime compilation for gccemacs (native-comp) users;
 ;; packages are compiled ahead-of-time when they are installed and site files
@@ -74,6 +72,7 @@
 (push '(tool-bar-lines . 0)   default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
 (push '(internal-border-width . 8) default-frame-alist)
+
 ;; And set these to nil so users don't have to toggle the modes twice to
 ;; reactivate them.
 (setq menu-bar-mode nil
