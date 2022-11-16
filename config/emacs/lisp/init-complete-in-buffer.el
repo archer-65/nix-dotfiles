@@ -23,8 +23,6 @@
                        ("C-p" . company-select-previous))
   ("C-c C-/" . company-files)
   ("C-c y" . company-yasnippet)
-  :hook
-  (telega-chat-mode-hook . company-mode)
   :custom
   (global-company-mode . t))
 
@@ -45,13 +43,13 @@
 
   ;; SECTION FOR SPECIAL FUNCTIONS
   ;; Movement
-  (defun corfu-beginning-of-prompt ()
+  (defun contrib-corfu-beginning-of-prompt ()
     "Move to beginning of completion input."
     (interactive)
     (corfu--goto -1)
     (goto-char (car completion-in-region--data)))
 
-  (defun corfu-end-of-prompt ()
+  (defun contrib-corfu-end-of-prompt ()
     "Move to end of completion input."
     (interactive)
     (corfu--goto -1)
@@ -60,22 +58,22 @@
   (define-key corfu-map [remap move-beginning-of-line] #'corfu-beginning-of-prompt)
   (define-key corfu-map [remap move-end-of-line] #'corfu-end-of-prompt)
 
-  (defun contrib/corfu-move-to-minibuffer ()
+  ;; From Corfu's manual
+  (defun contrib-corfu-move-to-minibuffer ()
     (interactive)
     (let ((completion-extra-properties corfu--extra)
           completion-cycle-threshold completion-cycling)
       (apply #'consult-completion-in-region completion-in-region--data)))
-  (define-key corfu-map "\M-m" #'corfu-move-to-minibuffer)
+  (define-key corfu-map "\M-m" #'contrib-corfu-move-to-minibuffer)
 
   ;; Adapted from Corfu's manual.
   ;; (Found in Prot's configuration)
-  (defun contrib/corfu-enable-always-in-minibuffer ()
+  (defun contrib-corfu-enable-always-in-minibuffer ()
     "Enable Corfu in the minibuffer if Vertico is not active.
 Useful for prompts such as `eval-expression' and `shell-command'."
     (unless (bound-and-true-p vertico--input)
       (corfu-mode 1)))
-
-  (add-hook 'minibuffer-setup-hook #'contrib/corfu-enable-always-in-minibuffer 1)
+  (add-hook 'minibuffer-setup-hook #'contrib-corfu-enable-always-in-minibuffer 1)
   ;; END OF SECTION (TODO Refactor)
 
   :custom
@@ -116,25 +114,25 @@ Useful for prompts such as `eval-expression' and `shell-command'."
   :init
   (straight-use-package 'company)
   (autoload 'company-grab "company")
-  :config
+  :init
   (dolist (backend '(cape-symbol cape-keyword cape-file cape-dabbrev))
     (add-to-list 'completion-at-point-functions backend))
-  :bind (("C-c p p" . completion-at-point) ;; capf
-         ("C-c p t" . complete-tag)        ;; etags
-         ("C-c p d" . cape-dabbrev)        ;; or dabbrev-completion
-         ("C-c p h" . cape-history)
-         ("C-c p f" . cape-file)
-         ("C-c p k" . cape-keyword)
-         ("C-c p s" . cape-symbol)
-         ("C-c p a" . cape-abbrev)
-         ("C-c p i" . cape-ispell)
-         ("C-c p l" . cape-line)
-         ("C-c p w" . cape-dict)
-         ("C-c p \\" . cape-tex)
-         ("C-c p _" . cape-tex)
-         ("C-c p ^" . cape-tex)
-         ("C-c p &" . cape-sgml)
-         ("C-c p r" . cape-rfc1345)))
+  :bind (("C-c p p" . completion-at-point)
+	 ("C-c p t" . complete-tag)
+	 ("C-c p d" . cape-dabbrev)
+	 ("C-c p h" . cape-history)
+	 ("C-c p f" . cape-file)
+	 ("C-c p k" . cape-keyword)
+	 ("C-c p s" . cape-symbol)
+	 ("C-c p a" . cape-abbrev)
+	 ("C-c p i" . cape-ispell)
+	 ("C-c p l" . cape-line)
+	 ("C-c p w" . cape-dict)
+	 ("C-c p \\" . cape-tex)
+	 ("C-c p _" . cape-tex)
+	 ("C-c p ^" . cape-tex)
+	 ("C-c p &" . cape-sgml)
+	 ("C-c p r" . cape-rfc1345)))
 
 (provide 'init-complete-in-buffer)
 ;;; init-complete-in-buffer.el ends here

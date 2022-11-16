@@ -8,38 +8,43 @@
 
 ;;
 ;;; NOTE: These are taken from https://github.com/doomemacs/doomemacs/blob/master/modules/tools/lsp/config.el
-(defvar +lsp--default-read-process-output-max nil)
-(defvar +lsp--default-gcmh-high-cons-threshold nil)
-(defvar +lsp--optimization-init-p nil)
+(defvar archer-lsp--default-read-process-output-max nil)
+(defvar archer-lsp--default-gcmh-high-cons-threshold nil)
+(defvar archer-lsp--optimization-init-p nil)
 
-(define-minor-mode +lsp-optimization-mode
+(define-minor-mode archer-lsp-optimization-mode
   "Deploys universal GC and IPC optimizations for `lsp-mode' and `eglot'."
   :global t
   :init-value nil
   :group 'lsp
-  (if (not +lsp-optimization-mode)
-      (setq-default read-process-output-max +lsp--default-read-process-output-max
-                    gcmh-high-cons-threshold +lsp--default-gcmh-high-cons-threshold
-                    +lsp--optimization-init-p nil)
+  (if (not archer-lsp-optimization-mode)
+      (setq-default read-process-output-max archer-lsp--default-read-process-output-max
+                    gcmh-high-cons-threshold archer-lsp--default-gcmh-high-cons-threshold
+                    archer-lsp--optimization-init-p nil)
     ;; Only apply these settings once!
-    (unless +lsp--optimization-init-p
-      (setq +lsp--default-read-process-output-max (default-value 'read-process-output-max)
-            +lsp--default-gcmh-high-cons-threshold (default-value 'gcmh-high-cons-threshold))
+    (unless archer-lsp--optimization-init-p
+      (setq archer-lsp--default-read-process-output-max (default-value 'read-process-output-max)
+            archer-lsp--default-gcmh-high-cons-threshold (default-value 'gcmh-high-cons-threshold))
       (setq-default read-process-output-max (* 1024 1024))
       ;; REVIEW LSP causes a lot of allocations, with or without the native JSON
       ;;        library, so we up the GC threshold to stave off GC-induced
       ;;        slowdowns/freezes. Doom uses `gcmh' to enforce its GC strategy,
       ;;        so we modify its variables rather than `gc-cons-threshold'
       ;;        directly.
-      (setq-default gcmh-high-cons-threshold (* 2 +lsp--default-gcmh-high-cons-threshold))
+      (setq-default gcmh-high-cons-threshold (* 2 archer-lsp--default-gcmh-high-cons-threshold))
       (gcmh-set-high-threshold)
-      (setq +lsp--optimization-init-p t))))
+      (setq archer-lsp--optimization-init-p t))))
+
+(defcustom archer-lsp-client 'eglot
+  "Preferred lsp-client."
+  :type 'symbol
+  :group 'lsp)
 
 ;;
 ;;; LSP-MODE
 
-
 (leaf lsp-mode
+  :disabled t
   :straight t
   :commands lsp
   :init
@@ -74,10 +79,11 @@
   (lsp-eldoc-hook . '(lsp-hover))
   :hook
   ((c-mode-hook c++-mode-hook java-mode-hook nix-mode-hook rustic-mode-hook cmake-mode-hook terraform-mode-hook) . lsp-deferred)
-  (lsp-mode-hook . +lsp-optimization-mode)
+  (lsp-mode-hook . archer-lsp-optimization-mode)
   (lsp-mode-hook  . lsp-enable-which-key-integration))
 
 (leaf lsp-ui
+  :disabled t
   :straight t
   :after lsp
   :commands lsp-ui-mode
@@ -90,35 +96,34 @@
   (lsp-ui-sideline-delay . 0.05))
 
 (leaf lsp-treemacs
+  :disabled t
   :straight t
   :after lsp
   :commands lsp-treemacs-errors-list)
 
 (leaf lsp-java
+  :disabled t
   :straight t
   :after lsp
   :require t
   :hook
   (java-mode-hook . lsp))
 
-;; optionally if you want to use debugger
-;; (leaf dap-mode)
-;; (leaf dap-LANGUAGE) to load the dap adapter for your language
-
 ;;
 ;;; EGLOT
 
-;; Not working now, I need time to try :(
 (leaf eglot
-  :disabled t
+  ;; :disabled t
   :init
   (unless (package-installed-p 'eglot) straight-use-package 'eglot)
   :config
-  (setq rustic-lsp-client 'eglot)
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
-  (add-to-list 'eglot-server-programs '(nix-mode . ("rnix-lsp")))
+  (add-to-list 'eglot-server-programs '(terraform-mode . ("terraform-ls")))
+  (add-to-list 'eglot-server-programs
+	       `(nix-mode . ,(eglot-alternatives '(("nil")
+						   ("rnix-lsp")))))
   :hook
-  (eglot-managed-mode-hook . +lsp-optimization-mode)
+  (eglot-managed-mode-hook . archer-lsp-optimization-mode)
   (c-mode-hook    . eglot-ensure)
   (c++-mode-hook  . eglot-ensure)
   (java-mode-hook . eglot-ensure)
@@ -127,7 +132,7 @@
   (terraform-mode . eglot-ensure))
 
 (leaf eglot-java
-  :disabled t
+  ;; :disabled t
   :straight t
   :require t
   :after eglot

@@ -109,5 +109,11 @@
   (autoload 'projectile-project-root "projectile")
   (setq consult-project-root-function #'projectile-project-root))
 
+(leaf consult-eglot
+  :straight t
+  :after eglot
+  :bind
+  ("M-g s" . consult-eglot-symbols))
+
 (provide 'init-consult)
 ;;; init-consult.el ends here

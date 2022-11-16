@@ -50,12 +50,14 @@
 ;;; Keycast mode
 (leaf keycast
   :straight t
+  :commands keycast-mode
   :config
   ;; Those are for `keycast-mode'
   (setq keycast-mode-line-window-predicate #'keycast-active-frame-bottom-right-p)
   (setq keycast-separator-width 1)
   (setq keycast-mode-line-remove-tail-elements nil)
   (setq keycast-mode-line-format "%3s%k%c%r")
+  (setq keycast-mode-line-insert-after 'mode-line-misc-info)
 
   ;; Based on Prot's configuration
   (dolist (input '(self-insert-command

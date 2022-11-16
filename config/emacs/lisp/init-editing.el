@@ -59,7 +59,6 @@
   (setq save-place-forget-unreadable-files t)
   (save-place-mode 1))
 
-
 ;; Managed by no-littering
 ;; (setq backup-directory-alist
 ;;       `(("." . ,(expand-file-name "var/backup" user-emacs-directory))))
@@ -76,6 +75,7 @@
 (leaf format-all
   :doc "Same command to auto-format source code in many languages"
   :straight t
+  :blackout t
   :hook
   (prog-mode-hook . format-all-mode)
   ;; (prog-mode-hook . format-all-ensure-formatter)
@@ -116,6 +116,16 @@
   :straight t
   :hook
   ((emacs-lisp-mode web-mode json-mode) . rainbow-mode))
+
+(leaf eldoc
+  :blackout t
+  :config
+  (global-eldoc-mode 1))
+
+(leaf so-long
+  :blackout t
+  :config
+  (global-so-long-mode 1))
 
 (provide 'init-editing)
 ;;; init-editing.el ends here

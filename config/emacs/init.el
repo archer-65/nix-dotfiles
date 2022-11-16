@@ -148,14 +148,6 @@
 
 (require 'init-mail)
 
-(leaf pomodoro
-  :straight t
-  :require t
-  :custom
-  (pomodoro-desktop-notification . t)
-  :config
-  (pomodoro-add-to-mode-line))
-
 (require 'init-pdf)
 
 (leaf daemons
@@ -186,6 +178,25 @@
   (setq telega-emoji-font-family "Noto Color Emoji")
   (setq telega-emoji-use-images nil)
   :config
+  (setq telega-emoji-company-backend 'telega-company-emoji)
+
+  ;; From Andrew Tropin <3
+  (defun archer-telega-chat-mode ()
+    "Add completion at point functions made from company backends."
+    (setq-local
+     completion-at-point-functions
+     (append (mapcar
+              'cape-company-to-capf
+              (append (list 'telega-company-emoji
+                            'telega-company-username
+                            'telega-company-hashtag)
+                      (when (telega-chat-bot-p telega-chatbuf--chat)
+                        '(telega-company-botcmd))))
+             completion-at-point-functions)))
+  (add-hook 'telega-chat-mode-hook 'archer-telega-chat-mode)
+
+  (setq telega-completing-read-function completing-read-function)
+
   (require 'telega-mnz)
   (setq telega-animation-play-inline 2)
   (setq telega-inserter-for-chat-button 'telega-ins--chat-full-2lines)

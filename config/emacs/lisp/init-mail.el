@@ -12,11 +12,11 @@
 ;;; Code:
 
 (defgroup archer-notmuch()
-  "Extensions for notmuch"
+  "Extensions for notmuch."
   :group 'notmuch)
 
 (defcustom archer-notmuch-delete-tag "deleted"
-  "Tag that applies to mail marked for deletion"
+  "Tag that applies to mail marked for deletion."
   :type 'string
   :group 'archer-notmuch)
 
@@ -32,7 +32,7 @@
   :group 'archer-notmuch)
 
 (defcustom archer-notmuch-mark-flag-tags '("+flagged" "-unread")
-  "List of tags to mark as important (flagged is a special tag)"
+  "List of tags to mark as important (flagged is a special tag)."
   :type '(repeat string)
   :group 'archer-notmuch)
 

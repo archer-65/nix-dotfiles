@@ -28,38 +28,25 @@
 (leaf rustic
   :straight t
   :mode "\\.rs\\'"
-  :bind (:rustic-mode-map
-	 ("M-j" . lsp-ui-imenu)
-         ("M-?" . lsp-find-references)
-         ("C-c C-c l" . flycheck-list-errors)
-         ("C-c C-c a" . lsp-execute-code-action)
-         ("C-c C-c r" . lsp-rename)
-         ("C-c C-c q" . lsp-workspace-restart)
-         ("C-c C-c Q" . lsp-workspace-shutdown)
-         ("C-c C-c s" . lsp-rust-analyzer-status))
   :config
-  (setq rustic-format-on-save nil)
-  :custom
-  ;; lsp-mode related
-  ;; what to use when checking on-save. "check" is default, I prefer clippy
-  (lsp-rust-analyzer-cargo-watch-command . "clippy")
-  (lsp-rust-analyzer-display-lifetime-elision-hints-enable . "skip_trivial")
-  (lsp-rust-analyzer-display-lifetime-elision-hints-use-parameter-names . nil)
-  (lsp-rust-analyzer-display-closure-return-type-hints . t)
-  (lsp-rust-analyzer-display-reborrow-hints . nil)
-  (lsp-rust-analyzer-display-parameter-hints . nil)
-  (lsp-rust-analyzer-display-chaining-hints . t)
-  (lsp-rust-analyzer-server-display-inlay-hints . t))
+  (setq rustic-format-on-save nil) ;; There's `format-all-mode'
+  (setq rustic-lsp-client archer-lsp-client))
 
 (leaf terraform-mode
   :straight t
-  :mode "\\.tf\\'"
+  :mode "\\.tf\\'")
+
+(leaf company-terraform
+  :straight t
+  :after terraform-mode
   :config
-  (leaf company-terraform
-    :when (fboundp 'company-mode)
-    :straight t
-    :config
-    (company-terraform-init)))
+  (company-terraform-init)
+  (defun archer-cape-company-terraform()
+    "Add completion at point functions made from company backends for `terraform'."
+    (setq-local
+     completion-at-point-functions
+     (append (list (cape-company-to-capf #'company-terraform)) completion-at-point-functions)))
+  (add-hook 'terraform-mode-hook 'archer-cape-company-terraform))
 
 (provide 'init-extra-modes)
 ;;; init-extra-modes.el ends here

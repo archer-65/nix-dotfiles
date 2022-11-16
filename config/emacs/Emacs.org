@@ -656,21 +656,6 @@ Last but not least: [[https://github.com/jeremy-compostella/org-msg][org-msg]], 
 #+include: "lisp/init-mail.el" src emacs-lisp :tangle no
 
 
-** Productivity
-
-#+begin_src emacs-lisp
-
-  (leaf pomodoro
-    :straight t
-    :require t
-    :custom
-    (pomodoro-desktop-notification . t)
-    :config
-    (pomodoro-add-to-mode-line))
-
-#+end_src
-
-
 ** Reading
 
 #+begin_src emacs-lisp
@@ -727,31 +712,50 @@ Beautiful client, maybe the best telegram client around. A PITA, sometimes, due 
 
 #+begin_src emacs-lisp
 
-    (leaf telega
-      :commands (telega)
-      :init
-      (unless (archer-using-nix-p) straight-use-package 'telega)
-      (setq telega-directory (expand-file-name "~/.telega/"))
-      (setq telega-server-libs-prefix (expand-file-name "~/.nix-profile"))
-      (setq telega-use-images t)
-      (setq telega-emoji-font-family "Noto Color Emoji")
-      (setq telega-emoji-use-images nil)
-      :config
-      (require 'telega-mnz)
-      (setq telega-animation-play-inline 2)
-      (setq telega-inserter-for-chat-button 'telega-ins--chat-full-2lines)
-      (setq telega-chat-button-width 30)
-      (setq telega-root-fill-column (+ 20 telega-chat-button-width))
-      (put (get 'telega-chat 'button-category-symbol)
-           :inserter 'telega-ins--chat-full-2lines)
-      (setq switch-to-buffer-preserve-window-point t)
-      (setq telega-chat--display-buffer-action
-            '((display-buffer-reuse-window display-buffer-use-some-window)))
-      (define-key global-map (kbd "C-c t") telega-prefix-map)
-      (setq telega-completing-read-function 'completing-read)
-      :hook
-      (telega-load-hook . telega-notifications-mode)
-      (telega-chat-mode-hook . telega-mnz-mode))
+  (leaf telega
+    :commands (telega)
+    :init
+    (unless (archer-using-nix-p) straight-use-package 'telega)
+    (setq telega-directory (expand-file-name "~/.telega/"))
+    (setq telega-server-libs-prefix (expand-file-name "~/.nix-profile"))
+    (setq telega-use-images t)
+    (setq telega-emoji-font-family "Noto Color Emoji")
+    (setq telega-emoji-use-images nil)
+    :config
+    (setq telega-emoji-company-backend 'telega-company-emoji)
+
+    ;; From Andrew Tropin <3
+    (defun archer-telega-chat-mode ()
+      "Add completion at point functions made from company backends."
+      (setq-local
+       completion-at-point-functions
+       (append (mapcar
+                'cape-company-to-capf
+                (append (list 'telega-company-emoji
+                              'telega-company-username
+                              'telega-company-hashtag)
+                        (when (telega-chat-bot-p telega-chatbuf--chat)
+                          '(telega-company-botcmd))))
+               completion-at-point-functions)))
+    (add-hook 'telega-chat-mode-hook 'archer-telega-chat-mode)
+
+    (setq telega-completing-read-function completing-read-function)
+
+    (require 'telega-mnz)
+    (setq telega-animation-play-inline 2)
+    (setq telega-inserter-for-chat-button 'telega-ins--chat-full-2lines)
+    (setq telega-chat-button-width 30)
+    (setq telega-root-fill-column (+ 20 telega-chat-button-width))
+    (put (get 'telega-chat 'button-category-symbol)
+         :inserter 'telega-ins--chat-full-2lines)
+    (setq switch-to-buffer-preserve-window-point t)
+    (setq telega-chat--display-buffer-action
+          '((display-buffer-reuse-window display-buffer-use-some-window)))
+    (define-key global-map (kbd "C-c t") telega-prefix-map)
+    (setq telega-completing-read-function 'completing-read)
+    :hook
+    (telega-load-hook . telega-notifications-mode)
+    (telega-chat-mode-hook . telega-mnz-mode))
 
 #+end_src
 

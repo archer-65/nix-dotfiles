@@ -10,6 +10,7 @@
 (leaf ethan-wspace
   :doc "Delete useless whitespaces"
   :straight t
+  :blackout t
   :bind ("C-c c" . ethan-wspace-clean-all)
   :hook (prog-mode-hook . ethan-wspace-mode)
   :config
