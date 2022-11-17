@@ -43,39 +43,32 @@ targets."
       (apply fn args)))
 
 ;; Embark configuration
-(leaf embark
-  :doc "Act near point :D"
-  :straight t
-  :bind
-  (("C-." . embark-act)
-   ("C-;" . embark-dwim)
-   ("C-h B" . embark-bindings)) ;; alternative for `describe-bindings'
-  :init
-  ;; Optionally replace the key help with a completing-read interface
-  (setq prefix-help-command #'embark-prefix-help-command)
-  (advice-add #'embark-completing-read-prompter :around #'archer-embark-hide-which-key-indicator)
-  :config
+(setup (:straight embark)
+  (:require embark)
+  (:doc "Act near point :D")
+  (:load-after which-key
+    (setq prefix-help-command #'embark-prefix-help-command)
+    (advice-add #'embark-completing-read-prompter :around #'archer-embark-hide-which-key-indicator))
+
+  (:global "C-." embark-act
+	   "C-;" embark-dwim
+	   "C-h B" embark-bindings) ;; alternative for `describe-bindings'
+
   ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist
                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
                  nil
                  (window-parameters (mode-line-format . none)))))
 
-;; Used for export and edit after ripgrep magic.
-(leaf wgrep
-  :doc "Edit matches in place."
-  :straight t)
-
 ;; Integration with Consult
-(leaf embark-consult
-  :straight t
-  :after (embark consult)
-  :require t
-  :leaf-defer nil ; only necessary if you have the hook below
+(setup (:straight embark-consult)
   ;; if you want to have consult previews as you move around an
   ;; auto-updating embark collect buffer
-  :hook
-  (embark-collect-mode . consult-preview-at-point-mode))
+  (:hooks embark-collect-mode consult-preview-at-point-mode))
+
+;; Used for export and edit after ripgrep magic.
+(setup (:straight wgrep)
+  (:doc "Edit matches in place."))
 
 (provide 'init-embark)
 ;;; init-embark.el ends here

@@ -6,64 +6,61 @@
 
 ;;; Code:
 
-(leaf consult
-  :doc "Practical commands based on the Emacs completion function completing-read."
-  :straight t
-  ;; Replace bindings. Lazily loaded due by `use-package'.
-  :bind
-  (;; C-c bindings (mode specific)
-   ("C-c h" . consult-history)
-   ("C-c M" . consult-mode-command)
-   ("C-c b" . consult-bookmark)
-   ("C-c k" . consult-kmacro)
+(setup (:straight consult)
+  (:require consult)
+  (:doc "Practical commands based on the Emacs completion function completing-read.")
+  (:global
+   ;; C-c bindings (mode specific)
+   "C-c h" consult-history
+   "C-c M" consult-mode-command
+   "C-c b" consult-bookmark
+   "C-c k" consult-kmacro
    ;; C-x bindings
-   ("C-x M-c" . consult-complex-command)     ;; orig. repeat-complex-command
-   ("C-x b"   . consult-buffer)              ;; orig. switch-to-buffer
-   ("C-x 4 b" . consult-buffer-other-window) ;; orig. switch-to-buffer-other-window
-   ("C-x 5 b" . consult-buffer-other-frame)  ;; orig. switch-to-buffer-other-frame
+   "C-x M-c" consult-complex-command     ;; orig. repeat-complex-command
+   "C-x b"   consult-buffer              ;; orig. switch-to-buffer
+   "C-x 4 b" consult-buffer-other-window ;; orig. switch-to-buffer-other-window
+   "C-x 5 b" consult-buffer-other-frame  ;; orig. switch-to-buffer-other-frame
    ;; [C]-[M]-# bindings for registers
-   ("C-M-#" . consult-register)
-   ("M-#"   . consult-register-load)
-   ("C-#"  . consult-register-store)        ;; orig. abbrev-prefix-mark (unrelated)
+   "C-M-#" consult-register
+   "M-#"   consult-register-load
+   "C-#"  consult-register-store         ;; orig. abbrev-prefix-mark (unrelated)
    ;; Other custom bindings
-   ("M-y"   . consult-yank-pop)              ;; orig. yank-pop
-   ("C-h a" . consult-apropos)               ;; orig. apropos-command
+   "M-y"   consult-yank-pop              ;; orig. yank-po
+   "C-h a" consult-apropos               ;; orig. apropos-comman
    ;; M-g bindings (goto-map)
-   ("M-g g"   . consult-goto-line)           ;; orig. goto-line
-   ("M-g M-g" . consult-goto-line)           ;; orig. goto-line
-   ("M-g o"   . consult-org-heading)         ;; Alternative: consult-org-heading
-   ("M-g m"   . consult-mark)
-   ("M-g k"   . consult-global-mark)
-   ("M-g i"   . consult-imenu)
-   ("M-g I"   . consult-imenu-multi)
-   ("M-g e"   . consult-compile-error)
-   ("M-g f"   . consult-flycheck)            ;; Alternative: consult-flycheck
+   "M-g g"   consult-goto-line           ;; orig. goto-line
+   "M-g M-g" consult-goto-line           ;; orig. goto-line
+   "M-g o"   consult-org-heading         ;; Alternative: consult-org-heading
+   "M-g m"   consult-mark
+   "M-g k"   consult-global-mark
+   "M-g i"   consult-imenu
+   "M-g I"   consult-imenu-multi
+   "M-g e"   consult-compile-error
+   "M-g f"   consult-flycheck            ;; Alternative: consult-flycheck
    ;; M-s bindings (search-map)
-   ("M-s f" . consult-find)
-   ("M-s F" . consult-locate)
-   ("M-s g" . consult-grep)
-   ("M-s G" . consult-git-grep)
-   ("M-s r" . consult-ripgrep)
-   ("M-s l" . consult-line)
-   ("M-s L" . consult-line-multi)
-   ("M-s m" . consult-multi-occur)
-   ("M-s k" . consult-keep-lines)
-   ("M-s u" . consult-focus-lines)
+   "M-s f" consult-find
+   "M-s F" consult-locate
+   "M-s g" consult-grep
+   "M-s G" consult-git-grep
+   "M-s r" consult-ripgrep
+   "M-s l" consult-line
+   "M-s L" consult-line-multi
+   "M-s m" consult-multi-occur
+   "M-s k" consult-keep-lines
+   "M-s u" consult-focus-lines
    ;; Isearch integration
-   ("M-s e" . consult-isearch-history))
-  (:isearch-mode-map
-   ("M-e" . consult-isearch-history)         ;; orig. isearch-edit-string
-   ("M-s e" . consult-isearch-history)       ;; orig. isearch-edit-string
-   ("M-s l" . consult-line)                  ;; needed by consult-line to detect isearch
-   ("M-s L" . consult-line-multi))          ;; needed by consult-line to detect isearch
+   "M-s e" consult-isearch-history)
+  (:bind-into isearch-mode-map
+   "M-e" consult-isearch-history         ;; orig. isearch-edit-string
+   "M-s e" consult-isearch-history       ;; orig. isearch-edit-string
+   "M-s l" consult-line                  ;; needed by consult-line to detect isearch
+   "M-s L" consult-line-multi)           ;; needed by consult-line to detect isearch
 
   ;; Enable automatic preview at point in the *Completions* buffer. This is
   ;; relevant when you use the default completion UI. You may want to also
   ;; enable `consult-preview-at-point-mode` in Embark Collect buffers.
-  :hook
-  (completion-list-mode . consult-preview-at-point-mode)
+  (:hooks completion-list-mode consult-preview-at-point-mode)
 
-  :init
   ;; Register formatting. This improves the register
   ;; preview for `consult-register', `consult-register-load',
   ;; `consult-register-store' and the Emacs built-ins.
@@ -78,7 +75,6 @@
   (setq xref-show-xrefs-function #'consult-xref
 	xref-show-definitions-function #'consult-xref)
 
-  :config
   ;; Optionally configure preview. The default value
   ;; is 'any, such that any key triggers the preview.
   ;; For some commands and buffer sources it is useful to configure the
@@ -109,11 +105,18 @@
   (autoload 'projectile-project-root "projectile")
   (setq consult-project-root-function #'projectile-project-root))
 
-(leaf consult-eglot
-  :straight t
-  :after eglot
-  :bind
-  ("M-g s" . consult-eglot-symbols))
+(setup (:straight consult-dir)
+  (:load-after (consult)
+    (:global
+     "C-x C-d" consult-dir)
+    (:with-map minibuffer-local-completion-map
+      (:bind
+       "C-x C-d" consult-dir-maybe
+       "C-x C-j" consult-dir-jump-file))))
+
+(setup (:straight consult-eglot)
+  (:load-after eglot)
+  (:global "M-g s" consult-eglot-symbols))
 
 (provide 'init-consult)
 ;;; init-consult.el ends here

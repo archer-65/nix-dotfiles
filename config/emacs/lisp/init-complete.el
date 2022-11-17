@@ -30,7 +30,7 @@
     (:hook cursor-intangible-mode)))
 
 ;; Persist history over Emacs restarts. Vertico sorts by history position.
-(setup savehist
+(setup (:require savehist)
   (setq savehist-file (locate-user-emacs-file "var/savehist"))
   (setq history-length 10000)
   (setq history-delete-duplicates t)
