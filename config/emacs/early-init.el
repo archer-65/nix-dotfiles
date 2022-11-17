@@ -81,8 +81,6 @@
       column-number-mode t
       fringe-mode 10)
 
-;; UTF-8 coding system.
-(set-language-environment "UTF-8")
 ;; (set-default-coding-systems 'utf-8)
 
 ;; Minor message for gc after loading

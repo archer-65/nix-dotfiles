@@ -49,7 +49,7 @@ I have decided to tangle this document in =init.el= because I want to keep a few
   ;; a number of other files.
 
   ;; NOTE: This file is generated from `Emacs.org`!
-
+  
   ;;; Code:
 
   ;; Add load-path
@@ -120,94 +120,21 @@ This is the =init-packages.el= file.
 #+include: "lisp/init-packages.el" src emacs-lisp :tangle no
 
 
-** Clean and fast
-
-*** Keep order
-
-This useful package helps to avoid filling up our work folders with ~auto-save~ files.
-
-#+begin_src emacs-lisp
-
-  ;; The `no-littering` package to keep folders where we edit files and the Emacs configuration folder clean.
-  (leaf no-littering
-    :doc "Keeps folders clean"
-    :straight t
-    :setq
-    ;; The package `no-littering` doesn't set this by default so we must place
-    ;; auto save files in the same path as it uses for sessions
-    (auto-save-file-name-transforms . `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
-
-#+end_src
-
-
-*** Garbage collector enhancement
+** Performances enhancement
 
 [[https://github.com/emacsmirror/gcmh][GCMH]] allows the auto-regulation of garbage collector based on idle timers. During normal use a high GC threshold is set; when idling GC is triggered and a low threshold is set.
 
 Right now I'm good with 16MB for high threshold.
 
-#+begin_src emacs-lisp
-
-  (leaf gcmh
-    :straight t
-    :init
-    ;; The GC introduces annoying pauses and stuttering into our Emacs experience,
-    ;; so we use `gcmh' to stave off the GC while we're using Emacs, and provoke it
-    ;; when it's idle. However, if the idle delay is too long, we run the risk of
-    ;; runaway memory usage in busy sessions. If it's too low, then we may as well
-    ;; not be using gcmh at all.
-    (setq gcmh-idle-delay 'auto ; Default 15 seconds
-          gcmh-auto-idle-delay-factor 10
-          gcmh-high-cons-threshold (* 16 1024 1024)) ; 16MB
-    :require t
-    :config
-    (gcmh-mode 1))
-
-#+end_src
-
-
-*** Minor tweaks
-
-Aaand, here other code stolen from DOOM.
-Performances are really better with this snippet (for me).
+Other tweaks in this section have been stolen from DOOM
 
 #+begin_src emacs-lisp
 
-  ;; Resizing the Emacs frame can be a terribly expensive part of changing the
-  ;; font. By inhibiting this, we halve startup times, particularly when we use
-  ;; fonts that are larger than the system default (which would resize the frame).
-  (setq frame-inhibit-implied-resize t)
-
-  ;; Emacs "updates" its ui more often than it needs to, so slow it down slightly
-  (setq idle-update-delay 1.0)  ; default is 0.5
-
-  ;; PGTK builds only: this timeout adds latency to frame operations, like
-  ;; `make-frame-invisible', which are frequently called without a guard because
-  ;; it's inexpensive in non-PGTK builds. Lowering the timeout from the default
-  ;; 0.1 should make childframes and packages that manipulate them (like `lsp-ui',
-  ;; `company-box', and `posframe') feel much snappier. See emacs-lsp/lsp-ui#613.
-  (setq pgtk-wait-for-event-timeout 0.001)
-
-  ;; Introduced in Emacs HEAD (b2f8c9f), this inhibits fontification while
-  ;; receiving input, which should help a little with scrolling performance.
-  (setq redisplay-skip-fontification-on-input t)
-
-  ;; Reduce *Message* noise at startup. An empty scratch buffer (or the dashboard)
-  ;; is more than enough.
-  (setq inhibit-startup-screen t
-        inhibit-startup-echo-area-message user-login-name
-        inhibit-default-init t
-        ;; Shave seconds off startup time by starting the scratch buffer in
-        ;; `fundamental-mode', rather than, say, `org-mode' or `text-mode', which
-        ;; pull in a ton of packages. `doom/open-scratch-buffer' provides a better
-        ;; scratch buffer anyway.
-        initial-major-mode 'fundamental-mode
-        initial-scratch-message nil)
-
-  ;; Introduced in Emacs 28
-  (setq use-short-answers t)
+  (require 'init-performance)
 
 #+end_src
+
+#+include: "lisp/init-performance.el" src emacs-lisp :tangle no
 
 
 ** Pick me up mom, I'm scared!
@@ -292,6 +219,96 @@ Just modeline customized.
 #+include: "lisp/init-modeline.el" src emacs-lisp :tangle no
 
 
+* Interface interaction
+
+This section contains my file and buffer related configurations. Nothing special.
+
+** Editing enhancement
+
+#+begin_src emacs-lisp
+
+  (require 'init-editing)
+
+#+end_src
+
+
+Tweaks present here:
+- Scroll (and smooth scroll for Emacs >= 29) and horizontal scroll with mouse;
+- Truncate lines hook for =prog-mode=;
+- Electric-pair mode and show-paren;
+- Autorevert files after changes;
+- [[https://www.emacswiki.org/emacs/UndoTree][Undo Tree]] mode for simpler undo-redo (and visual branches!).
+- Rainbow-mode;
+- Delete-selection mode to overwrite selected regions;
+- Drag-stuff to...drag stuff around.
+
+Following, my =init-editing.el=.
+
+#+include: "lisp/init-editing.el" src emacs-lisp :tangle no
+
+
+**** Meow
+
+#+begin_src emacs-lisp
+
+  ;; (require 'init-meow)
+
+#+end_src
+
+[[https://github.com/meow-edit/meow][Meow]] is yet another modal editing mode for Emacs. Meow aims to blend modal editing into Emacs with minimal interference with its original key-bindings, avoiding most of the hassle introduced by key-binding conflicts.
+
+Keybindings are listed in =init-meow.el=.
+
+#+include: "lisp/init-meow.el" src emacs-lisp :tangle no
+
+
+
+** Windows navigation
+
+#+begin_src emacs-lisp
+
+  (require 'init-windows)
+
+#+end_src
+
+Moving around windows can be painful, but some built-in functions save our a*s.
+
+#+include: "lisp/init-windows.el" src emacs-lisp :tangle no
+
+
+** Buffer management
+
+#+begin_src emacs-lisp
+
+  (require 'init-buffers)
+
+#+end_src
+
+Sometimes buffers are too much, and I think that the classic buffer-menu is meh.
+With =ibuffer= I can group buffers in ~Gnus~ style, customize actions remembering ~Dired~, and so on.
+
+#+include: "lisp/init-buffers.el" src emacs-lisp :tangle no
+
+
+** Dired
+
+#+begin_src emacs-lisp
+
+  (require 'init-dired)
+
+#+end_src
+
+Dired is a built-in file manager for Emacs that does some pretty amazing things. For example you can enable writable dired buffer to edit everything and just save to apply your changes.
+
+I have disabled ~dired-find-alternate-file~ warning, I'm using it 'cause pressing ~Return~ key just opens too many buffers.
+
+There's also a package named ~trashed~, to visit system trash.
+
+This if my =init.dired.el= file.
+
+#+include: "lisp/init-dired.el" src emacs-lisp :tangle no
+
+
 * Selection and search
 
 This is one of my favourite parts. I think that fast selection, completing and search are a must, always, everywhere.
@@ -362,96 +379,6 @@ I'm using Corfu right now, while Company stuff is here due to ~telega.el~, espec
 Here =init-complete-in-buffer.el=.
 
 #+include: "lisp/init-complete-in-buffer.el" src emacs-lisp :tangle no
-
-
-* Interface interaction
-
-This section contains my file and buffer related configurations. Nothing special.
-
-** Editing enhancement
-
-#+begin_src emacs-lisp
-
-  (require 'init-editing)
-
-#+end_src
-
-
-Tweaks present here:
-- Scroll (and smooth scroll for Emacs >= 29) and horizontal scroll with mouse;
-- Truncate lines hook for =prog-mode=;
-- Electric-pair mode and show-paren;
-- Autorevert files after changes;
-- [[https://www.emacswiki.org/emacs/UndoTree][Undo Tree]] mode for simpler undo-redo (and visual branches!).
-- Rainbow-mode;
-- Delete-selection mode to overwrite selected regions;
-- Drag-stuff to...drag stuff around.
-
-Following, my =init-editing.el=.
-
-#+include: "lisp/init-editing.el" src emacs-lisp :tangle no
-
-
-*** Meow
-
-#+begin_src emacs-lisp
-
-  ;; (require 'init-meow)
-
-#+end_src
-
-[[https://github.com/meow-edit/meow][Meow]] is yet another modal editing mode for Emacs. Meow aims to blend modal editing into Emacs with minimal interference with its original key-bindings, avoiding most of the hassle introduced by key-binding conflicts.
-
-Keybindings are listed in =init-meow.el=.
-
-#+include: "lisp/init-meow.el" src emacs-lisp :tangle no
-
-
-
-** Windows navigation
-
-#+begin_src emacs-lisp
-
-  (require 'init-windows)
-
-#+end_src
-
-Moving around windows can be painful, but some built-in functions save our a*s.
-
-#+include: "lisp/init-windows.el" src emacs-lisp :tangle no
-
-
-** Buffer management
-
-#+begin_src emacs-lisp
-
-  (require 'init-buffers)
-
-#+end_src
-
-Sometimes buffers are too much, and I think that the classic buffer-menu is meh.
-With =ibuffer= I can group buffers in ~Gnus~ style, customize actions remembering ~Dired~, and so on.
-
-#+include: "lisp/init-buffers.el" src emacs-lisp :tangle no
-
-
-** Dired
-
-#+begin_src emacs-lisp
-
-  (require 'init-dired)
-
-#+end_src
-
-Dired is a built-in file manager for Emacs that does some pretty amazing things. For example you can enable writable dired buffer to edit everything and just save to apply your changes.
-
-I have disabled ~dired-find-alternate-file~ warning, I'm using it 'cause pressing ~Return~ key just opens too many buffers.
-
-There's also a package named ~trashed~, to visit system trash.
-
-This if my =init.dired.el= file.
-
-#+include: "lisp/init-dired.el" src emacs-lisp :tangle no
 
 
 * Org Mode
@@ -831,6 +758,7 @@ Too many things to learn, but the community is awesome, resources are good, docu
 
 =C-h=, essentially, self-documentation is useful ;).
 Also EmacsWiki, videos and blog posts, manual, and so on.
+
 
 *** Good people
 

@@ -218,11 +218,11 @@ in {
         };
       };
 
-      unina = rec {
+      unina = {
         primary = false;
         realName = "Mario Liguori";
         address = "mario.liguori6@studenti.unina.it";
-        userName = address;
+        userName = "mario.liguori6";
 
         passwordCommand = "${pkgs.libsecret}/bin/secret-tool lookup unina password";
 

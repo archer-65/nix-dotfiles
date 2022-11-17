@@ -30,9 +30,7 @@
    ((> bytes 1000) (format "%10.1fk" (/ bytes 1000.0)))
    (t (format "%10d" bytes))))
 
-(leaf ibuffer
-  :require t
-  :config
+(setup (:require ibuffer)
   ;; Use human readable Size column instead of original one
   (define-ibuffer-column size-h
     (:name "Size" :inline t :summarizer
@@ -85,6 +83,7 @@
 		     (name . "^\\*Warnings\\*$")
                      (name . "^\\*straight-process\\*$")
                      (name . "^\\*dashboard\\*$"))))))
+
   (setq ibuffer-expert t)
   (setq ibuffer-display-summary t)
   (setq ibuffer-show-empty-filter-groups nil)
@@ -93,17 +92,14 @@
   (setq ibuffer-default-sorting-mode 'filename/process)
   (setq ibuffer-use-header-line t)
   (setq ibuffer-default-shrink-to-minimum-size nil)
-  :hook
-  (ibuffer-mode-hook . (lambda ()
-                         (ibuffer-switch-to-saved-filter-groups "default")
-                         (ibuffer-auto-mode 1)))
-  :bind
-  ("C-x C-b" . ibuffer))
+
+  (:hook (lambda () (ibuffer-switch-to-saved-filter-groups "default")
+           (ibuffer-auto-mode 1)))
+
+  (:global "C-x C-b" ibuffer))
 
 ;;; Unique names for buffers
-(leaf uniquify
-  :require t
-  :config
+(setup (:require uniquify)
   (setq uniquify-buffer-name-style 'forward)
   (setq uniquify-strip-common-suffix t)
   (setq uniquify-after-kill-buffer-p t))

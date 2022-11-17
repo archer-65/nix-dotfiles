@@ -12,37 +12,34 @@
   (let* ((file (dired-get-filename nil t)))
     (call-process "xdg-open" nil 0 nil file)))
 
-(leaf dired
-  :commands (dired dired-jump)
-  :bind
-  ("C-x C-j" . dired-jump)
-  ("C-c d" . dired-omit-mode)
-  (:dired-mode-map
-   ("C-c o" . archer-dired-open-file))
-  :config
-  (put 'dired-find-alternate-file 'disabled nil)
-  (setq dired-kill-when-opening-new-dired-buffer t)
-  (setq dired-omit-files "^\\.?#\\|^\\.$")
+(setup dired
+  (:autoload dired dired-jump)
+
   (unless (version< emacs-version "29")
     (setopt dired-mouse-drag-files t))
-  :custom
-  (dired-listing-switches . "-agho --group-directories-first")
-  :hook
-  (dired-load-hook . dired-collapse)
-  (dired-mode-hook . dired-omit-mode))
 
-(leaf all-the-icons-dired
-  :straight t
-  :hook (dired-mode-hook . all-the-icons-dired-mode))
+  (put 'dired-find-alternate-file 'disabled nil)
 
-(leaf trashed
+  (:option dired-listing-switches "-agho --group-directories-first"
+	   dired-omit-files "\\`[.]?#\\|\\`[.][.]?\\'"
+	   dired-kill-when-opening-new-dired-buffer t)
+
+  (:global "C-x C-j" dired-jump
+	   "C-c d"   dired-omit-mode)
+
+  (:bind "C-c o" archer-dired-open-file)
+
+  (:hooks dired-load-hook dired-collapse
+	  dired-mode-hook dired-omit-mode))
+
+(setup (:straight all-the-icons-dired)
+  (:hook-into dired-mode-hook))
+
+(setup (:straight trashed)
   :doc "Visit system trash."
-  :straight t
-  :require t
-  :config
-  (setq trashed-action-confirmer 'y-or-n-p)
-  (setq trashed-use-header-line t)
-  (setq trashed-sort-key '("Date deleted" . t)))
+  (:option trashed-action-confirmer 'y-or-n-p
+	   trashed-use-header-line t
+	   trashed-sort-key '("Date deleted" . t)))
 
 (provide 'init-dired)
 ;;; init-dired.el ends here

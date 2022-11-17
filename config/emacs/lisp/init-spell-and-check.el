@@ -11,7 +11,7 @@
 ;;   (setq flymake-fringe-indicator-position 'left-fringe)
 ;;   (setq flymake-suppress-zero-counters t)
 ;;   (setq flymake-start-on-flymake-mode t)
-;;   (setq flymake-no-changes-timeout nil)
+;;   (setq flymake-no-changes-timeout 0.5)
 ;;   (setq flymake-start-on-save-buffer t)
 ;;   (setq flymake-proc-compilation-prevents-syntax-check t)
 ;;   (setq flymake-wrap-around nil)
@@ -38,11 +38,7 @@
 ;; ;; From Purcell's dotfiles
 ;; (leaf flymake-flycheck
 ;;   :straight t
-;;   :after flymake
-;;   :config
-;;   (setq-default flycheck-disabled-checkers
-;; 		(append (default-value 'flycheck-disabled-checkers)
-;; 			'(emacs-lisp emacs-lisp-checkdoc emacs-lisp-package))))
+;;   :after flymake)
 
 (leaf flycheck
   :straight t

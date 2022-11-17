@@ -6,47 +6,61 @@
 
 ;;; Code:
 
-;; Preference, if I'm using mouse, I want dialog-box.
-(setq use-dialog-box t     ; Mouse events dialog (yes or no predicate)
-      use-file-dialog nil) ; Disable dialog for files
+(setup appearance
+  ;; A simple frame title
+  (setq frame-title-format '("%b – Emacs")
+	icon-title-format frame-title-format)
 
-(setq window-divider-default-right-width 8)
-(window-divider-mode 1)
+  ;; Stuff
+  (setq display-time-default-load-average nil)
+  (setq highlight-nonselected-windows nil)
+  (setq echo-keystrokes 0.1)
 
-;; Favor vertical splits over horizontal ones.
-(setq split-width-threshold 160
-      split-height-threshold nil)
+  ;; Other graphical stuff
+  (setq visible-bell nil)
+  (setq x-gtk-use-system-tooltips nil)
+  (setq x-stretch-cursor nil)
 
-(setq-default cursor-type 'bar) ; Cursor type default
+  ;; Dialogs
+  (setq use-dialog-box nil		; Mouse events dialog
+	use-file-dialog nil)		; Disable dialog for files
 
-(leaf display-line-numbers
-  :doc "Line numbers configuration."
-  :setq
-  (display-line-numbers-type . 'relative)
-  (display-line-numbers-width-start . nil)
-  (display-line-numbers-grow-only . t)
-  :hook
-  (prog-mode-hook . display-line-numbers-mode))
+  ;; Cursor
+  (setq-default cursor-in-non-selected-windows nil)
+  (setq-default cursor-type 'bar)
 
-(defun archer-modus-themes-custom-faces ()
-  (modus-themes-with-colors
-    (custom-set-faces
-     `(telega-entity-type-code ((,class :inherit modus-themes-fixed-pitch :background ,bg-special-calm :foreground ,fg-special-calm))))))
+  ;; Bidirectional settings
+  (setq-default bidi-display-reordering 'left-to-right)
+  (setq-default bidi-paragraph-direction 'left-to-right)
 
-;; Themes section
-;; For packaged versions which must use `require':
-(leaf modus-themes
-  :doc "Wonderful built-in themes by Protesilaos Stavrou"
-  :straight t
-  :init
-  (setq modus-themes-region '(accented no-extend bg-only) ;; Region highlight
-        modus-themes-org-blocks 'gray-background ;; Org source blocks background
-	modus-themes-mixed-fonts nil ;; Mixed fonts support, for tables etc.
+  ;; Lines related
+  (setq-default truncate-lines nil)
+  (setq-default visual-line-mode t)
+
+  (setq-default indicate-buffer-boundaries nil))
+
+(setup windows
+  (setq window-resize-pixelwise nil)
+
+  ;; Splitting around
+  (setq split-width-threshold 160
+	split-height-threshold nil)
+
+  ;; Dividers
+  (setq window-divider-default-right-width 8)
+  (setq window-divider-default-places t)
+  (window-divider-mode 1))
+
+(setup (:straight modus-themes)
+  ;; Preferences
+  (setq modus-themes-region '(accented no-extend bg-only)
+        modus-themes-org-blocks 'gray-background
+	modus-themes-mixed-fonts nil
 	modus-themes-deuteranopia nil
 	modus-themes-intense-mouseovers nil
-	modus-themes-variable-pitch-ui nil ;; Use better font for modeline and UI
+	modus-themes-variable-pitch-ui nil
 	modus-themes-tabs-accented t
-	modus-themes-fringes nil ;; Fringes { nil, 'subtle, 'intense}
+	modus-themes-fringes nil
 	modus-themes-markup '(intense)
 	modus-themes-syntax '(yellow-comments)
 	modus-themes-lang-checkers '(straight-underline faint)
@@ -58,39 +72,43 @@
 	modus-themes-completions '((matches . (extrabold background))
                                    (selection . (bold accented))
                                    (popup . (accented intense)))
-	modus-themes-mail-citations 'intense ; {nil,'intense,'faint,'monochrome}
+	modus-themes-mail-citations 'intense
 	modus-themes-subtle-line-numbers t
         modus-themes-mode-line '(borderless accented))
 
+  ;; Overrides
   (setq modus-themes-operandi-color-overrides
         `((fg-window-divider-inner . "#ffffff")
           (fg-window-divider-outer . "#ffffff")))
   (setq modus-themes-vivendi-color-overrides
         `((fg-window-divider-inner . "#000000")
           (fg-window-divider-outer . "#000000")))
-  (modus-themes-load-themes) ;; Needed for packaged version
-  :hook
-  (modus-themes-after-load-theme-hook . archer-modus-themes-custom-faces)
-  :config
-  ;; Load the theme of your choice:
+
+  ;; Needed for packaged version
+  (modus-themes-load-themes)
+
+  ;; Load!
   (modus-themes-load-operandi))
 
-
-;; Change based on time
-(leaf circadian
-  :straight t
-  :config
-  (setq circadian-themes '(("8:00" . modus-operandi)
-                           ("20:00" . modus-vivendi)))
+;; I set circadian in the configuration of my themes
+(setup (:straight circadian)
+  (:load-after modus-themes)
+  (:option circadian-themes '(("8:00" . modus-operandi)
+			      ("20:00" . modus-vivendi)))
   (circadian-setup))
 
-;;; Minor tweaks
-
 ;; You must run `all-the-icons-install-fonts` the first time.
-(leaf all-the-icons
-  :doc "Needed for modeline and dired"
-  :straight t
-  :require t)
+(setup (:straight all-the-icons)
+  (:require all-the-icons)
+  (:load-after dired
+    (:straight all-the-icons-dired)
+    (:with-mode dired-mode
+      (:hook all-the-icons-dired-mode)))
+  (:load-after marginalia
+    (:straight all-the-icons-completion)
+    (all-the-icons-completion-mode 1)
+    (:with-mode marginalia-mode
+      (:hook all-the-icons-completion-marginalia-setup))))
 
 (provide 'init-appearance)
 ;;; init-appearance.el ends here

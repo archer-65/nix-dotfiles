@@ -7,6 +7,27 @@
 
 ;;; Code:
 
+(leaf format-all
+  :doc "Same command to auto-format source code in many languages"
+  :straight t
+  :blackout t
+  :hook
+  (prog-mode-hook . format-all-mode)
+  ;; (prog-mode-hook . format-all-ensure-formatter)
+  :bind
+  ("<f1>" . format-all-buffer))
+
+(leaf eldoc
+  :blackout t
+  :config
+  (global-eldoc-mode 1))
+
+(leaf rainbow-mode
+  :doc "Minor mode to set background of string matching hex colors to the hex color."
+  :straight t
+  :hook
+  ((emacs-lisp-mode web-mode json-mode) . rainbow-mode))
+
 (leaf ethan-wspace
   :doc "Delete useless whitespaces"
   :straight t

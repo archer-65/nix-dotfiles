@@ -8,124 +8,164 @@
 ;;; Code:
 
 ;;
-;;; Windows/frames
+;;; General
 
-;; A simple frame title
-(setq frame-title-format '("%b – Emacs")
-      icon-title-format frame-title-format)
+;; Force UTF-8
+(setup encoding
+  (setq coding-system-for-read 'utf-8-unix)
+  (setq coding-system-for-write 'utf-8-unix)
+  (setq default-process-coding-system '(utf-8-unix utf-8-unix))
+  (setq locale-coding-system 'utf-8-unix)
+  (setq selection-coding-system 'utf-8)
+  (setq x-select-request-type nil)
+  (setq-default buffer-file-coding-system 'utf-8-unix)
+  (prefer-coding-system 'utf-8-unix)
+  (set-clipboard-coding-system 'utf-8)
+  (set-default-coding-systems 'utf-8-unix)
+  (set-keyboard-coding-system 'utf-8-unix)
+  (set-language-environment "UTF-8")
+  (set-selection-coding-system 'utf-8)
+  (set-terminal-coding-system 'utf-8-unix))
+
+;;
+;;; Keep history and keep the order
+
+;; The `no-littering` package to keep folders where we edit files and the Emacs configuration folder clean.
+(setup (:straight no-littering)
+  ;; The package doesn't set this by default so we must place
+  ;; auto save files in the same path as it uses for sessions
+  (:option auto-save-file-name-transforms `((".*" ,(no-littering-expand-var-file-name "auto-save/")))))
+
+(setup saveplace
+  (:option save-place-file (expand-file-name "var/saveplace" user-emacs-directory))
+  (setq save-place-forget-unreadable-files t)
+  (save-place-mode 1))
+
+(setup backup
+  (:option backup-directory-alist `(("." . ,(expand-file-name "var/backup" user-emacs-directory))))
+  (setq backup-by-copying t)
+  (setq version-control t)
+  (setq delete-old-versions t)
+  (setq kept-new-versions 5)
+  (setq kept-old-versions 2)
+  (setq create-lockfiles nil))
+
+;;
+;;; Lines related
+
+(setup display-line-numbers
+  ;; Defaults
+  (setq-default display-line-numbers-widen t)
+  (setq-default display-line-numbers-width 3)
+
+  ;; Preferences
+  (:option display-line-numbers-type 'relative
+	   display-line-numbers-width-start nil
+	   display-line-numbers-grow-only t)
+
+  ;; Hooks
+  (:with-hook (prog-mode-hook text-mode-hook conf-mode-hook)
+    (:hook (lambda () (display-line-numbers-mode 0))))
+  (:with-hook (org-mode-hook)
+    (:hook (lambda () (display-line-numbers-mode 0)))))
+
+(setup hl-line
+  (:with-hook (prog-mode-hook)
+    (:hook hl-line-mode)))
 
 ;;
 ;;; Scrolling
 
-;; Enable smooth scroll
-(unless (version< emacs-version "29")
-  (pixel-scroll-precision-mode 1))
+(setup scrolling
+  ;; Enable smooth scroll on Emacs 29
+  (unless (version< emacs-version "29")
+    (pixel-scroll-precision-mode 1))
 
-;; General tweaks
-(setq scroll-preserve-screen-position t
-      ;; Emacs spends too much effort recentering the screen if you scroll the
-      ;; cursor more than N lines past window edges (where N is the settings of
-      ;; `scroll-conservatively'). This is especially slow in larger files
-      ;; during large-scale scrolling commands. If kept over 100, the window is
-      ;; never automatically re-centered.
-      scroll-conservatively 101
-      hscroll-margin 2
-      hscroll-step 1
-      scroll-margin 0
-      ;; Reduce cursor lag by a tiny bit by not auto-adjusting `window-vscroll'
-      ;; for tall lines.
-      auto-window-vscroll nil
-      ;; mouse
-      mouse-wheel-scroll-amount '(2 ((shift) . hscroll))
-      mouse-wheel-scroll-amount-horizontal 2)
+  ;; Vertical scroll
+  (setq	scroll-step 1
+	scroll-margin 8
+	;; Reduce cursor lag by a tiny bit by not auto-adjusting `window-vscroll'
+	;; for tall lines.
+	auto-window-vscroll nil)
 
-;; More performant rapid scrolling over unfontified regions. May cause brief
-;; spells of inaccurate syntax highlighting right after scrolling, which should
-;; quickly self-correct.
-(setq fast-but-imprecise-scrolling t)
+  ;; Horizontal scroll
+  (setq hscroll-margin 16
+	hscroll-step 1
+	auto-hscroll-mode t)
 
-;; Editing enhancements for `prog-mode`
-(add-hook 'prog-mode-hook #'visual-line-mode)
-(add-hook 'prog-mode-hook #'hl-line-mode)
+  ;; General tweaks
 
-;;; Pairs? I forget to balance every kind of pair, I need this.
-(electric-pair-mode 1)
-(show-paren-mode 1)
+  ;; More performant rapid scrolling over unfontified regions. May cause brief
+  ;; spells of inaccurate syntax highlighting right after scrolling, which should
+  ;; quickly self-correct.
+  (setq fast-but-imprecise-scrolling t)
 
-;; Save place
-(leaf saveplace
-  :config
-  (setq save-place-file (expand-file-name "var/saveplace" user-emacs-directory))
-  (setq save-place-forget-unreadable-files t)
-  (save-place-mode 1))
+  ;; Emacs spends too much effort recentering the screen if you scroll the
+  ;; cursor more than N lines past window edges (where N is the settings of
+  ;; `scroll-conservatively'). This is especially slow in larger files
+  ;; during large-scale scrolling commands. If kept over 100, the window is
+  ;; never automatically re-centered.
+  (setq scroll-conservatively 101
+	scroll-preserve-screen-position t
+	scroll-preserve-screen-position t))
 
-;; Managed by no-littering
-;; (setq backup-directory-alist
-;;       `(("." . ,(expand-file-name "var/backup" user-emacs-directory))))
-(setq backup-by-copying t)
-(setq version-control t)
-(setq delete-old-versions t)
-(setq kept-new-versions 5)
-(setq kept-old-versions 2)
-(setq create-lockfiles nil)
+(setup mouse
+  ;; Movement related
+  (setq focus-follows-mouse t)
+  (setq make-pointer-invisible t)
+  (setq mouse-autoselect-window t)
 
-;;; Protesilaos Stavrou docet, system clipboard should have priority among kill-ring
-(setq save-interprogram-paste-before-kill t)
+   ;; Scroll
+  (setq mouse-wheel-scroll-amount '(3 ((shift) . hscroll))
+	mouse-wheel-scroll-amount-horizontal 2)
 
-(leaf format-all
-  :doc "Same command to auto-format source code in many languages"
-  :straight t
-  :blackout t
-  :hook
-  (prog-mode-hook . format-all-mode)
-  ;; (prog-mode-hook . format-all-ensure-formatter)
-  :bind
-  ("<f1>" . format-all-buffer))
+  ;; Behavior
+  (setq mouse-wheel-follow-mouse t)
+  (setq mouse-wheel-progressive-speed nil)
+  (setq mouse-1-click-follows-link t)
+  (setq mouse-yank-at-point t))
 
-(leaf delsel
-  :doc "Should be default IMHO"
-  :blackout t
-  :hook
-  (after-init-hook . delete-selection-mode))
+(setup pairs
+  (electric-pair-mode 1)
+  (show-paren-mode 1))
 
-(leaf drag-stuff
-  :doc "Drag stuff around with alt+arrows"
-  :straight t
-  :blackout t
-  :init
+(setup selection
+  (setq save-interprogram-paste-before-kill t)
+  (setq kill-do-not-save-duplicates t)
+  (setq select-enable-clipboard t)
+  (setq select-enable-primary t))
+
+(setup (:require delsel)
+  (:blackout delete-selection)
+  (:with-hook after-init-hook
+    (:hook delete-selection-mode)))
+
+(setup (:straight drag-stuff)
+  (:blackout)
   (drag-stuff-global-mode 1)
-  :config
   (drag-stuff-define-keys))
 
-(leaf goto-last-change
-  :doc "Oops, forgot position of last edit? Go back. (Thanks again, Prot)"
-  :straight t
-  :bind
-  ("C-z" . goto-last-change))
+(setup (:straight goto-last-change)
+  (:global "C-z" goto-last-change))
 
-(leaf autorevert
-  :doc "Every time I have to confirm buffer reverts, do it yourself, Emacs"
-  :blackout t
-  :setq
-  (auto-revert-verbose . t)
-  :hook
-  (after-init-hook . global-auto-revert-mode))
+(setup (:require autorevert)
+  (:blackout auto-revert)
+  (setq auto-revert-verbose t)
+  (:with-hook after-init-hook
+    (:hook global-auto-revert-mode)))
 
-(leaf rainbow-mode
-  :doc "Minor mode to set background of string matching hex colors to the hex color."
-  :straight t
-  :hook
-  ((emacs-lisp-mode web-mode json-mode) . rainbow-mode))
-
-(leaf eldoc
-  :blackout t
-  :config
-  (global-eldoc-mode 1))
-
-(leaf so-long
-  :blackout t
-  :config
+(setup (:require so-long)
   (global-so-long-mode 1))
+
+(setup (:straight diff-hl)
+  (global-diff-hl-mode 1)
+  (:with-mode dired-mode
+    (:hook diff-hl-dired-mode))
+  (:with-after magit
+    (:with-hook magit-pre-refresh-hook
+      (:hook diff-hl-magit-pre-refresh))
+    (:with-hook magit-post-refresh-hook
+      (:hook diff-hl-magit-post-refresh))))
 
 (provide 'init-editing)
 ;;; init-editing.el ends here

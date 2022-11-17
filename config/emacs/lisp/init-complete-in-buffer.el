@@ -36,7 +36,7 @@
   ;; Load and enable corfu-history
   (load "extensions/corfu-history")
   (corfu-history-mode)
-  (add-to-list 'savehist-additional-variables 'corfu-history)
+  ;; (add-to-list 'savehist-additional-variables 'corfu-history)
 
   ;; TAB cycle if there are only few candidates
   ;; (setq completion-cycle-threshold t)

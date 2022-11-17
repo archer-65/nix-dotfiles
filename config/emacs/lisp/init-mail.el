@@ -240,8 +240,8 @@ With optional prefix ARG (\\[universal-argument]) call
 
   ;; Identities
   (setopt notmuch-identies '("mario.liguori.056@gmail.com" "mario.liguori6@studenti.unina.it")
-	  notmuch-fcc-dirs '(("mario.liguori.056@gmail.com" . "gmail/sent")
-			     ("mario.liguori6@studenti.unina.it" . "unina/sent")))
+	  notmuch-fcc-dirs '(("mario.liguori.056@gmail.com" . "gmail/sent +personal +sent")
+			     ("mario.liguori6@studenti.unina.it" . "unina/sent +university +sent")))
 
   ;; Other cosmetic formatting
   (add-to-list 'notmuch-tag-formats '("encrypted" (concat tag "🔒")))

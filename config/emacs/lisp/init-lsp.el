@@ -79,7 +79,6 @@
   (lsp-eldoc-hook . '(lsp-hover))
   :hook
   ((c-mode-hook c++-mode-hook java-mode-hook nix-mode-hook rustic-mode-hook cmake-mode-hook terraform-mode-hook) . lsp-deferred)
-  (lsp-mode-hook . archer-lsp-optimization-mode)
   (lsp-mode-hook  . lsp-enable-which-key-integration))
 
 (leaf lsp-ui
@@ -113,7 +112,6 @@
 ;;; EGLOT
 
 (leaf eglot
-  ;; :disabled t
   :init
   (unless (package-installed-p 'eglot) straight-use-package 'eglot)
   :config
@@ -123,7 +121,6 @@
 	       `(nix-mode . ,(eglot-alternatives '(("nil")
 						   ("rnix-lsp")))))
   :hook
-  (eglot-managed-mode-hook . archer-lsp-optimization-mode)
   (c-mode-hook    . eglot-ensure)
   (c++-mode-hook  . eglot-ensure)
   (java-mode-hook . eglot-ensure)
@@ -132,12 +129,15 @@
   (terraform-mode . eglot-ensure))
 
 (leaf eglot-java
-  ;; :disabled t
   :straight t
   :require t
   :after eglot
   :config
   (eglot-java-init))
+
+(setup (:if-feature gcmh)
+  (:with-hook (eglot-managed-mode-hook lsp-mode-hook)
+    (:hook archer-lsp-optimization-mode)))
 
 (provide 'init-lsp)
 ;;; init-lsp.el ends here
