@@ -36,9 +36,6 @@
   ;; (set-face-attribute 'org-modern-symbol nil
   ;; 		      :family "Iosevka"))
 
-;; (add-hook 'after-init-hook #'archer-font-setup)
-;; (add-hook 'server-after-make-frame-hook #'archer-font-setup)
-
 (setup faces
   (:option archer-font-height (if (string-equal (system-name) "quietfrost")
 				  180

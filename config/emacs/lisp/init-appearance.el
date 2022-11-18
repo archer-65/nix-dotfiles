@@ -84,10 +84,11 @@
         `((fg-window-divider-inner . "#000000")
           (fg-window-divider-outer . "#000000")))
 
+  ;; Built-in
+  ;; (load-theme 'modus-operandi)
+  
   ;; Needed for packaged version
   (modus-themes-load-themes)
-
-  ;; Load!
   (modus-themes-load-operandi))
 
 ;; I set circadian in the configuration of my themes
@@ -99,16 +100,7 @@
 
 ;; You must run `all-the-icons-install-fonts` the first time.
 (setup (:straight all-the-icons)
-  (:require all-the-icons)
-  (:load-after dired
-    (:straight all-the-icons-dired)
-    (:with-mode dired-mode
-      (:hook all-the-icons-dired-mode)))
-  (:load-after marginalia
-    (:straight all-the-icons-completion)
-    (all-the-icons-completion-mode 1)
-    (:with-mode marginalia-mode
-      (:hook all-the-icons-completion-marginalia-setup))))
+  (:require all-the-icons))
 
 (provide 'init-appearance)
 ;;; init-appearance.el ends here

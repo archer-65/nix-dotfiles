@@ -50,28 +50,28 @@
 
 ;;; Keycast mode
 (setup (:straight keycast)
-  ;; Those are for `keycast-mode'
-  (setq keycast-mode-line-window-predicate #'keycast-active-frame-bottom-right-p)
-  (setq keycast-separator-width 1)
-  (setq keycast-mode-line-remove-tail-elements nil)
-  (setq keycast-mode-line-format "%3s%k%c%r")
-  (setq keycast-mode-line-insert-after 'mode-line-misc-info)
+  ;; For `keycast-mode'
+  (:option keycast-mode-line-window-predicate #'keycast-active-frame-bottom-right-p
+	   keycast-separator-width 1
+	   keycast-mode-line-remove-tail-elements nil
+	   keycast-mode-line-format "%3s%k%c%r"
+	   keycast-mode-line-insert-after 'mode-line-misc-info)
+
+  ;; For `keycast-log-mode'
+  (:option keycast-log-format "%-20K%C\n"
+	   keycast-log-newest-first t
+	   keycast-log-frame-alist '((minibuffer . nil)))
 
   ;; Based on Prot's configuration
-  ;; (dolist (input '(self-insert-command
-  ;; 		   org-self-insert-command))
-  ;;   (add-to-list 'keycast-substitute-alist `(,input "." "Typing…")))
+  (:when-loaded
+    (dolist (input '(self-insert-command
+		     org-self-insert-command))
+      (add-to-list 'keycast-substitute-alist `(,input "." "Typing…")))
 
-  ;; (dolist (event '(mouse-event-p
-  ;; 		   mouse-movement-p
-  ;; 		   mwheel-scroll))
-  ;;   (add-to-list 'keycast-substitute-alist `(,event nil)))
-
-  ;; Those are for the `keycast-log-mode'
-  (setq keycast-log-format "%-20K%C\n")
-  (setq keycast-log-frame-alist
-	'((minibuffer . nil)))
-  (setq keycast-log-newest-first t))
+    (dolist (event '(mouse-event-p
+		     mouse-movement-p
+		     mwheel-scroll))
+      (add-to-list 'keycast-substitute-alist `(,event nil)))))
 
 (provide 'init-modeline)
 ;;; init-modeline.el ends here

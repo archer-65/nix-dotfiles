@@ -6,36 +6,25 @@
 
 ;;; Code:
 
-(leaf treemacs
-  :doc "Tree style directory visualization"
-  :straight t
-  :config
-  (setq treemacs-width-is-initially-locked nil))
+(setup (:straight projectile)
+  (:doc "Project management and navigation")
+  (:blackout)
 
-(leaf projectile
-  :doc "Project management and navigation"
-  :straight t
-  :blackout t
-  :config
-  (projectile-mode)
-  ;; :bind-keymap
-  ;; ("C-c p"   . projectile-command-map)
-  :init
   ;; NOTE: Set this to the folder where you keep your Git repos!
-  (when (file-directory-p "~/projects")
-    (setq projectile-project-search-path '("~/projects")))
-  (setq projectile-switch-project-action #'projectile-dired))
+  (:option projectile-project-search-path '("~/projects")
+	   projectile-switch-project-action #'projectile-dired)
 
-(leaf magit
-  :doc "Git interface"
-  :straight t
-  :commands magit-status
-  :custom
-  (magit-display-buffer-function . 'magit-display-buffer-same-window-except-diff-v1))
+  (projectile-mode)
 
-(leaf forge
-  :after magit
-  :straight t)
+  (:global "C-c C-p" projectile-command-map))
+
+(setup (:straight magit)
+  (:doc "Git interface")
+  (:autoload magit-status)
+  (:option magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1))
+
+(setup (:straight forge)
+  (:load-after magit))
 
 (provide 'init-projects)
 ;;; init-projects.el ends here

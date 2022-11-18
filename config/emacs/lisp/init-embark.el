@@ -44,8 +44,11 @@ targets."
 
 ;; Embark configuration
 (setup (:straight embark)
-  (:require embark)
   (:doc "Act near point :D")
+
+  (:load-after consult
+    (:straight embark-consult))
+
   (:load-after which-key
     (setq prefix-help-command #'embark-prefix-help-command)
     (advice-add #'embark-completing-read-prompter :around #'archer-embark-hide-which-key-indicator))
@@ -59,12 +62,6 @@ targets."
                '("\\`\\*Embark Collect \\(Live\\|Completions\\)\\*"
                  nil
                  (window-parameters (mode-line-format . none)))))
-
-;; Integration with Consult
-(setup (:straight embark-consult)
-  ;; if you want to have consult previews as you move around an
-  ;; auto-updating embark collect buffer
-  (:hooks embark-collect-mode consult-preview-at-point-mode))
 
 ;; Used for export and edit after ripgrep magic.
 (setup (:straight wgrep)

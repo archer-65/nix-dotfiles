@@ -43,97 +43,87 @@
 ;;
 ;;; LSP-MODE
 
-(leaf lsp-mode
-  :disabled t
-  :straight t
-  :commands lsp
-  :init
-  ;; Function to enable corfu in lsp-mode
-  (defun archer-lsp-mode-setup-completion ()
-    (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
-          '(orderless))) ;; Configure orderless
-  :config
-  ;; LSP completion with Corfu
-  (when (corfu-mode)
-    (setq lsp-completion-provider :none)
-    (add-hook 'lsp-completion-mode-hook #'archer-lsp-mode-setup-completion))
-  :custom
-  (lsp-keymap-prefix . "C-c l")
-  (lsp-keep-workspace-alive . nil)
-  (lsp-auto-guess-root . nil)
-  (lsp-log-io . nil)
-  (lsp-restart . 'auto-restart)
-  (lsp-enable-symbol-highlighting . t)
-  (lsp-enable-on-type-formatting . t)
-  (lsp-signature-auto-activate . nil)
-  (lsp-signature-render-documentation . t)
-  (lsp-modeline-code-actions-enable . nil)
-  (lsp-modeline-diagnostics-enable . nil)
-  (lsp-headerline-breadcrumb-enable . t)
-  (lsp-semantic-tokens-enable . nil)
-  (lsp-eldoc-render-all . t)
-  (lsp-idle-delay . 0.5)
-  (lsp-enable-snippet . t)
-  (lsp-enable-folding . nil)
-  (lsp-enable-imenu . t)
-  (lsp-eldoc-hook . '(lsp-hover))
-  :hook
-  ((c-mode-hook c++-mode-hook java-mode-hook nix-mode-hook rustic-mode-hook cmake-mode-hook terraform-mode-hook) . lsp-deferred)
-  (lsp-mode-hook  . lsp-enable-which-key-integration))
+(setup lsp-mode
+  (:disabled)
+  (:straight lsp-mode)
+  (:autoload lsp)
 
-(leaf lsp-ui
-  :disabled t
-  :straight t
-  :after lsp
-  :commands lsp-ui-mode
-  :custom
-  (lsp-ui-doc-enable . t)
-  (lsp-ui-doc-header . t)
-  (lsp-ui-doc-include-signature . t)
-  (lsp-ui-doc-border . '(face-foreground 'default))
-  (lsp-ui-sideline-show-code-actions . t)
-  (lsp-ui-sideline-delay . 0.05))
+  (:when-loaded
+    ;; Function to enable corfu in lsp-mode
+    (defun archer-lsp-mode-setup-completion ()
+      (setf (alist-get 'styles (alist-get 'lsp-capf completion-category-defaults))
+            '(orderless))) ;; Configure orderless
 
-(leaf lsp-treemacs
-  :disabled t
-  :straight t
-  :after lsp
-  :commands lsp-treemacs-errors-list)
+    ;; LSP completion with Corfu
+    (when (corfu-mode)
+      (setq lsp-completion-provider :none)
+      (add-hook 'lsp-completion-mode-hook #'archer-lsp-mode-setup-completion)))
 
-(leaf lsp-java
-  :disabled t
-  :straight t
-  :after lsp
-  :require t
-  :hook
-  (java-mode-hook . lsp))
+  (:option lsp-keymap-prefix "C-c l"
+           lsp-keep-workspace-alive nil
+           lsp-auto-guess-root nil
+           lsp-log-io nil
+           lsp-restart 'auto-restart
+           lsp-enable-symbol-highlighting t
+           lsp-enable-on-type-formatting t
+           lsp-signature-auto-activate nil
+           lsp-signature-render-documentation t
+           lsp-modeline-code-actions-enable nil
+           lsp-modeline-diagnostics-enable nil
+           lsp-headerline-breadcrumb-enable t
+           lsp-semantic-tokens-enable nil
+           lsp-eldoc-render-all t
+           lsp-idle-delay 0.5
+           lsp-enable-snippet t
+           lsp-enable-folding nil
+           lsp-enable-imenu t
+           lsp-eldoc-hook '(lsp-hover))
+
+  (:with-mode (c-mode c++-mode java-mode nix-mode rustic-mode cmake-mode terraform-mode)
+    (:hook lsp-deferred))
+
+  (:hook-into lsp-enable-which-key-integration))
+
+(setup lsp-ui
+  (:disabled)
+  (:straight lsp-ui)
+  (:autoload lsp-ui-mode)
+  (:hook-into lsp-mode)
+  (:load-after lsp)
+  (:when-loaded
+    (:option lsp-ui-doc-enable t
+             lsp-ui-doc-header t
+             lsp-ui-doc-include-signature t
+             lsp-ui-doc-border '(face-foreground 'default)
+             lsp-ui-sideline-show-code-actions t
+             lsp-ui-sideline-delay 0.05)))
+
+(setup lsp-java
+  (:disabled)
+  (:straight lsp-java)
+  (:load-after lsp))
 
 ;;
 ;;; EGLOT
 
-(leaf eglot
-  :init
-  (unless (package-installed-p 'eglot) straight-use-package 'eglot)
-  :config
-  (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
-  (add-to-list 'eglot-server-programs '(terraform-mode . ("terraform-ls")))
-  (add-to-list 'eglot-server-programs
-	       `(nix-mode . ,(eglot-alternatives '(("nil")
-						   ("rnix-lsp")))))
-  :hook
-  (c-mode-hook    . eglot-ensure)
-  (c++-mode-hook  . eglot-ensure)
-  (java-mode-hook . eglot-ensure)
-  (nix-mode-hook  . eglot-ensure)
-  (rustic-mode-hook . eglot-ensure)
-  (terraform-mode . eglot-ensure))
+(setup eglot 
+  (unless (package-installed-p 'eglot)
+    (straight-use-package 'eglot))
 
-(leaf eglot-java
-  :straight t
-  :require t
-  :after eglot
-  :config
-  (eglot-java-init))
+  ;; List of modes and servers
+  (:when-loaded
+    (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
+    (add-to-list 'eglot-server-programs '(terraform-mode . ("terraform-ls")))
+    (add-to-list 'eglot-server-programs `(nix-mode . ,(eglot-alternatives '(("nil")
+                                                                            ("rnix-lsp"))))))
+  ;; Hooks
+  (:with-mode (c-mode c++-mode java-mode nix-mode rustic-mode terraform-mode)
+    (:hook eglot-ensure)))
+
+(setup (:straight eglot-java)
+  (:load-after eglot)
+  (:when-loaded
+    (eglot-java-init)))
 
 (setup (:if-feature gcmh)
   (:with-hook (eglot-managed-mode-hook lsp-mode-hook)

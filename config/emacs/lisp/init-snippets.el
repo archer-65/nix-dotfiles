@@ -6,27 +6,26 @@
 
 ;;; Code:
 
-(leaf yasnippet
-  :straight t
-  :blackout t
-  :hook
-  (prog-mode-hook . yas-minor-mode)
-  :config
-  (yas-reload-all))
+(setup (:straight yasnippet)
+  (:blackout)
+  (:hooks prog-mode-hook yas-minor-mode)
+  (:when-loaded
+    (yas-reload-all)))
 
-(leaf yasnippet-snippets
-  :straight t
-  :after yasnippet)
+(setup (:straight yasnippet-snippets)
+  (:load-after yasnippet))
 
-(leaf cape-yasnippet
-  :straight (cape-yasnippet :type git :host github :repo "elken/cape-yasnippet")
-  :after yasnippet
-  :config
-  (add-to-list 'completion-at-point-functions #'cape-yasnippet)
-  :hook
-  (eglot-managed-mode-hook . (lambda () (add-to-list 'completion-at-point-functions #'cape-yasnippet)))
-  :bind
-  ("C-c p y" . cape-yasnippet))
+(setup (:straight (cape-yasnippet :type git :host github :repo "elken/cape-yasnippet"))
+  (:load-after yasnippet)
+
+  (defun archer-add-cape-yasnippet ()
+    (add-to-list 'completion-at-point-functions #'cape-yasnippet))
+
+  (:when-loaded (archer-add-cape-yasnippet))
+
+  (:hooks eglot-managed-mode-hook archer-add-cape-yasnippet)
+
+  (:global "C-c p y" cape-yasnippet))
 
 (provide 'init-snippets)
 ;;; init-snippets.el ends here

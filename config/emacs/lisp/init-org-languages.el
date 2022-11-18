@@ -8,40 +8,20 @@
 
 ;;; Code:
 
-;; Org-Babel
-(leaf org-babel-load-languages
-  :after org
-  :config
-  (org-babel-do-load-languages
-   'org-babel-load-languages '((emacs-lisp . t)
-                               (shell . t))))
-
 ;; Tempo
-(leaf org-tempo
-  :after org
-  :require t
-  :config
+(defun archer-org-inhibit-minor-pair ()
+  "Function to disable electric-pair on < character."
+  (setq-local electric-pair-inhibit-predicate
+              `(lambda (c)
+                 (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c)))))
+
+(setup org-tempo
+  (:load-after org)
   (add-to-list 'org-structure-template-alist '("bash" . "src bash"))
   (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
   (add-to-list 'org-structure-template-alist '("cc" . "src c"))
   (add-to-list 'org-structure-template-alist '("j" . "src java"))
-  :hook
-  (org-mode-hook . (lambda () (setq-local electric-pair-inhibit-predicate
-                                          `(lambda (c)
-                                             (if (char-equal c ?<) t (,electric-pair-inhibit-predicate c)))))))
-
-;; Auto tangling
-(defun archer-65/org-babel-tangle-config ()
-  "Auto tangle configuration on save if we are in the right directory."
-  (when (string-equal (file-name-directory (buffer-file-name))
-                      (expand-file-name archer-config-path))
-    ;; Dynamic scoping to the rescue
-    (let ((org-confirm-babel-evaluate nil))
-      (org-babel-tangle))))
-
-(leaf ob-tangle
-  :hook
-  (org-mode-hook . (lambda () (add-hook 'after-save-hook #'archer-65/org-babel-tangle-config))))
+  (:hooks org-mode-hook archer-org-inhibit-minor-pair))
 
 (provide 'init-org-languages)
 ;;; init-org-languages.el ends here

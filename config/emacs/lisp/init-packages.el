@@ -42,7 +42,7 @@
 (setup-define :straight
   (lambda (recipe)
     `(unless (straight-use-package ',recipe)
-       ,(setup-quit)))
+      ,(setup-quit)))
   :documentation
   "Install RECIPE with `straight-use-package`.
 This macro can be used as HEAD, and will replace itself with the first RECIPE's package.'"
@@ -53,25 +53,17 @@ This macro can be used as HEAD, and will replace itself with the first RECIPE's 
                      (car recipe)
                    recipe))))
 
-(setup-define :straight-unless
-  (lambda (recipe condition)
-    `(unless ,condition
-       (straight-use-package ',recipe)
-       ,(setup-quit)))
-  :documentation
-  "Install RECIPE with `straight-use-package' unless CONDITION is met.
-If CONDITION is true, stop evaluating the body.  This macro can
-be used as HEAD, and will replace itself with the RECIPE's
-package.  This macro is not repeatable."
-  :repeatable nil
-  :indent 1
-  :shorthand (lambda (sexp)
-               (let ((recipe (cadr sexp)))
-                 (if (consp recipe) (car recipe) recipe))))
-
 (setup-define :doc
   (lambda (&rest _) nil)
   :documentation "The one line doc for the setup package.")
+
+(setup-define :face
+  (lambda (face spec) `(custom-set-faces (quote (,face ,spec))))
+  :documentation "Customize FACE to SPEC."
+  :signature '(face spec ...)
+  :debug '(setup)
+  :repeatable t
+  :after-loaded t)
 
 (setup-define :autoload
   (lambda (func)

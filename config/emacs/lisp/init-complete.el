@@ -55,6 +55,12 @@
     "M-A" marginalia-cycle)
   (marginalia-mode 1))
 
+(setup (:straight all-the-icons-completion)
+  (:load-after (all-the-icons marginalia)
+    (all-the-icons-completion-mode 1)
+    (:with-mode marginalia-mode
+      (:hook all-the-icons-completion-marginalia-setup))))
+
 ;; Orderless
 (defun archer-orderless-literal-dispatcher (pattern _index _total)
   "Literal style dispatcher, using equal sign as a suffix."

@@ -66,9 +66,9 @@
 
 (require 'init-complete)
 
-(require 'init-consult)
-
 (require 'init-embark)
+
+(require 'init-consult)
 
 (require 'init-complete-in-buffer)
 
@@ -84,11 +84,11 @@
 
 (require 'init-spell-and-check)
 
-(require 'init-extra-modes)
+(require 'init-lsp)
 
 (require 'init-snippets)
 
-(require 'init-lsp)
+(require 'init-extra-modes)
 
 (require 'init-mail)
 

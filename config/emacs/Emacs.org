@@ -316,7 +316,7 @@ This is one of my favourite parts. I think that fast selection, completing and s
 ** Monster trio of completion
 
 #+begin_src emacs-lisp
-
+  
   (require 'init-complete)
 
 #+end_src
@@ -328,6 +328,20 @@ Following, the =init-complete.el= file.
 
 #+include: "lisp/init-complete.el" src emacs-lisp :tangle no
 
+
+** Embark
+
+#+begin_src emacs-lisp
+
+  (require 'init-embark)
+
+#+end_src
+
+[[https://github.com/oantolin/embark/][Embark]] provides contextual menu offering actions for a target determined in the context, exactly like a contextual menu.
+
+Keybindings and configuration are in the =init-embark.el= file.
+
+#+include: "lisp/init-embark.el" src emacs-lisp :tangle no
 
 ** Consult
 
@@ -349,21 +363,6 @@ Consult offers, for example:
 Keybindings and configuration are in the =init-consult.el= file.
 
 #+include: "lisp/init-consult.el" src emacs-lisp :tangle no
-
-
-** Embark
-
-#+begin_src emacs-lisp
-
-  (require 'init-embark)
-
-#+end_src
-
-[[https://github.com/oantolin/embark/][Embark]] provides contextual menu offering actions for a target determined in the context, exactly like a contextual menu.
-
-Keybindings and configuration are in the =init-embark.el= file.
-
-#+include: "lisp/init-embark.el" src emacs-lisp :tangle no
 
 
 ** Completion at point
@@ -511,17 +510,17 @@ This is =init-spell-and-check.el=.
 #+include: "lisp/init-spell-and-check.el" src emacs-lisp :tangle no
 
 
-** Extra modes
+** LSP
 
 #+begin_src emacs-lisp
 
-  (require 'init-extra-modes)
+  (require 'init-lsp)
 
 #+end_src
 
-=init.extra.modes.el=
+[[https://github.com/emacs-lsp/lsp-mode][Language Server Protocol]] support with multiples languages support for Emacs.
 
-#+include: "lisp/init-extra-modes.el" src emacs-lisp :tangle no
+#+include: "lisp/init-lsp.el" src emacs-lisp :tangle no
 
 
 ** Yasnippet
@@ -539,17 +538,17 @@ Here =init-snippets.el=.
 #+include: "lisp/init-snippets.el" src emacs-lisp :tangle no
 
 
-** LSP
+** Extra modes
 
 #+begin_src emacs-lisp
 
-  (require 'init-lsp)
+  (require 'init-extra-modes)
 
 #+end_src
 
-[[https://github.com/emacs-lsp/lsp-mode][Language Server Protocol]] support with multiples languages support for Emacs.
+=init.extra.modes.el=
 
-#+include: "lisp/init-lsp.el" src emacs-lisp :tangle no
+#+include: "lisp/init-extra-modes.el" src emacs-lisp :tangle no
 
 
 * Frontend for other uses
@@ -778,4 +777,5 @@ My learning path has been discontinuous, but good enough to learn this beautiful
 
 # Local Variables:
 # eval: (org-hugo-auto-export-mode)
+# eval: (add-hook 'after-save-hook (lambda () (org-babel-tangle)))
 # End:

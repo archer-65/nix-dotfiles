@@ -70,7 +70,7 @@
     (:hook (lambda () (display-line-numbers-mode 0)))))
 
 (setup hl-line
-  (:with-hook (prog-mode-hook)
+  (:with-mode (prog-mode dired-mode)
     (:hook hl-line-mode)))
 
 ;;
@@ -158,7 +158,7 @@
   (global-so-long-mode 1))
 
 (setup (:straight diff-hl)
-  (global-diff-hl-mode 1)
+  (:hook-into prog-mode)
   (:with-mode dired-mode
     (:hook diff-hl-dired-mode))
   (:with-after magit
