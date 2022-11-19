@@ -100,6 +100,6 @@
 
 (require 'init-media)
 
-(setup (:straight daemons))
+(setup (:pkg daemons))
 
 ;;; init.el ends here

@@ -6,30 +6,30 @@
 
 ;;; Code:
 
-(setup (:straight cmake-mode)
+(setup (:pkg cmake-mode)
   (:file-match (rx (or "CmakeLists.txt" ".cmake") eos)))
 
-(setup (:straight nix-mode)
+(setup (:pkg nix-mode)
   (:file-match (rx ".nix" eos)))
 
-(setup (:straight markdown-mode)
+(setup (:pkg markdown-mode)
   (:file-match (rx (or ".md" ".markdown" ".mdown") eos)))
 
-(setup (:straight yaml-mode)
+(setup (:pkg yaml-mode)
   (:file-match (rx (or ".yml" ".yaml") eos)))
 
-(setup (:straight json-mode)
+(setup (:pkg json-mode)
   (:file-match (rx ".json" eos)))
 
-(setup (:straight rustic)
+(setup (:pkg rustic)
   (:file-match (rx ".rs" eos))
   (:option rustic-format-on-save nil ; There's `format-all-mode'
            rustic-lsp-client archer-lsp-client))
 
-(setup (:straight terraform-mode)
+(setup (:pkg terraform-mode)
   (:file-match (rx ".tf" eos)))
 
-(setup (:straight company-terraform)
+(setup (:pkg company-terraform)
   (:autoload company-terraform)
   (:when-loaded
     (defun archer-cape-company-terraform()

@@ -43,11 +43,11 @@ targets."
       (apply fn args)))
 
 ;; Embark configuration
-(setup (:straight embark)
+(setup (:pkg embark)
   (:doc "Act near point :D")
 
   (:load-after consult
-    (:straight embark-consult))
+    (:pkg embark-consult))
 
   (:load-after which-key
     (setq prefix-help-command #'embark-prefix-help-command)
@@ -64,7 +64,7 @@ targets."
                  (window-parameters (mode-line-format . none)))))
 
 ;; Used for export and edit after ripgrep magic.
-(setup (:straight wgrep)
+(setup (:pkg wgrep)
   (:doc "Edit matches in place."))
 
 (provide 'init-embark)

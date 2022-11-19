@@ -6,7 +6,7 @@
 
 ;;; Code:
 
-(setup (:straight consult)
+(setup (:pkg consult)
   (:require consult)
   (:doc "Practical commands based on the Emacs completion function completing-read.")
 
@@ -109,14 +109,14 @@
   ;; enable `consult-preview-at-point-mode` in Embark Collect buffers.
   (:hooks completion-list-mode consult-preview-at-point-mode))
 
-(setup (:straight consult-dir)
+(setup (:pkg consult-dir)
   (:load-after consult
     (:global "C-x C-d" consult-dir)
     (:bind-into minibuffer-local-completion-map
       "C-x C-d" consult-dir-maybe
       "C-x C-j" consult-dir-jump-file)))
 
-(setup (:straight consult-eglot)
+(setup (:pkg consult-eglot)
   (:load-after (consult eglot)
     (:global "M-g s" consult-eglot-symbols)))
 

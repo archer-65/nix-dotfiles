@@ -6,9 +6,9 @@
 
 ;;; Code:
 
-(setup (:straight mpv))
+(setup (:pkg mpv))
 
-(setup (:straight emms)
+(setup (:pkg emms)
   (:require emms-setup)
   (emms-all)
 

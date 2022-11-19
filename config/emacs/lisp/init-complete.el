@@ -39,7 +39,7 @@
     (:hook savehist-mode)))
 
 ;; Vertico
-(setup (:straight (vertico :files (:defaults "extensions/*")))
+(setup (:pkg (vertico :files (:defaults "extensions/*")))
   (:doc "Minimal vertical completion UI based on the default completion system.")
   (:also-load vertico-repeat vertico-reverse vertico-grid vertico-quick vertico-buffer vertico-multiform vertico-unobtrusive vertico-flat)
   (:option vertico-scroll-margin 0
@@ -48,14 +48,14 @@
   (vertico-mode 1))
 
 ;; Marginalia
-(setup (:straight marginalia)
+(setup (:pkg marginalia)
   (:doc "Annotations placed at the margin of the minibuffer for completion candidates.")
   (:load-after vertico)
   (:bind-into minibuffer-local-map
     "M-A" marginalia-cycle)
   (marginalia-mode 1))
 
-(setup (:straight all-the-icons-completion)
+(setup (:pkg all-the-icons-completion)
   (:load-after (all-the-icons marginalia)
     (all-the-icons-completion-mode 1)
     (:with-mode marginalia-mode
@@ -94,7 +94,7 @@
    ((string-suffix-p "~" pattern)
     (cons 'orderless-flex (substring pattern 0 -1)))))
 
-(setup (:straight orderless)
+(setup (:pkg orderless)
   (:doc "Orderless completion style for your Completion UI/Framework")
 
   (setq completion-styles '(orderless basic)

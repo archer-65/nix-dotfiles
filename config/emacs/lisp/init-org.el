@@ -17,7 +17,7 @@
   (variable-pitch-mode 1)
   (visual-line-mode 1))
 
-(setup (:straight org)
+(setup (:pkg org)
   ;; General
   (:option org-adapt-indentation nil
      org-auto-align-tags nil
@@ -51,7 +51,7 @@
 
   (:hook archer-org-mode-setup))
 
-(setup (:straight org-modern)
+(setup (:pkg org-modern)
   (:doc "Org bullets? Old.")
   (:load-after org)
   (:hook-into org-mode)
@@ -64,7 +64,7 @@
      org-modern-table-vertical 1
      org-modern-table-horizontal 0))
 
-(setup (:straight olivetti)
+(setup (:pkg olivetti)
   (:doc "Focused writing, like visual-fill-column, but seems better.")
   (:load-after org)
   (:hook-into org-mode)

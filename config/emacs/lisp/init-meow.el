@@ -92,7 +92,7 @@
    '("'" . repeat)
    '("<escape>" . ignore)))
 
-(setup (:straight meow)
+(setup (:pkg meow)
   (:require)
   (:when-loaded
     (archer-meow-setup)

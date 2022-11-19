@@ -8,8 +8,7 @@
 
 ;;; Code:
 
-(setup telega
-  (unless (archer-using-nix-p) (straight-use-package 'telega))
+(setup (:pkg telega (not (archer-using-nix-p)))
   (:autoload telega)
   (:option telega-use-images t
            telega-emoji-font-family "Noto Color Emoji"

@@ -6,13 +6,13 @@
 
 ;;; Code:
 
-(setup (:straight which-key)
+(setup (:pkg which-key)
   (:blackout)
   (:option which-key-idle-delay 0.2)
   (which-key-mode 1))
 
-(setup (:straight helpful)
-  (:disabled)
+(setup (:pkg helpful)
+  (:disable)
   (:bind "C-h f"    helpful-callable
 	 "C-h v"    helpful-variable
 	 "C-h k"    helpful-key

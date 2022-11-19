@@ -31,7 +31,7 @@
 ;;; Keep history and keep the order
 
 ;; The `no-littering` package to keep folders where we edit files and the Emacs configuration folder clean.
-(setup (:straight no-littering)
+(setup (:pkg no-littering)
   ;; The package doesn't set this by default so we must place
   ;; auto save files in the same path as it uses for sessions
   (:option auto-save-file-name-transforms `((".*" ,(no-littering-expand-var-file-name "auto-save/")))))
@@ -140,12 +140,12 @@
   (:with-hook after-init-hook
     (:hook delete-selection-mode)))
 
-(setup (:straight drag-stuff)
+(setup (:pkg drag-stuff)
   (:blackout)
   (drag-stuff-global-mode 1)
   (drag-stuff-define-keys))
 
-(setup (:straight goto-last-change)
+(setup (:pkg goto-last-change)
   (:global "C-z" goto-last-change))
 
 (setup (:require autorevert)
@@ -157,7 +157,7 @@
 (setup (:require so-long)
   (global-so-long-mode 1))
 
-(setup (:straight diff-hl)
+(setup (:pkg diff-hl)
   (:hook-into prog-mode)
   (:with-mode dired-mode
     (:hook diff-hl-dired-mode))

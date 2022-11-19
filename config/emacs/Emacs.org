@@ -633,7 +633,7 @@ Nice mode to control your system (and user) services without leaving Emacs.
 
 #+begin_src emacs-lisp
 
-  (setup (:straight daemons))
+  (setup (:pkg daemons))
 
 #+end_src
 

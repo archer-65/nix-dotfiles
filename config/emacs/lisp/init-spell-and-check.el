@@ -35,7 +35,7 @@
   (:hook-into prog-mode text-mode))
 
 ;; From Purcell's dotfiles
-(setup (:straight flymake-flycheck)
+(setup (:pkg flymake-flycheck)
   (:load-after flymake)
   (:when-loaded
     (defun sanityinc/enable-flymake-flycheck ()
@@ -45,7 +45,7 @@
 
   (:hooks flymake-mode sanityinc/enable-flymake-flycheck)))
 
-;; (setup flycheck (:disabled) (:straight flycheck)
+;; (setup flycheck (:disable) (:pkg flycheck)
 ;;   (:autoload flycheck-list-errors flycheck-buffer)
 ;;   (:option flycheck-emacs-lisp-load-path 'inherit
 ;;            flycheck-idle-change-delay 1.0

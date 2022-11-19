@@ -6,8 +6,8 @@
 
 ;;; Code:
 
-;; (setup (:straight company)
-;;   (:disabled t)
+;; (setup (:pkg company)
+;;   (:disable)
 ;;   (:bind-into lsp-mode-map
 ;;     "<tab>" company-indent-or-complete-common)
 ;;   (:bind-into company-active-map
@@ -28,7 +28,7 @@
 
 ;;   (:option global-company-mode t))
 
-(setup (:straight corfu)
+(setup (:pkg corfu)
   (global-corfu-mode)
 
   ;; Load and enable corfu-history
@@ -86,7 +86,7 @@ Useful for prompts such as `eval-expression' and `shell-command'."
      corfu-min-width 30
      corfu-scroll-margin 5))
 
-(setup (:straight corfu-doc)
+(setup (:pkg corfu-doc)
   (:load-after corfu)
   (:bind-into corfu-map
     "M-p" corfu-doc-scroll-down
@@ -94,15 +94,15 @@ Useful for prompts such as `eval-expression' and `shell-command'."
     "M-d" corfu-doc-toggle)
   (:hook-into corfu-mode))
 
-(setup (:straight kind-icon)
+(setup (:pkg kind-icon)
   (:load-after corfu
     (:option kind-icon-default-face 'corfu-default
        kind-icon-default-style '(:padding 0 :stroke 0 :margin 0 :radius 0 :height 0.7 :scale 1.0))
     (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter)))
 
-(setup (:straight cape)
+(setup (:pkg cape)
   ;; Needed for company-backends!
-  (setup (:straight company)
+  (setup (:pkg company)
     (:autoload company-grab))
 
   (dolist (backend '(cape-symbol cape-keyword cape-file cape-dabbrev))

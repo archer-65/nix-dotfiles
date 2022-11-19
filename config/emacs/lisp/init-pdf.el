@@ -10,7 +10,7 @@
 ;; (pdf-view-mode-hook . (lambda () (display-line-numbers-mode -1)))
 ;; (pdf-view-mode-hook . pdf-tools-enable-minor-modes)
 
-(setup (:straight pdf-tools)
+(setup (:pkg pdf-tools)
   (:option display-buffer-alist '(("^\\*outline"
                                    display-buffer-in-side-window
                                    (side . left)
@@ -22,7 +22,7 @@
 
   (pdf-tools-install :no-query))
 
-(setup (:straight saveplace-pdf-view)
+(setup (:pkg saveplace-pdf-view)
   (:load-after pdf-tools))
 
 (provide 'init-pdf)

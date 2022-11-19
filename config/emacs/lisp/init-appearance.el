@@ -51,7 +51,7 @@
   (setq window-divider-default-places t)
   (window-divider-mode 1))
 
-(setup (:straight modus-themes)
+(setup (:pkg modus-themes)
   ;; Preferences
   (setq modus-themes-region '(accented no-extend bg-only)
         modus-themes-org-blocks 'gray-background
@@ -92,14 +92,14 @@
   (modus-themes-load-operandi))
 
 ;; I set circadian in the configuration of my themes
-(setup (:straight circadian)
+(setup (:pkg circadian)
   (:load-after modus-themes)
   (:option circadian-themes '(("8:00" . modus-operandi)
 			      ("20:00" . modus-vivendi)))
   (circadian-setup))
 
 ;; You must run `all-the-icons-install-fonts` the first time.
-(setup (:straight all-the-icons)
+(setup (:pkg all-the-icons)
   (:require all-the-icons))
 
 (provide 'init-appearance)

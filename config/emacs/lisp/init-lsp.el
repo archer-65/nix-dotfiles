@@ -44,8 +44,8 @@
 ;;; LSP-MODE
 
 (setup lsp-mode
-  (:disabled)
-  (:straight lsp-mode)
+  (:disable)
+  (:pkg lsp-mode)
   (:autoload lsp)
 
   (:when-loaded
@@ -85,8 +85,8 @@
   (:hook-into lsp-enable-which-key-integration))
 
 (setup lsp-ui
-  (:disabled)
-  (:straight lsp-ui)
+  (:disable)
+  (:pkg lsp-ui)
   (:autoload lsp-ui-mode)
   (:hook-into lsp-mode)
   (:load-after lsp)
@@ -99,17 +99,16 @@
              lsp-ui-sideline-delay 0.05)))
 
 (setup lsp-java
-  (:disabled)
-  (:straight lsp-java)
+  (:disable)
+  (:pkg lsp-java)
   (:load-after lsp))
 
 ;;
 ;;; EGLOT
 
-(setup eglot 
-  (unless (package-installed-p 'eglot)
-    (straight-use-package 'eglot))
-
+;; Eglot is built-in in Emacs 29+, so this condition doesn't consent the installation
+;; if it is already present.
+(setup (:pkg eglot (not (package-installed-p 'eglot)))
   ;; List of modes and servers
   (:when-loaded
     (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
@@ -120,7 +119,7 @@
   (:with-mode (c-mode c++-mode java-mode nix-mode rustic-mode terraform-mode)
     (:hook eglot-ensure)))
 
-(setup (:straight eglot-java)
+(setup (:pkg eglot-java)
   (:load-after eglot)
   (:when-loaded
     (eglot-java-init)))

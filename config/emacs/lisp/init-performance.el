@@ -7,7 +7,7 @@
 ;;; Code:
 
 
-(setup (:straight gcmh)
+(setup (:pkg gcmh)
   (:require)
   ;; The GC introduces annoying pauses and stuttering into our Emacs experience,
   ;; so we use `gcmh' to stave off the GC while we're using Emacs, and provoke it

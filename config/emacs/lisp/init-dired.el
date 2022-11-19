@@ -66,15 +66,15 @@
   (:bind-into image-dired-thumbnail-mode-map
     "<return>" #'image-dired-thumbnail-display-external))
 
-(setup (:straight dired-collapse)
+(setup (:pkg dired-collapse)
   (:load-after dired
     (:hooks dired-load-hook dired-collapse)))
 
-(setup (:straight all-the-icons-dired)
+(setup (:pkg all-the-icons-dired)
   (:load-after (all-the-icons dired)
     (:hooks dired-mode-hook all-the-icons-dired-mode)))
 
-(setup (:straight trashed)
+(setup (:pkg trashed)
   (:doc "Visit system trash.")
   (:option trashed-action-confirmer 'y-or-n-p
 	   trashed-use-header-line t

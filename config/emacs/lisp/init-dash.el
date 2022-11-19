@@ -6,7 +6,7 @@
 
 ;;; Code:
 
-(setup (:straight dashboard)
+(setup (:pkg dashboard)
   (:option
    ;; Banner
    dashboard-banner-logo-title "SUCK(EMAC)S - Personal Workspace"

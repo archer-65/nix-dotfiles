@@ -25,19 +25,49 @@
 (straight-use-package 'setup)
 (require 'setup)
 
-(setup-define :straight
-  (lambda (recipe)
-    `(unless (straight-use-package ',recipe)
-      ,(setup-quit)))
-  :documentation
-  "Install RECIPE with `straight-use-package`.
-This macro can be used as HEAD, and will replace itself with the first RECIPE's package.'"
-  :repeatable t
+;; https://git.acdw.net/emacs/tree/lisp/+setup.el
+(defun setup--straight-handle-arg (arg var)
+  (cond
+   ((and (boundp var) (symbol-value var)) t)
+   ((keywordp arg) (set var t))
+   ((functionp arg) (set var nil) (funcall arg))
+   ((listp arg) (set var nil) arg)))
+
+(setup-define :pkg
+  (lambda (recipe &rest predicates)
+    (let* ((skp (make-symbol "straight-keyword-p"))
+           (straight-use-p
+            (cl-mapcar
+             (lambda (f) (setup--straight-handle-arg f skp))
+             predicates))
+           (form `(when ,@straight-use-p
+                    (condition-case e
+                        (straight-use-package ',recipe)
+                      (error
+                       ,(setup-quit))
+                      (:success t)))))
+      ;; Keyword arguments --- :quit is special and should short-circuit
+      (if (memq :quit predicates)
+          (setq form `,(setup-quit))
+        ;; Otherwise, handle the rest of them ...
+        (when-let ((after (cadr (memq :after predicates))))
+          (setq form `(with-eval-after-load ,(if (eq after t)
+                                                 (setup-get 'feature)
+                                               after)
+                        ,form))))
+      ;; Finally ...
+      form))
+  :documentation "Install RECIPE with `straight-use-package'.
+If PREDICATES are given, only install RECIPE if all of them return non-nil.
+The following keyword arguments are also recognized:
+- :quit          --- immediately stop evaluating.  Good for commenting.
+- :after FEATURE --- only install RECIPE after FEATURE is loaded.
+                     If FEATURE is t, install RECIPE after the current feature."
+  :repeatable nil
+  :indent 1
   :shorthand (lambda (sexp)
                (let ((recipe (cadr sexp)))
-                 (if (consp recipe)
-                     (car recipe)
-                   recipe))))
+                 (or (car-safe recipe) recipe))))
 
 (setup-define :doc
   (lambda (&rest _) nil)
@@ -68,7 +98,7 @@ This macro can be used as HEAD, and will replace itself with the first RECIPE's 
                    (require ',(setup-get 'feature))
                    ,@body)))
       (dolist (feature (nreverse (ensure-list features)))
-	(setq body `(with-eval-after-load ',feature ,body)))
+        (setq body `(with-eval-after-load ',feature ,body)))
       body))
   :indent 1
   :documentation "Load the current feature after FEATURES.")
@@ -77,14 +107,13 @@ This macro can be used as HEAD, and will replace itself with the first RECIPE's 
   (lambda (features &rest body)
     (let ((body `(progn ,@body)))
       (dolist (feature (nreverse (ensure-list features)))
-	(setq body `(with-eval-after-load ',feature ,body)))
+        (setq body `(with-eval-after-load ',feature ,body)))
       body))
   :indent 1
   :documentation "Evaluate BODY after FEATURES are loaded.")
 
-(setup-define :disabled
-  (lambda ()
-    `,(setup-quit))
+(setup-define :disable
+  'setup-quit
   :documentation "Always stop evaluating the body.")
 
 (setup-define :hooks
@@ -95,11 +124,11 @@ This macro can be used as HEAD, and will replace itself with the first RECIPE's 
 
 (setup-define :blackout
   (lambda (&optional mode)
-    (setup (:straight blackout))
+    (setup (:pkg blackout))
     (let* ((mode (or mode (setup-get 'mode)))
-	   (mode (if (string-match-p "-mode\\'" (symbol-name mode))
-		     mode
-		   (intern (format "%s-mode" mode)))))
+           (mode (if (string-match-p "-mode\\'" (symbol-name mode))
+                     mode
+                   (intern (format "%s-mode" mode)))))
       `(blackout ',mode)))
   :documentation "Hide the mode-line lighter of the current mode with blackout.
 MODE can be specified manually, and override the current-mode."

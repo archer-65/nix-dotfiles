@@ -7,7 +7,7 @@
 
 ;;; Code:
 
-(setup (:straight format-all)
+(setup (:pkg format-all)
   (:doc "Same command to auto-format source code in many languages")
   (:blackout)
   (:hook-into prog-mode)
@@ -17,11 +17,11 @@
   (:blackout)
   (global-eldoc-mode 1))
 
-(setup (:straight rainbow-mode)
+(setup (:pkg rainbow-mode)
   (:doc "Minor mode to set background of string matching hex colors to the hex color.")
   (:hook-into web-mode json-mode))
 
-(setup (:straight ethan-wspace)
+(setup (:pkg ethan-wspace)
   (:doc "Delete useless whitespaces")
   (:blackout)
   (:global "C-c c" ethan-wspace-clean-all)
@@ -37,15 +37,15 @@
            tab-width 2
            indent-tabs-mode nil)) ; Use spaces!
 
-(setup (:straight rainbow-delimiters)
+(setup (:pkg rainbow-delimiters)
   (:hook-into prog-mode))
 
-(setup (:straight tree-sitter)
+(setup (:pkg tree-sitter)
   (:autoload tree-sitter-mode tree-sitter-hl-mode)
   (:hook-into nix-mode c-mode c++-mode java-mode python-mode)
   (:hooks tree-sitter-after-on-hook tree-sitter-hl-mode))
 
-(setup (:straight tree-sitter-langs)
+(setup (:pkg tree-sitter-langs)
   (:load-after treesitter))
 
 (provide 'init-code-style)

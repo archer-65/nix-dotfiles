@@ -6,16 +6,16 @@
 
 ;;; Code:
 
-(setup (:straight yasnippet)
+(setup (:pkg yasnippet)
   (:blackout)
   (:hooks prog-mode-hook yas-minor-mode)
   (:when-loaded
     (yas-reload-all)))
 
-(setup (:straight yasnippet-snippets)
+(setup (:pkg yasnippet-snippets)
   (:load-after yasnippet))
 
-(setup (:straight (cape-yasnippet :type git :host github :repo "elken/cape-yasnippet"))
+(setup (:pkg (cape-yasnippet :type git :host github :repo "elken/cape-yasnippet"))
   (:load-after yasnippet)
 
   (defun archer-add-cape-yasnippet ()

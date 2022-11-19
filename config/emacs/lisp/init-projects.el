@@ -6,7 +6,7 @@
 
 ;;; Code:
 
-(setup (:straight projectile)
+(setup (:pkg projectile)
   (:doc "Project management and navigation")
   (:blackout)
 
@@ -18,12 +18,12 @@
 
   (:global "C-c C-p" projectile-command-map))
 
-(setup (:straight magit)
+(setup (:pkg magit)
   (:doc "Git interface")
   (:autoload magit-status)
   (:option magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1))
 
-(setup (:straight forge)
+(setup (:pkg forge)
   (:load-after magit))
 
 (provide 'init-projects)

@@ -20,7 +20,7 @@
 	   "C-S-h" shrink-window-horizontally
 	   "C-S-l" enlarge-window-horizontally))
 
-(setup (:straight ace-window)
+(setup (:pkg ace-window)
   (:global "M-o" ace-window
 	   "M-O" ace-swap-window)
   (setq aw-scope 'frame
@@ -28,7 +28,7 @@
 	aw-minibuffer-flag t)
   (ace-window-display-mode 1))
 
-(setup (:straight avy)
+(setup (:pkg avy)
   (:global "M-g j" avy-goto-char-timer)
   (setq avy-all-windows nil   ;; only current
 	avy-all-windows-alt t ;; all windows with C-u

@@ -6,8 +6,7 @@
 
 ;;; Code:
 
-(setup vterm
-  (unless (archer-using-nix-p) (straight-use-package 'vterm))
+(setup (:pkg vterm (not (archer-using-nix-p)))
   (:autoload vterm vterm-other-window)
 
   (add-to-list 'display-buffer-alist '("^\\*vterm"
@@ -20,7 +19,7 @@
            vterm-max-scrollback 5000
            vterm-kill-buffer-on-exit t))
 
-(setup (:straight multi-vterm)
+(setup (:pkg multi-vterm)
   (:load-after vterm)
   (:option multi-vterm-dedicated-window-height-percent 20))
 
