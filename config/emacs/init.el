@@ -94,103 +94,12 @@
 
 (require 'init-pdf)
 
-(leaf daemons
-  :straight t)
+(require 'init-shell)
 
-(leaf vterm
-  :commands (vterm vterm-other-window)
-  :init
-  (unless (archer-using-nix-p) straight-use-package 'vterm)
-  :bind
-  ("<f5>" . vterm)
-  :config
-  (setq-default vterm-buffer-name " <<Terminal>>")
-  (add-to-list 'display-buffer-alist
-               '("\xe795 <<Terminal>>" ;; Original regex: "\*vterm\*"
-                 (display-buffer-in-side-window)
-                 (window-height . 0.25)
-                 (side . bottom)
-                 (slot . 0))))
+(require 'init-telega)
 
-(leaf telega
-  :commands (telega)
-  :init
-  (unless (archer-using-nix-p) straight-use-package 'telega)
-  (setq telega-directory (expand-file-name "~/.telega/"))
-  (setq telega-server-libs-prefix (expand-file-name "~/.nix-profile"))
-  (setq telega-use-images t)
-  (setq telega-emoji-font-family "Noto Color Emoji")
-  (setq telega-emoji-use-images nil)
-  :config
-  (setq telega-emoji-company-backend 'telega-company-emoji)
+(require 'init-media)
 
-  ;; From Andrew Tropin <3
-  (defun archer-telega-chat-mode ()
-    "Add completion at point functions made from company backends."
-    (setq-local
-     completion-at-point-functions
-     (append (mapcar
-              'cape-company-to-capf
-              (append (list 'telega-company-emoji
-                            'telega-company-username
-                            'telega-company-hashtag)
-                      (when (telega-chat-bot-p telega-chatbuf--chat)
-                        '(telega-company-botcmd))))
-             completion-at-point-functions)))
-  (add-hook 'telega-chat-mode-hook 'archer-telega-chat-mode)
-
-  (setq telega-completing-read-function completing-read-function)
-
-  (require 'telega-mnz)
-  (setq telega-animation-play-inline 2)
-  (setq telega-inserter-for-chat-button 'telega-ins--chat-full-2lines)
-  (setq telega-chat-button-width 30)
-  (setq telega-root-fill-column (+ 20 telega-chat-button-width))
-  (put (get 'telega-chat 'button-category-symbol)
-       :inserter 'telega-ins--chat-full-2lines)
-  (setq switch-to-buffer-preserve-window-point t)
-  (setq telega-chat--display-buffer-action
-        '((display-buffer-reuse-window display-buffer-use-some-window)))
-  (define-key global-map (kbd "C-c t") telega-prefix-map)
-  (setq telega-completing-read-function 'completing-read)
-  :hook
-  (telega-load-hook . telega-notifications-mode)
-  (telega-chat-mode-hook . telega-mnz-mode))
-
-(leaf emms
-  :straight t
-  :init
-  ;; Notification on play
-  (defun emms-notify-track-description ()
-    "Use `notify-send' to show the description of the currecnt track."
-    (call-process
-     "notify-send"
-     nil nil nil
-     "-a" "EMMS"
-     "-t" "1000"
-     "-h" "string:x-dunst-stack-tag:test"
-     "-a" "music"
-     (emms-track-description
-      (emms-playlist-current-selected-track))))
-  :config
-  ;; Start
-  (require 'emms-setup)
-  (require 'emms-mode-line)
-  (require 'emms-playing-time)
-  (emms-all)
-
-  ;; Info
-  (setq emms-mode-line t)
-  (setq emms-playing-time t)
-
-  ;; Directory
-  ;; (setq emms-source-file-default-directory "~/idkrn/")
-  (setq emms-info-asynchronously t)
-
-  ;; Other infos, covers
-  (setq emms-info-functions '(emms-info-exiftool)
-        emms-browser-covers 'emms-browser-cache-thumbnail-async)
-  :hook
-  (emms-player-started-hook . emms-notify-track-description))
+(setup (:straight daemons))
 
 ;;; init.el ends here

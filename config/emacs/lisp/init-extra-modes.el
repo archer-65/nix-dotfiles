@@ -7,28 +7,27 @@
 ;;; Code:
 
 (setup (:straight cmake-mode)
-  (add-to-list 'auto-mode-alist '("\\CMakeLists\\.txt\\'" . cmake-mode))
-  (add-to-list 'auto-mode-alist '("\\.cmake\\'" . cmake-mode)))
+  (:file-match (rx (or "CmakeLists.txt" ".cmake") eos)))
 
 (setup (:straight nix-mode)
-  (add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode)))
+  (:file-match (rx ".nix" eos)))
 
 (setup (:straight markdown-mode)
-  (add-to-list 'auto-mode-alist '("\\.md\\'" . markdown-mode)))
+  (:file-match (rx (or ".md" ".markdown" ".mdown") eos)))
 
 (setup (:straight yaml-mode)
-  (add-to-list 'auto-mode-alist '("\\.ya?ml\\'" . yaml-mode)))
+  (:file-match (rx (or ".yml" ".yaml") eos)))
 
 (setup (:straight json-mode)
-  (add-to-list 'auto-mode-alist '("\\.json\\'" . json-mode)))
+  (:file-match (rx ".json" eos)))
 
 (setup (:straight rustic)
-  (add-to-list 'auto-mode-alist '("\\.rs\\'" . rustic-mode))
+  (:file-match (rx ".rs" eos))
   (:option rustic-format-on-save nil ; There's `format-all-mode'
            rustic-lsp-client archer-lsp-client))
 
 (setup (:straight terraform-mode)
-  (add-to-list 'auto-mode-alist '("\\.tf\\'" . terraform-mode)))
+  (:file-match (rx ".tf" eos)))
 
 (setup (:straight company-terraform)
   (:autoload company-terraform)
@@ -38,7 +37,7 @@
       (setq-local
        completion-at-point-functions
        (append (list (cape-company-to-capf #'company-terraform)) completion-at-point-functions)))
-    (add-hook 'terraform-mode-hook 'archer-cape-company-terraform)))
+    (:hooks terraform-mode-hook archer-cape-company-terraform)))
 
 (provide 'init-extra-modes)
 ;;; init-extra-modes.el ends here

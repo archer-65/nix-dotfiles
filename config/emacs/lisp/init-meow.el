@@ -92,12 +92,11 @@
    '("'" . repeat)
    '("<escape>" . ignore)))
 
-(leaf meow
-  :straight t
-  :require t
-  :config
-  (archer-meow-setup)
-  (meow-global-mode 1))
+(setup (:straight meow)
+  (:require)
+  (:when-loaded
+    (archer-meow-setup)
+    (meow-global-mode 1)))
 
 (provide 'init-meow)
 ;;; init-meow.el ends here

@@ -3,7 +3,7 @@
 ;;; Commentary:
 
 ;; This file should be the `core`.
-;; Here are initialized `straight.el` and `leaf`.
+;; Here are initialized `straight.el` and `setup.el`.
 
 ;;; Code:
 
@@ -21,20 +21,6 @@
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 ;;; SECTION STRAIGHT.EL ENDS HERE
-
-;;; SECTION LEAF INSTALLATION
-(eval-and-compile
-  (straight-use-package 'leaf)
-  (straight-use-package 'leaf-keywords)
-  (straight-use-package 'blackout)
-
-  (leaf leaf-keywords
-    (straight-use-package 'leaf-keywords)
-    :init
-    (leaf blackout (straight-use-package 'blackout))
-    :config
-    (leaf-keywords-init)))
-;;; SECTION LEAF INSTALLATION ENDS HERE
 
 (straight-use-package 'setup)
 (require 'setup)

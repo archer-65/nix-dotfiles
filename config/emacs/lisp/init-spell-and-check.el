@@ -6,47 +6,52 @@
 
 ;;; Code:
 
-;; (leaf flymake
-;;   :config
-;;   (setq flymake-fringe-indicator-position 'left-fringe)
-;;   (setq flymake-suppress-zero-counters t)
-;;   (setq flymake-start-on-flymake-mode t)
-;;   (setq flymake-no-changes-timeout 0.5)
-;;   (setq flymake-start-on-save-buffer t)
-;;   (setq flymake-proc-compilation-prevents-syntax-check t)
-;;   (setq flymake-wrap-around nil)
+(setup flymake
+  (:option flymake-fringe-indicator-position 'left-fringe
+           flymake-suppress-zero-counters t
+           flymake-start-on-flymake-mode t
+           flymake-no-changes-timeout 0.3
+           flymake-start-on-save-buffer t
+           flymake-proc-compilation-prevents-syntax-check t
+           flymake-wrap-around nil)
 
-;;   (setq flymake-mode-line-format
-;;         '("" flymake-mode-line-exception flymake-mode-line-counters))
+  (:option flymake-mode-line-format
+           '("" flymake-mode-line-exception flymake-mode-line-counters))
 
-;;   (setq flymake-mode-line-counter-format
-;;         '(" " flymake-mode-line-error-counter
-;;           flymake-mode-line-warning-counter
-;;           flymake-mode-line-note-counter ""))
+  (:option flymake-mode-line-counter-format
+           '(" " flymake-mode-line-error-counter
+             flymake-mode-line-warning-counter
+             flymake-mode-line-note-counter ""))
 
-;;   (define-key ctl-x-x-map "m" #'flymake-mode) ; C-x x m
-;;   (let ((map flymake-mode-map))
-;;     (define-key map (kbd "C-c ! s") #'flymake-start)
-;;     (define-key map (kbd "C-c ! d") #'flymake-show-buffer-diagnostics) ; Emacs28
-;;     (define-key map (kbd "C-c ! D") #'flymake-show-project-diagnostics) ; Emacs28
-;;     (define-key map (kbd "C-c ! n") #'flymake-goto-next-error)
-;;     (define-key map (kbd "C-c ! p") #'flymake-goto-prev-error))
+  (:bind-into ctl-x-x-map
+    "m" #'flymake-mode)
 
-;;   (add-hook 'prog-mode-hook 'flymake-mode)
-;;   (add-hook 'text-mode-hook 'flymake-mode))
+  (:bind "C-c ! s" #'flymake-start
+         "C-c ! d" #'flymake-show-buffer-diagnostics ; Emacs28
+         "C-c ! D" #'flymake-show-project-diagnostics ; Emacs28
+         "C-c ! n" #'flymake-goto-next-error
+         "C-c ! p" #'flymake-goto-prev-error)
 
-;; ;; From Purcell's dotfiles
-;; (leaf flymake-flycheck
-;;   :straight t
-;;   :after flymake)
+  (:hook-into prog-mode text-mode))
 
-(setup (:straight flycheck)
-  (:autoload flycheck-list-errors flycheck-buffer)
-  (:option flycheck-emacs-lisp-load-path 'inherit
-           flycheck-idle-change-delay 1.0
-           flycheck-display-errors-delay 0.25
-           flycheck-emacs-lisp-initialize-packages t)
-  (global-flycheck-mode))
+;; From Purcell's dotfiles
+(setup (:straight flymake-flycheck)
+  (:load-after flymake)
+  (:when-loaded
+    (defun sanityinc/enable-flymake-flycheck ()
+      (setq-local flymake-diagnostic-functions
+                  (append flymake-diagnostic-functions
+                          (flymake-flycheck-all-chained-diagnostic-functions))))
+
+  (:hooks flymake-mode sanityinc/enable-flymake-flycheck)))
+
+;; (setup flycheck (:disabled) (:straight flycheck)
+;;   (:autoload flycheck-list-errors flycheck-buffer)
+;;   (:option flycheck-emacs-lisp-load-path 'inherit
+;;            flycheck-idle-change-delay 1.0
+;;            flycheck-display-errors-delay 0.25
+;;            flycheck-emacs-lisp-initialize-packages t)
+;;   (global-flycheck-mode))
 
 (setup flyspell
   (:hooks text-mode-hook (lambda () flyspell-mode 1)

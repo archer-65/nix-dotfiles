@@ -38,7 +38,7 @@ Specifically, there are some tweaks taken from [[https://github.com/doomemacs/do
 
 Note that =init.el= is mandatory, however I'm tangling it from this =.org= file (=Emacs.org=).
 
-I have decided to tangle this document in =init.el= because I want to keep a few things in the main directory. 
+I have decided to tangle this document in =init.el= because I want to keep a few things in the main directory.
 
 #+begin_src emacs-lisp
 
@@ -49,7 +49,7 @@ I have decided to tangle this document in =init.el= because I want to keep a few
   ;; a number of other files.
 
   ;; NOTE: This file is generated from `Emacs.org`!
-  
+
   ;;; Code:
 
   ;; Add load-path
@@ -72,7 +72,7 @@ I have decided to tangle this document in =init.el= because I want to keep a few
 
 * Core settings
 
-** Convenience 
+** Convenience
 
 Functions to determine if we are on NixOS, or not, then set our path, that's useful for auto-tangle function defined later.
 
@@ -93,7 +93,7 @@ Functions to determine if we are on NixOS, or not, then set our path, that's use
         (if (file-exists-p (expand-file-name ".dotfiles/config/emacs/" (getenv "HOME")))
             (expand-file-name ".dotfiles/config/emacs/" (getenv "HOME")))
       (expand-file-name user-emacs-directory)))
-  
+
 #+end_src
 
 
@@ -101,13 +101,13 @@ Functions to determine if we are on NixOS, or not, then set our path, that's use
 
 We are requiring =init-packages=, where package manager (e.g. =package.el=, =straight.el=) and macro configuration tools (e.g. =use-package=, =leaf.el=, =setup.el=) are initialized.
 
-Right now I'm using =straight.el= along with =leaf.el=. I love this combo.
+Right now I'm using =straight.el= along with =setup.el=.
 
 - [[https://github.com/radian-software/straight.el][straight.el]] provides reproducibility (like Nix and Guix) with recipes, allows the editing of packages and manual version control operations on repos. [[https://github.com/radian-software/straight.el#advantages-of-straightel-5][Here]] the list of advantages.
-- [[https://github.com/conao3/leaf.el][leaf.el]] is a more verbose =use-package=, but their syntax is similar, and it's easy to mantain (to add new keywords, for example).
+- [[https://git.sr.ht/~pkal/setup][setup.el]] is less declarative compared to other solutions: you have more control, I would say that it's similar to vanilla Emacs configuration, but less verbose and with easy definition of new macros.
+  
+I also install [[https://github.com/radian-software/blackout][blackout.el]], to manage modes displayed in the mode-line.
 
-Here I also install [[https://github.com/radian-software/blackout][blackout.el]], to manage modes displayed in the mode-line.
- 
 #+begin_src emacs-lisp
 
   ;; Require package management file.
@@ -115,10 +115,7 @@ Here I also install [[https://github.com/radian-software/blackout][blackout.el]]
 
 #+end_src
 
-This is the =init-packages.el= file.
-
 #+include: "lisp/init-packages.el" src emacs-lisp :tangle no
-
 
 ** Performances enhancement
 
@@ -135,7 +132,6 @@ Other tweaks in this section have been stolen from DOOM
 #+end_src
 
 #+include: "lisp/init-performance.el" src emacs-lisp :tangle no
-
 
 ** Pick me up mom, I'm scared!
 
@@ -169,7 +165,7 @@ In this section are contained line-numbers settings, modeline related configurat
 #+end_src
 
 Readability is important.
-Currently using [[https://rubjo.github.io/victor-mono/][Victor Mono]] as font, I love it, also for variable-pitch face. 
+Currently using [[https://rubjo.github.io/victor-mono/][Victor Mono]] as font, I love it, also for variable-pitch face.
 
 Here the =init.fonts.el= file.
 
@@ -210,7 +206,7 @@ Here the =init-dash.el= file.
 
 #+begin_src emacs-lisp
 
- (require 'init-modeline)  
+ (require 'init-modeline)
 
 #+end_src
 
@@ -316,7 +312,7 @@ This is one of my favourite parts. I think that fast selection, completing and s
 ** Monster trio of completion
 
 #+begin_src emacs-lisp
-  
+
   (require 'init-complete)
 
 #+end_src
@@ -553,7 +549,7 @@ Here =init-snippets.el=.
 
 * Frontend for other uses
 
-Emacs can be a frontend for almost everything. 
+Emacs can be a frontend for almost everything.
 
 ** Mails
 
@@ -595,42 +591,17 @@ My choice is [[https://github.com/vedang/pdf-tools][pdf-tools]], that renders on
 
 #+include: "lisp/init-pdf.el" src emacs-lisp :tangle no
 
-
-** Daemons control
-
-Nice mode to control your system (and user) services without leaving Emacs.
-
-#+begin_src emacs-lisp
-
-  (leaf daemons
-    :straight t)
-
-#+end_src
-
-
 ** Terminal
 
 The best terminal emulator in Emacs.
 
 #+begin_src emacs-lisp
 
-  (leaf vterm
-    :commands (vterm vterm-other-window)
-    :init
-    (unless (archer-using-nix-p) straight-use-package 'vterm)
-    :bind
-    ("<f5>" . vterm)
-    :config
-    (setq-default vterm-buffer-name " <<Terminal>>")
-    (add-to-list 'display-buffer-alist
-                 '("\xe795 <<Terminal>>" ;; Original regex: "\*vterm\*"
-                   (display-buffer-in-side-window)
-                   (window-height . 0.25)
-                   (side . bottom)
-                   (slot . 0))))
+  (require 'init-shell)
 
 #+end_src
 
+#+include: "lisp/init-shell.el" src emacs-lisp :tangle no
 
 ** Telegram
 
@@ -638,95 +609,31 @@ Beautiful client, maybe the best telegram client around. A PITA, sometimes, due 
 
 #+begin_src emacs-lisp
 
-  (leaf telega
-    :commands (telega)
-    :init
-    (unless (archer-using-nix-p) straight-use-package 'telega)
-    (setq telega-directory (expand-file-name "~/.telega/"))
-    (setq telega-server-libs-prefix (expand-file-name "~/.nix-profile"))
-    (setq telega-use-images t)
-    (setq telega-emoji-font-family "Noto Color Emoji")
-    (setq telega-emoji-use-images nil)
-    :config
-    (setq telega-emoji-company-backend 'telega-company-emoji)
-
-    ;; From Andrew Tropin <3
-    (defun archer-telega-chat-mode ()
-      "Add completion at point functions made from company backends."
-      (setq-local
-       completion-at-point-functions
-       (append (mapcar
-                'cape-company-to-capf
-                (append (list 'telega-company-emoji
-                              'telega-company-username
-                              'telega-company-hashtag)
-                        (when (telega-chat-bot-p telega-chatbuf--chat)
-                          '(telega-company-botcmd))))
-               completion-at-point-functions)))
-    (add-hook 'telega-chat-mode-hook 'archer-telega-chat-mode)
-
-    (setq telega-completing-read-function completing-read-function)
-
-    (require 'telega-mnz)
-    (setq telega-animation-play-inline 2)
-    (setq telega-inserter-for-chat-button 'telega-ins--chat-full-2lines)
-    (setq telega-chat-button-width 30)
-    (setq telega-root-fill-column (+ 20 telega-chat-button-width))
-    (put (get 'telega-chat 'button-category-symbol)
-         :inserter 'telega-ins--chat-full-2lines)
-    (setq switch-to-buffer-preserve-window-point t)
-    (setq telega-chat--display-buffer-action
-          '((display-buffer-reuse-window display-buffer-use-some-window)))
-    (define-key global-map (kbd "C-c t") telega-prefix-map)
-    (setq telega-completing-read-function 'completing-read)
-    :hook
-    (telega-load-hook . telega-notifications-mode)
-    (telega-chat-mode-hook . telega-mnz-mode))
+  (require 'init-telega)
 
 #+end_src
 
+#+include: "lisp/init-telega.el" src emacs-lisp :tangle no
 
-** Music
+** Media
 
-Manage your music from Emacs? Possible!
+Manage your media from Emacs? Possible!
 
 #+begin_src emacs-lisp
 
-  (leaf emms
-    :straight t
-    :init
-    ;; Notification on play
-    (defun emms-notify-track-description ()
-      "Use `notify-send' to show the description of the currecnt track."
-      (call-process
-       "notify-send"
-       nil nil nil
-       "-a" "EMMS"
-       "-t" "1000"
-       "-h" "string:x-dunst-stack-tag:test"
-       "-a" "music"
-       (emms-track-description
-        (emms-playlist-current-selected-track))))
-    :config
-    ;; Start
-    (require 'emms-setup)
-    (require 'emms-mode-line)
-    (require 'emms-playing-time)
-    (emms-all)
+  (require 'init-media)
 
-    ;; Info
-    (setq emms-mode-line t)
-    (setq emms-playing-time t)
+#+end_src
 
-    ;; Directory
-    ;; (setq emms-source-file-default-directory "~/idkrn/")
-    (setq emms-info-asynchronously t)
+#+include: "lisp/init-media.el" src emacs-lisp :tangle no
 
-    ;; Other infos, covers
-    (setq emms-info-functions '(emms-info-exiftool)
-          emms-browser-covers 'emms-browser-cache-thumbnail-async)
-    :hook
-    (emms-player-started-hook . emms-notify-track-description))
+** Daemons control
+
+Nice mode to control your system (and user) services without leaving Emacs.
+
+#+begin_src emacs-lisp
+
+  (setup (:straight daemons))
 
 #+end_src
 
@@ -776,6 +683,6 @@ My learning path has been discontinuous, but good enough to learn this beautiful
 - [[https://github.com/seagle0128][Vincent Zhang]] :: author of [[https://github.com/seagle0128/.emacs.d][Centaur]], really good work.
 
 # Local Variables:
+# after-save-hook: org-babel-tangle
 # eval: (org-hugo-auto-export-mode)
-# eval: (add-hook 'after-save-hook (lambda () (org-babel-tangle)))
 # End:

@@ -40,7 +40,7 @@
     "i"   consult-imenu
     "I"   consult-imenu-multi
     "e"   consult-compile-error
-    "f"   consult-flycheck)     ; Alternative: consult-flymake
+    "f"   consult-flymake)     ; Alternative: consult-flymake
 
   ;; M-s bindings (search-map)
   (:bind-into search-map

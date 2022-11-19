@@ -75,16 +75,16 @@ Useful for prompts such as `eval-expression' and `shell-command'."
   ;; END OF SECTION (TODO Refactor)
 
   (:option corfu-cycle t
-	   corfu-auto t
-	   corfu-separator ?\s
-	   corfu-quit-at-boundary nil
-	   corfu-quit-no-match 'separator
-	   corfu-preview-current #'insert
-	   corfu-preselect-first t
-	   corfu-on-exact-match #'insert
-	   corfu-echo-documentation 0.25
-	   corfu-min-width 30
-	   corfu-scroll-margin 5))
+     corfu-auto t
+     corfu-separator ?\s
+     corfu-quit-at-boundary nil
+     corfu-quit-no-match 'separator
+     corfu-preview-current #'insert
+     corfu-preselect-first t
+     corfu-on-exact-match #'insert
+     corfu-echo-documentation 0.25
+     corfu-min-width 30
+     corfu-scroll-margin 5))
 
 (setup (:straight corfu-doc)
   (:load-after corfu)
@@ -97,7 +97,7 @@ Useful for prompts such as `eval-expression' and `shell-command'."
 (setup (:straight kind-icon)
   (:load-after corfu
     (:option kind-icon-default-face 'corfu-default
-	     kind-icon-default-style '(:padding 0 :stroke 0 :margin 0 :radius 0 :height 0.7 :scale 1.0))
+       kind-icon-default-style '(:padding 0 :stroke 0 :margin 0 :radius 0 :height 0.7 :scale 1.0))
     (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter)))
 
 (setup (:straight cape)
@@ -109,21 +109,21 @@ Useful for prompts such as `eval-expression' and `shell-command'."
     (add-to-list 'completion-at-point-functions backend))
 
   (:global "C-c p p" completion-at-point
-	   "C-c p t" complete-tag
-	   "C-c p d" cape-dabbrev
-	   "C-c p h" cape-history
-	   "C-c p f" cape-file
-	   "C-c p k" cape-keyword
-	   "C-c p s" cape-symbol
-	   "C-c p a" cape-abbrev
-	   "C-c p i" cape-ispell
-	   "C-c p l" cape-line
-	   "C-c p w" cape-dict
-	   "C-c p \\" cape-tex
-	   "C-c p _" cape-tex
-	   "C-c p ^" cape-tex
-	   "C-c p &" cape-sgml
-	   "C-c p r" cape-rfc1345))
+     "C-c p t" complete-tag
+     "C-c p d" cape-dabbrev
+     "C-c p h" cape-history
+     "C-c p f" cape-file
+     "C-c p k" cape-keyword
+     "C-c p s" cape-symbol
+     "C-c p a" cape-abbrev
+     "C-c p i" cape-ispell
+     "C-c p l" cape-line
+     "C-c p w" cape-dict
+     "C-c p \\" cape-tex
+     "C-c p _" cape-tex
+     "C-c p ^" cape-tex
+     "C-c p &" cape-sgml
+     "C-c p r" cape-rfc1345))
 
 (provide 'init-complete-in-buffer)
 ;;; init-complete-in-buffer.el ends here
