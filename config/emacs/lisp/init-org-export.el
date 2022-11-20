@@ -12,32 +12,32 @@
 (setup ox-latex
   (:load-after ox)
   (:option org-latex-toc-command "\\tableofcontents \\clearpage"  ; Newpage after TOC
-	    ;; Enable listings
-	   org-latex-listings t
-	   ;; Previewing LaTeX fragments in org mode, default changed for bad quality.
-	   org-latex-create-formula-image-program 'imagemagick
-	   ;; Using minted for tables
-	   org-latex-listings 'minted
+           ;; Enable listings
+           org-latex-listings t
+           ;; Previewing LaTeX fragments in org mode, default changed for bad quality.
+           org-latex-create-formula-image-program 'imagemagick
+           ;; Using minted for tables
+           org-latex-listings 'minted
            org-latex-packages-alist '(("" "minted"))
-	   org-latex-minted-options '(("breaklines" "true")
+           org-latex-minted-options '(("breaklines" "true")
                                       ("breakanywhere" "true"))
-	   ;; PDF process
+           ;; PDF process
            ;; '("latexmk -pdflatex='pdflatex -interaction nonstopmode' -pdf -bibtex -f %f")
            org-latex-pdf-process '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-				   "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-				   "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+                                   "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
+                                   "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
   ;; LaTeX base classes
   (:when-loaded (add-to-list 'org-latex-classes
-               '("org-plain-latex"
-                 "\\documentclass{article}
+                             '("org-plain-latex"
+                               "\\documentclass{article}
                  [NO-DEFAULT-PACKAGES]
                  [PACKAGES]
                  [EXTRA]"
-                 ("\\section{%s}" . "\\section*{%s}")
-                 ("\\subsection{%s}" . "\\subsection*{%s}")
-                 ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
-                 ("\\paragraph{%s}" . "\\paragraph*{%s}")
-                 ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))))
+                               ("\\section{%s}" . "\\section*{%s}")
+                               ("\\subsection{%s}" . "\\subsection*{%s}")
+                               ("\\subsubsection{%s}" . "\\subsubsection*{%s}")
+                               ("\\paragraph{%s}" . "\\paragraph*{%s}")
+                               ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))))
 
 ;; Reveal.js
 (setup (:pkg (ox-reveal :type git :host github :repo "yjwen/org-reveal"))

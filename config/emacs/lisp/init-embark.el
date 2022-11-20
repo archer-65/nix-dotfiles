@@ -31,16 +31,16 @@ targets."
                    (not (string-suffix-p "-argument" (cdr binding))))))))
 
 (setq embark-indicators
-  '(archer-embark-which-key-indicator
-    embark-highlight-indicator
-    embark-isearch-highlight-indicator))
+      '(archer-embark-which-key-indicator
+        embark-highlight-indicator
+        embark-isearch-highlight-indicator))
 
 (defun archer-embark-hide-which-key-indicator (fn &rest args)
   "Hide the which-key indicator immediately when using the completing-read prompter."
   (which-key--hide-popup-ignore-command)
   (let ((embark-indicators
          (remq #'archer-embark-which-key-indicator embark-indicators)))
-      (apply fn args)))
+    (apply fn args)))
 
 ;; Embark configuration
 (setup (:pkg embark)
@@ -54,8 +54,8 @@ targets."
     (advice-add #'embark-completing-read-prompter :around #'archer-embark-hide-which-key-indicator))
 
   (:global "C-." embark-act
-	   "C-;" embark-dwim
-	   "C-h B" embark-bindings) ;; alternative for `describe-bindings'
+           "C-;" embark-dwim
+           "C-h B" embark-bindings) ;; alternative for `describe-bindings'
 
   ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist

@@ -1,13 +1,14 @@
 #+TITLE: Emacs Configuration
 #+AUTHOR: Mario Liguori
-#+DATE: {{{time(%Y-%m-%d)}}}
+#+DATE: 2022-06-13
 
 #+PROPERTY: header-args:emacs-lisp :tangle ./init.el :mkdirp yes
 
 #+HUGO_BASE_DIR: ~/projects/personal-website/
-#+HUGO_SECTION: posts
+#+HUGO_SECTION: workflow
 #+HUGO_CATEGORIES: workflow
 #+HUGO_TAGS: emacs
+#+HUGO_AUTO_SET_LASTMOD: t
 
 * Preface
 
@@ -24,7 +25,6 @@ Every file is commented in a decent way, but I'm not very verbose. Sometimes I d
 
 Anyway, this document is not intended as a way to show my =elisp-fu= or something like that. When you read this, imagine a diary, a tale of my [mis]adventures 🤣.
 
-
 ** Before GUI: "early init"
 
 Is good practice to define an =early-init.el= file: this kind of approach provides better loading for essential stuff.
@@ -33,12 +33,11 @@ Specifically, there are some tweaks taken from [[https://github.com/doomemacs/do
 
 #+include: "early-init.el" src emacs-lisp :tangle no
 
-
 ** Mandatory settings for the "init"
 
 Note that =init.el= is mandatory, however I'm tangling it from this =.org= file (=Emacs.org=).
 
-I have decided to tangle this document in =init.el= because I want to keep a few things in the main directory.
+I have decided to tangle this document in =init.el= because I want to keep a few things in the main directory, while populating submodules to manage all of this.
 
 #+begin_src emacs-lisp
 
@@ -52,19 +51,19 @@ I have decided to tangle this document in =init.el= because I want to keep a few
 
   ;;; Code:
 
-  ;; Add load-path
+  ;; Add load-path for submodules
   (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
-  ;; We don't want customizations in `init.el`, instead we use `custom.el`.
+  ;; We don't want user customizations in `init.el`, instead we use `custom.el`
   (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
-  ;; Set the right directory to store the native comp cache
+  ;; Set a better directory to store the native comp cache
   (when (and (fboundp 'native-comp-available-p)
              (native-comp-available-p))
     (add-to-list 'native-comp-eln-load-path (expand-file-name "var/eln-cache/" user-emacs-directory)))
 
   ;; Disable damn sleep!
-  ;; Yep, it's mandatory, that's the worst keybind ever.
+  ;; Yep, it's mandatory, that's the worst keybind ever, and should be remapped
   (global-unset-key (kbd "C-z"))
 
 #+end_src
@@ -74,7 +73,7 @@ I have decided to tangle this document in =init.el= because I want to keep a few
 
 ** Convenience
 
-Functions to determine if we are on NixOS, or not, then set our path, that's useful for auto-tangle function defined later.
+Functions to determine if we are using a Nix installation of Emacs, or not, then we set our configuration path.
 
 #+begin_src emacs-lisp
 
@@ -110,7 +109,7 @@ I also install [[https://github.com/radian-software/blackout][blackout.el]], to 
 
 #+begin_src emacs-lisp
 
-  ;; Require package management file.
+  ;; Require package management file
   (require 'init-packages)
 
 #+end_src
@@ -123,7 +122,7 @@ I also install [[https://github.com/radian-software/blackout][blackout.el]], to 
 
 Right now I'm good with 16MB for high threshold.
 
-Other tweaks in this section have been stolen from DOOM
+Other tweaks in this section have been stolen from DOOM and other configurations around.
 
 #+begin_src emacs-lisp
 
@@ -135,6 +134,10 @@ Other tweaks in this section have been stolen from DOOM
 
 ** Pick me up mom, I'm scared!
 
+Sometimes we forget shortcuts as we type them, [[https://github.com/justbur/emacs-which-key][which-key]] is a minor mode for Emacs that displays the key bindings following your currently entered incomplete command in a popup.
+
+I'm not using helpful anymore.
++The [[https://github.com/Wilfred/helpful][helpful]] adds a lot of very helpful information to =describe-= command buffers. For example, if you use =describe-function=, you will not only get the documentation about the function, you will also see the source code of the function and where it gets used in other places in the Emacs configuration.+
 
 #+begin_src emacs-lisp
 
@@ -142,15 +145,7 @@ Other tweaks in this section have been stolen from DOOM
 
 #+end_src
 
-Sometimes we forget shortcuts as we type them, [[https://github.com/justbur/emacs-which-key][which-key]] is a minor mode for Emacs that displays the key bindings following your currently entered incomplete command in a popup.
-
-I'm not using helpful anymore.
-+The [[https://github.com/Wilfred/helpful][helpful]] adds a lot of very helpful information to =describe-= command buffers. For example, if you use =describe-function=, you will not only get the documentation about the function, you will also see the source code of the function and where it gets used in other places in the Emacs configuration.+
-
-This is the =init-help.el= file, nothing special.
-
 #+include: "lisp/init-help.el" src emacs-lisp :tangle no
-
 
 ** Appearance
 
@@ -158,21 +153,22 @@ In this section are contained line-numbers settings, modeline related configurat
 
 *** Font
 
+Readability is important.
+Currently using [[https://rubjo.github.io/victor-mono/][Victor Mono]] as font, I love it, also for variable-pitch face.
+
 #+begin_src emacs-lisp
 
   (require 'init-fonts)
 
 #+end_src
 
-Readability is important.
-Currently using [[https://rubjo.github.io/victor-mono/][Victor Mono]] as font, I love it, also for variable-pitch face.
-
-Here the =init.fonts.el= file.
-
 #+include: "lisp/init-fonts.el" src emacs-lisp :tangle no
 
-
 *** Colors and general UI
+
+I'm currently using [[https://protesilaos.com/emacs/modus-themes][Modus Themes]], with [[https://github.com/guidoschmidt/circadian.el][Circadian]] to set light/dark version, based on time. It's possible to switch themes on sunrise and sunset. Protesilaos made a great work, and these themes are, indeed, built into Emacs (but I always get the packaged version :D)
+
+Here the =init.appearance.el= file.
 
 #+begin_src emacs-lisp
 
@@ -180,16 +176,11 @@ Here the =init.fonts.el= file.
 
 #+end_src
 
-I'm currently using [[https://protesilaos.com/emacs/modus-themes][Modus Themes]], with [[https://github.com/guidoschmidt/circadian.el][Circadian]] to set light/dark version, based on time. It's possible to switch themes on sunrise and sunset. Protesilaos made a great work, and these themes are, indeed, built into Emacs.
-
-Here the =init.appearance.el= file.
-
 #+include: "lisp/init-appearance.el" src emacs-lisp :tangle no
-
 
 *** Dashboard Configuration
 
-Useless cute dashboard, nothing to say, and there are minor tweaks to make it work with server-mode and Emacs PGTK/NativeComp.
+Useless and cute dashboard, nothing to say, and there are minor tweaks to make it work with server-mode and Emacs PGTK/NativeComp.
 
 #+begin_src emacs-lisp
 
@@ -201,8 +192,9 @@ Here the =init-dash.el= file.
 
 #+include: "lisp/init-dash.el" src emacs-lisp :tangle no
 
-
 *** Modeline
+
+Just modeline customized.
 
 #+begin_src emacs-lisp
 
@@ -210,23 +202,13 @@ Here the =init-dash.el= file.
 
 #+end_src
 
-Just modeline customized.
-
 #+include: "lisp/init-modeline.el" src emacs-lisp :tangle no
-
 
 * Interface interaction
 
 This section contains my file and buffer related configurations. Nothing special.
 
 ** Editing enhancement
-
-#+begin_src emacs-lisp
-
-  (require 'init-editing)
-
-#+end_src
-
 
 Tweaks present here:
 - Scroll (and smooth scroll for Emacs >= 29) and horizontal scroll with mouse;
@@ -236,14 +218,22 @@ Tweaks present here:
 - [[https://www.emacswiki.org/emacs/UndoTree][Undo Tree]] mode for simpler undo-redo (and visual branches!).
 - Rainbow-mode;
 - Delete-selection mode to overwrite selected regions;
-- Drag-stuff to...drag stuff around.
+- Drag-stuff to...drag stuff around;
+- etc.
 
-Following, my =init-editing.el=.
+#+begin_src emacs-lisp
+
+  (require 'init-editing)
+
+#+end_src
 
 #+include: "lisp/init-editing.el" src emacs-lisp :tangle no
 
-
 **** Meow
+
+[[https://github.com/meow-edit/meow][Meow]] is yet another modal editing mode for Emacs. Meow aims to blend modal editing into Emacs with minimal interference with its original key-bindings, avoiding most of the hassle introduced by key-binding conflicts.
+
+Keybindings are listed in =init-meow.el=.
 
 #+begin_src emacs-lisp
 
@@ -251,15 +241,11 @@ Following, my =init-editing.el=.
 
 #+end_src
 
-[[https://github.com/meow-edit/meow][Meow]] is yet another modal editing mode for Emacs. Meow aims to blend modal editing into Emacs with minimal interference with its original key-bindings, avoiding most of the hassle introduced by key-binding conflicts.
-
-Keybindings are listed in =init-meow.el=.
-
 #+include: "lisp/init-meow.el" src emacs-lisp :tangle no
 
-
-
 ** Windows navigation
+
+Moving around windows can be painful, but some built-in functions save our a*s.
 
 #+begin_src emacs-lisp
 
@@ -267,12 +253,12 @@ Keybindings are listed in =init-meow.el=.
 
 #+end_src
 
-Moving around windows can be painful, but some built-in functions save our a*s.
-
 #+include: "lisp/init-windows.el" src emacs-lisp :tangle no
 
-
 ** Buffer management
+
+Sometimes buffers are too much, and I think that the classic buffer-menu is meh.
+With =ibuffer= I can group buffers in ~Gnus~ style, customize actions remembering ~Dired~, and so on.
 
 #+begin_src emacs-lisp
 
@@ -280,19 +266,9 @@ Moving around windows can be painful, but some built-in functions save our a*s.
 
 #+end_src
 
-Sometimes buffers are too much, and I think that the classic buffer-menu is meh.
-With =ibuffer= I can group buffers in ~Gnus~ style, customize actions remembering ~Dired~, and so on.
-
 #+include: "lisp/init-buffers.el" src emacs-lisp :tangle no
 
-
 ** Dired
-
-#+begin_src emacs-lisp
-
-  (require 'init-dired)
-
-#+end_src
 
 Dired is a built-in file manager for Emacs that does some pretty amazing things. For example you can enable writable dired buffer to edit everything and just save to apply your changes.
 
@@ -300,10 +276,13 @@ I have disabled ~dired-find-alternate-file~ warning, I'm using it 'cause pressin
 
 There's also a package named ~trashed~, to visit system trash.
 
-This if my =init.dired.el= file.
+#+begin_src emacs-lisp
+
+  (require 'init-dired)
+
+#+end_src
 
 #+include: "lisp/init-dired.el" src emacs-lisp :tangle no
-
 
 * Selection and search
 
@@ -311,21 +290,20 @@ This is one of my favourite parts. I think that fast selection, completing and s
 
 ** Monster trio of completion
 
+As Completion UI [[https://github.com/minad/vertico][Vertico]] is my preferred choice, it's lightweight and fast, and relies on Emacs internals. [[https://github.com/minad/marginalia/][Marginalia]] for rich annotations provides a summary for candidates.
+Completion can be better with an [[https://github.com/oantolin/orderless][Orderless]] (similar to FZF, if you know). Orderless is also customizable for matching style.
+
 #+begin_src emacs-lisp
 
   (require 'init-complete)
 
 #+end_src
 
-As Completion UI [[https://github.com/minad/vertico][Vertico]] is my preferred choice, it's lightweight and fast, and relies on Emacs internals. [[https://github.com/minad/marginalia/][Marginalia]] for rich annotations provides a summary for candidates.
-Completion can be better with an [[https://github.com/oantolin/orderless][Orderless]] (similar to FZF, if you know). Orderless is also customizable for matching style.
-
-Following, the =init-complete.el= file.
-
 #+include: "lisp/init-complete.el" src emacs-lisp :tangle no
 
-
 ** Embark
+
+[[https://github.com/oantolin/embark/][Embark]] provides contextual menu offering actions for a target determined in the context, exactly like a contextual menu.
 
 #+begin_src emacs-lisp
 
@@ -333,19 +311,9 @@ Following, the =init-complete.el= file.
 
 #+end_src
 
-[[https://github.com/oantolin/embark/][Embark]] provides contextual menu offering actions for a target determined in the context, exactly like a contextual menu.
-
-Keybindings and configuration are in the =init-embark.el= file.
-
 #+include: "lisp/init-embark.el" src emacs-lisp :tangle no
 
 ** Consult
-
-#+begin_src emacs-lisp
-
-  (require 'init-consult)
-
-#+end_src
 
 [[https://github.com/minad/consult][Consult]] provides practical commands based on the Emacs completion function completing-read.
 
@@ -354,14 +322,23 @@ Consult offers, for example:
 - Multiple asynchronous search commands:
   - =consult-grep=
   - =consult-ripgrep=
-  - =consult-line=, which resembles [[https://github.com/abo-abo/swiper][Swiper]].
+  - =consult-line=, which resembles [[https://github.com/abo-abo/swiper][Swiper]]
+    
+#+begin_src emacs-lisp
 
-Keybindings and configuration are in the =init-consult.el= file.
+  (require 'init-consult)
+
+#+end_src
 
 #+include: "lisp/init-consult.el" src emacs-lisp :tangle no
 
-
 ** Completion at point
+
+I'm using [[https://github.com/minad/corfu][Corfu]] with [[https://github.com/minad/cape][Cape]] right now, while [[https://github.com/company-mode/company-mode][Company]] stuff is here due to other modes completion backends which relies on it. I prefer Corfu especially because it uses Emacs completion facilities, and child frames instead of overlays.
+
+Completions are provided by commands which provide completion, or by Capfs (=completion-at-point-functions=). Many major modes implement a Capf, also LSP clients which talk to the LSP server to retrieve completion.
+
+Cape provides extensions and backends. A great thing of Cape is the =cape-company-to-capf= adapter for Company backends, and it is very easy to use!
 
 #+begin_src emacs-lisp
 
@@ -369,24 +346,13 @@ Keybindings and configuration are in the =init-consult.el= file.
 
 #+end_src
 
-I'm using Corfu right now, while Company stuff is here due to ~telega.el~, especially for child frames instead of overlays.
-
-Here =init-complete-in-buffer.el=.
-
 #+include: "lisp/init-complete-in-buffer.el" src emacs-lisp :tangle no
-
 
 * Org Mode
 
 Org mode is the killer feature of Emacs. Markup language, agenda, brain, templates...you can do /literally/ (xD) everything.
 
 ** Essential configuration
-
-#+begin_src emacs-lisp
-
-  (require 'init-org)
-
-#+end_src
 
 I absolutely need focus when I'm editing my documents in the dark, so I want my buffer centered and lines untruncated.
 
@@ -396,16 +362,15 @@ The purpose of +[[https://github.com/joostkremers/visual-fill-column][visual-fil
 
 [[https://github.com/minad/org-modern][Org Modern]] replaces markup syntax with nice headings, TODOs etc.
 
-#+include: "lisp/init-org.el" src emacs-lisp :tangle no
-
-
-** Babel and Tempo
-
 #+begin_src emacs-lisp
 
-  (require 'init-org-languages)
+  (require 'init-org)
 
 #+end_src
+
+#+include: "lisp/init-org.el" src emacs-lisp :tangle no
+
+** Babel and Tempo
 
 To execute or export code in =org-mode= code blocks, we need to set up =org-babel-load-languages= for each language. [[https://orgmode.org/worg/org-contrib/babel/languages.html][This page]] documents all of the languages that you can use with =org-babel=.
 
@@ -414,8 +379,13 @@ To add more =src= block templates, just copy one of the lines and change the two
 
 There's also a snippet that adds a hook to =org-mode= buffers so that ~archer-org-babel-tangle-config~ gets executed each time such a buffer gets saved. This function checks to see if the file being saved is the Emacs.org file you're looking at right now, and if so, automatically exports the configuration here to the associated output files. This function is inspired by David Wilson of System Crafters.
 
-#+include: "lisp/init-org-languages.el" src emacs-lisp :tangle no
+#+begin_src emacs-lisp
 
+  (require 'init-org-languages)
+
+#+end_src
+
+#+include: "lisp/init-org-languages.el" src emacs-lisp :tangle no
 
 ** Exporting
 
@@ -448,7 +418,6 @@ The hidden gem is =ox-hugo=, you can manage your website content from Emacs, tha
 
 #+include: "lisp/init-org-export.el" src emacs-lisp :tangle no
 
-
 * Development
 
 All my packages needed to develop in a decent way. Bye IDEs.
@@ -471,8 +440,15 @@ Common Git operations are easy to execute quickly using _Magit_'s command panel 
 
 #+include: "lisp/init-projects.el" src emacs-lisp :tangle no
 
-
 ** Code style
+
+[[https://github.com/lassik/emacs-format-all-the-code][Format-all-the-code]] lets you auto-format source code in many languages. It is very nice, you need only the formatters installed on your system.
+
+[[https://github.com/glasserc/ethan-wspace][Ethan-wspace]] is a nice package to avoid useless/horrible extra whitespaces.
+
+[[https://github.com/Fanael/rainbow-delimiters][Rainbow-delimiters]] is useful in programming modes because it colorizes nested parentheses and brackets according to their nesting depth. This makes it a lot easier to visually match parentheses in Emacs Lisp code without having to count them yourself.
+
+The rest of =init-code-style.el= regards tab settings.
 
 #+begin_src emacs-lisp
 
@@ -480,18 +456,11 @@ Common Git operations are easy to execute quickly using _Magit_'s command panel 
 
 #+end_src
 
-[[https://github.com/glasserc/ethan-wspace][Ethan-wspace]] is a nice package to avoid useless/horrible extra whitespaces.
-
-[[https://github.com/Fanael/rainbow-delimiters][Rainbow-delimiters]] is useful in programming modes because it colorizes nested parentheses and brackets according to their nesting depth.  This makes it a lot easier to visually match parentheses in Emacs Lisp code without having to count them yourself.
-
-The rest of =init-code-style.el= regards tab settings.
-
 #+include: "lisp/init-code-style.el" src emacs-lisp :tangle no
-
 
 ** Syntax checking
 
-Modern on-the-fly syntax checking.
+Lately I've been trying =Flymake=, built-in into Emacs. [[https://www.flycheck.org/][Flycheck]] has many checkers though, so here we go with [[https://github.com/purcell/flymake-flycheck]["how to use Flycheck chekers in Flymake"]]
 
 #+begin_src emacs-lisp
 
@@ -499,14 +468,21 @@ Modern on-the-fly syntax checking.
 
 #+end_src
 
-I'm a bit distracted, so spell and syntax checking is essential for me.
-
-This is =init-spell-and-check.el=.
-
 #+include: "lisp/init-spell-and-check.el" src emacs-lisp :tangle no
 
+** Language Server Protocol
 
-** LSP
+[[https://microsoft.github.io/language-server-protocol/][Language Server Protocol]] support with multiples languages support for Emacs.
+
+There are two ways to use LSP with Emacs: [[https://github.com/emacs-lsp/lsp-mode][lsp-mode]] and [[https://github.com/joaotavora/eglot][Eglot]] (built into Emacs 29). I prefer the latter for the following reason, given by the author of =Eglot=:
+
+#+begin_quote
+
+Eglot is considerably less code and hassle than lsp-mode.el. In most cases, there's nothing to configure. It's a minimalist approach focused on user experience and performance.
+
+#+end_quote
+
+To avoid copy-pasting, here the [[https://github.com/joaotavora/eglot#historical-differences-to-lsp-modeel][full comparision]].
 
 #+begin_src emacs-lisp
 
@@ -514,12 +490,9 @@ This is =init-spell-and-check.el=.
 
 #+end_src
 
-[[https://github.com/emacs-lsp/lsp-mode][Language Server Protocol]] support with multiples languages support for Emacs.
-
 #+include: "lisp/init-lsp.el" src emacs-lisp :tangle no
 
-
-** Yasnippet
+** Snippets
 
 #+begin_src emacs-lisp
 
@@ -527,12 +500,7 @@ This is =init-spell-and-check.el=.
 
 #+end_src
 
-Do I have to explain this?
-
-Here =init-snippets.el=.
-
 #+include: "lisp/init-snippets.el" src emacs-lisp :tangle no
-
 
 ** Extra modes
 
@@ -542,10 +510,7 @@ Here =init-snippets.el=.
 
 #+end_src
 
-=init.extra.modes.el=
-
 #+include: "lisp/init-extra-modes.el" src emacs-lisp :tangle no
-
 
 * Frontend for other uses
 
@@ -553,32 +518,35 @@ Emacs can be a frontend for almost everything.
 
 ** Mails
 
+I've used =mu4e= (mu-for-emacs) for almost a year. It is an e-mail client for GNU Emacs version 24.4 or higher, built on top of the [[https://github.com/djcb/mu][mu]] e-mail search engine. =mu4e= is optimized for quickly processing large amounts of e-mail.
+
+However, I've always struggled with it, and I recently tried [[https://notmuchmail.org/][notmuch]]. Oh boy, I wish I had done it sooner!
+It is a very fast tag-based email indexer and system to use with multiple clients, Emacs, Neomutt, and so on.
+
+#+begin_quote
+
+"Not much mail" is what Notmuch thinks about your email collection. Even if you receive 12000 messages per month or have on the order of millions of messages that you've been saving for decades. Regardless, Notmuch will be able to quickly search all of it. It's just plain not much mail.
+
+#+end_quote
+
+#+begin_quote
+
+"Not much mail" is also what you should have in your inbox at any time. Notmuch gives you what you need, (tags and fast search), so that you can keep your inbox tamed and focus on what really matters in your life, (which is surely not email).
+
+#+end_quote
+
 #+begin_src emacs-lisp
 
   (require 'init-mail)
 
 #+end_src
 
-=mu4e= (mu-for-emacs) is an e-mail client for GNU Emacs version 24.4 or higher, built on top of the =mu= e-mail search engine. mu4e is optimized for quickly processing large amounts of e-mail.
-
-Some of its highlights:
-- Fully search-based: there are no folders, only queries;
-- Fully documented, with example configurations;
-- User-interface optimized for speed, with quick key strokes for common actions;
-- Support for non-English languages (so “angstrom” matches “Ångström”);
-- Asynchronous: heavy actions don’t block emacs;
-- Support for cryptography — signing, encrypting and decrypting;
-- Address auto-completion based on the contacts in your messages;
-- Extendable with your own snippets of elisp.
-
-There's =mu4e-alert= a good package for notifications, a bit buggy, but is working :D.
-
-Last but not least: [[https://github.com/jeremy-compostella/org-msg][org-msg]], an Outlook email style to compose (and reply to) emails, working also for ~Gnus~.
-
 #+include: "lisp/init-mail.el" src emacs-lisp :tangle no
 
-
 ** Reading
+
+I don't like DocView because the rendering is given by images in tmp storage, zoom is "bad" (for me, of course), rendering can be slow, with especially PDFs big.
+My choice is [[https://github.com/vedang/pdf-tools][pdf-tools]], that renders on demand pages, has good quality, and is very comfortable.
 
 #+begin_src emacs-lisp
 
@@ -586,14 +554,11 @@ Last but not least: [[https://github.com/jeremy-compostella/org-msg][org-msg]], 
 
 #+end_src
 
-I don't like DocView because the rendering is given by images in tmp storage, zoom is "bad" (for me, of course), rendering can be slow, with especially PDFs big.
-My choice is [[https://github.com/vedang/pdf-tools][pdf-tools]], that renders on demand pages, has good quality, and is very comfortable.
-
 #+include: "lisp/init-pdf.el" src emacs-lisp :tangle no
 
 ** Terminal
 
-The best terminal emulator in Emacs.
+The "best" terminal emulator in Emacs.
 
 #+begin_src emacs-lisp
 
@@ -637,7 +602,6 @@ Nice mode to control your system (and user) services without leaving Emacs.
 
 #+end_src
 
-
 * End
 
 #+begin_src emacs-lisp
@@ -647,7 +611,6 @@ Nice mode to control your system (and user) services without leaving Emacs.
 #+end_src
 
 This is the end of my =init.el=, and of my configuration.
-
 
 * Useful things
 
@@ -665,16 +628,15 @@ Too many things to learn, but the community is awesome, resources are good, docu
 =C-h=, essentially, self-documentation is useful ;).
 Also EmacsWiki, videos and blog posts, manual, and so on.
 
-
-*** Good people
+*** Good resources
 
 My learning path has been discontinuous, but good enough to learn this beautiful piece of software from 1976 (1984, for GNU Emacs).
 
-- [[https://systemcrafters.cc/][System Crafters]] :: helped me a lot with the series `Emacs from Scratch`, in fact my first configuration was almost a copy-paste of David's configuration...This slowed me down *a lot*.
+- [[https://systemcrafters.cc/][System Crafters]] :: helped me a lot with the series `Emacs from Scratch`, his channel introduced Emacs to me for the first time. My first configuration was almost a copy-paste of David's configuration...This slowed me down *a lot*.
 
-- [[https://protesilaos.com/][Protesilaos Stavrou]] :: is a gold mine, he's a very clever and wonderful person. I appreciate his verbose explanations about any kind of magic trick he does with Emacs.
+- [[https://protesilaos.com/][Protesilaos Stavrou]] :: is a gold mine, he's a very clever, wonderful person. I appreciate his verbose explanations about any kind of magic trick he does with Emacs.
 
-- [[https://www.youtube.com/user/mzamansky][Mike Zamansky]] :: has a series dedicated to Emacs, he works well, and helped me to figure out some obscure matters.
+- [[https://www.youtube.com/user/mzamansky][Mike Zamansky]] :: has a series dedicated to Emacs, and helped me to figure out some obscure matters.
 
 - [[https://www.youtube.com/channel/UCuj_loxODrOPxSsXDfJmpng][Andrew Tropin]] :: helped me on both Emacs and Nix (now he's using Guix), the problem of reproducibility is fascinating, and this guy is really prepared.
 
@@ -682,7 +644,8 @@ My learning path has been discontinuous, but good enough to learn this beautiful
 
 - [[https://github.com/seagle0128][Vincent Zhang]] :: author of [[https://github.com/seagle0128/.emacs.d][Centaur]], really good work.
 
+- [[https://github.com/doomemacs/doomemacs][Doom Emacs]] :: an opinionated distribution of Emacs, providing many modules and optimizations.  
+
 # Local Variables:
-# after-save-hook: org-babel-tangle
 # eval: (org-hugo-auto-export-mode)
 # End:

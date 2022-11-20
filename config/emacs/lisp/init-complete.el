@@ -43,8 +43,8 @@
   (:doc "Minimal vertical completion UI based on the default completion system.")
   (:also-load vertico-repeat vertico-reverse vertico-grid vertico-quick vertico-buffer vertico-multiform vertico-unobtrusive vertico-flat)
   (:option vertico-scroll-margin 0
-	   vertico-count 15
-	   vertico-cycle t)
+     vertico-count 15
+     vertico-cycle t)
   (vertico-mode 1))
 
 ;; Marginalia
@@ -98,18 +98,18 @@
   (:doc "Orderless completion style for your Completion UI/Framework")
 
   (setq completion-styles '(orderless basic)
-	orderless-component-separator 'orderless-escapable-split-on-space
+  orderless-component-separator 'orderless-escapable-split-on-space
         completion-category-defaults nil)
 
   (setq orderless-style-dispatchers
-	'(archer-orderless-literal-dispatcher
-	  archer-orderless-without-literal-dispatcher
-	  archer-orderless-initialism-dispatcher
-	  archer-orderless-flex-dispatcher))
+  '(archer-orderless-literal-dispatcher
+    archer-orderless-without-literal-dispatcher
+    archer-orderless-initialism-dispatcher
+    archer-orderless-flex-dispatcher))
 
   (setq completion-category-overrides
-	'((file (styles . (partial-completion basic orderless)))
-	  (project-file (styles . (partial-completion basic orderless))))))
+  '((file (styles . (partial-completion basic orderless)))
+    (project-file (styles . (partial-completion basic orderless))))))
 
 (provide 'init-complete)
 ;;; init-complete.el ends here

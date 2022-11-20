@@ -12,38 +12,38 @@
 
   (setq mode-line-percent-position '(-3 "%P"))
   (setq mode-line-defining-kbd-macro
-	(propertize " Macro" 'face 'mode-line-emphasis))
+        (propertize " Macro" 'face 'mode-line-emphasis))
 
   (setq-default mode-line-format
-		'("%e"
-		  mode-line-front-space
-		  mode-line-client
-		  "  "
-		  mode-line-mule-info
-		  "  "
-		  mode-line-modified
-		  mode-line-remote
-		  mode-line-frame-identification
-		  mode-line-buffer-identification
-		  "  "
-		  mode-line-position
-		  (vc-mode vc-mode)
-		  "  "
-		  mode-line-modes
-		  mode-line-misc-info
-		  mode-line-end-spaces)))
+                '("%e"
+                  mode-line-front-space
+                  mode-line-client
+                  "  "
+                  mode-line-mule-info
+                  "  "
+                  mode-line-modified
+                  mode-line-remote
+                  mode-line-frame-identification
+                  mode-line-buffer-identification
+                  "  "
+                  mode-line-position
+                  (vc-mode vc-mode)
+                  "  "
+                  mode-line-modes
+                  mode-line-misc-info
+                  mode-line-end-spaces)))
 
 
 ;; <https://github.com/minad/recursion-indicator>.
 (setup (:pkg recursion-indicator)
   (:option recursion-indicator-general (concat "general" (all-the-icons-material "cached" :v-adjust -0.1))
-	   recursion-indicator-minibuffer (concat "minibuffer " (all-the-icons-material "cached" :v-adjust -0.1)))
+           recursion-indicator-minibuffer (concat "minibuffer " (all-the-icons-material "cached" :v-adjust -0.1)))
 
   (setq-default mode-line-modes
-		(seq-filter (lambda (s)
-			      (not (and (stringp s)
-					(string-match-p
-					 "^\\(%\\[\\|%\\]\\)$" s))))
+                (seq-filter (lambda (s)
+                              (not (and (stringp s)
+                                        (string-match-p
+                                         "^\\(%\\[\\|%\\]\\)$" s))))
                             mode-line-modes))
 
   (recursion-indicator-mode 1))
@@ -52,25 +52,25 @@
 (setup (:pkg keycast)
   ;; For `keycast-mode'
   (:option keycast-mode-line-window-predicate #'keycast-active-frame-bottom-right-p
-	   keycast-separator-width 1
-	   keycast-mode-line-remove-tail-elements nil
-	   keycast-mode-line-format "%3s%k%c%r"
-	   keycast-mode-line-insert-after 'mode-line-misc-info)
+           keycast-separator-width 1
+           keycast-mode-line-remove-tail-elements nil
+           keycast-mode-line-format "%3s%k%c%r"
+           keycast-mode-line-insert-after 'mode-line-misc-info)
 
   ;; For `keycast-log-mode'
   (:option keycast-log-format "%-20K%C\n"
-	   keycast-log-newest-first t
-	   keycast-log-frame-alist '((minibuffer . nil)))
+           keycast-log-newest-first t
+           keycast-log-frame-alist '((minibuffer . nil)))
 
   ;; Based on Prot's configuration
   (:when-loaded
     (dolist (input '(self-insert-command
-		     org-self-insert-command))
+                     org-self-insert-command))
       (add-to-list 'keycast-substitute-alist `(,input "." "Typing…")))
 
     (dolist (event '(mouse-event-p
-		     mouse-movement-p
-		     mwheel-scroll))
+                     mouse-movement-p
+                     mwheel-scroll))
       (add-to-list 'keycast-substitute-alist `(,event nil)))))
 
 (provide 'init-modeline)

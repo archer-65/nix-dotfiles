@@ -60,8 +60,8 @@
 
   ;; Preferences
   (:option display-line-numbers-type 'relative
-	   display-line-numbers-width-start nil
-	   display-line-numbers-grow-only t)
+           display-line-numbers-width-start nil
+           display-line-numbers-grow-only t)
 
   ;; Hooks
   (:with-hook (prog-mode-hook text-mode-hook conf-mode-hook)
@@ -82,16 +82,16 @@
     (pixel-scroll-precision-mode 1))
 
   ;; Vertical scroll
-  (setq	scroll-step 1
-	scroll-margin 8
-	;; Reduce cursor lag by a tiny bit by not auto-adjusting `window-vscroll'
-	;; for tall lines.
-	auto-window-vscroll nil)
+  (setq scroll-step 1
+        scroll-margin 8
+        ;; Reduce cursor lag by a tiny bit by not auto-adjusting `window-vscroll'
+        ;; for tall lines.
+        auto-window-vscroll nil)
 
   ;; Horizontal scroll
   (setq hscroll-margin 16
-	hscroll-step 1
-	auto-hscroll-mode t)
+        hscroll-step 1
+        auto-hscroll-mode t)
 
   ;; General tweaks
 
@@ -106,8 +106,8 @@
   ;; during large-scale scrolling commands. If kept over 100, the window is
   ;; never automatically re-centered.
   (setq scroll-conservatively 101
-	scroll-preserve-screen-position t
-	scroll-preserve-screen-position t))
+        scroll-preserve-screen-position t
+        scroll-preserve-screen-position t))
 
 (setup mouse
   ;; Movement related
@@ -115,9 +115,9 @@
   (setq make-pointer-invisible t)
   (setq mouse-autoselect-window t)
 
-   ;; Scroll
+  ;; Scroll
   (setq mouse-wheel-scroll-amount '(3 ((shift) . hscroll))
-	mouse-wheel-scroll-amount-horizontal 2)
+        mouse-wheel-scroll-amount-horizontal 2)
 
   ;; Behavior
   (setq mouse-wheel-follow-mouse t)

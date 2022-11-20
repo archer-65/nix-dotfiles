@@ -8,19 +8,19 @@
 
 ;;; Code:
 
-;; Add load-path
+;; Add load-path for submodules
 (add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
 
-;; We don't want customizations in `init.el`, instead we use `custom.el`.
+;; We don't want user customizations in `init.el`, instead we use `custom.el`
 (setq custom-file (expand-file-name "custom.el" user-emacs-directory))
 
-;; Set the right directory to store the native comp cache
+;; Set a better directory to store the native comp cache
 (when (and (fboundp 'native-comp-available-p)
            (native-comp-available-p))
   (add-to-list 'native-comp-eln-load-path (expand-file-name "var/eln-cache/" user-emacs-directory)))
 
 ;; Disable damn sleep!
-;; Yep, it's mandatory, that's the worst keybind ever.
+;; Yep, it's mandatory, that's the worst keybind ever, and should be remapped
 (global-unset-key (kbd "C-z"))
 
 (defun archer-using-nix-p ()
@@ -39,7 +39,7 @@
           (expand-file-name ".dotfiles/config/emacs/" (getenv "HOME")))
     (expand-file-name user-emacs-directory)))
 
-;; Require package management file.
+;; Require package management file
 (require 'init-packages)
 
 (require 'init-performance)

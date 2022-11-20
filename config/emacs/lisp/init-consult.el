@@ -2,7 +2,7 @@
 
 ;;; Commentary:
 
-;; .
+;; Consult provides commands based on Emacs `completion-read' functionality.  Here my basic configuration and key-bindings.  Totally WIP.
 
 ;;; Code:
 
@@ -12,15 +12,15 @@
 
   ;; C-c bindings (mode specific)
   (:global "C-c h" consult-history
-     "C-c M" consult-mode-command
-     "C-c b" consult-bookmark
-     "C-c k" consult-kmacro)
+           "C-c M" consult-mode-command
+           "C-c b" consult-bookmark
+           "C-c k" consult-kmacro)
 
   ;; C-x bindings
   (:global "C-x M-c" consult-complex-command      ; orig. repeat-complex-command
-     "C-x b"   consult-buffer               ; orig. switch-to-buffer
-     "C-x 4 b" consult-buffer-other-window  ; orig. switch-to-buffer-other-window
-     "C-x 5 b" consult-buffer-other-frame)  ; orig. switch-to-buffer-other-frame
+           "C-x b"   consult-buffer               ; orig. switch-to-buffer
+           "C-x 4 b" consult-buffer-other-window  ; orig. switch-to-buffer-other-window
+           "C-x 5 b" consult-buffer-other-frame)  ; orig. switch-to-buffer-other-frame
 
   ;; [C]-[M]-# bindings for registers
   (:global "C-M-#" consult-register
@@ -67,14 +67,14 @@
   ;; preview for `consult-register', `consult-register-load',
   ;; `consult-register-store' and the Emacs built-ins.
   (:option register-preview-delay 0
-     register-preview-function #'consult-register-format)
+           register-preview-function #'consult-register-format)
 
   ;; Optionally configure the narrowing key.
   (:option consult-narrow-key "<")
 
   ;; Use Consult to select xref locations with preview
   (:option xref-show-xrefs-function #'consult-xref
-     xref-show-definitions-function #'consult-xref)
+           xref-show-definitions-function #'consult-xref)
 
   ;; Optionally configure preview. The default value
   ;; is 'any, such that any key triggers the preview.
@@ -94,11 +94,11 @@
   ;; Use `consult-completion-in-region' if Vertico is enabled.
   ;; Otherwise use the default `completion--in-region' function.
   (setq completion-in-region-function
-  (lambda (&rest args)
+        (lambda (&rest args)
           (apply (if vertico-mode
                      #'consult-completion-in-region
                    #'completion--in-region)
-     args)))
+                 args)))
 
   ;; Optionally tweak the register preview window.
   ;; This adds thin lines, sorting and hides the mode line of the window.

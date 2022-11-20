@@ -2,8 +2,8 @@
 
 ;;; Commentary:
 
-;; OCD, so I have to remove useless whitespace after save or on demand.
-;; Plus, general tab settings.
+;; OCD, so I have to remove useless whitespace after save or on demand, and format all my code.
+;; Plus, general tab settings, tree-sitter support, fancy stuff.
 
 ;;; Code:
 

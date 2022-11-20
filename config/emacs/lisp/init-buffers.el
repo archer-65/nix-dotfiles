@@ -34,64 +34,64 @@
   ;; Use human readable Size column instead of original one
   (define-ibuffer-column size-h
     (:name "Size" :inline t :summarizer
-	         (lambda (column-strings)
-	           (let ((total 0))
-	             (dolist (string column-strings)
-	               (setq total (+ (float (archer-human-readable-file-sizes-to-bytes string))
-			                          total)))
-	             (archer-bytes-to-human-readable-file-sizes total))))
+           (lambda (column-strings)
+             (let ((total 0))
+               (dolist (string column-strings)
+                 (setq total (+ (float (archer-human-readable-file-sizes-to-bytes string))
+                                total)))
+               (archer-bytes-to-human-readable-file-sizes total))))
     (archer-bytes-to-human-readable-file-sizes (buffer-size)))
   ;; Modify the default ibuffer-formats
-  (setq ibuffer-formats
-        '((mark modified read-only locked " "
-	              (name 20 20 :left :elide)
-	              " "
-	              (size-h 11 -1 :right)
-	              " "
-	              (mode 16 16 :left :elide)
-	              " "
-	              filename-and-process)
-	        (mark " "
-	              (name 16 -1)
-	              " " filename)))
+  (:option ibuffer-formats
+           '((mark modified read-only locked " "
+                   (name 20 20 :left :elide)
+                   " "
+                   (size-h 11 -1 :right)
+                   " "
+                   (mode 16 16 :left :elide)
+                   " "
+                   filename-and-process)
+             (mark " "
+                   (name 16 -1)
+                   " " filename)))
   ;; Add groups
-  (setq ibuffer-saved-filter-groups
-        '(("default"
-           ("dired" (mode . dired-mode))
-	   ("git"   (or (mode . magit-mode)
-			(mode . magit-process-mode)
-			(mode . magit-diff-mode)
-			(mode . magit-status-mode)))
-	   ("elisp" (mode . emacs-lisp-mode))
-	   ("c"     (mode . c-mode))
-	   ("c++" (mode . c++-mode))
-	   ("nix" (mode . nix-mode))
-	   ("rust" (mode . rustic-mode))
-	   ("java" (mode . java-mode))
-	   ("telegram"  (or (mode . telega-root-mode)
-			    (mode . telega-mode)
-			    (mode . telega-chat-mode)))
-	   ("documents" (or (name . "\\.pdf")
-			    (name . "\\.org")))
-	   ("mails" (or (mode . notmuch-show-mode)
-			(mode . notmuch-tree-mode)
-			(mode . notmuch-search-mode)
-			(mode . notmuch-message-mode)))
-           ("emacs" (or
-                     (name . "^\\*scratch\\*$")
-                     (name . "^\\*Messages\\*$")
-		     (name . "^\\*Warnings\\*$")
-                     (name . "^\\*straight-process\\*$")
-                     (name . "^\\*dashboard\\*$"))))))
+  (:option ibuffer-saved-filter-groups
+           '(("default"
+              ("dired" (mode . dired-mode))
+              ("git"   (or (mode . magit-mode)
+                           (mode . magit-process-mode)
+                           (mode . magit-diff-mode)
+                           (mode . magit-status-mode)))
+              ("elisp" (mode . emacs-lisp-mode))
+              ("c"     (mode . c-mode))
+              ("c++" (mode . c++-mode))
+              ("nix" (mode . nix-mode))
+              ("rust" (mode . rustic-mode))
+              ("java" (mode . java-mode))
+              ("telegram"  (or (mode . telega-root-mode)
+                               (mode . telega-mode)
+                               (mode . telega-chat-mode)))
+              ("documents" (or (name . "\\.pdf")
+                               (name . "\\.org")))
+              ("mails" (or (mode . notmuch-show-mode)
+                           (mode . notmuch-tree-mode)
+                           (mode . notmuch-search-mode)
+                           (mode . notmuch-message-mode)))
+              ("emacs" (or
+                        (name . "^\\*scratch\\*$")
+                        (name . "^\\*Messages\\*$")
+                        (name . "^\\*Warnings\\*$")
+                        (name . "^\\*straight-process\\*$")
+                        (name . "^\\*dashboard\\*$"))))))
 
-  (setq ibuffer-expert t)
-  (setq ibuffer-display-summary t)
-  (setq ibuffer-show-empty-filter-groups nil)
-  (setq ibuffer-use-other-window nil)
-  (setq ibuffer-movement-cycle t)
-  (setq ibuffer-default-sorting-mode 'filename/process)
-  (setq ibuffer-use-header-line t)
-  (setq ibuffer-default-shrink-to-minimum-size nil)
+  (:option ibuffer-expert t
+           ibuffer-display-summary t
+           ibuffer-show-empty-filter-groups nil
+           ibuffer-use-other-window nil
+           ibuffer-movement-cycle t
+           ibuffer-default-sorting-mode 'filename/process
+           ibuffer-use-header-line t
+           ibuffer-default-shrink-to-minimum-size nil)
 
   (:hook (lambda () (ibuffer-switch-to-saved-filter-groups "default")
            (ibuffer-auto-mode 1)))
@@ -100,9 +100,9 @@
 
 ;;; Unique names for buffers
 (setup (:require uniquify)
-  (setq uniquify-buffer-name-style 'forward)
-  (setq uniquify-strip-common-suffix t)
-  (setq uniquify-after-kill-buffer-p t))
+  (:option uniquify-buffer-name-style 'forward
+           uniquify-strip-common-suffix t
+           uniquify-after-kill-buffer-p t)
 
-(provide 'init-buffers)
+  (provide 'init-buffers)
 ;;; init-buffers.el ends here

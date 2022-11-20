@@ -33,13 +33,10 @@
                       :height archer-font-height
                       :weight 'light))
 
-  ;; (set-face-attribute 'org-modern-symbol nil
-  ;; 		      :family "Iosevka"))
-
 (setup faces
   (:option archer-font-height (if (string-equal (system-name) "quietfrost")
-				  180
-				140))
+                                  180
+                                140))
   ;; Run this hook after we have initialized the first time
   ;; and if we create a new frame from daemonized Emacs.
   (:with-hook (after-init-hook server-after-make-frame-hook)

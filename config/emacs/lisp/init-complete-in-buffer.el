@@ -2,31 +2,9 @@
 
 ;;; Commentary:
 
-;; Corfu/Company and extra Dabbrev configuration if needed.
+;; Corfu completion UI and Cape extensions for better completion at point.
 
 ;;; Code:
-
-;; (setup (:pkg company)
-;;   (:disable)
-;;   (:bind-into lsp-mode-map
-;;     "<tab>" company-indent-or-complete-common)
-;;   (:bind-into company-active-map
-;;     "C-n"  company-select-next
-;;     "C-p"  company-select-previous
-;;     "C-s"  company-filter-candidates
-;;     "C-i"  company-complete-selection
-;;     "<tab>"  company-complete-selection
-;;     "M-d"  company-show-doc-buffer)
-
-;;   (:bind-into company-search-map
-;;     "C-n" company-select-next
-;;     "C-p" company-select-previous)
-
-;;   (:global
-;;    "C-c C-/" company-files
-;;    "C-c y" company-yasnippet)
-
-;;   (:option global-company-mode t))
 
 (setup (:pkg corfu)
   (global-corfu-mode)
@@ -78,7 +56,7 @@ Useful for prompts such as `eval-expression' and `shell-command'."
      corfu-auto t
      corfu-separator ?\s
      corfu-quit-at-boundary nil
-     corfu-quit-no-match 'separator
+     corfu-quit-no-match t
      corfu-preview-current #'insert
      corfu-preselect-first t
      corfu-on-exact-match #'insert

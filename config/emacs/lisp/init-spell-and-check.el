@@ -43,7 +43,7 @@
                   (append flymake-diagnostic-functions
                           (flymake-flycheck-all-chained-diagnostic-functions))))
 
-  (:hooks flymake-mode sanityinc/enable-flymake-flycheck)))
+    (:hooks flymake-mode sanityinc/enable-flymake-flycheck)))
 
 ;; (setup flycheck (:disable) (:pkg flycheck)
 ;;   (:autoload flycheck-list-errors flycheck-buffer)

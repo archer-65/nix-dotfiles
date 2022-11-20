@@ -12,7 +12,7 @@
 
   ;; NOTE: Set this to the folder where you keep your Git repos!
   (:option projectile-project-search-path '("~/projects")
-	   projectile-switch-project-action #'projectile-dired)
+           projectile-switch-project-action #'projectile-dired)
 
   (projectile-mode)
 

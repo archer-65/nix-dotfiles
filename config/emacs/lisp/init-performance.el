@@ -25,13 +25,13 @@
   ;; Reduce *Message* noise at startup. An empty scratch buffer (or the dashboard)
   ;; is more than enough.
   (setq inhibit-startup-screen t
-	inhibit-startup-echo-area-message user-login-name
-	inhibit-default-init t
-	;; Shave seconds off startup time by starting the scratch buffer in
-	;; `fundamental-mode', rather than, say, `org-mode' or `text-mode', which
-	;; pull in a ton of packages.
-	initial-major-mode 'fundamental-mode
-	initial-scratch-message nil)
+        inhibit-startup-echo-area-message user-login-name
+        inhibit-default-init t
+        ;; Shave seconds off startup time by starting the scratch buffer in
+        ;; `fundamental-mode', rather than, say, `org-mode' or `text-mode', which
+        ;; pull in a ton of packages.
+        initial-major-mode 'fundamental-mode
+        initial-scratch-message nil)
 
   ;; Emacs "updates" its ui more often than it needs to, so slow it down slightly
   (setq idle-update-delay 1.0)
