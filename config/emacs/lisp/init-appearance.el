@@ -48,8 +48,8 @@
 
   ;; Dividers
   (setq window-divider-default-right-width 8)
-  (setq window-divider-default-places t)
-  (window-divider-mode 1))
+  (setq window-divider-default-places 'right-only)
+  (window-divider-mode 0))
 
 (setup (:pkg modus-themes)
   ;; Preferences
@@ -101,6 +101,8 @@
 ;; You must run `all-the-icons-install-fonts` the first time.
 (setup (:pkg all-the-icons)
   (:require all-the-icons))
+
+(setup (:pkg ef-themes))
 
 (provide 'init-appearance)
 ;;; init-appearance.el ends here

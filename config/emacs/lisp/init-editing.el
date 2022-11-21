@@ -125,8 +125,13 @@
   (setq mouse-1-click-follows-link t)
   (setq mouse-yank-at-point t))
 
-(setup pairs
-  (electric-pair-mode 1)
+(setup elec-pair
+  (electric-pair-mode 1))
+
+(setup paren
+  (:option show-paren-style 'parenthesis
+           show-paren-when-point-in-periphery t
+           show-paren-when-point-inside-paren nil)
   (show-paren-mode 1))
 
 (setup selection
@@ -159,13 +164,16 @@
 
 (setup (:pkg diff-hl)
   (:hook-into prog-mode)
-  (:with-mode dired-mode
-    (:hook diff-hl-dired-mode))
+
+  (:hooks dired-mode-hook diff-hl-dired-mode)
+
   (:with-after magit
-    (:with-hook magit-pre-refresh-hook
-      (:hook diff-hl-magit-pre-refresh))
-    (:with-hook magit-post-refresh-hook
-      (:hook diff-hl-magit-post-refresh))))
+    (:hooks magit-pre-refresh-hook diff-hl-magit-pre-refresh
+            magit-post-refresh-hook diff-hl-magit-post-refresh)))
+
+(setup long-lines
+  (set-display-table-slot standard-display-table 'truncation (make-glyph-code ?…))
+  (set-display-table-slot standard-display-table 'wrap (make-glyph-code ?↩)))
 
 (provide 'init-editing)
 ;;; init-editing.el ends here
