@@ -44,8 +44,6 @@ targets."
 
 ;; Embark configuration
 (setup (:pkg embark)
-  (:doc "Act near point :D")
-
   (:load-after consult
     (:pkg embark-consult))
 
@@ -64,8 +62,7 @@ targets."
                  (window-parameters (mode-line-format . none)))))
 
 ;; Used for export and edit after ripgrep magic.
-(setup (:pkg wgrep)
-  (:doc "Edit matches in place."))
+(setup (:pkg wgrep))
 
 (provide 'init-embark)
 ;;; init-embark.el ends here

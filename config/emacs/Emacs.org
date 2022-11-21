@@ -7,7 +7,7 @@
 #+HUGO_BASE_DIR: ~/projects/personal-website/
 #+HUGO_SECTION: workflow
 #+HUGO_CATEGORIES: workflow
-#+HUGO_TAGS: emacs
+#+HUGO_TAGS: emacs configuration elisp dotfiles
 #+HUGO_AUTO_SET_LASTMOD: t
 
 * Preface

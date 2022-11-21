@@ -7,7 +7,6 @@
 ;;; Code:
 
 (setup windmove
-  (:doc "Utility to move faster between buffers")
   (windmove-default-keybindings) ; Windmove with shift+arrows
   (:hooks  org-shiftup-final-hook    windmove-up
            org-shiftdown-final-hook  windmove-down

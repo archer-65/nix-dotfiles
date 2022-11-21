@@ -8,7 +8,6 @@
 ;;; Code:
 
 (setup (:pkg format-all)
-  (:doc "Same command to auto-format source code in many languages")
   (:blackout)
   (:hook-into prog-mode)
   (:global "<f1>" format-all-buffer))
@@ -18,11 +17,9 @@
   (global-eldoc-mode 1))
 
 (setup (:pkg rainbow-mode)
-  (:doc "Minor mode to set background of string matching hex colors to the hex color.")
   (:hook-into web-mode json-mode))
 
 (setup (:pkg ethan-wspace)
-  (:doc "Delete useless whitespaces")
   (:blackout)
   (:global "C-c c" ethan-wspace-clean-all)
   (:hook-into prog-mode)

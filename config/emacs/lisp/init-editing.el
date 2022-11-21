@@ -65,7 +65,7 @@
 
   ;; Hooks
   (:with-hook (prog-mode-hook text-mode-hook conf-mode-hook)
-    (:hook (lambda () (display-line-numbers-mode 0))))
+    (:hook (lambda () (display-line-numbers-mode 1))))
   (:with-hook (org-mode-hook)
     (:hook (lambda () (display-line-numbers-mode 0)))))
 

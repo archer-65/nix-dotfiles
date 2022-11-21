@@ -7,7 +7,6 @@
 ;;; Code:
 
 (setup (:pkg projectile)
-  (:doc "Project management and navigation")
   (:blackout)
 
   ;; NOTE: Set this to the folder where you keep your Git repos!
@@ -18,8 +17,10 @@
 
   (:global "C-c C-p" projectile-command-map))
 
+(setup (:pkg direnv)
+  (:hook-into prog-mode))
+
 (setup (:pkg magit)
-  (:doc "Git interface")
   (:autoload magit-status)
   (:option magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1))
 

@@ -69,10 +69,6 @@ The following keyword arguments are also recognized:
                (let ((recipe (cadr sexp)))
                  (or (car-safe recipe) recipe))))
 
-(setup-define :doc
-  (lambda (&rest _) nil)
-  :documentation "The one line doc for the setup package.")
-
 (setup-define :face
   (lambda (face spec) `(custom-set-faces (quote (,face ,spec))))
   :documentation "Customize FACE to SPEC."

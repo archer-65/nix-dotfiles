@@ -23,9 +23,19 @@
   (minibuffer-depth-indicate-mode 1)
   (minibuffer-electric-default-mode 1)
 
+  (defun crm-indicator (args)
+    (cons (format "[CRM%s] %s"
+                  (replace-regexp-in-string
+                   "\\`\\[.*?]\\*\\|\\[.*?]\\*\\'" ""
+                   crm-separator)
+                  (car args))
+          (cdr args)))
+  (advice-add #'completing-read-multiple :filter-args #'crm-indicator)
+
   ;; Do not allow the cursor in the minibuffer prompt
   (setq minibuffer-prompt-properties
         '(read-only t cursor-intangible t face minibuffer-prompt))
+
   (:with-hook minibuffer-setup-hook
     (:hook cursor-intangible-mode)))
 
@@ -40,16 +50,60 @@
 
 ;; Vertico
 (setup (:pkg (vertico :files (:defaults "extensions/*")))
-  (:doc "Minimal vertical completion UI based on the default completion system.")
-  (:also-load vertico-repeat vertico-reverse vertico-grid vertico-quick vertico-buffer vertico-multiform vertico-unobtrusive vertico-flat)
+
+  (:also-load vertico-indexed
+              vertico-flat
+              vertico-grid
+              vertico-mouse
+              vertico-quick
+              vertico-buffer
+              vertico-repeat
+              vertico-reverse
+              vertico-directory
+              vertico-multiform
+              vertico-unobtrusive)
+
   (:option vertico-scroll-margin 0
-     vertico-count 15
-     vertico-cycle t)
-  (vertico-mode 1))
+           vertico-count 12
+           vertico-resize t
+           vertico-cycle t)
+
+  (:bind-into vertico-map
+    "<escape>" #'minibuffer-keyboard-quit)
+
+  (advice-add #'vertico--format-candidate :around
+              (lambda (orig cand prefix suffix index _start)
+                (setq cand (funcall orig cand prefix suffix index _start))
+                (concat
+                 (if (= vertico--index index)
+                     (propertize "λ " 'face 'vertico-current)
+                   "  ")
+                 cand)))
+
+  (:option vertico-multiform-commands
+           '((dired (vertico-sort-function . sort-directories-first))))
+
+  (:option vertico-multiform-categories
+           '((consult-grep buffer)
+             (consult-ripgrep buffer)
+             (consult-git-grep buffer)
+             (consult-find buffer)
+             (file (vertico-sort-function . sort-directories-first))))
+
+  (:hooks rfn-eshadow-update-overlay-hook vertico-directory-tidy
+          minibuffer-setup-hook  vertico-repeat-save)
+
+  ;; Sort directories before files
+  (defun sort-directories-first (files)
+    (setq files (vertico-sort-history-length-alpha files))
+    (nconc (seq-filter (lambda (x) (string-suffix-p "/" x)) files)
+           (seq-remove (lambda (x) (string-suffix-p "/" x)) files)))
+
+  (vertico-mode 1)
+  (vertico-multiform-mode 1))
 
 ;; Marginalia
 (setup (:pkg marginalia)
-  (:doc "Annotations placed at the margin of the minibuffer for completion candidates.")
   (:load-after vertico)
   (:bind-into minibuffer-local-map
     "M-A" marginalia-cycle)
@@ -95,21 +149,19 @@
     (cons 'orderless-flex (substring pattern 0 -1)))))
 
 (setup (:pkg orderless)
-  (:doc "Orderless completion style for your Completion UI/Framework")
-
   (setq completion-styles '(orderless basic)
-  orderless-component-separator 'orderless-escapable-split-on-space
+        orderless-component-separator 'orderless-escapable-split-on-space
         completion-category-defaults nil)
 
   (setq orderless-style-dispatchers
-  '(archer-orderless-literal-dispatcher
-    archer-orderless-without-literal-dispatcher
-    archer-orderless-initialism-dispatcher
-    archer-orderless-flex-dispatcher))
+        '(archer-orderless-literal-dispatcher
+          archer-orderless-without-literal-dispatcher
+          archer-orderless-initialism-dispatcher
+          archer-orderless-flex-dispatcher))
 
   (setq completion-category-overrides
-  '((file (styles . (partial-completion basic orderless)))
-    (project-file (styles . (partial-completion basic orderless))))))
+        '((file (styles . (partial-completion basic orderless)))
+          (project-file (styles . (partial-completion basic orderless))))))
 
 (provide 'init-complete)
 ;;; init-complete.el ends here

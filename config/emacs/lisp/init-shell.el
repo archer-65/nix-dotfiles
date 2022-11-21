@@ -8,13 +8,6 @@
 
 (setup (:pkg vterm (not (archer-using-nix-p)))
   (:autoload vterm vterm-other-window)
-
-  (add-to-list 'display-buffer-alist '("^\\*vterm"
-                                       (display-buffer-in-side-window)
-                                       (window-height . 0.25)
-                                       (side . bottom)
-                                       (slot . 0)))
-
   (:option vterm-buffer-name-string "vterm: %s"
            vterm-max-scrollback 5000
            vterm-kill-buffer-on-exit t))

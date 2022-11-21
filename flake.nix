@@ -16,8 +16,8 @@
     # This to follow another nixpkgs input
     emacs-overlay = {
       url = "github:jeslie0/emacs-overlay";
-      inputs.nixpkgs.url = "github:nixos/nixpkgs/872fceeed60ae6b7766cc0a4cd5bf5901b9098ec";
-      inputs.emacs-overlay.url = "github:nix-community/emacs-overlay?rev=1872c7297d7dfcba2d5f206baa5fcb0094575ad8";
+      inputs.nixpkgs.url = "github:nixos/nixpkgs/52b2ac8ae18bbad4374ff0dd5aeee0fdf1aea739";
+      inputs.emacs-overlay.url = "github:nix-community/emacs-overlay?rev=909b090c1181644ef3def6a37a18e9e3d08d1b07";
     };
 
     vinceliuice-grub-theme = {

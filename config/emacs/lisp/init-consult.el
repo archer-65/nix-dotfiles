@@ -8,7 +8,6 @@
 
 (setup (:pkg consult)
   (:require consult)
-  (:doc "Practical commands based on the Emacs completion function completing-read.")
 
   ;; C-c bindings (mode specific)
   (:global "C-c h" consult-history

@@ -102,7 +102,7 @@
 (setup (:require uniquify)
   (:option uniquify-buffer-name-style 'forward
            uniquify-strip-common-suffix t
-           uniquify-after-kill-buffer-p t)
+           uniquify-after-kill-buffer-p t))
 
-  (provide 'init-buffers)
+(provide 'init-buffers)
 ;;; init-buffers.el ends here

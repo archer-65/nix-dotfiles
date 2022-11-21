@@ -52,7 +52,6 @@
   (:hook archer-org-mode-setup))
 
 (setup (:pkg org-modern)
-  (:doc "Org bullets? Old.")
   (:load-after org)
   (:hook-into org-mode)
   (:face org-modern-symbol ((t (:family "Iosevka"))))
@@ -65,7 +64,6 @@
            org-modern-table-horizontal 0))
 
 (setup (:pkg olivetti)
-  (:doc "Focused writing, like visual-fill-column, but seems better.")
   (:load-after org)
   (:hook-into org-mode)
   (:option olivetti-body-width 0.75
