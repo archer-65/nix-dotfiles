@@ -216,19 +216,6 @@ in {
       '';
     };
 
-    home.sessionVariables = {
-      GDK_BACKEND = "wayland,x11";
-      XDG_SESSION_TYPE = "wayland";
-      XDG_CURRENT_DESKTOP = "sway";
-      SDL_VIDEODRIVER = "wayland";
-      GTK_USE_PORTAL = "1";
-      QT_QPA_PLATFORM = "wayland";
-      QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-      MOZ_ENABLE_WAYLAND = "1";
-      _JAVA_AWT_WM_NONREPARENTING = "1";
-      NIXOS_OZONE_WL = "1";
-    };
-
     mario.modules.desktop = {
       services = {
         dunst.enable = true;

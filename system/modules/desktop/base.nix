@@ -12,6 +12,8 @@ in {
     #This should enable a pam `login` module to unlock gnome-keyring automatically after login.
     security.pam.services.greetd.enableGnomeKeyring = true;
 
+    security.polkit.enable = true;
+
     programs.dconf.enable = true;
     services.dbus = {
       enable = true;
