@@ -80,8 +80,8 @@ in {
           command = "${swaylock}";
         }
       ];
-
-      systemdTarget = "sway-session.target hyprland-session.target";
     };
+
+    systemd.user.services.swayidle.Install = { WantedBy = ["sway-session.target" "hyprland-session.target"]; };
   };
 }

@@ -85,6 +85,7 @@ case $chosen in
                 systemctl stop --user sway-session.target
             elif [[ "$XDG_CURRENT_DESKTOP" =~ "Hyprland" ]]; then
                 hyprctl dispatch -- exit
+                systemctl stop --user hyprland-session.target
             fi
             elif [[ $ans == "N" ]]; then
             exit 0

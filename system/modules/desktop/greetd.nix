@@ -41,9 +41,9 @@ in {
       # Definition of greetd environments
       "greetd/environments".text = ''
         Hyprland
-        sway
         qtile start
       '';
+      # sway
 
       # Greeter style
       "greetd/gtkgreet.css".text = ''

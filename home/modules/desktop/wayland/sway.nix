@@ -285,6 +285,8 @@ in {
         export _JAVA_AWT_WM_NONREPARENTING=1
         export NIXOS_OZONE_WL=1
       '';
+
+      # export GDK_BACKEND=wayland,x11;
     };
 
     xdg.configFile."sov/config".source = "${configDir}/sway/sov";
