@@ -40,8 +40,8 @@ in {
     environment.etc = {
       # Definition of greetd environments
       "greetd/environments".text = ''
-        sway
         Hyprland
+        sway
         qtile start
       '';
 

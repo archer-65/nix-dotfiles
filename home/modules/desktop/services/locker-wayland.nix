@@ -46,29 +46,38 @@ in {
       separator-color=${transparent}
     '';
 
-    services.swayidle = {
+    services.swayidle = let
+      swaylock = "${pkgs.swaylock-effects}/bin/swaylock -fF";
+      hyprctl = "${pkgs.hyprland}/bin/hyprctl";
+      swaymsg = "${pkgs.sway}/bin/swaymsg";
+    in {
       enable = true;
 
       events = [
         {
           event = "before-sleep";
-          command = "${pkgs.swaylock-effects}/bin/swaylock -fF";
+          command = "${swaylock}";
         }
         {
           event = "lock";
-          command = "${pkgs.swaylock-effects}/bin/swaylock -fF";
+          command = "${swaylock}";
         }
       ];
 
       timeouts = [
         {
           timeout = 360;
-          command = "${pkgs.sway}/bin/swaymsg 'output * dpms off'";
-          resumeCommand = "${pkgs.sway}/bin/swaymsg 'output * dpms on'";
+          command = "${swaymsg} 'output * dpms off'";
+          resumeCommand = "${swaymsg} 'output * dpms on'";
+        }
+        {
+          timeout = 360;
+          command = "${hyprctl} 'dispatch dpms off'";
+          resumeCommand = "${hyprctl} 'dispatch dpms on'";
         }
         {
           timeout = 300;
-          command = "${pkgs.swaylock-effects}/bin/swaylock -fF";
+          command = "${swaylock}";
         }
       ];
     };

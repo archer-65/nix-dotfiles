@@ -22,7 +22,14 @@ in {
         {
           height = 36;
 
-          modules-left = ["sway/workspaces"];
+          modules-left =
+          (optionals config.wayland.windowManager.sway.enable [
+            "sway/workspaces"
+            "sway/mode"
+          ]) ++
+          (optionals config.wayland.windowManager.hyprland.enable [
+            "wlr/workspaces"
+          ]);
 
           modules-center = ["clock"];
 
@@ -42,6 +49,10 @@ in {
               "8" = "8";
               "9" = "9";
             };
+          };
+
+          "wlr/workspaces" = {
+            on-click = "activate";
           };
 
           tray = {

@@ -14,7 +14,7 @@ in {
     wm = mkOption {
       description = "An option to choose the window manager [wayland] configuration to enable";
       default = null;
-      type = types.nullOr (types.enum ["sway" "hyprland"]);
+      type = with types; listOf (enum ["sway" "hyprland"]);
       example = "sway";
     };
   };

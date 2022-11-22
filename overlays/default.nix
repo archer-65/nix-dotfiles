@@ -15,23 +15,15 @@ inputs: {
       };
     });
 
+    waybar = prev.waybar.overrideAttrs (oldAttrs: {
+      mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+    });
+
     notmuch-mailmover = inputs.notmuch-mailmover.packages.x86_64-linux.default;
 
     # lieer = prev.lieer.overrideAttrs (old: rec {
     #   pname = "lieer";
     #   patches = (old.patches or []) ++ [ ./gmi-init.patch ];
-    # });
-
-    # See https://github.com/hashicorp/terraform-ls/issues/1067
-    # terraform-ls = prev.terraform-ls.overrideAttrs (old: rec {
-    #   pname = "terraform-ls";
-    #   version = "0.28.1";
-    #   src = final.fetchFromGitHub {
-    #     owner = "hashicorp";
-    #     repo = pname;
-    #     rev = "v${version}";
-    #     sha256 = "sha256-CYbeRhwoffyELM0REZL14m4tTe/66GDToqNKcEfmums=";
-    #   };
     # });
 
     # Not needed since 1.8.7 commit on nixpkgs

@@ -41,7 +41,7 @@
 
       wayland = {
         enable = true;
-        wm = "sway";
+        wm = ["sway" "hyprland"];
       };
 
       term.alacritty.enable = true;
