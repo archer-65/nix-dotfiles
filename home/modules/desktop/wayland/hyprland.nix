@@ -55,18 +55,34 @@ in {
         }
 
         misc {
-          no_vfr=false
+          no_vfr = true
+          enable_swallow = true
+          swallow_regex = ^(Alacritty)$
         }
 
+
+        # Dwindle layout section
         dwindle {
           pseudotile = true
           preserve_split = true
         }
 
+        bind = SUPER, g, togglegroup
+        bind = SUPER, apostrophe, changegroupactive, f
+        bind = SUPERSHIFT, apostrophe, changegroupactive, b
+
+        # Master layout section
         master {
           new_is_master = false
           new_on_top = false
         }
+
+        bind = SUPER, m, layoutmsg, focusmaster
+        bind = SUPERSHIFT, m, layoutmsg, swapwithmaster
+        bind = SUPER, down, layoutmsg, cyclenext
+        bind = SUPER, up, layoutmsg, cycleprev
+        bind = SUPERSHIFT, down, layoutmsg,swapnext
+        bind = SUPERSHIFT, up, layoutmsg, swapprev
 
         monitor = desc:AOC U34G2G4R3 0x0000241D, 3440x1440@144, 0x0, 1
 
@@ -78,7 +94,13 @@ in {
 
         device:ELECOM TrackBall Mouse HUGE TrackBall {
           scroll_method = on_button_down
-          # scroll_button = BTN_TASK
+          scroll_button = 279
+          accel_profile = adaptive
+        }
+
+        input {
+          accel_profile = flat
+          follow_mouse = 1
         }
 
         # Needed
@@ -108,17 +130,15 @@ in {
         windowrulev2 = idleinhibit focus, class:^(mpv)$
         windowrulev2 = idleinhibit fullscreen, class:^(firefox)$
 
-        # mouse movements
-        bindm = SUPER, mouse:272, movewindow
-        bindm = SUPER, mouse:273, resizewindow
-
         exec-once = waybar
         exec = ${pkgs.swaybg}/bin/swaybg -i ~/pics/walls/weebie/wallhaven-j3mmdy.jpg --mode fill;
 
         exec-once = corectrl
         exec-once = polychromatic-tray-applet
 
-        bind = SUPERCONTROL, r, exec, ${hyprctl} reload
+        # Toggle bar
+        bind = SUPERCTRL, F1, exec, ${pkgs.procps}/bin/pkill -USR1 waybar
+        bind = SUPERSHIFT, F1, exec, ${pkgs.procps}/bin/pkill waybar && waybar
 
         bind = SUPERCTRL, d, exec, ${hyprctl} keyword general:layout dwindle
         bind = SUPERCTRL, m, exec, ${hyprctl} keyword general:layout master
@@ -143,25 +163,37 @@ in {
         bind = SUPERSHIFT, 8, movetoworkspace, 08
         bind = SUPERSHIFT, 9, movetoworkspace, 09
 
+        bind = SUPER, h, movefocus, l
+        bind = SUPER, j, movefocus, d
+        bind = SUPER, k, movefocus, u
+        bind = SUPER, l, movefocus, r
+
+        bind = SUPERSHIFT, h, movewindow, l
+        bind = SUPERSHIFT, j, movewindow, d
+        bind = SUPERSHIFT, k,movewindow, u
+        bind = SUPERSHIFT, l, movewindow, r
+
         bind = SUPER, left, workspace, -1
         bind = SUPER, right, workspace, +1
 
         bind = SUPERSHIFT, left, movetoworkspace, -1
         bind = SUPERSHIFT, right, movetoworkspace, +1
 
-        bind = SUPER, w, killactive
+        # Resizing
+        bindm = SUPER, mouse:272, movewindow
+        bindm = SUPER, mouse:273, resizewindow
 
-        bind = SUPER, h, movefocus, l
-        bind = SUPER, j, movefocus, d
-        bind = SUPER, k, movefocus, u
-        bind = SUPER, l, movefocus, r
+        bind = SUPERCTRL, h, resizeactive, -50 0
+        bind = SUPERCTRL, j, resizeactive, 0 -50
+        bind = SUPERCTRL, k, resizeactive, 0 50
+        bind = SUPERCTRL, l, resizeactive, 50 0
+
+        bind = SUPER, w, killactive
 
         bind = SUPER, t, togglefloating
 
-        bind = SUPERSHIFT, h, movewindow, l
-        bind = SUPERSHIFT, j, movewindow, d
-        bind = SUPERSHIFT, k,movewindow, u
-        bind = SUPERSHIFT, l, movewindow, r
+        bind = ,F11, fullscreen, 0
+        bind = SUPER, F11, fullscreen, 1
 
         bind = , XF86AudioRaiseVolume, exec, volume up
         bind = , XF86AudioLowerVolume, exec, volume down

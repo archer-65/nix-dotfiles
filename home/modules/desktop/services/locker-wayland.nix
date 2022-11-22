@@ -80,6 +80,8 @@ in {
           command = "${swaylock}";
         }
       ];
+
+      systemdTarget = "sway-session.target hyprland-session.target";
     };
   };
 }

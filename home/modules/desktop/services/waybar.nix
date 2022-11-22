@@ -9,6 +9,27 @@ with lib; let
   cfg = config.mario.modules.desktop.services.waybar;
   cfgTheme = config.mario.modules.themes;
   inherit (config.colorScheme) colors;
+
+  # Function to simplify making waybar outputs
+  # https://github.com/Misterio77/nix-config/blob/main/home/misterio/features/desktop/common/wayland-wm/waybar.nix
+  jsonOutput = name: {
+    pre ? "",
+    text ? "",
+    tooltip ? "",
+    alt ? "",
+    class ? "",
+    percentage ? "",
+  }: "${pkgs.writeShellScriptBin "waybar-${name}" ''
+    set -euo pipefail
+    ${pre}
+    ${pkgs.jq}/bin/jq -cn \
+      --arg text "${text}" \
+      --arg tooltip "${tooltip}" \
+      --arg alt "${alt}" \
+      --arg class "${class}" \
+      --arg percentage "${percentage}" \
+      '{text:$text,tooltip:$tooltip,alt:$alt,class:$class,percentage:$percentage}'
+  ''}/bin/waybar-${name}";
 in {
   options.mario.modules.desktop.services.waybar = {
     enable = mkEnableOption "waybar configuration";
@@ -21,19 +42,24 @@ in {
       settings = [
         {
           height = 36;
+          layer = "top";
 
           modules-left =
-          (optionals config.wayland.windowManager.sway.enable [
-            "sway/workspaces"
-            "sway/mode"
-          ]) ++
-          (optionals config.wayland.windowManager.hyprland.enable [
-            "wlr/workspaces"
-          ]);
+            [
+              "custom/menu"
+              "idle_inhibitor"
+            ]
+            ++ (optionals config.wayland.windowManager.sway.enable [
+              "sway/workspaces"
+              "sway/mode"
+            ])
+            ++ (optionals config.wayland.windowManager.hyprland.enable [
+              "wlr/workspaces"
+            ]);
 
           modules-center = ["clock"];
 
-          modules-right = ["tray" "cpu" "temperature" "memory" "pulseaudio"];
+          modules-right = ["tray" "cpu" "temperature" "memory" "pulseaudio" "custom/hostname"];
 
           "sway/workspaces" = {
             all-outputs = true;
@@ -53,6 +79,28 @@ in {
 
           "wlr/workspaces" = {
             on-click = "activate";
+          };
+
+          idle_inhibitor = {
+            format = "{icon}";
+            format-icons = {
+              activated = "零";
+              deactivated = "鈴";
+            };
+          };
+
+          "custom/hostname" = {
+            exec = "echo $USER@$(hostname)";
+            on-click = "alacritty";
+          };
+
+          "custom/menu" = {
+            return-type = "json";
+            exec = jsonOutput "menu" {
+              text = "";
+              tooltip = ''$(cat /etc/os-release | grep PRETTY_NAME | cut -d '"' -f2)'';
+            };
+            on-click = "rofi-powermenu";
           };
 
           tray = {
@@ -112,9 +160,33 @@ in {
         * {
             border: none;
             border-radius: 0;
-            font-family: "Iosevka", "Material Design Icons";
-            font-size: 22px;
+            font-family: "Iosevka Nerd Font", "Material Design Icons";
+            font-size: 20px;
             font-weight: normal;
+        }
+
+        #custom-menu {
+           background-color: #${colors.base0C};
+            color: #${colors.base00};
+            margin-top: 5px;
+            margin-bottom: 5px;
+            margin-left: 2px;
+            margin-right: 2px;
+            padding-left: 12px;
+            padding-right: 22px;
+            border-radius: 14px;
+        }
+
+        #custom-hostname {
+            background-color: #${colors.base0C};
+            color: #${colors.base00};
+            margin-top: 5px;
+            margin-bottom: 5px;
+            margin-left: 5px;
+            margin-right: 2px;
+            padding-left: 12px;
+            padding-right: 14px;
+            border-radius: 14px;
         }
 
         tooltip {
@@ -131,15 +203,25 @@ in {
             transition-duration: 0.5s;
         }
 
-        #workspaces {
+        #idle_inhibitor {
+            margin-top: 5px;
+            margin-bottom: 5px;
             margin-left: 2px;
             margin-right: 2px;
+            padding-left: 12px;
+            padding-right: 22px;
+            border-radius: 14px;
+        }
+
+        #workspaces {
+            margin-left: 4px;
+            margin-right: 4px;
         }
 
         #workspaces button {
             background: #${colors.base02};
             color: #${colors.base07};
-            padding: 1px 4px;
+            padding: 0 8px;
             margin-top: 5px;
             margin-bottom: 5px;
             margin-left: 2px;
@@ -157,14 +239,14 @@ in {
         #workspaces button.active {
             background-color: #${colors.base0B};
             color: #${colors.base00};
-            padding: 1px 6px;
+            padding: 0 12px;
             transition-duration: 0.2s;
         }
 
         #workspaces button.focused {
             background-color: #${colors.base0B};
             color: #${colors.base00};
-            padding: 1px 6px;
+            padding: 0 12px;
             transition-duration: 0.2s;
         }
 
@@ -179,7 +261,7 @@ in {
         #memory,
         #pulseaudio,
         #clock {
-            padding: 2px 10px;
+            padding: 0 10px;
             color: #${colors.base07};
             margin-top: 5px;
             margin-bottom: 5px;
