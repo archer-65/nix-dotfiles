@@ -120,6 +120,9 @@ in {
 
         bind = SUPERCONTROL, r, exec, ${hyprctl} reload
 
+        bind = SUPERCTRL, d, exec, ${hyprctl} keyword general:layout dwindle
+        bind = SUPERCTRL, m, exec, ${hyprctl} keyword general:layout master
+
         bind = SUPER, 1, workspace, 01
         bind = SUPER, 2, workspace, 02
         bind = SUPER, 3, workspace, 03
