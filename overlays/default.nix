@@ -21,11 +21,6 @@ inputs: {
 
     notmuch-mailmover = inputs.notmuch-mailmover.packages.x86_64-linux.default;
 
-    # lieer = prev.lieer.overrideAttrs (old: rec {
-    #   pname = "lieer";
-    #   patches = (old.patches or []) ++ [ ./gmi-init.patch ];
-    # });
-
     # Not needed since 1.8.7 commit on nixpkgs
     # tdlib = prev.tdlib.overrideAttrs (old: rec {
     #   version = "1.8.7";

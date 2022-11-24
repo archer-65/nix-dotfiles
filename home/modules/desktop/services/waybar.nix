@@ -59,7 +59,7 @@ in {
 
           modules-center = ["clock"];
 
-          modules-right = ["tray" "cpu" "temperature" "memory" "pulseaudio" "custom/hostname"];
+          modules-right = ["tray" "temperature" "cpu" "memory" "pulseaudio" "custom/hostname"];
 
           "sway/workspaces" = {
             all-outputs = true;
@@ -122,7 +122,7 @@ in {
           };
 
           temperature = {
-            hwmon-path = "/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon3/temp1_input";
+            hwmon-path = "/sys/class/hwmon/hwmon3/temp1_input";
             format = "󰔏 {temperatureC}°C";
             format-critical = "󱃂 {temperatureC}°C";
             critical-threshold = 80;
@@ -160,7 +160,7 @@ in {
         * {
             border: none;
             border-radius: 0;
-            font-family: "Iosevka Nerd Font", "Material Design Icons";
+            font-family: "Iosevka Nerd Font";
             font-size: 20px;
             font-weight: normal;
         }
