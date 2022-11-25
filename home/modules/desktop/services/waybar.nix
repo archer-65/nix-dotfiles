@@ -79,6 +79,8 @@ in {
 
           "wlr/workspaces" = {
             on-click = "activate";
+            on-scroll-up = "hyprctl dispatch workspace e+1";
+            on-scroll-down = "hyprctl dispatch workspace e-1";
           };
 
           idle_inhibitor = {
