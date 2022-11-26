@@ -11,14 +11,14 @@
     };
 
     # This for direct use of the overlay
-    # emacs-overlay.url = "github:nix-community/emacs-overlay?rev=977b205ab9ce857f3440dff2a114a35bf2758c05";
+    emacs-overlay.url = "github:nix-community/emacs-overlay?rev=4b6569a054e693a9a7d6eef423fac9b506961b76";
 
     # This to follow another nixpkgs input
-    emacs-overlay = {
-      url = "github:jeslie0/emacs-overlay";
-      inputs.nixpkgs.url = "github:nixos/nixpkgs/52b2ac8ae18bbad4374ff0dd5aeee0fdf1aea739";
-      inputs.emacs-overlay.url = "github:nix-community/emacs-overlay?rev=909b090c1181644ef3def6a37a18e9e3d08d1b07";
-    };
+    # emacs-overlay = {
+    #   url = "github:jeslie0/emacs-overlay";
+    #   inputs.nixpkgs.url = "github:nixos/nixpkgs/52b2ac8ae18bbad4374ff0dd5aeee0fdf1aea739";
+    #   inputs.emacs-overlay.url = "github:nix-community/emacs-overlay?rev=909b090c1181644ef3def6a37a18e9e3d08d1b07";
+    # };
 
     vinceliuice-grub-theme = {
       url = "github:vinceliuice/grub2-themes";

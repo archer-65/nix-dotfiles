@@ -25,7 +25,7 @@ in {
     # Setup yubikey
     services.udev.packages = [pkgs.yubikey-personalization];
     services.pcscd.enable = true;
-    environment.systemPackages = with pkgs; [yubioath-desktop yubikey-manager yubikey-manager-qt yubikey-touch-detector yubikey-personalization-gui];
+    environment.systemPackages = with pkgs; [yubikey-manager yubikey-manager-qt yubikey-touch-detector yubikey-personalization-gui];
 
     # https://github.com/mstrangfeld/nixos-configuration/blob/15f8d6bec7ce27d0cf3fefec4be96ad6bee9522f/modules/desktop/yubikey/default.nix
     systemd.user.services.yubikey-touch-detector = {
@@ -35,7 +35,7 @@ in {
       serviceConfig = {
         ExecStart = "${pkgs.yubikey-touch-detector}/bin/yubikey-touch-detector -v --libnotify";
       };
-      wantedBy = ["multi-user.target"];
+      wantedBy = ["default.target"];
     };
 
     systemd.user.sockets.yubikey-touch-detector = {
@@ -44,7 +44,7 @@ in {
         ListenStream = "%t/yubikey-touch-detector.socket";
         RemoveOnStop = "yes";
       };
-      wantedBy = ["multi-user.target"];
+      wantedBy = ["default.target"];
     };
   };
 }

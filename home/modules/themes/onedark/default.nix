@@ -7,6 +7,9 @@
 }:
 with lib; let
   cfg = config.mario.modules.themes;
+
+  inherit (nix-colors.lib-contrib { inherit pkgs; }) gtkThemeFromScheme;
+
   theme =
     if cfg.darkTheme
     then "Materia-dark-compact"
@@ -27,8 +30,10 @@ in {
       enable = true;
 
       theme = {
-        name = theme;
-        package = pkgs.materia-theme;
+        # name = theme;
+        name = "${config.colorscheme.slug}";
+        # package = pkgs.materia-theme;
+        package = gtkThemeFromScheme { scheme = config.colorscheme; };
       };
 
       iconTheme = {
