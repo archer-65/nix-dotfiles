@@ -50,7 +50,7 @@ in {
           enabled = true
           animation = windows, 1, 4, default, slide
           animation = border, 1, 5, default
-          animation = fade, 1, 7, default
+          animation = fade, 1, 0.1, default
           animation = workspaces, 1, 2, default, fade
         }
 

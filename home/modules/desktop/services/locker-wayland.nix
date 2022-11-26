@@ -13,7 +13,9 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.packages = with pkgs; [swaylock-effects];
+    home.packages = with pkgs; [
+      swaylock-effects
+    ];
 
     xdg.configFile."swaylock/config".text = let
       transparent = "#00000000";

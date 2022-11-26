@@ -6,12 +6,24 @@ inputs: {
 
   # Overlays for various pkgs (e.g. broken, not updated)
   modifications = final: prev: {
-    discord = prev.discord.overrideAttrs (old: rec {
-      version = "0.0.20";
+    # discord = prev.discord.overrideAttrs (old: rec {
+    #   version = "0.0.20";
 
-      src = final.fetchurl {
-        url = "https://dl.discordapp.net/apps/linux/${version}/discord-${version}.tar.gz";
-        sha256 = "BBc4n6Q3xuBE13JS3gz/6EcwdOWW57NLp2saOlwOgMI=";
+    #   src = final.fetchurl {
+    #     url = "https://dl.discordapp.net/apps/linux/${version}/discord-${version}.tar.gz";
+    #     sha256 = "BBc4n6Q3xuBE13JS3gz/6EcwdOWW57NLp2saOlwOgMI=";
+    #   };
+    # });
+
+    swaylock-effects = prev.swaylock-effects.overrideAttrs (old: rec {
+      pname = "swaylock-effects";
+      version = "1.6.10";
+
+      src = final.fetchFromGitHub {
+        owner = "jirutka";
+        repo = "swaylock-effects";
+        rev = "b2736c5bef3add118183654305d05903c5947668";
+        sha256 = "sha256-umxEwegKuJd/DUjaUQ88lbcQNxSY99yepBnQaFr3fDI=";
       };
     });
 
