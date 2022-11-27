@@ -33,15 +33,14 @@ inputs: {
 
     notmuch-mailmover = inputs.notmuch-mailmover.packages.x86_64-linux.default;
 
-    # Not needed since 1.8.7 commit on nixpkgs
-    # tdlib = prev.tdlib.overrideAttrs (old: rec {
-    #   version = "1.8.7";
-    #   src = final.fetchFromGitHub {
-    #     owner = "tdlib";
-    #     repo = "td";
-    #     rev = "a7a17b34b3c8fd3f7f6295f152746beb68f34d83";
-    #     sha256 = "sha256-Rv96dZPQruJlXoZaQQ8QWbjEdvYljE9XjDUfa2cCpig=";
-    #   };
-    # });
+    tdlib = prev.tdlib.overrideAttrs (old: rec {
+      version = "1.8.8";
+      src = final.fetchFromGitHub {
+        owner = "tdlib";
+        repo = "td";
+        rev = "bbe37ee594d97f3c7820dd23ebcd9c9b8dac51a0";
+        sha256 = "sha256-jLJglvq+7f+zCoanDRTFpUsH/M1Qf7PWJ1JjvmZsa24==";
+      };
+    });
   };
 }
