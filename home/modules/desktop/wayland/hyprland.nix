@@ -122,8 +122,9 @@ in {
         windowrulev2 = float, class:^(firefox)$, title:^(Picture-in-Picture)
         windowrulev2 = pin, class:^(firefox)$, title:^(Picture-in-Picture)
 
-        windowrulev2 = float, title:^(Firefox — Sharing Indicator)$
-        windowrulev2 = pin, title:^(Firefox — Sharing Indicator)$
+        windowrulev2 = workspacesilent special:trash, title:^(Firefox — Sharing Indicator)$
+        # windowrulev2 = float, title:^(Firefox — Sharing Indicator)$
+        # windowrulev2 = pin, title:^(Firefox — Sharing Indicator)$
         # windowrulev2 = move 100%-20, title:^(Firefox — Sharing Indicator)$
 
         # idle inhibit while watching videos
@@ -178,6 +179,9 @@ in {
 
         bind = SUPERSHIFT, left, movetoworkspace, -1
         bind = SUPERSHIFT, right, movetoworkspace, +1
+
+        bind = SUPERSHIFT, backslash, movetoworkspace, special
+        bind = SUPER, backslash, togglespecialworkspace
 
         # Resizing
         bindm = SUPER, mouse:272, movewindow

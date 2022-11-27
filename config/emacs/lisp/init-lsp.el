@@ -112,7 +112,7 @@
   ;; List of modes and servers
   (:when-loaded
     (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
-    (add-to-list 'eglot-server-programs '(terraform-mode . ("terraform-ls")))
+    (add-to-list 'eglot-server-programs '(terraform-mode . ("terraform-ls" "serve")))
     (add-to-list 'eglot-server-programs `(nix-mode . ,(eglot-alternatives '(("nil")
                                                                             ("rnix-lsp"))))))
   ;; Hooks
