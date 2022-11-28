@@ -29,8 +29,6 @@
 
     nix-colors.url = "github:misterio77/nix-colors";
 
-    webcord.url = "github:fufexan/webcord-flake";
-
     notmuch-mailmover.url = "github:michaeladler/notmuch-mailmover";
   };
 

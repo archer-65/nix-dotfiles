@@ -61,6 +61,7 @@
       emacs = {
         enable = true;
         daemon.enable = true;
+        telega.enable = true;
       };
 
       # android.enable = true;

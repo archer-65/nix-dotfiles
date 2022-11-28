@@ -5,7 +5,7 @@
   ...
 }:
 with builtins; let
-  inherit (inputs) nixpkgs home-manager emacs-overlay hyprland nix-colors webcord;
+  inherit (inputs) nixpkgs home-manager emacs-overlay hyprland nix-colors;
   inherit (flake-self) overlays homeModules sharedModules;
 
   genConfiguration = home: {
@@ -41,7 +41,6 @@ with builtins; let
           "${configurations}/common.nix"
         ]
         ++ [hyprland.homeManagerModules.default]
-        ++ [webcord.homeManagerModules.default]
         ++ attrValues homeModules.${username}
         ++ attrValues sharedModules;
 

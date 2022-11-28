@@ -7,12 +7,12 @@
 }:
 with lib; let
   cfg = config.mario.modules.editors.emacs;
-  cfgWayland = config.mario.modules.desktop.wayland;
   inherit (config.dotfiles) configDir;
 in {
   options.mario.modules.editors.emacs = {
     enable = mkEnableOption "emacs and its configuration";
     daemon.enable = mkEnableOption "emacs daemon";
+    telega.enable = mkEnableOption "telegram client";
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -21,7 +21,11 @@ in {
         enable = true;
         package = pkgs.emacsPgtkNativeComp;
 
-        extraPackages = epkgs: [epkgs.vterm  epkgs.melpaPackages.telega];
+        extraPackages = epkgs: [
+          epkgs.vterm
+        ] ++ (optionals cfg.telega.enable [
+          epkgs.melpaPackages.telega
+        ]);
       };
 
       xdg.configFile."emacs" = {

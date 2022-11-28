@@ -5,7 +5,11 @@
 }: {
   mario.modules = {
     credentials = {
-      gpg.enable = true;
+      gpg = {
+        enable = true;
+        signing.enable = true;
+        signing.key = "mario.liguori.056@gmail.com";
+      };
       mail-defaults.enable = true;
       bitwarden.enable = true;
     };
@@ -19,19 +23,23 @@
 
       browsers = {firefox.enable = true;};
 
-      media.documents = {
-        # zathura.enable = true;
+      media = {
+        documents = {
+          zathura.enable = true;
+        };
+
+        videos.enable = true;
       };
 
-      xorg = {
-        enable = true;
-        qtile.enable = true;
-      };
-
-      # wayland = {
+      # xorg = {
       #   enable = true;
-      #   sway.enable = true;
+      #   wm = "qtile";
       # };
+
+      wayland = {
+        enable = true;
+        wm = ["sway" "hyprland"];
+      };
 
       term.alacritty.enable = true;
     };
@@ -83,17 +91,26 @@
   xdg.userDirs = {
     enable = true;
     createDirectories = true;
-    desktop = "${config.home.homeDirectory}/desktop";
+
+    # These are useless to me
+    desktop = null;
+    publicShare = null;
+    templates = null;
+
     documents = "${config.home.homeDirectory}/docs";
     download = "${config.home.homeDirectory}/dl";
     music = "${config.home.homeDirectory}/music";
     pictures = "${config.home.homeDirectory}/pics";
     videos = "${config.home.homeDirectory}/videos";
-    publicShare = "${config.home.homeDirectory}";
-    templates = "${config.home.homeDirectory}";
 
     extraConfig = {
       XDG_PROJECTS_DIR = "${config.home.homeDirectory}/projects";
+      XDG_GAMES_DIR = "${config.home.homeDirectory}/games";
+      XDG_MAILS_DIR = "${config.home.homeDirectory}/mails";
     };
+  };
+
+  services = {
+    keybase.enable = true;
   };
 }
