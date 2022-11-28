@@ -69,6 +69,7 @@
 
     themes = {
       active = "onedark";
+      darkTheme = true;
 
       font = {
         name = "Roboto";
