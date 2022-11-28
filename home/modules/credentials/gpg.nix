@@ -25,7 +25,7 @@ in {
         {
           source = builtins.fetchurl {
             url = "https://keybase.io/archer65/pgp_keys.asc";
-            sha256 = "sha256:1ssx47r0rwp06g3saf3miff31q9qxsygz9j891lm43axd5m2an5v";
+            sha256 = "sha256:0yrsry26mfzrdymv0i7f8jhkkr3j089619lr6bmz0l6n4siixxk3";
           };
           trust = 5;
         }
