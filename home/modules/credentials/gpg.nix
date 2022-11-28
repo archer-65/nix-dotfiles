@@ -24,8 +24,9 @@ in {
       publicKeys = [
         {
           source = builtins.fetchurl {
-            url = "https://keybase.io/archer65/pgp_keys.asc";
-            sha256 = "sha256:1ssx47r0rwp06g3saf3miff31q9qxsygz9j891lm43axd5m2an5v";
+            # Without fingerprint the hash changes
+            url = "https://keybase.io/archer65/pgp_keys.asc?fingerprint=2080983ce6822c29c09f8d5ebac570b2172822a3";
+            sha256 = "sha256:0yrsry26mfzrdymv0i7f8jhkkr3j089619lr6bmz0l6n4siixxk3";
           };
           trust = 5;
         }
