@@ -59,7 +59,7 @@ in {
 
           modules-center = ["clock"];
 
-          modules-right = ["tray" "temperature" "cpu" "memory" "pulseaudio" "custom/hostname"];
+          modules-right = ["tray" "temperature" "cpu" "memory" "pulseaudio" "battery" "custom/hostname"];
 
           "sway/workspaces" = {
             all-outputs = true;
@@ -134,6 +134,14 @@ in {
           memory = {
             format = "󰍛 {used:0.1f}GB/{total:0.1f}GB ";
             interval = 10;
+          };
+
+          battery = {
+            bat = "BAT1";
+            interval = 30;
+            format-icons = [ "" "" "" "" "" "" "" "" "" "" ];
+            format = "{icon} {capacity}%";
+            format-charging = " {capacity}%";
           };
 
           pulseaudio = {
@@ -261,6 +269,7 @@ in {
         #cpu,
         #temperature,
         #memory,
+        #battery,
         #pulseaudio,
         #clock {
             padding: 0 10px;
@@ -302,6 +311,12 @@ in {
         /* Memory */
         #memory {
             background-color: #${colors.base0B};
+            color: #${colors.base00};
+        }
+
+        /* Battery */
+        #battery {
+            background-color: #${colors.base0A};
             color: #${colors.base00};
         }
 

@@ -78,12 +78,19 @@
 
       font.term = {
         name = "VictorMono Nerd Font";
-        size = 12;
+        size = 14;
       };
 
       font.alt = {
         name = "Fira Code";
         size = 12;
+      };
+
+      bar = {
+        font = {
+          name = "Iosevka Nerd Font";
+          size = 14;
+        };
       };
     };
   };

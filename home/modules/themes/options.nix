@@ -32,8 +32,8 @@ in {
       '';
     };
 
+    # GTK & Co.
     font = {
-      # GTK & Co.
       name = mkOption {
         type = str;
         default = "Sans";
@@ -74,6 +74,20 @@ in {
     cursor.size = mkOption {
       type = int;
       default = 16;
+    };
+
+    bar = {
+      font = {
+        name = mkOption {
+          type = str;
+          default = "Monospace";
+        };
+
+        size = mkOption {
+          type = int;
+          default = 12;
+        };
+      };
     };
   };
 
