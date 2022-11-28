@@ -11,7 +11,11 @@
 
   ;; Load and enable corfu-history
   (load "extensions/corfu-history")
+  (load "extensions/corfu-popupinfo")
+
   (corfu-history-mode)
+  (corfu-popupinfo-mode)
+
   (add-to-list 'savehist-additional-variables 'corfu-history)
 
   ;; TAB cycle if there are only few candidates
@@ -62,15 +66,12 @@ Useful for prompts such as `eval-expression' and `shell-command'."
      corfu-on-exact-match #'insert
      corfu-echo-documentation 0.25
      corfu-min-width 30
-     corfu-scroll-margin 5))
+     corfu-scroll-margin 5)
 
-(setup (:pkg corfu-doc)
-  (:load-after corfu)
-  (:bind-into corfu-map
-    "M-p" corfu-doc-scroll-down
-    "M-n" corfu-doc-scroll-up
-    "M-d" corfu-doc-toggle)
-  (:hook-into corfu-mode))
+  (:bind-into corfu-popupinfo-map
+    "M-p" corfu-popupinfo-scroll-down
+    "M-n" corfu-popupinfo-scroll-up
+    "M-d" corfu-popupinfo-toggle))
 
 (setup (:pkg kind-icon)
   (:load-after corfu

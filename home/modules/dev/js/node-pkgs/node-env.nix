@@ -117,12 +117,11 @@
 
   # Recursively composes the dependencies of a package
   composePackage = {
-    name,
     packageName,
     src,
     dependencies ? [],
     ...
-  } @ args:
+  }:
     builtins.addErrorContext "while evaluating node package '${packageName}'" ''
       installPackage "${packageName}" "${src}"
       ${includeDependencies {inherit dependencies;}}
@@ -212,7 +211,7 @@
     dependencies ? [],
     production ? true,
     ...
-  } @ args: ''
+  }: ''
     if [ -d "${packageName}" ]
     then
         cd "${packageName}"
@@ -426,7 +425,6 @@
     name,
     packageName,
     version ? null,
-    dependencies ? [],
     buildInputs ? [],
     production ? true,
     npmFlags ? "",
@@ -616,19 +614,9 @@
   # Builds a development shell
   buildNodeShell = {
     name,
-    packageName,
     version ? null,
-    src,
     dependencies ? [],
     buildInputs ? [],
-    production ? true,
-    npmFlags ? "",
-    dontNpmInstall ? true,
-    bypassCache ? false,
-    reconstructLock ? false,
-    dontStrip ? true,
-    unpackPhase ? "true",
-    buildPhase ? "true",
     ...
   } @ args: let
     nodeDependencies = buildNodeDependencies args;

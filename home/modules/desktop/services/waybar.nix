@@ -59,7 +59,20 @@ in {
 
           modules-center = ["clock"];
 
-          modules-right = ["tray" "temperature" "cpu" "memory" "pulseaudio" "battery" "custom/hostname"];
+          modules-right =
+            [
+              "tray"
+              "temperature"
+              "cpu"
+              "memory"
+              "pulseaudio"
+            ]
+            ++ (optionals (cfgTheme.bar.battery != null) [
+              "battery"
+            ])
+            ++ [
+              "custom/hostname"
+            ];
 
           "sway/workspaces" = {
             all-outputs = true;
@@ -136,10 +149,10 @@ in {
             interval = 10;
           };
 
-          battery = {
-            bat = "BAT1";
+          battery = optionalAttrs (cfgTheme.bar.battery != null) {
+            bat = "${cfgTheme.bar.battery}";
             interval = 30;
-            format-icons = [ "" "" "" "" "" "" "" "" "" "" ];
+            format-icons = ["" "" "" "" "" "" "" "" "" ""];
             format = "{icon} {capacity}%";
             format-charging = " {capacity}%";
           };
@@ -170,8 +183,8 @@ in {
         * {
             border: none;
             border-radius: 0;
-            font-family: "Iosevka Nerd Font";
-            font-size: 20px;
+            font-family: "${cfgTheme.bar.font.name}";
+            font-size: ${toString cfgTheme.bar.font.size}px;
             font-weight: normal;
         }
 

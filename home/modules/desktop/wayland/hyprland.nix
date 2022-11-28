@@ -1,14 +1,11 @@
 {
   config,
-  options,
   lib,
   pkgs,
   ...
 }:
 with lib; let
   cfg = config.mario.modules.desktop.wayland;
-  cfgTheme = config.mario.modules.themes;
-  inherit (config.dotfiles) configDir;
   inherit (config.colorScheme) colors;
 in {
   config = mkIf (cfg.enable && (elem "hyprland" cfg.wm)) {
@@ -52,6 +49,11 @@ in {
           animation = border, 1, 5, default
           animation = fade, 1, 0.1, default
           animation = workspaces, 1, 2, default, fade
+        }
+
+        gestures {
+          workspace_swipe = true
+          workspace_swipe_fingers = 3
         }
 
         misc {

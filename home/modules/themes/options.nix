@@ -88,6 +88,11 @@ in {
           default = 12;
         };
       };
+
+      battery = mkOption {
+        type = nullOr str;
+        default = null;
+      };
     };
   };
 

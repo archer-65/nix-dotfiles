@@ -2,7 +2,6 @@
   pkgs,
   config,
   lib,
-  options,
   ...
 }:
 with lib; let

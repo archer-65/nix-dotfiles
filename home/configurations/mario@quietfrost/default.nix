@@ -1,6 +1,5 @@
 {
   config,
-  pkgs,
   ...
 }: {
   mario.modules = {
@@ -99,7 +98,14 @@
         size = 14;
       };
 
-      cursor = {size = 24;};
+      bar = {
+        font = {
+          name = "Iosevka Nerd Font";
+          size = 20;
+        };
+      };
+
+      cursor.size = 24;
     };
   };
 

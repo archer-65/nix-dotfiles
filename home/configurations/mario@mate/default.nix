@@ -1,6 +1,5 @@
 {
   config,
-  pkgs,
   ...
 }: {
   mario.modules = {
@@ -91,6 +90,8 @@
           name = "Iosevka Nerd Font";
           size = 14;
         };
+
+        battery = "BAT1";
       };
     };
   };

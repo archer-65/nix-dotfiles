@@ -44,4 +44,4 @@ with builtins; let
         ++ attrValues sharedModules;
     };
 in
-  hostSet: lib.mapAttrs genConfiguration hostSet
+  lib.mapAttrs genConfiguration

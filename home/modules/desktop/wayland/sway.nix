@@ -1,6 +1,5 @@
 {
   config,
-  options,
   lib,
   pkgs,
   ...
@@ -9,7 +8,6 @@ with lib; let
   cfg = config.mario.modules.desktop.wayland;
   cfgTheme = config.mario.modules.themes;
   inherit (config.dotfiles) configDir;
-  inherit (config.colorScheme) colors;
 in {
   config = mkIf (cfg.enable && (elem "sway" cfg.wm)) {
     wayland.windowManager.sway = {

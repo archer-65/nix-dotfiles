@@ -49,4 +49,4 @@ with builtins; let
       };
     };
 in
-  homeSet: lib.mapAttrs genConfiguration homeSet
+  lib.mapAttrs genConfiguration
