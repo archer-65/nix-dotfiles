@@ -69,6 +69,7 @@
 
     themes = {
       active = "onedark";
+      darkTheme = true;
 
       font = {
         name = "Roboto";
@@ -88,7 +89,7 @@
       bar = {
         font = {
           name = "Iosevka Nerd Font";
-          size = 14;
+          size = 16;
         };
 
         battery = "BAT1";
