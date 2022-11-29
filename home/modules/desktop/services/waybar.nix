@@ -137,7 +137,7 @@ in {
           };
 
           temperature = {
-            hwmon-path = "/sys/class/hwmon/hwmon3/temp1_input";
+            hwmon-path = "/sys/class/hwmon/hwmon2/temp4_input";
             format = "󰔏 {temperatureC}°C";
             format-critical = "󱃂 {temperatureC}°C";
             critical-threshold = 80;
