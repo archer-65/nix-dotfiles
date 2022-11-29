@@ -92,15 +92,6 @@ in {
         inherit (cfg.ui.font) name;
         inherit (cfg.ui.font) size;
       };
-
-      gtk3.extraConfig = let
-        val =
-          if cfg.darkTheme
-          then 1
-          else 0;
-      in {
-        gtk-application-prefer-dark-theme = val;
-      };
     };
 
     home.pointerCursor = {

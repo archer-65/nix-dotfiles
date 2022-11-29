@@ -104,5 +104,16 @@ in {
       qt5ct
     ];
     home.sessionVariables = {QT_QPA_PLATFORMTHEME = "qt5ct";};
+
+    gtk = {
+      gtk3.extraConfig = let
+        val =
+          if cfg.darkTheme
+          then 1
+          else 0;
+      in {
+        gtk-application-prefer-dark-theme = val;
+      };
+    };
   };
 }
