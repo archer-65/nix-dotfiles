@@ -37,6 +37,7 @@
     "dev/js" = import ./dev/js;
     "dev/java" = import ./dev/java.nix;
     "dev-lang.nix" = import ./dev/nix-lang.nix;
+    "dev/python" = import ./dev/python.nix;
     "dev/rust" = import ./dev/rust.nix;
     "dev/terraform" = import ./dev/terraform.nix;
     "dev/tex" = import ./dev/tex.nix;

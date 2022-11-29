@@ -54,8 +54,6 @@ in {
           size = fontSize;
         };
 
-        # Colors (must find a better way to handle this)
-        # ONEDARK
         colors = {
           primary = {
             background = "#${colors.base00}";
