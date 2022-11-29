@@ -36,8 +36,8 @@ in {
 
         # Font configuration
         font = let
-          fontName = cfgTheme.font.term.name;
-          fontSize = cfgTheme.font.term.size;
+          fontName = cfgTheme.term.font.name;
+          fontSize = cfgTheme.term.font.size;
         in {
           normal = {
             family = fontName;

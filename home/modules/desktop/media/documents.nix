@@ -22,8 +22,8 @@ in {
         enable = true;
         options = {
           font =
-            "${cfgTheme.font.term.name} "
-            + (toString cfgTheme.font.term.size);
+            "${cfgTheme.term.font.name} "
+            + (toString cfgTheme.term.font.size);
 
           default-bg = "#${colors.base00}";
           default-fg = "#${colors.base01}";

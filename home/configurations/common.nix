@@ -66,6 +66,7 @@ with lib; let
   scriptsPkgs = with pkgs; [
     script-volume
     script-hwmon_devices
+    script-theme-toggle
   ];
 
   desktopPkgs = with pkgs; [

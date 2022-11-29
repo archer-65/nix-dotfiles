@@ -54,6 +54,7 @@
     "shell/starship" = import ./shell/starship.nix;
 
     "themes/options" = import ./themes/options.nix;
-    "themes/onedark" = import ./themes/onedark;
+    "themes/onedark" = import ./themes/onedark.nix;
+    "themes/modus" = import ./themes/modus.nix;
   };
 }

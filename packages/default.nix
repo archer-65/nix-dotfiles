@@ -3,6 +3,7 @@
   script-usedram = pkgs.callPackage ./scripts/usedram.nix {};
   script-usedcpu = pkgs.callPackage ./scripts/usedcpu.nix {};
   script-hwmon_devices = pkgs.callPackage ./scripts/hwmon_devices.nix {};
+  script-theme-toggle = pkgs.callPackage ./scripts/theme-toggle.nix {};
 
   script-emoji = pkgs.callPackage ./rofi/emoji.nix {};
   script-greenclip = pkgs.callPackage ./rofi/greenclip.nix {};

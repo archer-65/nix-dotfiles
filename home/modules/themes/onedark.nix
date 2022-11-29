@@ -48,8 +48,8 @@ in {
       };
 
       font = {
-        inherit (cfg.font) name;
-        inherit (cfg.font) size;
+        inherit (cfg.ui.font) name;
+        inherit (cfg.ui.font) size;
       };
     };
 

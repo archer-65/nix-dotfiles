@@ -68,20 +68,20 @@
     };
 
     themes = {
-      active = "onedark";
+      active = "modus";
       darkTheme = true;
 
-      font = {
+      ui.font = {
         name = "Roboto";
         size = 12;
       };
 
-      font.term = {
+      term.font = {
         name = "VictorMono Nerd Font";
         size = 14;
       };
 
-      font.alt = {
+      ui-alt.font = {
         name = "Fira Code";
         size = 12;
       };

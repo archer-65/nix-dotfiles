@@ -29,12 +29,12 @@ in {
           "browser.uidensity" = 0;
           "svg.context-properties.content.enabled" = true;
         };
-        userChrome = ''
-          @import "firefox-gnome-theme/userChrome.css";
-        '';
-        userContent = ''
-          @import "firefox-gnome-theme/userContent.css";
-        '';
+        # userChrome = ''
+        #   @import "firefox-gnome-theme/userChrome.css";
+        # '';
+        # userContent = ''
+        #   @import "firefox-gnome-theme/userContent.css";
+        # '';
       };
     };
 

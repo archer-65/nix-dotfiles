@@ -33,7 +33,7 @@ in {
     };
 
     # GTK & Co.
-    font = {
+    ui.font = {
       name = mkOption {
         type = str;
         default = "Sans";
@@ -46,7 +46,7 @@ in {
     };
 
     # Terminal font
-    font.term = {
+    term.font = {
       name = mkOption {
         type = str;
         default = "Monospace";
@@ -59,7 +59,7 @@ in {
     };
 
     # Alternative (notifications, etc.)
-    font.alt = {
+    ui-alt.font = {
       name = mkOption {
         type = str;
         default = "Monospace";
