@@ -24,22 +24,22 @@ with lib; let
     slug = "modus-operandi";
     name = "Modus Operandi";
     colors = {
-      base00 = "FFFFFF"; # bg-main
-      base01 = "F8F8F8"; # bg-dim
-      base02 = "F0F0F0"; # bg-alt
-      base03 = "EFEFEF"; # bg-inactive
-      base04 = "D7D7D7"; # bg-active
+      base00 = "ffffff"; # bg-main
+      base01 = "f0f0f0"; # bg-alt
+      base02 = "d7d7d7"; # bg-active
+      base03 = "505050"; # fg-alt
+      base04 = "404148"; # fg-active
       base05 = "282828"; # fg-dim
       base06 = "000000"; # fg-main
-      base07 = "0A0A0A"; # fg-active
-      base08 = "B60000"; # red-intense
+      base07 = "0a0a0a"; # fg-active
+      base08 = "b60000"; # red-intense
       base09 = "904200"; # orange-intense
-      base0A = "605B00"; # yellow-intense
+      base0A = "605b00"; # yellow-intense
       base0B = "006800"; # green-intense
-      base0C = "005F88"; # cyan-intense
-      base0D = "1F1FCE"; # blue-intense
-      base0E = "7F10D0"; # purple-intense
-      base0F = "A8007F"; # magenta-intense
+      base0C = "005f88"; # cyan-intense
+      base0D = "1f1fce"; # blue-intense
+      base0E = "7f10d0"; # purple-intense
+      base0F = "a8007f"; # magenta-intense
     };
   };
 
@@ -48,10 +48,10 @@ with lib; let
     name = "Modus Vivendi";
     colors = {
       base00 = "000000"; # bg-main
-      base01 = "100F10"; # bg-dim
-      base02 = "191A1B"; # bg-alt
-      base03 = "1E1E1E"; # bg-inactive
-      base04 = "323232"; # bg-active
+      base01 = "191A1B"; # bg-alt
+      base02 = "323232"; # bg-active
+      base03 = "a8a8a8"; # fg-alt
+      base04 = "bfc0c4"; # fg-inactive
       base05 = "E0E6F0"; # fg-dim
       base06 = "FFFFFF"; # fg-main
       base07 = "F4F4F4"; # fg-active

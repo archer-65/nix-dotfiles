@@ -37,6 +37,16 @@ in {
       plugins = with pkgs; [rofi-emoji] ++ rbw;
     };
 
+    xdg.configFile."rofi/colors/color.rasi".text = ''
+    /*
+     *
+     * Change here you colorscheme
+     *
+     */
+
+     @import "${config.colorscheme.slug}.rasi"
+    '';
+
     xdg.configFile."rofi/colors" = {
       source = "${configDir}/rofi/colors";
       recursive = true;
