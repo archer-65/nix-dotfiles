@@ -13,7 +13,7 @@ with lib; let
     desktopName = "Discord";
     genericName = "All-in-one cross-platform voice and text chat for gamers";
     exec = ''
-      ${config.programs.chromium.package}/bin/chromium --ozone-platform-hint=auto  --force-dark-mode --enable-features=WebUIDarkMode --app="https://discord.com/channels/@me"'';
+      ${config.programs.chromium.package}/bin/chromium --ozone-platform-hint=auto --app="https://discord.com/channels/@me"'';
     icon = "discord";
     type = "Application";
     categories = ["Network" "InstantMessaging"];
