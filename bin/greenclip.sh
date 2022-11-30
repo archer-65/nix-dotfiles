@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # pkgs.writeShellScriptBin "rofi-clipboard" ''
-dir="$HOME/.config/rofi/themes/greenclip"
+dir="$HOME/.config/rofi/themes/clipboard"
 
 greenclip_copy() {
     rofi -modi "clipboard:greenclip print" \

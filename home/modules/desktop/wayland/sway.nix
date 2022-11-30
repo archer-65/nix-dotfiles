@@ -128,7 +128,7 @@ in {
             command = "polychromatic-tray-applet";
           }
           {
-            command = "wl-paste -t text --watch clipman store --no-persist";
+            command = "exec wl-paste -t text --watch clipman store --no-persist";
           }
           {
             command = "exec wl-paste -p -t text --watch clipman store -P --histpath=\"~/.local/share/clipman-primary.json\"";
@@ -231,7 +231,7 @@ in {
           "${mod}+p" = "exec rofi-rbw";
 
           # Clipboard
-          "${mod}+comma" = "clipman pick -t rofi";
+          "${mod}+comma" = "clipman pick -t rofi -T'-theme ~/.config/rofi/themes/clipboard'";
 
           # Screenshots
           "Print" = "exec grimshot --notify copy";
@@ -275,7 +275,7 @@ in {
 
     xdg.configFile."sov/config".source = "${configDir}/sway/sov";
 
-    home.packages = with pkgs; [gsettings-desktop-schemas autotiling sov clipman];
+    home.packages = with pkgs; [gsettings-desktop-schemas autotiling sov];
 
     mario.modules.desktop = {
       services = {

@@ -27,6 +27,7 @@ in {
       grim
       slurp
       sway-contrib.grimshot
+      clipman
     ];
 
     home.sessionVariables = {
