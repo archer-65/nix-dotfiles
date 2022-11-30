@@ -13,38 +13,31 @@
       bitwarden.enable = true;
     };
 
-    desktop = {
-      apps = {
-        rofi.enable = true;
-        discord.enable = true;
-        teams.enable = true;
-      };
-
-      browsers = {firefox.enable = true;};
-
-      gaming.emulators = {switch.enable = true;};
-
-      media = {
-        documents = {
-          zathura.enable = true;
-          okular.enable = true;
-        };
-
-        videos.enable = true;
-      };
-
-      # xorg = {
-      #   enable = true;
-      #   wm = "qtile";
-      # };
-
-      wayland = {
-        enable = true;
-        wm = ["sway" "hyprland"];
-      };
-
-      term.alacritty.enable = true;
+    apps = {
+      rofi.enable = true;
+      discord.enable = true;
+      teams.enable = true;
     };
+
+    browsers = {firefox.enable = true;};
+
+    gaming.emulators = {switch.enable = true;};
+
+    media = {
+      documents = {
+        zathura.enable = true;
+        okular.enable = true;
+      };
+
+      videos.enable = true;
+    };
+
+    wayland = {
+      enable = true;
+      wm = ["sway" "hyprland"];
+    };
+
+    term.alacritty.enable = true;
 
     dev = {
       cc.enable = true;
@@ -82,7 +75,7 @@
 
     themes = {
       active = "modus";
-      darkTheme = true;
+      darkTheme = false;
 
       ui.font = {
         name = "Roboto";

@@ -20,20 +20,20 @@
 
     media = {
       plex.enable = true;
-      #jellyfin.enable = true;
     };
 
-    services = {
+    credentials = {
       ssh.enable = true;
       gpg.enable = true;
       yubikey.enable = true;
+    };
+
+    services = {
       printing.enable = true;
     };
 
-    desktop.xorg.enable = true;
-    desktop.wayland.enable = true;
-    # desktop.sddm.enable = true;
-    desktop.greetd.enable = true;
+    graphical.wayland.enable = true;
+    graphical.greetd.enable = true;
 
     core = {
       boot.quietboot.enable = true;

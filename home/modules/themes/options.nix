@@ -3,24 +3,20 @@
   options,
   config,
   lib,
+  nix-colors,
   ...
 }:
 with lib; let
   cfg = config.mario.modules.themes;
+  inherit (nix-colors.lib-contrib {inherit pkgs;}) gtkThemeFromScheme;
+  inherit (config.mario.modules) xorg;
 in {
   options.mario.modules.themes = with types; {
     active = mkOption {
       type = nullOr str;
       default = null;
-      apply = v: let
-        theme = builtins.getEnv "THEME";
-      in
-        if theme != ""
-        then theme
-        else v;
       description = ''
-        Name of the theme to enable. Can be overridden by the THEME environment
-        variable. Themes can also be hot-swapped with 'hey theme $THEME'.
+        Name of the theme to enable.
       '';
     };
 
@@ -76,6 +72,7 @@ in {
       default = 16;
     };
 
+    # Bar settings
     bar = {
       font = {
         name = mkOption {
@@ -96,24 +93,47 @@ in {
     };
   };
 
-  config = mkIf (cfg.active != null) {
-    # Well, this file is called "options.nix", but I put every global theming utility here.
-    home.packages = with pkgs.libsForQt5; [
-      qtstyleplugin-kvantum
-      breeze-qt5
-      qt5ct
-    ];
-    home.sessionVariables = {QT_QPA_PLATFORMTHEME = "qt5ct";};
+  config = mkIf (cfg.active != null) (mkMerge [
+    {
+      home.sessionVariables = {QT_QPA_PLATFORMTHEME = "qt5ct";};
+      home.packages = with pkgs.libsForQt5; [
+        qtstyleplugin-kvantum
+        breeze-qt5
+        qt5ct
+      ];
 
-    gtk = {
-      gtk3.extraConfig = let
-        val =
+      gtk = {
+        enable = true;
+
+        theme = {
+          name = "${config.colorscheme.slug}";
+          package = gtkThemeFromScheme {scheme = config.colorscheme;};
+        };
+
+        font = {
+          inherit (cfg.ui.font) name;
+          inherit (cfg.ui.font) size;
+        };
+      };
+
+      gtk.gtk3.extraConfig = let
+        is-dark =
           if cfg.darkTheme
           then 1
           else 0;
       in {
-        gtk-application-prefer-dark-theme = val;
+        gtk-application-prefer-dark-theme = is-dark;
       };
-    };
-  };
+
+      home.pointerCursor = {
+        inherit (config.gtk.cursorTheme) name size package;
+        gtk.enable = true;
+      };
+    }
+
+    (mkIf xorg.enable {
+      home.pointerCursor.x11.enable = true;
+      xresources.properties = {"Xcursor.theme" = config.gtk.cursorTheme.name;};
+    })
+  ]);
 }

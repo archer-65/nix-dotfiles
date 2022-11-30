@@ -4,34 +4,34 @@
     "credentials/mail" = import ./credentials/mail.nix;
     "credentials/bitwarden" = import ./credentials/bitwarden.nix;
 
-    "desktop/xorg" = import ./desktop/xorg;
-    "desktop/xorg/qtile" = import ./desktop/xorg/qtile.nix;
+    "xorg" = import ./xorg;
+    "xorg/qtile" = import ./xorg/qtile.nix;
+    "xorg/greenclip" = import ./xorg/greenclip.nix;
+    "xorg/autorandr" = import ./xorg/autorandr.nix;
+    "xorg/picom" = import ./xorg/picom.nix;
+    "xorg/locker" = import ./xorg/locker.nix;
 
-    "desktop/wayland" = import ./desktop/wayland;
-    "desktop/wayland/sway" = import ./desktop/wayland/sway.nix;
-    "desktop/wayland/hyprland" = import ./desktop/wayland/hyprland.nix;
+    "wayland" = import ./wayland;
+    "wayland/sway" = import ./wayland/sway.nix;
+    "wayland/hyprland" = import ./wayland/hyprland.nix;
+    "wayland/locker" = import ./wayland/locker.nix;
+    "wayland/waybar" = import ./wayland/waybar.nix;
 
-    "desktop/apps/greenclip" = import ./desktop/apps/greenclip.nix;
-    "desktop/apps/rofi" = import ./desktop/apps/rofi.nix;
-    "desktop/apps/autorandr" = import ./desktop/apps/autorandr.nix;
-    "desktop/apps/discord" = import ./desktop/apps/discord.nix;
-    "desktop/apps/teams" = import ./desktop/apps/teams.nix;
+    "apps/dunst" = import ./apps/dunst.nix;
+    "apps/rofi" = import ./apps/rofi.nix;
+    "apps/discord" = import ./apps/discord.nix;
+    "apps/teams" = import ./apps/teams.nix;
 
-    "desktop/browsers/firefox" = import ./desktop/browsers/firefox.nix;
-    "desktop/browsers/chromium" = import ./desktop/browsers/chromium.nix;
+    "browsers/firefox" = import ./browsers/firefox.nix;
+    "browsers/chromium" = import ./browsers/chromium.nix;
 
-    "desktop/gaming/emulators" = import ./desktop/gaming/emulators.nix;
+    "gaming/emulators" = import ./gaming/emulators.nix;
 
-    "desktop/media/documents" = import ./desktop/media/documents.nix;
-    "desktop/media/videos" = import ./desktop/media/videos.nix;
+    "media/documents" = import ./media/documents.nix;
+    "media/videos" = import ./media/videos.nix;
 
-    "desktop/term/alacritty" = import ./desktop/term/alacritty.nix;
+    "term/alacritty" = import ./term/alacritty.nix;
 
-    "desktop/services/picom" = import ./desktop/services/picom.nix;
-    "desktop/services/dunst" = import ./desktop/services/dunst.nix;
-    "desktop/services/locker" = import ./desktop/services/locker.nix;
-    "desktop/services/locker-wayland" = import ./desktop/services/locker-wayland.nix;
-    "desktop/services/waybar" = import ./desktop/services/waybar.nix;
 
     "dev/cc" = import ./dev/cc.nix;
     "dev/js" = import ./dev/js;

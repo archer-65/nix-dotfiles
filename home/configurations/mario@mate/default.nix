@@ -1,7 +1,4 @@
-{
-  config,
-  ...
-}: {
+{config, ...}: {
   mario.modules = {
     credentials = {
       gpg = {
@@ -13,35 +10,28 @@
       bitwarden.enable = true;
     };
 
-    desktop = {
-      apps = {
-        rofi.enable = true;
-        discord.enable = true;
-        teams.enable = true;
-      };
-
-      browsers = {firefox.enable = true;};
-
-      media = {
-        documents = {
-          zathura.enable = true;
-        };
-
-        videos.enable = true;
-      };
-
-      # xorg = {
-      #   enable = true;
-      #   wm = "qtile";
-      # };
-
-      wayland = {
-        enable = true;
-        wm = ["sway" "hyprland"];
-      };
-
-      term.alacritty.enable = true;
+    apps = {
+      rofi.enable = true;
+      discord.enable = true;
+      teams.enable = true;
     };
+
+    browsers = {firefox.enable = true;};
+
+    media = {
+      documents = {
+        zathura.enable = true;
+      };
+
+      videos.enable = true;
+    };
+
+    wayland = {
+      enable = true;
+      wm = ["sway" "hyprland"];
+    };
+
+    term.alacritty.enable = true;
 
     dev = {
       nix.enable = true;

@@ -5,8 +5,8 @@
   ...
 }:
 with lib; let
-  cfgXorg = config.mario.modules.desktop.xorg;
-  cfgWayland = config.mario.modules.desktop.wayland;
+  cfgXorg = config.mario.modules.xorg;
+  cfgWayland = config.mario.modules.wayland;
 
   # Creative XOR operator :D
   cfgExclusive =

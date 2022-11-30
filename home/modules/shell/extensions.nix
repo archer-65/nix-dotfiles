@@ -8,7 +8,6 @@
 with lib; let
   cfg = config.mario.modules.shell.extensions;
   cfgBash = config.mario.modules.shell.bash;
-  inherit (config.colorScheme) colors;
 in {
   options.mario.modules.shell.extensions = {
     enable = mkEnableOption "shell useful commands (e.g. bat, exa) ";
@@ -30,22 +29,6 @@ in {
 
       programs.fzf = {
         enable = true;
-        colors = {
-          "bg+" = "#${colors.base01}";
-          "bg" = "#${colors.base00}";
-          "spinner" = "#${colors.base0C}";
-          "hl" = "#${colors.base0D}";
-
-          "fg" = "#${colors.base04}";
-          "header" = "#${colors.base0D}";
-          "info" = "#${colors.base0A}";
-          "pointer" = "#${colors.base0C}";
-
-          "marker" = "#${colors.base0C}";
-          "fg+" = "#${colors.base06}";
-          "prompt" = "#${colors.base0A}";
-          "hl+" = "#${colors.base0D}";
-        };
       };
 
       programs.nix-index = {
@@ -58,8 +41,14 @@ in {
 
     # Useful aliases for our shells
     (mkIf cfgBash.enable {
-      programs.bash.shellAliases = {
-        cat = "${pkgs.bat}/bin/bat";
+      programs.bash = {
+        bashrcExtra = ''
+          export FZF_DEFAULT_OPTS='--color 16'
+        '';
+
+        shellAliases = {
+          cat = "${pkgs.bat}/bin/bat";
+        };
       };
     })
   ]);

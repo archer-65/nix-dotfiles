@@ -8,12 +8,12 @@
   "core/settings" = import ./core/settings.nix;
   "core/user" = import ./core/user.nix;
 
-  "desktop/base" = import ./desktop/base.nix;
-  "desktop/portals" = import ./desktop/portals.nix;
-  "desktop/xorg" = import ./desktop/xorg.nix;
-  "desktop/wayland" = import ./desktop/wayland.nix;
-  "desktop/sddm" = import ./desktop/sddm.nix;
-  "desktop/greetd" = import ./desktop/greetd.nix;
+  "graphical/common" = import ./graphical/common.nix;
+  "graphical/portals" = import ./graphical/portals.nix;
+  "graphical/xorg" = import ./graphical/xorg.nix;
+  "graphical/wayland" = import ./graphical/wayland.nix;
+  "graphical/sddm" = import ./graphical/sddm.nix;
+  "graphical/greetd" = import ./graphical/greetd.nix;
 
   "dev/adb" = import ./dev/adb.nix;
   "dev/virt-manager" = import ./dev/virt-manager.nix;
@@ -29,9 +29,10 @@
   "services/plex" = import ./services/plex.nix;
   "services/jellyfin" = import ./services/jellyfin.nix;
   "services/printing" = import ./services/printing.nix;
-  "services/ssh" = import ./services/ssh.nix;
-  "services/gpg" = import ./services/gpg.nix;
-  "services/yubikey" = import ./services/yubikey.nix;
+
+  "credentials/ssh" = import ./credentials/ssh.nix;
+  "credentials/gpg" = import ./credentials/gpg.nix;
+  "credentials/yubikey" = import ./credentials/yubikey.nix;
 
   "shell/bash" = import ./shell/bash.nix;
 }
