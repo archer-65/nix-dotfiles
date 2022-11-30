@@ -72,7 +72,6 @@ with lib; let
   desktopPkgs = with pkgs; [
     mate.engrampa
     transmission-gtk
-    appimage-run
   ];
 in {
   config = {
