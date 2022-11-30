@@ -5,7 +5,7 @@
     "credentials/bitwarden" = import ./credentials/bitwarden.nix;
 
     "xorg" = import ./xorg;
-    "xorg/qtile" = import ./xorg/qtile.nix;
+    "xorg/qtile" = import ./xorg/qtile;
     "xorg/greenclip" = import ./xorg/greenclip.nix;
     "xorg/autorandr" = import ./xorg/autorandr.nix;
     "xorg/picom" = import ./xorg/picom.nix;
@@ -18,7 +18,7 @@
     "wayland/waybar" = import ./wayland/waybar.nix;
 
     "apps/dunst" = import ./apps/dunst.nix;
-    "apps/rofi" = import ./apps/rofi.nix;
+    "apps/rofi" = import ./apps/rofi;
     "apps/discord" = import ./apps/discord.nix;
     "apps/teams" = import ./apps/teams.nix;
 
@@ -43,7 +43,7 @@
     "dev/tex" = import ./dev/tex.nix;
 
     "editors/android-studio" = import ./editors/android-studio.nix;
-    "editors/emacs" = import ./editors/emacs.nix;
+    "editors/emacs" = import ./editors/emacs;
     "editors/intellij" = import ./editors/intellij.nix;
     "editors/neovim" = import ./editors/neovim.nix;
     "editors/vscode" = import ./editors/vscode.nix;

@@ -33,6 +33,7 @@ with builtins; let
       specialArgs = {
         inherit lib;
         inherit flake-self;
+        inherit (import ../home/modules/themes/wallpapers.nix) wallpapers;
       };
       modules =
         [

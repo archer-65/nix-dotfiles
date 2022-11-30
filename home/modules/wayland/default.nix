@@ -23,10 +23,10 @@ in {
     home.packages = with pkgs; [
       wl-clipboard
       wtype
-      # azote
       grim
       slurp
       sway-contrib.grimshot
+      swaybg
       clipman
     ];
 

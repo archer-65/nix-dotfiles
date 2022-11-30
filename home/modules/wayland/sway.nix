@@ -2,12 +2,12 @@
   config,
   lib,
   pkgs,
+  wallpapers,
   ...
 }:
 with lib; let
   cfg = config.mario.modules.wayland;
   cfgTheme = config.mario.modules.themes;
-  inherit (config.dotfiles) configDir;
 in {
   config = mkIf (cfg.enable && (elem "sway" cfg.wm)) {
     wayland.windowManager.sway = {
@@ -31,10 +31,9 @@ in {
 
         output."Unknown U34G2G4R3 0x0000241D" = {
           mode = "3440x1440@144.001Hz";
-          # adaptive_sync = "on";
         };
 
-        output."*" = {bg = "~/pics/walls/weebie/wallhaven-j3mmdy.jpg fill";};
+        output."*" = {bg = "${wallpapers.nerd-bedroom} fill";};
 
         modifier = "Mod4";
         terminal = "${pkgs.alacritty}/bin/alacritty";
@@ -117,10 +116,6 @@ in {
         startup = [
           {command = "corectrl";}
           {
-            command = "rm -f /tmp/sovpipe && mkfifo /tmp/sovpipe && tail -f /tmp/sovpipe | sov";
-            always = true;
-          }
-          {
             command = "autotiling";
             always = true;
           }
@@ -185,16 +180,15 @@ in {
           "${mod}+ctrl+minus" = "gaps inner all minus 5";
 
           # Workspaces
-          # I'm using sov with complex binds now
-          # "${mod}+1" = "workspace 1";
-          # "${mod}+2" = "workspace 2";
-          # "${mod}+3" = "workspace 3";
-          # "${mod}+4" = "workspace 4";
-          # "${mod}+5" = "workspace 5";
-          # "${mod}+6" = "workspace 6";
-          # "${mod}+7" = "workspace 7";
-          # "${mod}+8" = "workspace 8";
-          # "${mod}+9" = "workspace 9";
+          "${mod}+1" = "workspace 1";
+          "${mod}+2" = "workspace 2";
+          "${mod}+3" = "workspace 3";
+          "${mod}+4" = "workspace 4";
+          "${mod}+5" = "workspace 5";
+          "${mod}+6" = "workspace 6";
+          "${mod}+7" = "workspace 7";
+          "${mod}+8" = "workspace 8";
+          "${mod}+9" = "workspace 9";
 
           # Switch to next/previous ws
           "${mod}+Right" = "workspace next";
@@ -246,36 +240,9 @@ in {
           "${mod}+f" = "exec ${fm}";
         };
       };
-
-      extraConfig = let
-        mod = config.wayland.windowManager.sway.config.modifier;
-        sovPipe = "/tmp/sovpipe";
-      in ''
-        bindsym --no-repeat ${mod}+1 workspace number 1; exec "echo 1 > ${sovPipe}"
-        bindsym --no-repeat ${mod}+2 workspace number 2; exec "echo 1 > ${sovPipe}"
-        bindsym --no-repeat ${mod}+3 workspace number 3; exec "echo 1 > ${sovPipe}"
-        bindsym --no-repeat ${mod}+4 workspace number 4; exec "echo 1 > ${sovPipe}"
-        bindsym --no-repeat ${mod}+5 workspace number 5; exec "echo 1 > ${sovPipe}"
-        bindsym --no-repeat ${mod}+6 workspace number 6; exec "echo 1 > ${sovPipe}"
-        bindsym --no-repeat ${mod}+7 workspace number 7; exec "echo 1 > ${sovPipe}"
-        bindsym --no-repeat ${mod}+8 workspace number 8; exec "echo 1 > ${sovPipe}"
-        bindsym --no-repeat ${mod}+9 workspace number 9; exec "echo 1 > ${sovPipe}"
-
-        bindsym --release ${mod}+1 exec "echo 0 > ${sovPipe}"
-        bindsym --release ${mod}+2 exec "echo 0 > ${sovPipe}"
-        bindsym --release ${mod}+3 exec "echo 0 > ${sovPipe}"
-        bindsym --release ${mod}+4 exec "echo 0 > ${sovPipe}"
-        bindsym --release ${mod}+5 exec "echo 0 > ${sovPipe}"
-        bindsym --release ${mod}+6 exec "echo 0 > ${sovPipe}"
-        bindsym --release ${mod}+7 exec "echo 0 > ${sovPipe}"
-        bindsym --release ${mod}+8 exec "echo 0 > ${sovPipe}"
-        bindsym --release ${mod}+9 exec "echo 0 > ${sovPipe}"
-      '';
     };
 
-    xdg.configFile."sov/config".source = "${configDir}/sway/sov";
-
-    home.packages = with pkgs; [gsettings-desktop-schemas autotiling sov];
+    home.packages = with pkgs; [autotiling];
 
     mario.modules = {
       apps.dunst.enable = true;

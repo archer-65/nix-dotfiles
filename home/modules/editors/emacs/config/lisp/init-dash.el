@@ -28,18 +28,10 @@
    ;; Navigator under banner
    dashboard-set-navigator t
    dashboard-navigator-buttons
-   `(((,(all-the-icons-octicon "mark-github" :height 1.1 :v-adjust 0.0)
-       "Homepage"
-       "Browse homepage"
-       (lambda (&rest _) (browse-url "https://github.com/archer-65/emacs-config")))
-      (,(all-the-icons-faicon "archive" :height 1.1 :v-adjust 0.0)
+   `(((,(all-the-icons-faicon "archive" :height 1.1 :v-adjust 0.0)
        "Update Packages"
        "Click to updates your packages"
-       (lambda (&rest _) (straight-pull-all)))
-      (,(all-the-icons-octicon "gear" :height 1.1 :v-adjust 0.0)
-       "Configuration"
-       "Click to config Emacs"
-       (lambda (&rest _) (find-file "~/.dotfiles/config/emacs/Emacs.org"))))))
+       (lambda (&rest _) (straight-pull-all))))))
 
   (dashboard-setup-startup-hook)
   ;; This is required with PGTK!

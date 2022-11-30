@@ -1,12 +1,11 @@
 {pkgs ? null}: {
-  script-volume = pkgs.callPackage ./scripts/volume.nix {};
-  script-usedram = pkgs.callPackage ./scripts/usedram.nix {};
-  script-usedcpu = pkgs.callPackage ./scripts/usedcpu.nix {};
-  script-hwmon_devices = pkgs.callPackage ./scripts/hwmon_devices.nix {};
-  script-theme-toggle = pkgs.callPackage ./scripts/theme-toggle.nix {};
-
   script-emoji = pkgs.callPackage ./rofi/emoji.nix {};
-  script-greenclip = pkgs.callPackage ./rofi/greenclip.nix {};
   script-launcher = pkgs.callPackage ./rofi/launcher.nix {};
-  script-powermenu = pkgs.callPackage ./rofi/powermenu.nix {};
+  script-greenclip = pkgs.callPackage ./rofi/greenclip {};
+  script-powermenu = pkgs.callPackage ./rofi/powermenu/powermenu.nix {};
+  script-usedram = pkgs.callPackage ./rofi/powermenu/usedram.nix {};
+  script-usedcpu = pkgs.callPackage ./rofi/powermenu/usedcpu.nix {};
+
+  script-volume = pkgs.callPackage ./scripts/volume {};
+  script-theme-toggle = pkgs.callPackage ./scripts/theme-toggle {};
 }

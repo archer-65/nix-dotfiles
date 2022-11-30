@@ -1,11 +1,7 @@
 {config, ...}: {
   mario.modules = {
     credentials = {
-      gpg = {
-        enable = true;
-        signing.enable = true;
-        signing.key = "mario.liguori.056@gmail.com";
-      };
+      gpg.enable = true;
       mail-defaults.enable = true;
       bitwarden.enable = true;
     };

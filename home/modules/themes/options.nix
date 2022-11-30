@@ -4,6 +4,7 @@
   config,
   lib,
   nix-colors,
+  wallpapers,
   ...
 }:
 with lib; let

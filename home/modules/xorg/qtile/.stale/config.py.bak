@@ -1,7 +1,7 @@
 from os import path
 import subprocess
 
-from typing import List 
+from typing import List
 
 from libqtile import bar, layout, widget, hook, qtile
 from libqtile.config import Click, Drag, Group, Key, KeyChord, Match, Screen
@@ -42,7 +42,7 @@ keys = [
     #########################
     ##### QTILE CONTROL #####
     #########################
-    
+
     # Switch between windows
     Key([mod], "h",
         lazy.layout.left(),
@@ -71,39 +71,39 @@ keys = [
         lazy.layout.swap_column_left(),
         lazy.layout.shuffle_left().when(layout="bsp"),
         desc="Move window to the left or swap column"),
-    
+
     Key([mod, "shift"], "l",
         lazy.layout.swap_right(),
         lazy.layout.swap_column_right(),
         lazy.layout.shuffle_right().when(layout="bsp"),
         desc="Move window to the right or swap column"),
-    
+
     Key([mod, "shift"], "j",
         lazy.layout.shuffle_down() ,
         desc="Move window down"),
-    
+
     Key([mod, "shift"], "k",
         lazy.layout.shuffle_up(),
         desc="Move window up"),
-    
+
     # Grow windows. If current window is on the edge of screen and direction
     # will be to screen edge - window would shrink.
     Key([mod, "control"], "h",
         lazy.layout.grow_left(),
         desc="Grow window to the left"),
-    
+
     Key([mod, "control"], "l",
         lazy.layout.grow_right(),
         desc="Grow window to the right"),
-    
+
     Key([mod, "control"], "j",
         lazy.layout.grow_down(),
         desc="Grow window down"),
-    
+
     Key([mod, "control"], "k",
         lazy.layout.grow_up(),
         desc="Grow window up"),
-    
+
     Key([mod], "n",
         lazy.layout.normalize(),
         desc="Reset all window sizes (secondary clients)"),
@@ -112,11 +112,11 @@ keys = [
     Key([mod], "equal",
         lazy.layout.grow(),
         desc="Grow Monad"),
-    
+
     Key([mod], "minus",
         lazy.layout.shrink(),
         desc="Shrink Monad"),
-    
+
     Key([mod, "shift"], "space",
         lazy.layout.flip(),
         desc="Flip layout"),
@@ -129,7 +129,7 @@ keys = [
     Key([mod, "mod1"], "j",
         lazy.layout.flip_down(),
         desc="Flip BSP down"),
-    
+
     Key([mod, "mod1"], "k",
         lazy.layout.flip_up(),
         desc="Flip BSP up"),
@@ -141,7 +141,7 @@ keys = [
     Key([mod, "mod1"], "l",
         lazy.layout.flip_right(),
         desc="Flip BSP right"),
-    
+
     # Switch to next/prev
     Key([mod], "Left", lazy.screen.prev_group(), desc="Switch to previous group"),
     Key([mod], "Right", lazy.screen.next_group(), desc="Switch to next group"),
@@ -163,7 +163,7 @@ keys = [
     Key([mod], "w",
         lazy.window.kill(),
         desc="Kill focused window"),
-    
+
     Key([mod], "t",
         lazy.window.toggle_floating(),
         desc="Toggle floating for focused window"),
@@ -172,11 +172,11 @@ keys = [
     Key([mod, "control"], "r",
         lazy.reload_config(),
         desc="Reload the config"),
-    
+
     Key([mod, "shift"], "r",
         lazy.restart(),
         desc="Restart Qtile"),
-    
+
     Key([mod, "control"], "q",
         lazy.shutdown(),
         desc="Shutdown Qtile"),
@@ -194,7 +194,7 @@ keys = [
     Key([mod], "d",
         lazy.spawn(launcher),
         desc="Rofi launcher"),
-    
+
     Key([mod, "shift"], "q",
         lazy.spawn(powermenu),
         desc="Rofi powermenu"),
@@ -202,7 +202,7 @@ keys = [
     Key([mod], "comma",
         lazy.spawn(clipboard + " copy"),
         desc="Rofi clipboard"),
-    
+
     Key([mod], "period",
         lazy.spawn(clipboard + " paste"),
         desc="Rofi clipboard direct paste"),
@@ -235,11 +235,11 @@ keys = [
     Key([], "XF86AudioRaiseVolume",
         lazy.spawn(volume + " up"),
         desc="Volume up"),
-    
+
     Key([], "XF86AudioLowerVolume",
         lazy.spawn(volume + " down"),
         desc="Volume down"),
-    
+
     Key([], "XF86AudioMute",
         lazy.spawn(volume + " mute"),
         desc="Volume toggle mute"),
@@ -269,7 +269,7 @@ layout_theme = {
     "border_width": 3,
     "border_focus": colors["active"],
     "border_normal": colors["inactive"],
-}  
+}
 
 layouts = [
     layout.MonadTall(
@@ -351,7 +351,7 @@ screens= [
             ),
 
             powerline('bg', 'color1'),
-                
+
             widget.GroupBox(
                 font="Iosevka Nerd Font",
                 fontsize=18,
@@ -367,35 +367,35 @@ screens= [
                 this_current_screen_border=colors["active"],
                 borderwidth=4,
             ),
-                
+
             powerline('color1', 'bg'),
-                
+
             widget.WindowName(
                 **base(fg='bg', bg='color1'),
                 font="Iosevka Nerd Font",
                 fontsize=18,
             ),
-                
+
             powerline('bg', 'color1'),
-                
+
             widget.Spacer(),
-                
+
             powerline('grey', 'bg'),
-                
+
             widget.Systray(
                 **base(fg='fg', bg='grey'),
                 icons_size=24,
                 padding=10,
             ),
-                
+
             widget.Sep(
                 **base(fg='fg', bg='grey'),
                 padding=10,
                 linewidth=0,
             ),
-                
+
             powerline('color4', 'grey'),
-                
+
             widget.CurrentLayoutIcon(
                 **base(fg='fg', bg='color4'),
                 custom_icon_paths=[path.join(qtile_path, "icons")],
@@ -409,9 +409,9 @@ screens= [
                     font="Iosevka Nerd Font",
                     fontsize=18,
                 ),
-                
+
             powerline('urgent', 'color4'),
-                
+
             widget.TextBox(
                 **base(fg='fg', bg='urgent'),
                 text=" ",
@@ -433,9 +433,9 @@ screens= [
                         "Button1": open_updates
                     },
                 ),
-                
+
             powerline('color2', 'urgent'),
-                
+
             widget.TextBox(
                 **base(fg='fg', bg='color2'),
                 text=" ",
@@ -453,7 +453,7 @@ screens= [
                 ),
 
             powerline('active', 'color2'),
-                
+
             widget.TextBox(
                 **base(fg='fg', bg='active'),
                 text=" ",
@@ -474,7 +474,7 @@ screens= [
                 ),
 
             powerline('color4', 'active'),
-                
+
             widget.TextBox(
                 **base(fg='fg', bg='color4'),
                 text=" ",
@@ -489,9 +489,9 @@ screens= [
                     format="{MemUsed: .0f} MB",
                     update_interval=10,
                 ),
-                
+
             powerline('color3', 'color4'),
-                
+
             widget.TextBox(
                 **base(fg='bg', bg='color3'),
                 text="墳 ",
@@ -506,7 +506,7 @@ screens= [
                     limit_max_volume=True,
                     volume_app="pavucontrol",
                 ),
-                
+
             # # Doesn't work with Spotify so its disabled!
                 # # widget.TextBox(
                 # #    text="\u2572",
@@ -537,9 +537,9 @@ screens= [
                 scroll_chars=30,
                 scroll_wait_intervals=50,
             ),
-                
+
             powerline('color1', 'color3'),
-                
+
             widget.TextBox(
                 **base(fg='bg', bg='color1'),
                 text="   ",

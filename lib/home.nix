@@ -46,6 +46,7 @@ with builtins; let
 
       extraSpecialArgs = {
         inherit nix-colors flake-self inputs;
+        inherit (import ../home/modules/themes/wallpapers.nix) wallpapers;
       };
     };
 in

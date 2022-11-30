@@ -47,15 +47,19 @@ in {
     '';
 
     xdg.configFile."rofi/colors" = {
-      source = "${configDir}/rofi/colors";
+      source = ./config/colors;
       recursive = true;
     };
 
     xdg.configFile."rofi/themes" = {
-      source = "${configDir}/rofi/themes";
+      source = ./config/themes;
       recursive = true;
     };
 
-    xdg.configFile."rofi-rbw.rc".source = "${configDir}/rofi-rbw.rc";
+    xdg.configFile."rofi-rbw.rc".text = ''
+      action = type
+      prompt = Select credentials
+      selector-args = -theme ~/.config/rofi/themes/rbw
+    '';
   };
 }

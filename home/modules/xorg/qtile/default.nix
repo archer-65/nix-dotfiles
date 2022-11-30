@@ -5,13 +5,12 @@
 }:
 with lib; let
   cfg = config.mario.modules.xorg;
-  inherit (config.dotfiles) configDir;
 in {
   config = mkIf (cfg.enable && cfg.wm == "qtile") {
     xsession.enable = true;
 
     xdg.configFile."qtile" = {
-      source = "${configDir}/qtile";
+      source = ./config;
       recursive = true;
     };
 

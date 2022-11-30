@@ -3,13 +3,11 @@
   config,
   lib,
   pkgs,
+  wallpapers,
   ...
 }:
 with lib; let
   cfg = config.system.modules.graphical.greetd;
-
-  inherit (config.dotfiles) assetsDir;
-  background = "${assetsDir}/greeter.png";
 in {
   options.system.modules.graphical.greetd = {
     enable = mkEnableOption "greetd configuration";
@@ -22,7 +20,7 @@ in {
         default_session.command = let
           greetd-gtk-style = pkgs.writeText "greetd-gtk-style" ''
             window {
-              background-image: url("file://${background}");
+              background-image: url("file://${wallpapers.nixos-dark}");
               background-size: cover;
               background-position: center;
             }

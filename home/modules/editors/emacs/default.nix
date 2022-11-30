@@ -6,7 +6,6 @@
 }:
 with lib; let
   cfg = config.mario.modules.editors.emacs;
-  inherit (config.dotfiles) configDir;
 in {
   options.mario.modules.editors.emacs = {
     enable = mkEnableOption "emacs and its configuration";
@@ -28,7 +27,7 @@ in {
       };
 
       xdg.configFile."emacs" = {
-        source = "${configDir}/emacs";
+        source = ./config;
         recursive = true;
       };
     }

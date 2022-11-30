@@ -37,14 +37,14 @@ function is_mute {
 # and normal screens
 function send_notification {
     volume=`get_volume`
-    
+
     length=20 # Number characters for the bar
     div=$((100 / $length))
     total=$((100 / $div))
     left=$(($volume / $div))
     right=$(($total - $left))
     bar=$(repChar $left "█")$(repChar $right "░")
-    
+
     # Send the notification
     #dunstify -I "$icon" -r 2593 -u normal "$bar"
     dunstify -i "$icon" -r 2593 -u normal "$bar"
@@ -56,24 +56,24 @@ case $1 in
         # Icon
         #icon="''${dir}-high.svg"
         icon=audio-volume-high
-        
+
         # Set the volume on (if it was muted)
         pamixer -u > /dev/null
         # Up the volume (+ 5%)
         pamixer -i 5 > /dev/null
-        
+
         send_notification
     ;;
     down)
         # Icon
         #icon="''${dir}-low.svg"
         icon=audio-volume-low
-        
+
         # Set the volume on (if it was muted)
         pamixer -u > /dev/null
         # Up the volume (+ 5%)
         pamixer -d 5 > /dev/null
-        
+
         send_notification
     ;;
     mute)
