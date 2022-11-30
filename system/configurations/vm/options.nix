@@ -4,7 +4,7 @@
 
     services = {ssh.enable = true;};
 
-    desktop.xorg.enable = true;
+    xorg.enable = true;
 
     core.cachix.enable = true;
   };
