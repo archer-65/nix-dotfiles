@@ -12,7 +12,7 @@ window {
     width:      		360px;
     padding:    		25px;
     border:					0px;
-    border-radius:  0px;
+    border-radius:  5px;
     border-color:   @wborder;
     location:       center;
     y-offset:       -20px;

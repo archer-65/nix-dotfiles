@@ -22,7 +22,7 @@ window {
     transparency:      "real";
     border:            2px;
     border-color:      @wborder;
-    border-radius:     0px;
+    border-radius:     5px;
     location:          center;
     width:             800px;
     x-offset:          0px;
