@@ -1,9 +1,10 @@
 * Nix & Flakes - Reproducible machines
+
 [[https://nixos.org][https://img.shields.io/badge/NixOS-grey.svg?style=flat-square&logo=NixOS&logoColor=white]]
 
-This is my *NixOS* and *home-manager* configuration. It aims for maximum reproducibility through *Flakes*, and it's composed by modules to provide plug&play configuration based on hosts and users. At this time the configuration is WIP (I want to polish it).
+These are my *NixOS* and *home-manager* configurations. They aim for maximum reproducibility through *Flakes*. This repo is composed by modules to provide plug&play configuration based on hosts and users.
 
-I'm using the standalone approach for home-manager, but it shouldn't be difficult to integrate all this with the NixOS module.
+I'm using the standalone approach for *home-manager*, but it shouldn't be difficult to integrate all this with the *NixOS module*.
 
 #+BEGIN_QUOTE
 Be careful if you want to use this "template", this is not a framework neither an easy-come-easy-go library. I'm a totally beginner.
@@ -12,6 +13,7 @@ Be careful if you want to use this "template", this is not a framework neither a
 #+END_QUOTE
 
 ** Structure
+
 Here the top-level structure of this repository.
 I will put a tree like this in every *important* folder.
 
@@ -19,6 +21,7 @@ I will put a tree like this in every *important* folder.
   .
   ├── flake.lock                  
   ├── flake.nix
+  ├── wallpapers
   ├── home                        # Home-manager configuration 
   │   ├── configurations          # Configurations, home by home
   │   └── modules                 # Modules :: options to build a cute home
@@ -36,13 +39,14 @@ I will put a tree like this in every *important* folder.
 #+end_src
 
 ** Instructions
+
 *** First installation on new hardware
+
 1. Boot into the NixOS installer;
 2. Switch to root user;
 3. Do your manual partitioning, and mount all (if you don't know how to do this step, go away);
 4. Installation process:
    #+begin_src bash
-     # This step is mandatory
      nix-shell -p git nixFlakes
 
      ### Thanks to hlissner for this trick ###
@@ -78,10 +82,11 @@ I will put a tree like this in every *important* folder.
 5. Reboot;
 6. Change your password;
 7. Enjoy;
-    
+   
 *** Once installed
+
 #+BEGIN_QUOTE
-I assume you're in the right folder...but it doesn't matter, you can build from github, from other folders or from another planet :).
+I'm assuming you're referring to flake configurations in your working directory...but it doesn't matter, you can build from github, from other folders or from another planet :).
 #+END_QUOTE
 
 If you want to build your home-manager configuration:
@@ -90,22 +95,33 @@ If you want to build your home-manager configuration:
      cp -R /home/configurations/mario@mate /home/configurations/"${USER}"@"${HOSTNAME}"
 
      # Modify what you want, then create your set under `/outputs/configs.nix`
-     # Switch.
-     home-manager switch --flake '.#"${USER}"@"${HOSTNAME}"'
+     # Build and activate!
+     nix build .#homeConfigurations."${USER}@${HOSTNAME}".activationPackage
+     ./result/activate
    #+end_src
+
+*** Once in a while
+
+Update your lock file!
+#+begin_src bash
+  nix flake update
+#+end_src
 
 To rebuild system/home:
 #+begin_src bash
   nixos-rebuild switch --flake .#$HOSTNAME
-  
-  home-manager switch --flake '.#"${USER}"@"${HOSTNAME}"'
+  home-manager switch --flake .#"${USER}@${HOSTNAME}"
 #+end_src
 
 ** How did I accomplish this?
+
 Well, I "borrowed" many ideas and functions from other repos...learning nix is *really hard*, with a steep learning curve.
 
-However, thanks to:
-- [[https://github.com/hlissner/dotfiles/tree/dfa908e06853908e7ca7b3d0318df618b79ca322][hlissner]] :: Doom author, very helpful for the modules idea;
-- [[https://github.com/NobbZ/nixos-config][nobbz]] :: This guy is my savior, very clear repo, good separation for home and system;
-- [[https://github.com/bbigras/nix-config][bbigras]] :: Nice configuration, I didn't like the folder structure very much, but the config is good;
-- [[https://github.com/gvolpe/nix-config][gvolpe]] :: For the useful articles and the crystal clear repo.
+Thanks to:
+- [[https://github.com/Misterio77/nix-config][Misterio77]]
+- [[https://github.com/fufexan/dotfiles][Fufexan]]
+- [[https://github.com/pinpox/nixos][Pinpox]]
+- [[https://github.com/hlissner/dotfiles/tree/dfa908e06853908e7ca7b3d0318df618b79ca322][hlissner]]
+- [[https://github.com/NobbZ/nixos-config][nobbz]] 
+- [[https://github.com/bbigras/nix-config][bbigras]] 
+- [[https://github.com/gvolpe/nix-config][gvolpe]] 
