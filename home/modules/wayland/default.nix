@@ -34,7 +34,7 @@ in {
       GDK_BACKEND = "wayland,x11";
       XDG_SESSION_TYPE = "wayland";
       SDL_VIDEODRIVER = "wayland";
-      GTK_USE_PORTAL = "1";
+      # GTK_USE_PORTAL = "1";
       QT_QPA_PLATFORM = "wayland";
       QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
       MOZ_ENABLE_WAYLAND = "1";

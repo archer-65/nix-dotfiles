@@ -3,6 +3,7 @@
   config,
   lib,
   pkgs,
+  wallpapers,
   ...
 }:
 with lib; let
@@ -26,7 +27,7 @@ in {
       effect-blur=5x5
       indicator-radius=80
       hide-keyboard-layout
-      image=~/pics/walls/wallhaven-j3mmdy.jpg
+      image=${wallpapers.moonlight-car.src}
       ring-color=#D1D5DB
       ring-clear-color=#D1D5DB
       ring-ver-color=#D1D5DB

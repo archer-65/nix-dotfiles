@@ -71,7 +71,7 @@
 
     themes = {
       active = "modus";
-      darkTheme = false;
+      darkTheme = true;
 
       ui.font = {
         name = "Roboto";
