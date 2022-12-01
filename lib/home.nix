@@ -6,7 +6,7 @@
 }:
 with builtins; let
   inherit (inputs) nixpkgs home-manager emacs-overlay hyprland nix-colors;
-  inherit (flake-self) overlays homeModules sharedModules;
+  inherit (flake-self) overlays homeModules;
 
   genConfiguration = home: {
     localSystem,
@@ -41,12 +41,11 @@ with builtins; let
           "${configurations}/common.nix"
         ]
         ++ [hyprland.homeManagerModules.default]
-        ++ attrValues homeModules.${username}
-        ++ attrValues sharedModules;
+        ++ attrValues homeModules.${username};
 
       extraSpecialArgs = {
         inherit nix-colors flake-self inputs;
-        inherit (import ../home/modules/themes/wallpapers.nix) wallpapers;
+        inherit (import ../wallpapers) wallpapers;
       };
     };
 in

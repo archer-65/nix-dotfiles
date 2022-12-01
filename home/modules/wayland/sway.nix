@@ -33,7 +33,7 @@ in {
           mode = "3440x1440@144.001Hz";
         };
 
-        output."*" = {bg = "${wallpapers.nerd-bedroom} fill";};
+        output."*" = {bg = "${wallpapers.nerd-bedroom.src} fill";};
 
         modifier = "Mod4";
         terminal = "${pkgs.alacritty}/bin/alacritty";

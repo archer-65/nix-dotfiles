@@ -2,9 +2,9 @@
   system.modules = {
     hardware = {audio.enable = true;};
 
-    services = {ssh.enable = true;};
+    credentials = {ssh.enable = true;};
 
-    xorg.enable = true;
+    graphical.xorg.enable = true;
 
     core.cachix.enable = true;
   };

@@ -20,19 +20,19 @@ lib: let
     };
 
     # Home-manager standalone
-    "mario@quietfrost" = rec {
+    "mario@quietfrost" = {
       type = "home-manager";
       localSystem = "x86_64-linux";
       username = "mario";
       stateVersion = "22.05";
     };
-    "mario@mate" = rec {
+    "mario@mate" = {
       type = "home-manager";
       localSystem = "x86_64-linux";
       username = "mario";
       stateVersion = "22.05";
     };
-    "mario@vm" = rec {
+    "mario@vm" = {
       type = "home-manager";
       localSystem = "x86_64-linux";
       username = "mario";

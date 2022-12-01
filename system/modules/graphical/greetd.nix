@@ -20,7 +20,7 @@ in {
         default_session.command = let
           greetd-gtk-style = pkgs.writeText "greetd-gtk-style" ''
             window {
-              background-image: url("file://${wallpapers.nixos-dark}");
+              background-image: url("file://${wallpapers.nixos-dark.src}");
               background-size: cover;
               background-position: center;
             }

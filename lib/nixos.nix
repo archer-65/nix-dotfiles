@@ -6,7 +6,7 @@
 }:
 with builtins; let
   inherit (inputs) vinceliuice-grub-theme nixpkgs;
-  inherit (flake-self) overlays nixosModules sharedModules;
+  inherit (flake-self) overlays nixosModules;
 
   genConfiguration = hostname: {
     localSystem,
@@ -33,7 +33,7 @@ with builtins; let
       specialArgs = {
         inherit lib;
         inherit flake-self;
-        inherit (import ../home/modules/themes/wallpapers.nix) wallpapers;
+        inherit (import ../wallpapers) wallpapers;
       };
       modules =
         [
@@ -41,8 +41,7 @@ with builtins; let
           "${flake-self}/system/configurations/${hostname}"
         ]
         ++ [vinceliuice-grub-theme.nixosModule]
-        ++ attrValues nixosModules
-        ++ attrValues sharedModules;
+        ++ attrValues nixosModules;
     };
 in
   lib.mapAttrs genConfiguration

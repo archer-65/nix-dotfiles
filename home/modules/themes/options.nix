@@ -96,6 +96,16 @@ in {
 
   config = mkIf (cfg.active != null) (mkMerge [
     {
+      home.file =
+        lib.attrsets.concatMapAttrs
+        (name: value: {
+          ${name} = {
+            target = "${config.xdg.userDirs.pictures}/walls/${name}.${value.ext}";
+            source = value.src;
+          };
+        })
+        wallpapers;
+
       home.sessionVariables = {QT_QPA_PLATFORMTHEME = "qt5ct";};
       home.packages = with pkgs.libsForQt5; [
         qtstyleplugin-kvantum
