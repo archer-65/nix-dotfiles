@@ -19,8 +19,9 @@ I will put a tree like this in every *important* folder.
 
 #+begin_src bash
   .
-  ├── flake.lock                  
   ├── flake.nix
+  ├── flake.lock                  
+  ├── shell.nix                   # Needed dependencies 
   ├── wallpapers
   ├── home                        # Home-manager configuration 
   │   ├── configurations          # Configurations, home by home
