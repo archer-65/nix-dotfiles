@@ -87,8 +87,10 @@ in {
           show_indicators = false;
 
           # Icons
+          enable_recursive_icon_lookup = true;
+          icon_theme = "Adwaita";
           icon_position = "left";
-          min_icon_size = 0;
+          min_icon_size = 32;
           max_icon_size = 64;
 
           # History

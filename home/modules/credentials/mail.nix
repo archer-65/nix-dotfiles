@@ -84,7 +84,7 @@ in {
 
           if [ "$NOTIFY_COUNT" -gt 0 ]; then
             RESULTS=''$(${pkgs.notmuch}/bin/notmuch search --format=json --output=summary --limit=5 --sort="newest-first" "$SEARCH" | ${pkgs.jq}/bin/jq -r '.[] | "\(.authors): \(.subject)"')
-            ${pkgs.libnotify}/bin/notify-send "$NOTIFY_COUNT New Emails:" "$RESULTS"
+            ${pkgs.libnotify}/bin/notify-send --icon=mail-unread-symbolic "$NOTIFY_COUNT New Emails:" "$RESULTS"
           fi
 
           ${pkgs.notmuch}/bin/notmuch tag -notify -- tag:notify
