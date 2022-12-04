@@ -8,8 +8,10 @@
 with lib; let
   cfg = config.mario.modules.apps.rofi;
   cfgWayland = config.mario.modules.wayland;
-
   cfgBitwarden = config.mario.modules.credentials.bitwarden;
+  rofiFonts = pkgs.nerdfonts.override {
+    fonts = ["Iosevka"];
+  };
 in {
   options.mario.modules.apps.rofi = {
     enable = mkEnableOption "rofi configuration";
@@ -27,7 +29,8 @@ in {
 
     home.packages = with pkgs;
       [rofi-powermenu]
-      ++ optionals cfgBitwarden.enable [rofi-rbw];
+      ++ optionals cfgBitwarden.enable [rofi-rbw]
+      ++ [rofiFonts];
 
     xdg.configFile."rofi/colors/color.rasi".text = ''
       /*

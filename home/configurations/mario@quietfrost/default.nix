@@ -1,4 +1,5 @@
 {
+  pkgs,
   config,
   ...
 }: {
@@ -33,7 +34,14 @@
       wm = ["sway" "hyprland"];
     };
 
-    term.alacritty.enable = true;
+    term = {
+      font = {
+        family = "VictorMono Nerd Font";
+        package = pkgs.nerdfonts.override {fonts = ["VictorMono"];};
+        size = 18;
+      };
+      alacritty.enable = true;
+    };
 
     dev = {
       cc.enable = true;
@@ -73,55 +81,27 @@
       active = "modus";
       darkTheme = true;
 
-      ui.font = {
-        name = "Roboto";
+      font.regular = {
+        family = "Roboto";
+        package = pkgs.roboto;
         size = 16;
       };
 
-      term.font = {
-        name = "VictorMono Nerd Font";
-        size = 18;
-      };
-
-      ui-alt.font = {
-        name = "Fira Code";
+      font.monospace = {
+        family = "FiraCode Nerd Font";
+        package = pkgs.nerdfonts.override {fonts = ["FiraCode"];};
         size = 14;
       };
 
       bar = {
         font = {
-          name = "Iosevka Nerd Font";
+          family = "Iosevka Nerd Font";
+          package = pkgs.nerdfonts.override {fonts = ["Iosevka"];};
           size = 20;
         };
       };
 
       cursor.size = 24;
     };
-  };
-
-  xdg.userDirs = {
-    enable = true;
-    createDirectories = true;
-
-    # These are useless to me
-    desktop = null;
-    publicShare = null;
-    templates = null;
-
-    documents = "${config.home.homeDirectory}/docs";
-    download = "${config.home.homeDirectory}/dl";
-    music = "${config.home.homeDirectory}/music";
-    pictures = "${config.home.homeDirectory}/pics";
-    videos = "${config.home.homeDirectory}/videos";
-
-    extraConfig = {
-      XDG_PROJECTS_DIR = "${config.home.homeDirectory}/projects";
-      XDG_GAMES_DIR = "${config.home.homeDirectory}/games";
-      XDG_MAILS_DIR = "${config.home.homeDirectory}/mails";
-    };
-  };
-
-  services = {
-    keybase.enable = true;
   };
 }

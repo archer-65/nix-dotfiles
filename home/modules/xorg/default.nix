@@ -20,6 +20,8 @@ in {
   };
 
   config = mkIf cfg.enable {
+    xsession.enable = true;
+
     home.packages = with pkgs; [nitrogen xclip xdotool];
 
     services = {flameshot.enable = true;};

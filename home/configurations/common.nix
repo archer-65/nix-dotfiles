@@ -5,112 +5,41 @@
   ...
 }:
 with lib; let
-  cfgXorg = config.mario.modules.xorg;
-  cfgWayland = config.mario.modules.wayland;
-
-  # Creative XOR operator :D
-  cfgExclusive =
-    (cfgXorg.enable || cfgWayland.enable)
-    && (!(cfgXorg.enable && cfgWayland.enable));
-
-  # Overriding nerd fonts (if you don't, all nerd fonts will be installed.)
-  nerdFonts = pkgs.nerdfonts.override {
-    fonts = ["FiraCode" "JetBrainsMono" "VictorMono" "Iosevka"];
-  };
-
-  userFonts = with pkgs; [
-    nerdFonts
-    corefonts
-    source-code-pro
-    roboto
-    noto-fonts
-    noto-fonts-emoji
-    noto-fonts-cjk-sans
-    font-awesome
-    material-design-icons
-  ];
-
-  socialPkgs = with pkgs; [tdesktop];
-
-  mediaPkgs = with pkgs; [
-    pavucontrol
-    brightnessctl
-    ffmpeg-full
-    playerctl
-    ispell
-    exiftool
-    imagemagick
-  ];
-
   archivePkgs = with pkgs; [
     zip
     unzip
     unrar
   ];
-
-  monitorPkgs = with pkgs; [btop s-tui neofetch];
-
-  xfcePkgs = with pkgs; [
-    xfce.xfconf
-    xfce.exo
-    (xfce.thunar.override
-      {
-        thunarPlugins = with pkgs; [
-          xfce.thunar-volman
-          xfce.thunar-archive-plugin
-          xfce.thunar-media-tags-plugin
-        ];
-      })
-  ];
-
-  scriptsPkgs = with pkgs; [
-    theme-toggle
-  ];
-
-  desktopPkgs = with pkgs; [
-    mate.engrampa
-    transmission-gtk
-  ];
 in {
   config = {
-    assertions = [
-      {
-        assertion = cfgExclusive;
-        message = "Can't enable customization for both Xorg and Wayland.";
-      }
-    ];
-
     programs.home-manager.enable = true;
 
-    home.packages =
-      desktopPkgs
-      ++ xfcePkgs
-      ++ userFonts
-      ++ archivePkgs
-      ++ monitorPkgs
-      ++ mediaPkgs
-      ++ socialPkgs
-      ++ scriptsPkgs;
+    home.packages = archivePkgs;
 
-    fonts.fontconfig.enable = true;
+    xdg.userDirs = {
+      enable = true;
+      createDirectories = true;
 
-    xsession.enable = true;
+      # These are useless to me
+      desktop = null;
+      publicShare = null;
+      templates = null;
 
-    systemd.user.services = {
-      polkit = {
-        Unit = {
-          Description = "polkit-gnome";
-          Documentation = ["man:polkit(8)"];
-          PartOf = ["graphical-session.target"];
-        };
-        Service = {
-          Type = "simple";
-          ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-          RestartSec = 3;
-          Restart = "always";
-        };
-        Install = {WantedBy = ["graphical-session.target"];};
+      documents = "${config.home.homeDirectory}/docs";
+      download = "${config.home.homeDirectory}/dl";
+      music = "${config.home.homeDirectory}/music";
+      pictures = "${config.home.homeDirectory}/pics";
+      videos = "${config.home.homeDirectory}/videos";
+
+      extraConfig = {
+        XDG_PROJECTS_DIR = "${config.home.homeDirectory}/projects";
+        XDG_GAMES_DIR = "${config.home.homeDirectory}/games";
+        XDG_MAILS_DIR = "${config.home.homeDirectory}/mails";
       };
+    };
+
+    services = {
+      keybase.enable = true;
     };
   };
 }

@@ -183,7 +183,7 @@ in {
         * {
             border: none;
             border-radius: 0;
-            font-family: "${cfgTheme.bar.font.name}";
+            font-family: "${cfgTheme.bar.font.family}";
             font-size: ${toString cfgTheme.bar.font.size}px;
             font-weight: normal;
         }

@@ -39,9 +39,9 @@ in {
         terminal = "${pkgs.alacritty}/bin/alacritty";
 
         fonts = {
-          names = [cfgTheme.ui.font.name];
+          names = [cfgTheme.font.regular.family];
           # Sum required: floating point value but int option defined
-          size = cfgTheme.ui.font.size + 0.0;
+          size = cfgTheme.font.regular.size + 0.0;
         };
 
         gaps.inner = 10;

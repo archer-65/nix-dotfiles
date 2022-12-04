@@ -67,8 +67,8 @@ in {
 
           # Text
           font = let
-            fontName = cfgTheme.ui-alt.font.name;
-            fontSize = cfgTheme.ui-alt.font.size;
+            fontName = cfgTheme.font.monospace.family;
+            fontSize = cfgTheme.font.monospace.size;
           in "${fontName} ${toString fontSize}, Material Design Icons ${
             toString fontSize
           }";

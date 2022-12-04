@@ -27,11 +27,13 @@
 
     "gaming/emulators" = import ./gaming/emulators.nix;
 
+    "graphical" = import ./graphical;
+
     "media/documents" = import ./media/documents.nix;
     "media/videos" = import ./media/videos.nix;
 
+    "term" = import ./term;
     "term/alacritty" = import ./term/alacritty.nix;
-
 
     "dev/cc" = import ./dev/cc.nix;
     "dev/js" = import ./dev/js;
@@ -54,7 +56,9 @@
     "shell/git" = import ./shell/git.nix;
     "shell/starship" = import ./shell/starship.nix;
 
-    "themes/options" = import ./themes/options.nix;
+    "themes" = import ./themes;
+    "themes/bar.nix" = import ./themes/bar.nix;
+    "themes/fonts" = import ./themes/fonts.nix;
     "themes/onedark" = import ./themes/onedark.nix;
     "themes/modus" = import ./themes/modus.nix;
   };

@@ -29,72 +29,24 @@ in {
       '';
     };
 
-    # GTK & Co.
-    ui.font = {
-      name = mkOption {
-        type = str;
-        default = "Sans";
-      };
-
-      size = mkOption {
-        type = int;
-        default = 12;
-      };
-    };
-
-    # Terminal font
-    term.font = {
-      name = mkOption {
-        type = str;
-        default = "Monospace";
-      };
-
-      size = mkOption {
-        type = int;
-        default = 14;
-      };
-    };
-
-    # Alternative (notifications, etc.)
-    ui-alt.font = {
-      name = mkOption {
-        type = str;
-        default = "Monospace";
-      };
-
-      size = mkOption {
-        type = int;
-        default = 12;
-      };
-    };
-
     cursor.size = mkOption {
       type = int;
       default = 16;
     };
-
-    # Bar settings
-    bar = {
-      font = {
-        name = mkOption {
-          type = str;
-          default = "Monospace";
-        };
-
-        size = mkOption {
-          type = int;
-          default = 12;
-        };
-      };
-
-      battery = mkOption {
-        type = nullOr str;
-        default = null;
-      };
-    };
   };
 
   config = mkIf (cfg.active != null) (mkMerge [
+    # QT
+    {
+      home.sessionVariables = {QT_QPA_PLATFORMTHEME = "qt5ct";};
+      home.packages = with pkgs.libsForQt5; [
+        qtstyleplugin-kvantum
+        breeze-qt5
+        qt5ct
+      ];
+    }
+
+    # Walls
     {
       home.file =
         lib.attrsets.concatMapAttrs
@@ -105,13 +57,11 @@ in {
           };
         })
         wallpapers;
+    }
 
-      home.sessionVariables = {QT_QPA_PLATFORMTHEME = "qt5ct";};
-      home.packages = with pkgs.libsForQt5; [
-        qtstyleplugin-kvantum
-        breeze-qt5
-        qt5ct
-      ];
+    # General
+    {
+      home.packages = [pkgs.theme-toggle];
 
       gtk = {
         enable = true;
@@ -122,8 +72,8 @@ in {
         };
 
         font = {
-          inherit (cfg.ui.font) name;
-          inherit (cfg.ui.font) size;
+          name = cfg.font.regular.family;
+          inherit (cfg.font.regular) size;
         };
       };
 
@@ -142,6 +92,7 @@ in {
       };
     }
 
+    # Xorg
     (mkIf xorg.enable {
       home.pointerCursor.x11.enable = true;
       xresources.properties = {"Xcursor.theme" = config.gtk.cursorTheme.name;};

@@ -7,7 +7,7 @@
 @import "../colors/color.rasi"
 
 configuration {
-    font:             "JetBrains Mono Nerd Font 14";
+    font:             "Iosevka Nerd Font 14";
     show-icons:       false;
     disable-history:  false;
     sidebar-mode: 	  false;
