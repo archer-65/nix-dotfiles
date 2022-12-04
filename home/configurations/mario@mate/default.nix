@@ -61,7 +61,7 @@
 
       direnv.enable = true;
 
-      git-defaults.enable = true;
+      git.enable = true;
     };
 
     themes = {

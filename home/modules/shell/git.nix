@@ -5,9 +5,9 @@
   ...
 }:
 with lib; let
-  cfg = config.mario.modules.shell.git-defaults;
+  cfg = config.mario.modules.shell.git;
 in {
-  options.mario.modules.shell.git-defaults = {
+  options.mario.modules.shell.git = {
     enable = mkEnableOption "main user git configuration";
   };
 
