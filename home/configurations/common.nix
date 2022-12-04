@@ -64,8 +64,7 @@ with lib; let
   ];
 
   scriptsPkgs = with pkgs; [
-    script-volume
-    script-theme-toggle
+    theme-toggle
   ];
 
   desktopPkgs = with pkgs; [

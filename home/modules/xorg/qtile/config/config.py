@@ -25,16 +25,6 @@ hostname = platform.uname().node
 # Expand every important dir
 home       = path.expanduser('~')
 qtile_path = path.join(home, ".config", "qtile")
-# scripts    = path.join(home, ".local", "bin")
-
-# Rofi launchers
-# launcher    = path.join(scripts, "rofi-launcher")
-# powermenu   = path.join(scripts, "rofi-powermenu")
-# clipboard   = path.join(scripts, "rofi-clipboard")
-# emoji       = path.join(scripts, "rofi-emoji")
-
-# Media scripts
-# volume      = path.join(scripts, "volume")
 
 # Programs
 terminal    = "alacritty"
@@ -53,7 +43,7 @@ mixer       = terminal + " -e pulsemixer"
 @hook.subscribe.startup_once
 def autostart():
     subprocess.call([path.join(qtile_path, "autostart.sh")])
-    
+
 ####################
 ##### KEYBINDS #####
 ####################
@@ -62,7 +52,7 @@ keys = [
     #########################
     ##### QTILE CONTROL #####
     #########################
-    
+
     # Switch between windows
     Key([mod], "h",
         lazy.layout.left(),
@@ -91,39 +81,39 @@ keys = [
         lazy.layout.swap_column_left(),
         lazy.layout.shuffle_left().when(layout="bsp"),
         desc="Move window to the left or swap column"),
-    
+
     Key([mod, "shift"], "l",
         lazy.layout.swap_right(),
         lazy.layout.swap_column_right(),
         lazy.layout.shuffle_right().when(layout="bsp"),
         desc="Move window to the right or swap column"),
-    
+
     Key([mod, "shift"], "j",
         lazy.layout.shuffle_down() ,
         desc="Move window down"),
-    
+
     Key([mod, "shift"], "k",
         lazy.layout.shuffle_up(),
         desc="Move window up"),
-    
+
     # Grow windows. If current window is on the edge of screen and direction
     # will be to screen edge - window would shrink.
     Key([mod, "control"], "h",
         lazy.layout.grow_left(),
         desc="Grow window to the left"),
-    
+
     Key([mod, "control"], "l",
         lazy.layout.grow_right(),
         desc="Grow window to the right"),
-    
+
     Key([mod, "control"], "j",
         lazy.layout.grow_down(),
         desc="Grow window down"),
-    
+
     Key([mod, "control"], "k",
         lazy.layout.grow_up(),
         desc="Grow window up"),
-    
+
     Key([mod], "n",
         lazy.layout.normalize(),
         desc="Reset all window sizes (secondary clients)"),
@@ -132,11 +122,11 @@ keys = [
     Key([mod], "equal",
         lazy.layout.grow(),
         desc="Grow Monad"),
-    
+
     Key([mod], "minus",
         lazy.layout.shrink(),
         desc="Shrink Monad"),
-    
+
     Key([mod, "shift"], "space",
         lazy.layout.flip(),
         desc="Flip layout"),
@@ -149,7 +139,7 @@ keys = [
     Key([mod, "mod1"], "j",
         lazy.layout.flip_down(),
         desc="Flip BSP down"),
-    
+
     Key([mod, "mod1"], "k",
         lazy.layout.flip_up(),
         desc="Flip BSP up"),
@@ -161,12 +151,12 @@ keys = [
     Key([mod, "mod1"], "l",
         lazy.layout.flip_right(),
         desc="Flip BSP right"),
-    
+
     # Switch to next/prev
     Key([mod], "Left",
         lazy.screen.prev_group(),
         desc="Switch to previous group"),
-    
+
     Key([mod], "Right",
         lazy.screen.next_group(),
         desc="Switch to next group"),
@@ -183,7 +173,7 @@ keys = [
     Key([mod], "Tab",
         lazy.next_layout(),
         desc="Toggle between layouts"),
-    
+
     Key([mod, "shift"], "Tab",
         lazy.prev_layout(),
         desc="Toggle between layouts (backward)"),
@@ -192,7 +182,7 @@ keys = [
     Key([mod], "w",
         lazy.window.kill(),
         desc="Kill focused window"),
-    
+
     Key([mod], "t",
         lazy.window.toggle_floating(),
         desc="Toggle floating for focused window"),
@@ -201,15 +191,15 @@ keys = [
     Key([mod, "control"], "b",
         lazy.hide_show_bar("top"),
         desc="Toggle bar"),
-    
+
     Key([mod, "control"], "r",
         lazy.reload_config(),
         desc="Reload the config"),
-    
+
     Key([mod, "shift"], "r",
         lazy.restart(),
         desc="Restart Qtile"),
-    
+
     Key([mod, "control"], "q",
         lazy.shutdown(),
         desc="Shutdown Qtile"),
@@ -220,40 +210,36 @@ keys = [
 
     # Volume
     Key([], "XF86AudioRaiseVolume",
-        lazy.spawn("volume up"),
+        lazy.spawn("pamixer -u && pamixer -i 5"),
         desc="Volume up"),
-    
+
     Key([], "XF86AudioLowerVolume",
-        lazy.spawn("volume down"),
+        lazy.spawn("pamixer -u && pamixer -d 5"),
         desc="Volume down"),
-    
+
     Key([], "XF86AudioMute",
-        lazy.spawn("volume mute"),
+        lazy.spawn("pamixer -t"),
         desc="Volume toggle mute"),
 
     ###################
     ##### GENERAL #####
     ###################
-    
+
     ##### Rofi #####
     Key([mod], "d",
-        lazy.spawn("rofi-launcher"),
+        lazy.spawn("rofi -no-lazy-grab -show drun -modi run,drun -theme $HOME/.config/rofi/themes/launcher"),
         desc="Rofi launcher"),
-    
+
     Key([mod, "shift"], "q",
         lazy.spawn("rofi-powermenu"),
         desc="Rofi powermenu"),
 
     Key([mod], "comma",
-        lazy.spawn("rofi-clipboard copy"),
+        lazy.spawn("rofi -modi \"clipboard:greenclip print\" -show clipboard -run-command '{cmd} -theme $HOME/.config/rofi/themes/clipboard"),
         desc="Rofi clipboard"),
-    
-    Key([mod], "period",
-        lazy.spawn("rofi-clipboard paste"),
-        desc="Rofi clipboard direct paste"),
 
     Key([mod], "slash",
-        lazy.spawn("rofi-emoji"),
+        lazy.spawn("rofi -show emoji -modi emoji -theme $HOME/.config/rofi/themes/emoji"),
         desc="Rofi emoji"),
 
     Key([mod], "p",
@@ -273,7 +259,7 @@ keys = [
         desc="Capture GUI"),
 
     ##### APPS #####
-    
+
     # Terminal
     Key([mod], "Return",
         lazy.spawn(terminal),
@@ -291,7 +277,7 @@ keys = [
 
     # (E)macs
     KeyChord([mod], "e", [
-        
+
         Key([], "e",
             lazy.spawn(editor),
             desc="Launch Emacs"),
@@ -385,12 +371,12 @@ for i in groups:
     ])
 
 ##### LAYOUT MAIN #####
-    
+
 layout_theme = {
     "border_width": 3,
     "border_focus": colors["active"],
     "border_normal": colors["inactive"],
-}  
+}
 
 layouts = [
     layout.MonadTall(
@@ -420,15 +406,15 @@ floating_layout = layout.Floating(
     float_rules=[
         *layout.Floating.default_float_rules,
         Match(wm_class='Thunar'),
-        Match(wm_class='confirmreset'), 
-        Match(wm_class='bitwarden'),  
-        Match(wm_class='makebranch'), 
-        Match(wm_class='maketag'),  
+        Match(wm_class='confirmreset'),
+        Match(wm_class='bitwarden'),
+        Match(wm_class='makebranch'),
+        Match(wm_class='maketag'),
         Match(wm_class='ssh-askpass'),
         Match(title="Android Emulator.*"),
-        Match(title='branchdialog'),  
-        Match(title='pinentry'),  
-        Match(wm_class='pinentry-gtk-2'),  
+        Match(title='branchdialog'),
+        Match(title='pinentry'),
+        Match(wm_class='pinentry-gtk-2'),
     ],
     **layout_theme,
 )
@@ -464,8 +450,8 @@ def sep(fg='fg', bg='bg'):
          linewidth = 0,
      )
 
-##### WIDGETS FOR LAPTOP ##### 
- 
+##### WIDGETS FOR LAPTOP #####
+
 def laptop_extra():
     global hostname
     if hostname == 'quietfrost' or hostname == "vm":
@@ -475,7 +461,7 @@ def laptop_extra():
     else:
         widgets_list = [
             sep(),
-            
+
             widget.Backlight(
                 **base(fg='bg', bg='color1'),
                 format=' {percent:2.0%}',
@@ -485,7 +471,7 @@ def laptop_extra():
                 change_command='brightnessctl s {0}%',
                 step=5,
             ),
-            
+
             widget.Battery(
                 **base(fg='bg', bg='color1'),
                 low_foreground=colors['urgent'],
@@ -509,7 +495,7 @@ screens= [
     Screen(
         top=bar.Bar(
             [
-                ### LEFT 
+                ### LEFT
                 widget.GroupBox(
                     active=colors["fg"],
                     inactive=colors["inactive"],
@@ -520,11 +506,11 @@ screens= [
                     disable_drag=True,
                     padding=8,
                 ),
-                
+
                 widget.Spacer(),
 
                 ### CENTER
-                
+
                 # widget.Mpris2(
                 #     **base(fg='fg', bg='bg'),
                 #     fmt="  {}",
@@ -553,9 +539,9 @@ screens= [
                     format="  {load_percent}%",
                     update_interval=5,
                 ),
-                
+
                 sep(),
-                
+
                 widget.ThermalSensor(
                     **base(fg='bg', bg='urgent'),
                     tag_sensor='Tctl' if hostname == 'quietfrost' else None,
@@ -583,7 +569,7 @@ screens= [
                 # ),
             ]
             +
-            
+
             laptop_extra()
 
             +
@@ -594,7 +580,7 @@ screens= [
                 ),
 
                 sep(),
-                
+
                 widget.Systray(
                     **base(bg='inactive'),
                     icon_size=24,
@@ -617,7 +603,7 @@ screens= [
 
 # Show/Hide bar based on layout
 def _bar(qtile):
-    # Get the bar 
+    # Get the bar
     bar = qtile.current_screen.top
     # Check the layout and hide bar accordingly
     if(qtile.current_layout.info()['name'] == 'max'):
@@ -628,14 +614,14 @@ def _bar(qtile):
 @hook.subscribe.layout_change
 def layout_change(layout,group):
     _bar(qtile)
-    
+
 @hook.subscribe.changegroup
 def group_change():
     _bar(qtile)
 
 @hook.subscribe.client_focus
 def focus_change(window):
-    _bar(qtile)       
+    _bar(qtile)
 
 ##### OTHER #####
 

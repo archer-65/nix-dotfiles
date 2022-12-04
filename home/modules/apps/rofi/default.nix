@@ -8,17 +8,8 @@
 with lib; let
   cfg = config.mario.modules.apps.rofi;
   cfgWayland = config.mario.modules.wayland;
-  inherit (config.dotfiles) configDir;
 
-  rbw = optionals config.mario.modules.credentials.bitwarden.enable [pkgs.rofi-rbw];
-
-  utils = with pkgs; [
-    script-usedcpu
-    script-usedram
-    script-powermenu
-    script-launcher
-    script-emoji
-  ];
+  cfgBitwarden = config.mario.modules.credentials.bitwarden;
 in {
   options.mario.modules.apps.rofi = {
     enable = mkEnableOption "rofi configuration";
@@ -31,10 +22,12 @@ in {
         if cfgWayland.enable
         then pkgs.rofi-wayland
         else pkgs.rofi;
-      plugins = with pkgs; [rofi-emoji] ++ rbw;
+      plugins = with pkgs; [rofi-emoji];
     };
 
-    home.packages = with pkgs; [rofi-emoji] ++ rbw ++ utils;
+    home.packages = with pkgs;
+      [rofi-powermenu]
+      ++ optionals cfgBitwarden.enable [rofi-rbw];
 
     xdg.configFile."rofi/colors/color.rasi".text = ''
       /*
@@ -56,10 +49,12 @@ in {
       recursive = true;
     };
 
-    xdg.configFile."rofi-rbw.rc".text = ''
-      action = type
-      prompt = Select credentials
-      selector-args = -theme ~/.config/rofi/themes/rbw
-    '';
+    xdg.configFile."rofi-rbw.rc" = mkIf cfgBitwarden.enable {
+      text = ''
+        action = type
+        prompt = Select credentials
+        selector-args = -theme ~/.config/rofi/themes/rbw
+      '';
+    };
   };
 }

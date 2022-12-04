@@ -1,4 +1,5 @@
 {
+  pkgs,
   options,
   config,
   lib,
@@ -20,5 +21,7 @@ in {
       enable = true;
       shellAliases = {};
     };
+
+    home.packages = [ pkgs.beautysh ];
   };
 }

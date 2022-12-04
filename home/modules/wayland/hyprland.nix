@@ -205,14 +205,14 @@ in {
         bind = ,F11, fullscreen, 0
         bind = SUPER, F11, fullscreen, 1
 
-        bind = , XF86AudioRaiseVolume, exec, volume up
-        bind = , XF86AudioLowerVolume, exec, volume down
-        bind = , XF86AudioMute, exec, volume mute
+        bind = , XF86AudioRaiseVolume, exec, pamixer -u && pamixer -i 5
+        bind = , XF86AudioLowerVolume, exec, pamixer -u && pamixer -d 5
+        bind = , XF86AudioMute, exec, pamixer -t
 
-        bind = SUPER, d, exec, rofi-launcher
+        bind = SUPER, d, exec, rofi -no-lazy-grab -show drun -modi run,drun -theme $HOME/.config/rofi/themes/launcher
         bind = SUPERSHIFT, q, exec, rofi-powermenu
         bind = SUPER, comma, exec, clipman pick -t rofi -T'-theme ~/.config/rofi/themes/clipboard'
-        bind = SUPER, slash, exec, rofi-emoji
+        bind = SUPER, slash, exec, rofi -show emoji -modi emoji -theme $HOME/.config/rofi/themes/emoji
         bind = SUPER, p, exec, rofi-rbw
 
         bind = , Print, exec, grimshot --notify copy

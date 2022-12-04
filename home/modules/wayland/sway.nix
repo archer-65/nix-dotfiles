@@ -214,14 +214,14 @@ in {
           "${mod}+equal" = "scratchpad show";
 
           # XF86
-          "XF86AudioRaiseVolume" = "exec volume up";
-          "XF86AudioLowerVolume" = "exec volume down";
-          "XF86AudioMute" = "exec volume mute";
+          "XF86AudioRaiseVolume" = "exec pamixer -u && pamixer -i 5";
+          "XF86AudioLowerVolume" = "exec pamixer -u && pamixer -d 5";
+          "XF86AudioMute" = "exec pamixer -t";
 
           # Launchers
-          "${mod}+d" = "exec rofi-launcher";
+          "${mod}+d" = "exec rofi -no-lazy-grab -show drun -modi run,drun -theme $HOME/.config/rofi/themes/launcher";
           "${mod}+Shift+q" = "exec rofi-powermenu";
-          "${mod}+slash" = "exec rofi-emoji";
+          "${mod}+slash" = "exec rofi -show emoji -modi emoji -theme $HOME/.config/rofi/themes/emoji";
           "${mod}+p" = "exec rofi-rbw";
 
           # Clipboard

@@ -30,7 +30,7 @@ window {
 }
 
 prompt {
-    enabled: 		   true;
+    enabled: 		       true;
     padding:           10px;
     background-color:  @background;
     text-color:        @selected;
@@ -40,22 +40,22 @@ prompt {
 }
 
 textbox-prompt-colon {
-    expand: 	       false;
-    str: 			   " System ";
+    expand: 	         false;
+    str: 			         " System ";
     background-color:  @selected;
-    text-color: 	   @background;
+    text-color: 	     @background;
     padding:           12px 10px 0px 10px;
 }
 
 inputbar {
-    children:  		   [ textbox-prompt-colon, prompt ];
+    children:  		     [ textbox-prompt-colon, prompt ];
     spacing:           0px;
     background-color:  @background;
     text-color:        @foreground;
     expand:            false;
     border:            0px;
     border-radius:     0px;
-    border-color:      @accent;
+    border-color:      @active;
     margin:            0px 0px 0px 0px;
     padding:           0px;
     position:          center;
@@ -112,7 +112,7 @@ element selected {
     text-color:        @background;
     border:            0px;
     border-radius:     0px;
-    border-color:      @border;
+    border-color:      @wborder;
 }
 
 element selected.urgent {
