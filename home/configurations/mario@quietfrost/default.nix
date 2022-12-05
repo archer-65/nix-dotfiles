@@ -79,7 +79,7 @@
 
     themes = {
       active = "modus";
-      darkTheme = true;
+      darkTheme = false;
 
       font.regular = {
         family = "Roboto";

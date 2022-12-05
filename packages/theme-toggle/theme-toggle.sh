@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+dotfiles=$HOME/.dotfiles
 path=$HOME/.dotfiles/home/configurations/mario@${HOSTNAME}/default.nix
 
 toggle_emacs() {
