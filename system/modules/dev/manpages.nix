@@ -18,6 +18,7 @@ in {
       dev.enable = true;
       doc.enable = true;
       info.enable = true;
+      man.generateCaches = true;
     };
   };
 }
