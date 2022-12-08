@@ -21,7 +21,7 @@ inputs: {
       mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
     });
 
-    notmuch-mailmover = inputs.notmuch-mailmover.packages.x86_64-linux.default;
+    # notmuch-mailmover = inputs.notmuch-mailmover.packages.x86_64-linux.default;
 
     tdlib = prev.tdlib.overrideAttrs (_old: rec {
       version = "1.8.8";

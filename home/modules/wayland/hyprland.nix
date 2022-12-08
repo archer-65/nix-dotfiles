@@ -89,13 +89,13 @@ in {
 
         monitor = desc:AOC U34G2G4R3 0x0000241D, 3440x1440@144, 0x0, 1
 
-        device:Idobao ID80 {
+        input {
           kb_layout = us
           kb_variant = altgr-intl
           kb_options = ctrl:nocaps
         }
 
-        device:ELECOM TrackBall Mouse HUGE TrackBall {
+        device:elecom-trackball-mouse-huge-trackball-1 {
           scroll_method = on_button_down
           scroll_button = 279
           accel_profile = adaptive
