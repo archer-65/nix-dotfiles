@@ -95,15 +95,15 @@ in {
           kb_options = ctrl:nocaps
         }
 
+        input {
+          accel_profile = flat
+          follow_mouse = 1
+        }
+
         device:elecom-trackball-mouse-huge-trackball-1 {
           scroll_method = on_button_down
           scroll_button = 279
           accel_profile = adaptive
-        }
-
-        input {
-          accel_profile = flat
-          follow_mouse = 1
         }
 
         # Needed
