@@ -48,6 +48,7 @@
       nix.enable = true;
       java.enable = true;
       js.enable = true;
+      kube.enable = true;
       python.enable = true;
       rust.enable = true;
       tex.enable = true;

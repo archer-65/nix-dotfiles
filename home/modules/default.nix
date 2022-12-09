@@ -38,7 +38,8 @@
     "dev/cc" = import ./dev/cc.nix;
     "dev/js" = import ./dev/js;
     "dev/java" = import ./dev/java.nix;
-    "dev-lang.nix" = import ./dev/nix-lang.nix;
+    "dev/kube" = import ./dev/kube.nix;
+    "dev/nix" = import ./dev/nix-lang.nix;
     "dev/python" = import ./dev/python.nix;
     "dev/rust" = import ./dev/rust.nix;
     "dev/terraform" = import ./dev/terraform.nix;
