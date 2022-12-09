@@ -30,7 +30,7 @@ in {
           # Geometry
           width = "(300, 450)";
           height = "300";
-          origin = "top-right";
+          origin = "top-center";
           offset = let
             vMargin =
               if cfgWayland.enable
@@ -57,7 +57,7 @@ in {
           horizontal_padding = 10;
           text_icon_padding = 15;
 
-          corner_radius = 0;
+          corner_radius = 5;
           frame_width = 2;
           frame_color = "#${colors.base0D}";
           separator_color = "frame";
