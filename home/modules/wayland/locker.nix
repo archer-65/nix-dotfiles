@@ -10,6 +10,9 @@ with lib; let
   cfg = config.mario.modules.wayland.locker;
   cfgSway = config.wayland.windowManager.sway;
   cfgHyprland = config.wayland.windowManager.hyprland;
+
+  cfgTheme = config.mario.modules.themes;
+  inherit (config.colorScheme) colors;
 in {
   options.mario.modules.wayland.locker = {
     enable = mkEnableOption "wayland screen locker";
@@ -20,36 +23,47 @@ in {
       swaylock-effects
     ];
 
-    xdg.configFile."swaylock/config".text = let
+    programs.swaylock.settings = let
       transparent = "#00000000";
-    in ''
-      clock
-      effect-blur=5x5
-      indicator-radius=80
-      hide-keyboard-layout
-      image=${wallpapers.moonlight-car.src}
-      ring-color=#D1D5DB
-      ring-clear-color=#D1D5DB
-      ring-ver-color=#D1D5DB
-      ring-wrong-color=#FCA5A5
-      key-hl-color=#D1D5DB
-      bs-hl-color=#FCA5A5
-      text-color=${transparent}
-      text-clear-color=${transparent}
-      text-caps-lock-color=${transparent}
-      text-ver-color=${transparent}
-      text-wrong-color=${transparent}
-      line-color=${transparent}
-      line-clear-color=${transparent}
-      line-caps-lock-color=${transparent}
-      line-ver-color=${transparent}
-      line-wrong-color=${transparent}
-      inside-color=${transparent}
-      inside-clear-color=${transparent}
-      inside-ver-color=${transparent}
-      inside-wrong-color=${transparent}
-      separator-color=${transparent}
-    '';
+    in {
+      font = cfgTheme.font.regular.family;
+      image = wallpapers.moonlight-car.src;
+      effect-blur = "5x5";
+
+      ignore-empty-password = true;
+      hide-keyboard-layout = true;
+
+      clock = true;
+      indicator = true;
+      indicator-radius = 80;
+      indicator-thickness = 15;
+
+      layout-text-color = colors.base0E;
+
+      bs-hl-color = colors.base08;
+      key-hl-color = colors.base0B;
+      separator-color = colors.base05;
+
+      text-color = colors.base07;
+      text-clear-color = colors.base07;
+      text-ver-color = colors.base07;
+      text-wrong-color = colors.base07;
+
+      inside-color = transparent;
+      inside-clear-color = transparent;
+      inside-ver-color = transparent;
+      inside-wrong-color = transparent;
+
+      line-color = transparent;
+      line-clear-color = transparent;
+      line-ver-color = transparent;
+      line-wrong-color = transparent;
+
+      ring-color = colors.base01;
+      ring-clear-color = colors.base0A;
+      ring-ver-color = colors.base0E;
+      ring-wrong-color = colors.base08;
+    };
 
     services.swayidle = let
       swaylock = "${pkgs.swaylock-effects}/bin/swaylock -fF";
