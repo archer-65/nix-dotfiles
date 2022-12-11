@@ -285,7 +285,7 @@ With optional prefix ARG (\\[universal-argument]) call
            mail-envelope-from 'header))
 
 (setup message
-  (:option message-cite-style message-cite-style-gmail
+  (:option message-cite-style 'message-cite-style-gmail
            message-citation-line-function 'message-insert-formatted-citation-line))
 
 (provide 'init-mail)
