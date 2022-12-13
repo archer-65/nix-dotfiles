@@ -6,7 +6,7 @@
 
 ;;; Code:
 
-(defun archer-meow-setup ()
+(defun meow-setup ()
   (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)
   (meow-motion-overwrite-define-key
    '("j" . meow-next)
@@ -93,9 +93,10 @@
    '("<escape>" . ignore)))
 
 (setup (:pkg meow)
-  (:require)
+  (:require meow)
   (:when-loaded
-    (archer-meow-setup)
+    (meow-setup)
+    (meow-setup-indicator)
     (meow-global-mode 1)))
 
 (provide 'init-meow)

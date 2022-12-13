@@ -125,7 +125,7 @@ in {
         windowrulev2 = float, class:^(firefox)$, title:^(Picture-in-Picture)
         windowrulev2 = pin, class:^(firefox)$, title:^(Picture-in-Picture)
 
-        windowrulev2 = workspacesilent special:trash, title:^(Firefox — Sharing Indicator)$
+        windowrulev2 = workspace special:trash silent, title:^(Firefox — Sharing Indicator)$
         # windowrulev2 = float, title:^(Firefox — Sharing Indicator)$
         # windowrulev2 = pin, title:^(Firefox — Sharing Indicator)$
         # windowrulev2 = move 100%-20, title:^(Firefox — Sharing Indicator)$

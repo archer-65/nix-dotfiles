@@ -89,8 +89,8 @@ Functions to determine if we are using a Nix installation of Emacs, or not, then
 
   (defvar archer-config-path
     (if (archer-using-nix-p)
-        (if (file-exists-p (expand-file-name ".dotfiles/config/emacs/" (getenv "HOME")))
-            (expand-file-name ".dotfiles/config/emacs/" (getenv "HOME")))
+        (if (file-exists-p (expand-file-name ".dotfiles/home/modules/editors/emacs/config/" (getenv "HOME")))
+            (expand-file-name ".dotfiles/home/modules/editors/emacs/config/" (getenv "HOME")))
       (expand-file-name user-emacs-directory)))
 
 #+end_src
@@ -237,7 +237,7 @@ Keybindings are listed in =init-meow.el=.
 
 #+begin_src emacs-lisp
 
-  ;; (require 'init-meow)
+  (require 'init-meow)
 
 #+end_src
 

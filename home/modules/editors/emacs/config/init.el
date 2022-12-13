@@ -35,8 +35,8 @@
 
 (defvar archer-config-path
   (if (archer-using-nix-p)
-      (if (file-exists-p (expand-file-name ".dotfiles/config/emacs/" (getenv "HOME")))
-          (expand-file-name ".dotfiles/config/emacs/" (getenv "HOME")))
+      (if (file-exists-p (expand-file-name ".dotfiles/home/modules/editors/emacs/config/" (getenv "HOME")))
+          (expand-file-name ".dotfiles/home/modules/editors/emacs/config/" (getenv "HOME")))
     (expand-file-name user-emacs-directory)))
 
 ;; Require package management file
@@ -56,7 +56,7 @@
 
 (require 'init-editing)
 
-;; (require 'init-meow)
+(require 'init-meow)
 
 (require 'init-windows)
 
