@@ -30,6 +30,11 @@ in {
       type = types.nullOr types.str;
       default = null;
     };
+
+    temperature = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+    };
   };
 
   config = {

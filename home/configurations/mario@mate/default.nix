@@ -88,6 +88,7 @@
         };
 
         battery = "BAT1";
+        temperature = "/sys/class/hwmon/hwmon3/temp1_input";
       };
     };
   };

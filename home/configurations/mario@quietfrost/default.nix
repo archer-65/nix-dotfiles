@@ -100,6 +100,7 @@
           package = pkgs.nerdfonts.override {fonts = ["Iosevka"];};
           size = 20;
         };
+        temperature = "/sys/class/hwmon/hwmon2/temp4_input";
       };
 
       cursor.size = 24;
