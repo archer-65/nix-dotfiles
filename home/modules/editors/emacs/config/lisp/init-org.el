@@ -43,7 +43,8 @@
 
   (org-babel-do-load-languages
    'org-babel-load-languages '((emacs-lisp . t)
-                               (shell . t)))
+                               (shell . t)
+                               (groovy . t)))
 
   (push '("conf-unix" . conf-unix) org-src-lang-modes)
 
