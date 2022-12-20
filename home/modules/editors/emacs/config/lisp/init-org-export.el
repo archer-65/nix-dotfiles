@@ -23,9 +23,13 @@
                                       ("breakanywhere" "true"))
            ;; PDF process
            ;; '("latexmk -pdflatex='pdflatex -interaction nonstopmode' -pdf -bibtex -f %f")
-           org-latex-pdf-process '("pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-                                   "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"
-                                   "pdflatex -shell-escape -interaction nonstopmode -output-directory %o %f"))
+           org-latex-pdf-process '("pdflatex --shell-escape -interaction nonstopmode -output-directory %o %f"
+                                   "pdflatex --shell-escape -interaction nonstopmode -output-directory %o %f"
+                                   "pdflatex --shell-escape -interaction nonstopmode -output-directory %o %f"))
+
+  ;; (add-to-list 'org-latex-listings-langs '(yaml "yaml"))
+  ;; (add-to-list 'org-latex-listings-langs '(groovy "groovy"))
+
   ;; LaTeX base classes
   (:when-loaded (add-to-list 'org-latex-classes
                              '("org-plain-latex"

@@ -14,7 +14,7 @@ in {
   config = {
     programs.home-manager.enable = true;
 
-    home.packages = archivePkgs;
+    home.packages = archivePkgs ++ [pkgs.rclone];
 
     xdg.userDirs = {
       enable = true;
