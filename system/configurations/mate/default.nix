@@ -1,4 +1,4 @@
-{pkgs, ...}: {
+{pkgs, lib, ...}: {
   imports = [./hardware-configuration.nix ./options.nix];
 
   # Kernel related
@@ -33,6 +33,8 @@
 
   services.xserver = {
     enable = true;
+    # Disable `lightdm` because it is enabled by default sometimes (e.g. greetd with also `xserver` option enabled).
+    displayManager.lightdm.enable = lib.mkForce false;
     videoDrivers = ["amdgpu"];
   };
 

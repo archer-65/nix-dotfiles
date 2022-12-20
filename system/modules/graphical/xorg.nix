@@ -13,8 +13,6 @@ in {
 
   config = mkIf cfg.enable {
     services.xserver.enable = true;
-    # Disable `lightdm` because it is enabled by default sometimes (e.g. greetd with also `xserver` option enabled).
-    services.xserver.displayManager.lightdm.enable = mkForce false;
 
     services.xserver = {
       layout = "us";
