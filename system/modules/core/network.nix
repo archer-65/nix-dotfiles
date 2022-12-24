@@ -1,16 +1,20 @@
 {
-  # This global flag is deprecated
-  networking.useDHCP = false;
-  networking.networkmanager = {
-    enable = true;
-    #packages = [];
+  networking = {
+    useDHCP = false;
+    firewall.enable = true;
 
-    insertNameservers = ["208.67.222.222" "208.67.220.220"];
+    nameservers = [
+      # Quad9 v4
+      "9.9.9.9"
+      "149.112.112.112"
+      # Quad9 v6
+      "2620:fe::fe"
+      "2620:fe::9"
+    ];
+
+    networkmanager = {
+      enable = true;
+      dns = "none";
+    };
   };
-  networking.nameservers = ["208.67.222.222" "208.67.220.220"];
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  networking.firewall.enable = true;
 }

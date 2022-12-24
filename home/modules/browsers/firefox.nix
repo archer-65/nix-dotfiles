@@ -24,28 +24,16 @@ in {
       profiles.default = {
         name = "Default";
         settings = {
-          # For Firefox GNOME theme:
           "toolkit.legacyUserProfileCustomizations.stylesheets" = true;
           "browser.uidensity" = 0;
           "svg.context-properties.content.enabled" = true;
+
+          "network.trr.mode" = 2;
+          "network.trr.uri" = "https://dns.quad9.net/dns-query";
         };
-        # userChrome = ''
-        #   @import "firefox-gnome-theme/userChrome.css";
-        # '';
-        # userContent = ''
-        #   @import "firefox-gnome-theme/userContent.css";
-        # '';
       };
     };
 
-    home.file."firefox-gnome-theme" = {
-      target = ".mozilla/firefox/default/chrome/firefox-gnome-theme";
-      source = pkgs.fetchFromGitHub {
-        owner = "rafaelmardojai";
-        repo = "firefox-gnome-theme";
-        rev = "v105";
-        sha256 = "sha256-CXRKJ+xsv+/jN5DIpLFGvMH0XgVMbJjn1DkFIsZ4d4k=";
-      };
-    };
+
   };
 }
