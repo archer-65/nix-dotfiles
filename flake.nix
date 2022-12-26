@@ -10,7 +10,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    emacs-overlay.url = "github:nix-community/emacs-overlay?rev=0e1a47eadd23dc5669f056f28de606c9d00a1c29";
+    emacs-overlay.url = "github:nix-community/emacs-overlay?rev=9b2084bd40761de6be748981275bcfd35444c820";
 
     vinceliuice-grub-theme = {
       url = "github:vinceliuice/grub2-themes";

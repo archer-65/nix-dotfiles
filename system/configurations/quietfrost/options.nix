@@ -42,5 +42,4 @@
   };
 
   services.flatpak.enable = true;
-  services.teamviewer.enable = true;
 }
