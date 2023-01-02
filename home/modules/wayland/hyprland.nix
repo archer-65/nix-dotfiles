@@ -88,6 +88,7 @@ in {
         bind = SUPERSHIFT, up, layoutmsg, swapprev
 
         monitor = desc:AOC U34G2G4R3 0x0000241D, 3440x1440@144, 0x0, 1
+        monitor = desc:BOE 0x083C, 1920x1080@60, 0x0, 1
 
         input {
           kb_layout = us
@@ -185,6 +186,10 @@ in {
 
         bind = SUPERSHIFT, left, movetoworkspace, -1
         bind = SUPERSHIFT, right, movetoworkspace, +1
+
+
+        bind = SUPER, bracketleft, focusmonitor, l
+        bind = SUPER, bracketright, focusmonitor, r
 
         bind = SUPERSHIFT, backslash, movetoworkspace, special
         bind = SUPER, backslash, togglespecialworkspace
