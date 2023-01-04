@@ -95,15 +95,15 @@ in {
           [
             {
               timeout = 360;
-              command = "${swaymsg} 'output * dpms off'";
-              resumeCommand = "${swaymsg} 'output * dpms on'";
+              command = "${swaymsg} output * dpms off";
+              resumeCommand = "${swaymsg} output * dpms on";
             }
           ])
         ++ (optionals cfgHyprland.enable [
           {
             timeout = 360;
-            command = "${hyprctl} 'dispatch dpms off'";
-            resumeCommand = "${hyprctl} 'dispatch dpms on'";
+            command = "${hyprctl} dispatch dpms off";
+            resumeCommand = "${hyprctl} dispatch dpms on";
           }
         ]);
     };
