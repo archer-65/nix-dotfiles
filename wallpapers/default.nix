@@ -2,6 +2,18 @@ let
   inherit (builtins) fetchurl;
 in {
   wallpapers = {
+    city-lights = let
+      prefix = "wallhaven";
+      id = "1pke89";
+    in rec {
+      ext = "jpg";
+      src = fetchurl rec {
+        name = "${prefix}-${id}.${ext}";
+        url = "https://w.wallhaven.cc/full/1p/${name}";
+        sha256 = "0mkfkji3cz2sl6ipahq7ydzmag9jdx85g8nn5madrxdb36qfrhs8";
+      };
+    };
+
     moonlight-car = let
       prefix = "wallhaven";
       id = "m3dqj8";
