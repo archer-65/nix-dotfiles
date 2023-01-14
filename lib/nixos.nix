@@ -40,7 +40,7 @@ with builtins; let
           baseSystem
           "${flake-self}/system/configurations/${hostname}"
         ]
-        ++ [vinceliuice-grub-theme.nixosModule]
+        ++ [vinceliuice-grub-theme.nixosModules.default]
         ++ attrValues nixosModules;
     };
 in
