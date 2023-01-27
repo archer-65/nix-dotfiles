@@ -5,7 +5,7 @@
   ...
 }:
 with builtins; let
-  inherit (inputs) vinceliuice-grub-theme nixpkgs;
+  inherit (inputs) nixpkgs;
   inherit (flake-self) overlays nixosModules;
 
   genConfiguration = hostname: {
@@ -40,7 +40,6 @@ with builtins; let
           baseSystem
           "${flake-self}/system/configurations/${hostname}"
         ]
-        ++ [vinceliuice-grub-theme.nixosModules.default]
         ++ attrValues nixosModules;
     };
 in

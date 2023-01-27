@@ -12,11 +12,6 @@
 
     emacs-overlay.url = "github:nix-community/emacs-overlay";
 
-    vinceliuice-grub-theme = {
-      url = "github:vinceliuice/grub2-themes";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     hyprland.url = "github:hyprwm/Hyprland";
 
     nix-colors.url = "github:misterio77/nix-colors";

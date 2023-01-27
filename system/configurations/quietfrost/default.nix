@@ -24,16 +24,8 @@
       version = 2;
       efiSupport = true;
       device = "nodev";
-      # gfxmodeEfi = "3440x1440";
+      gfxmodeEfi = "3440x1440";
       useOSProber = true;
-    };
-
-    grub2-theme = {
-      enable = true;
-      theme = "whitesur";
-      icon = "whitesur";
-      screen = "ultrawide2k";
-      footer = true;
     };
   };
 

@@ -17,13 +17,13 @@ in {
       startWhenNeeded = true;
       openFirewall = true;
 
-      passwordAuthentication = false;
-      permitRootLogin = "no";
-
-      kbdInteractiveAuthentication = false;
+      settings = {
+        PasswordAuthentication = false;
+        PermitRootLogin = "no";
+        KbdInteractiveAuthentication = false;
+      };
 
       allowSFTP = false;
-
       forwardX11 = false;
 
       extraConfig = ''
