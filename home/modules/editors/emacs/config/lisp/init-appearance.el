@@ -84,12 +84,7 @@
            `((fg-window-divider-inner . "#000000")
              (fg-window-divider-outer . "#000000")))
 
-  ;; Built-in
-  ;; (load-theme 'modus-operandi)
-
-  ;; Needed for packaged version
-  (modus-themes-load-themes)
-  (modus-themes-load-operandi))
+  (modus-themes-select 'modus-operandi))
 
 ;; I set circadian in the configuration of my themes
 (setup (:pkg circadian)

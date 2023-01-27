@@ -15,6 +15,8 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     {
+      home.packages = [pkgs.hack-font];
+
       programs.emacs = {
         enable = true;
         package = pkgs.emacsPgtk;

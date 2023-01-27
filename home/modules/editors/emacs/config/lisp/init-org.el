@@ -55,7 +55,7 @@
 (setup (:pkg org-modern)
   (:load-after org)
   (:hook-into org-mode)
-  (:face org-modern-symbol ((t (:family "Iosevka"))))
+  (set-face-attribute 'org-modern-symbol nil :family "Hack")
   (:option org-modern-label-border 1
            org-modern-block-fringe nil  ; Bad
            org-modern-variable-pitch nil
