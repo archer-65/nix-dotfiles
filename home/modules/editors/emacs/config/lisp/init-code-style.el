@@ -12,6 +12,10 @@
   (:hook-into prog-mode)
   (:global "<f1>" format-all-buffer))
 
+(setup (:pkg editorconfig)
+  (:blackout)
+  (editorconfig-mode 1))
+
 (setup eldoc
   (:blackout)
   (global-eldoc-mode 1))

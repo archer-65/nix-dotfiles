@@ -121,8 +121,8 @@
 
 (setup (:pkg eglot-java)
   (:load-after eglot)
-  (:when-loaded
-    (eglot-java-init)))
+  (:with-mode (java-mode)
+    (:hook eglot-java-mode)))
 
 (setup (:if-feature gcmh)
   (:with-hook (eglot-managed-mode-hook lsp-mode-hook)
