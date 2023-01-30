@@ -15,12 +15,20 @@
   (unless (file-exists-p bootstrap-file)
     (with-current-buffer
         (url-retrieve-synchronously
-         "https://raw.githubusercontent.com/raxod502/straight.el/develop/install.el"
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
          'silent 'inhibit-cookies)
       (goto-char (point-max))
       (eval-print-last-sexp)))
   (load bootstrap-file nil 'nomessage))
 ;;; SECTION STRAIGHT.EL ENDS HERE
+
+(let ((pinned-path
+       (expand-file-name "straight/version/pinned.el" archer-config-path)))
+  (setq straight-profiles
+        `((nil . "default.el")
+          (pinned . ,pinned-path))))
+
+(setq straight-current-profile 'pinned)
 
 (straight-use-package 'setup)
 (require 'setup)
