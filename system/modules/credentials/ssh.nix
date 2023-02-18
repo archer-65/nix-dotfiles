@@ -21,10 +21,10 @@ in {
         PasswordAuthentication = false;
         PermitRootLogin = "no";
         KbdInteractiveAuthentication = false;
+        X11Forwarding = false;
       };
 
       allowSFTP = false;
-      forwardX11 = false;
 
       extraConfig = ''
         AllowTcpForwarding no

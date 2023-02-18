@@ -59,7 +59,7 @@
       emacs = {
         enable = true;
         daemon.enable = true;
-        telega.enable = true;
+        telega.enable = false;
       };
 
       android.enable = true;
@@ -80,7 +80,7 @@
 
     themes = {
       active = "modus";
-      darkTheme = true;
+      darkTheme = false;
 
       font.regular = {
         family = "Roboto";
