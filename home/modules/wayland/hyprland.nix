@@ -57,7 +57,7 @@ in {
         }
 
         misc {
-          no_vfr = true
+          vfr = false
           enable_swallow = true
           swallow_regex = ^(Alacritty)$
         }
