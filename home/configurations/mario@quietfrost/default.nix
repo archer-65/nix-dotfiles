@@ -23,7 +23,6 @@
     media = {
       documents = {
         zathura.enable = true;
-        okular.enable = true;
       };
 
       videos.enable = true;
@@ -80,7 +79,7 @@
 
     themes = {
       active = "modus";
-      darkTheme = false;
+      darkTheme = true;
 
       font.regular = {
         family = "Roboto";

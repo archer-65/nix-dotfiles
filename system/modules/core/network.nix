@@ -17,4 +17,8 @@
       dns = "none";
     };
   };
+
+  services = {
+    tailscale.enable = true;
+  };
 }

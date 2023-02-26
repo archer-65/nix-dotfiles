@@ -42,7 +42,9 @@
 
     dev = {
       nix.enable = true;
+      kube.enable = true;
       tex.enable = true;
+      terraform.enable = true;
     };
 
     editors = {

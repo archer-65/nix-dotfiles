@@ -17,6 +17,7 @@ in {
       kubectl
       kind
       minikube
+      kubernetes-helm
     ];
   };
 }
