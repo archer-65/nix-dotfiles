@@ -61,8 +61,8 @@
         telega.enable = false;
       };
 
-      android.enable = true;
-      intellij.enable = true;
+      android.enable = false;
+      intellij.enable = false;
 
       vscode.enable = true;
     };
