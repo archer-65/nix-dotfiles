@@ -29,6 +29,7 @@
           (pinned . ,pinned-path))))
 
 (setq straight-current-profile 'pinned)
+(setq straight-repository-branch "develop")
 
 (straight-use-package 'setup)
 (require 'setup)
