@@ -60,6 +60,7 @@
       bash.enable = true;
       extensions.enable = true;
       starship.enable = true;
+      zellij.enable = true;
 
       direnv.enable = true;
 

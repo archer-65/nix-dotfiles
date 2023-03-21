@@ -22,7 +22,7 @@ in {
         window = {
           padding = {
             x = 20;
-            y = 20;
+            y = 15;
           };
           decorations = "none";
           opacity = 0.95;
