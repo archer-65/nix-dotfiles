@@ -29,7 +29,6 @@
     };
   };
 
-  # networking.hostName = "quietfrost";
   networking.interfaces.enp42s0.useDHCP = true;
 
   # Graphics

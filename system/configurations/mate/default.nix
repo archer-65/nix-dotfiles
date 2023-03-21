@@ -2,9 +2,10 @@
   imports = [./hardware-configuration.nix ./options.nix];
 
   # Kernel related
-  # boot.kernelPackages = pkgs.linuxPackages_5_18;
+
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.initrd.kernelModules = ["amdgpu"];
+  boot.kernelParams = ["idle=nomwait" "iommu=pt"];
 
   # General EFI settings
   boot.loader.efi = {
@@ -19,7 +20,6 @@
     editor = false;
   };
 
-  # networking.hostName = "mate";
   # WiFi
   networking.interfaces.wlp1s0.useDHCP = true;
 
