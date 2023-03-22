@@ -213,6 +213,9 @@ in {
         bind = , XF86AudioLowerVolume, exec, pamixer -u && pamixer -d 5
         bind = , XF86AudioMute, exec, pamixer -t
 
+        bind = , XF86MonBrightnessUp, exec, brightnessctl s +5%
+        bind = , XF86MonBrightnessDown, exec, brightnessctl s 5%-
+
         bind = SUPER, d, exec, rofi -no-lazy-grab -show drun -modi run,drun -theme $HOME/.config/rofi/themes/launcher
         bind = SUPERSHIFT, q, exec, rofi-powermenu
         bind = SUPER, comma, exec, clipman pick -t rofi -T'-theme ~/.config/rofi/themes/clipboard'
