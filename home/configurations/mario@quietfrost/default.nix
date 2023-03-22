@@ -69,6 +69,7 @@
 
     shell = {
       bash.enable = true;
+      zsh.enable = true;
       extensions.enable = true;
       starship.enable = true;
       zellij.enable = true;

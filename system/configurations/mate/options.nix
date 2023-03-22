@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
   system.modules = {
     hardware = {
       audio.enable = true;
@@ -24,7 +24,14 @@
       boot.quietboot.enable = true;
       cachix.enable = true;
     };
+
+    shell = {
+      bash.enable = true;
+      zsh.enable = true;
+    };
   };
+
+  primaryUser.shell = pkgs.zsh;
 
   services.flatpak.enable = true;
 }

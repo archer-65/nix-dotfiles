@@ -52,6 +52,7 @@
     "editors/vscode" = import ./editors/vscode.nix;
 
     "shell/bash" = import ./shell/bash.nix;
+    "shell/zsh" = import ./shell/zsh.nix;
     "shell/direnv" = import ./shell/direnv.nix;
     "shell/extensions" = import ./shell/extensions.nix;
     "shell/git" = import ./shell/git.nix;

@@ -15,6 +15,7 @@ in {
     programs.direnv = {
       enable = true;
       enableBashIntegration = true;
+      enableZshIntegration = true;
     };
 
     programs.direnv.nix-direnv.enable = true; # better than lorri?

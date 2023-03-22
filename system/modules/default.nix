@@ -35,4 +35,5 @@
   "credentials/yubikey" = import ./credentials/yubikey.nix;
 
   "shell/bash" = import ./shell/bash.nix;
+  "shell/zsh" = import ./shell/zsh.nix;
 }
