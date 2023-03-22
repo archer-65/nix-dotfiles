@@ -23,6 +23,10 @@ in {
       enableCompletion = true;
       enableSyntaxHighlighting = true;
       shellAliases = {};
+      initExtra = ''
+        bindkey '^[[1;5D' backward-word
+        bindkey '^[[1;5C' forward-word
+      '';
     };
   };
 }
