@@ -7,13 +7,13 @@ inputs: {
   modifications = final: prev: {
     swaylock-effects = prev.swaylock-effects.overrideAttrs (_old: rec {
       pname = "swaylock-effects";
-      version = "1.6.10";
+      version = "1.6.11";
 
       src = final.fetchFromGitHub {
         owner = "jirutka";
         repo = "swaylock-effects";
-        rev = "b2736c5bef3add118183654305d05903c5947668";
-        sha256 = "sha256-umxEwegKuJd/DUjaUQ88lbcQNxSY99yepBnQaFr3fDI=";
+        rev = "a7691b86dabe5241c7292c7b8d0551d579ba1848";
+        sha256 = "sha256-MKmWVYssO9HAcP5uqwpy9kDa6/kfZyV2NI7ibozt7Ug=";
       };
     });
 
