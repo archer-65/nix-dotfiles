@@ -21,11 +21,13 @@ in {
         enable = true;
         package = pkgs.emacsPgtk;
 
-        extraPackages = epkgs: [
-          epkgs.vterm
-        ] ++ (optionals cfg.telega.enable [
-          epkgs.melpaPackages.telega
-        ]);
+        extraPackages = epkgs:
+          [
+            epkgs.vterm
+          ]
+          ++ (optionals cfg.telega.enable [
+            epkgs.melpaPackages.telega
+          ]);
       };
 
       xdg.configFile."emacs" = {
