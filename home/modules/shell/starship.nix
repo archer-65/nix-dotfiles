@@ -17,13 +17,11 @@ in {
       enableBashIntegration = true;
       enableZshIntegration = true;
       settings = {
-        format =
-          let
-            git = "$git_branch$git_commit$git_state$git_status";
-          in
-            ''
-            $username[@](purple)$hostname $directory (${git}) ($cmd_duration) $fill ($nix_shell)
-            $character
+        format = let
+          git = "$git_branch$git_commit$git_state$git_status";
+        in ''
+          $username[@](purple)$hostname $directory (${git}) ($cmd_duration) $fill ($nix_shell)
+          $character
         '';
 
         username = {

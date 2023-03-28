@@ -1,8 +1,5 @@
 # Mate, main laptop
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   system.modules = {
     hardware = {
       audio.enable = true;

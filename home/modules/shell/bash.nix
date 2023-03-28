@@ -22,6 +22,6 @@ in {
       shellAliases = {};
     };
 
-    home.packages = [ pkgs.beautysh ];
+    home.packages = [pkgs.beautysh];
   };
 }
