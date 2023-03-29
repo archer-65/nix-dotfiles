@@ -74,6 +74,19 @@ in {
       };
     };
 
+    digital-flowers = let
+      prefix = "wallhaven";
+      id = "e7oxrr";
+    in rec {
+      ext = "jpg";
+      src = fetchurl rec {
+      name = "${prefix}-${id}.${ext}";
+        url = "https://w.wallhaven.cc/full/e7/${name}";
+        sha256 = "1qkwzlsfgxk4yvyv2pagz8k035h385419dgc951xqqkzh1z77d7v";
+      };
+    };
+
+
     nixos-blue = let
       prefix = "wallhaven";
       id = "e7djlk";
