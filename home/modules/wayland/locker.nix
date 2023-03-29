@@ -27,7 +27,7 @@ in {
       transparent = "#00000000";
     in {
       font = cfgTheme.font.regular.family;
-      image = wallpapers.city-lights.src;
+      image = wallpapers.digital-flowers.src;
       effect-blur = "5x5";
 
       ignore-empty-password = true;
