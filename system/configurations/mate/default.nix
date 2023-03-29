@@ -1,4 +1,8 @@
-{pkgs, lib, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   imports = [./hardware-configuration.nix ./options.nix];
 
   # Kernel related

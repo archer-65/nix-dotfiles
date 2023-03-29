@@ -14,7 +14,7 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      python310Packages.pylsp-mypy
+      python310Packages.python-lsp-server
       python310
     ];
   };
