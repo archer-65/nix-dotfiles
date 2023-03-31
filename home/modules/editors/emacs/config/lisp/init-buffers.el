@@ -104,5 +104,24 @@
            uniquify-strip-common-suffix t
            uniquify-after-kill-buffer-p t))
 
+(setup desktop
+  (:option desktop-auto-save-timeout 300
+           desktop-path `(,user-emacs-directory)
+           desktop-base-file-name "desktop"
+           desktop-files-not-to-save ".*"
+           desktop-buffers-not-to-save ".*"
+           desktop-globals-to-clear nil
+           desktop-load-locked-desktop t
+           desktop-missing-file-warning nil
+           desktop-restore-eager 0
+           desktop-restore-frames nil
+           desktop-save 'ask-if-new)
+
+  (:when-loaded
+    (dolist (symbol '(kill-ring file-name-history))
+      (add-to-list 'desktop-globals-to-save symbol)))
+
+  (desktop-save-mode 1))
+
 (provide 'init-buffers)
 ;;; init-buffers.el ends here
