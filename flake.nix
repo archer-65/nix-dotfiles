@@ -15,11 +15,8 @@
     notmuch-mailmover.url = "github:michaeladler/notmuch-mailmover";
   };
 
-  outputs = inputs @ {
-    nixpkgs,
-    ...
-  }: let
-    lib = import ./lib {inherit inputs; };
+  outputs = inputs @ {nixpkgs, ...}: let
+    lib = import ./lib {inherit inputs;};
     inherit (lib) mkSystem mkHome forAllSystems;
   in {
     nixosModules = import ./system/modules;
@@ -38,9 +35,8 @@
     );
 
     devShells = forAllSystems (
-      system: {
-        default = import ./shell.nix {pkgs = nixpkgs.legacyPackages.${system};};
-      }
+      system:
+        import ./shell.nix {pkgs = nixpkgs.legacyPackages.${system};}
     );
 
     nixosConfigurations = {
