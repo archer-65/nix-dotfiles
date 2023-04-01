@@ -4,10 +4,14 @@
   lib,
   pkgs,
   wallpapers,
+  homeConfig,
   ...
 }:
 with lib; let
   cfg = config.system.modules.graphical.greetd;
+
+  hasHyprland = homeConfig.wayland.windowManager.hyprland.enable;
+  hasSway = homeConfig.wayland.windowManager.sway.enable;
 in {
   options.system.modules.graphical.greetd = {
     enable = mkEnableOption "greetd configuration";
@@ -43,11 +47,9 @@ in {
 
     environment.etc = {
       # Definition of greetd environments
-      "greetd/environments".text = ''
-        Hyprland
-        sway
-        bash
-      '';
+      "greetd/environments".text =
+        lib.optionalString hasHyprland "Hyprland\n" +
+        lib.optionalString hasSway "sway\n";
     };
   };
 }

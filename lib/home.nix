@@ -1,21 +1,20 @@
 {
   inputs,
-  lib,
-  flake-self,
   ...
 }:
 with builtins; let
-  inherit (inputs) nixpkgs home-manager emacs-overlay hyprland nix-colors;
-  inherit (flake-self) overlays homeModules;
+  inherit (inputs) self nixpkgs home-manager emacs-overlay hyprland nix-colors;
+  inherit (nixpkgs) lib;
+  inherit (self) overlays homeModules;
 
-  genConfiguration = home: {
-    localSystem,
+  genConfiguration = {
     username,
+    hostname,
+    system,
     stateVersion,
     ...
   }: let
-    system = localSystem;
-    configurations = "${flake-self}/home/configurations";
+    configurations = "${self}/home/configurations";
 
     pkgs = import nixpkgs {
       inherit system;
@@ -37,16 +36,17 @@ with builtins; let
       modules =
         [
           {home = baseHome;}
-          "${configurations}/${home}"
+          "${configurations}/${username}@${hostname}"
           "${configurations}/common.nix"
         ]
         ++ [hyprland.homeManagerModules.default]
         ++ attrValues homeModules.${username};
 
       extraSpecialArgs = {
-        inherit nix-colors flake-self inputs;
+        inherit nix-colors inputs;
         inherit (import ../wallpapers) wallpapers;
+        flake = self;
       };
     };
 in
-  lib.mapAttrs genConfiguration
+  genConfiguration

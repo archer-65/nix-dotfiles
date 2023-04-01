@@ -1,20 +1,18 @@
 {
   inputs,
-  lib,
-  flake-self,
   ...
 }:
 with builtins; let
-  inherit (inputs) nixpkgs;
-  inherit (flake-self) overlays nixosModules;
+  inherit (inputs) self nixpkgs;
+  inherit (nixpkgs) lib;
+  inherit (self) outputs overlays nixosModules;
 
-  genConfiguration = hostname: {
-    localSystem,
+  genConfiguration = {
+    hostname,
+    system,
     stateVersion,
     ...
   }: let
-    system = localSystem;
-
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
@@ -31,16 +29,17 @@ with builtins; let
     lib.nixosSystem {
       inherit system;
       specialArgs = {
-        inherit lib;
-        inherit flake-self;
+        # inherit lib;
         inherit (import ../wallpapers) wallpapers;
+        flake = self;
+        homeConfig = outputs.homeConfigurations."mario@${hostname}".config;
       };
       modules =
         [
           baseSystem
-          "${flake-self}/system/configurations/${hostname}"
+          "${self}/system/configurations/${hostname}"
         ]
         ++ attrValues nixosModules;
     };
 in
-  lib.mapAttrs genConfiguration
+  genConfiguration
