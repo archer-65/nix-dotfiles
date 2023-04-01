@@ -28,7 +28,7 @@ with builtins; let
       modules =
         [
           baseSystem
-          "${self}/system/configurations/${hostname}"
+          "${self}/system/hosts/${hostname}"
         ]
         ++ attrValues nixosModules;
 

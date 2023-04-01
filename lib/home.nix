@@ -26,12 +26,11 @@ with builtins; let
       inherit pkgs;
 
       modules = let
-        configs = "${self}/home/configurations";
+        configs = "${self}/home/${username}";
       in
         [
           {home = baseHome;}
-          "${configs}/${username}@${hostname}"
-          "${configs}/common.nix"
+          "${configs}/${hostname}.nix"
         ]
         ++ attrValues homeModules.${username};
 

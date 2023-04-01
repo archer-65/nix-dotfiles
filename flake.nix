@@ -54,11 +54,6 @@
         system = "x86_64-linux";
         stateVersion = "22.05";
       };
-      vm = mkSystem {
-        hostname = "vm";
-        system = "x86_64-linux";
-        stateVersion = "22.05";
-      };
     };
 
     homeConfigurations = {
@@ -71,12 +66,6 @@
       "mario@mate" = mkHome {
         username = "mario";
         hostname = "mate";
-        system = "x86_64-linux";
-        stateVersion = "22.05";
-      };
-      "mario@vm" = mkHome {
-        username = "mario";
-        hostname = "vm";
         system = "x86_64-linux";
         stateVersion = "22.05";
       };
