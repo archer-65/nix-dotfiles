@@ -1,7 +1,4 @@
-{
-  inputs,
-  ...
-}:
+{inputs, ...}:
 with builtins; let
   inherit (inputs) self nixpkgs;
   inherit (nixpkgs) lib;
@@ -16,30 +13,30 @@ with builtins; let
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
-      overlays = lib.attrValues overlays;
+      overlays = attrValues overlays;
     };
 
     baseSystem = {
       nixpkgs = {inherit pkgs;};
       system = {inherit stateVersion;};
-      nix.registry = {nixpkgs.flake = nixpkgs;};
       networking.hostName = lib.mkDefault hostname;
     };
   in
     lib.nixosSystem {
       inherit system;
-      specialArgs = {
-        # inherit lib;
-        inherit (import ../wallpapers) wallpapers;
-        flake = self;
-        homeConfig = outputs.homeConfigurations."mario@${hostname}".config;
-      };
+
       modules =
         [
           baseSystem
           "${self}/system/configurations/${hostname}"
         ]
         ++ attrValues nixosModules;
+
+      specialArgs = {
+        inherit inputs outputs;
+        inherit (import ../wallpapers) wallpapers;
+        homeConfig = outputs.homeConfigurations."mario@${hostname}".config;
+      };
     };
 in
   genConfiguration

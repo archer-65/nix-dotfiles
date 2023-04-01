@@ -2,12 +2,14 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 with lib; let
   cfg = config.mario.modules.editors.emacs;
   configDir = "${config.home.homeDirectory}/.dotfiles/home/modules/editors/emacs/config";
 in {
+
   options.mario.modules.editors.emacs = {
     enable = mkEnableOption "emacs and its configuration";
     daemon.enable = mkEnableOption "emacs daemon";
@@ -16,6 +18,8 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     {
+      nixpkgs.overlays = [ inputs.emacs-overlay.overlays.default ];
+
       home.packages = [pkgs.hack-font];
 
       programs.emacs = {

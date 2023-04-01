@@ -3,13 +3,13 @@
   options,
   config,
   lib,
-  nix-colors,
+  inputs,
   wallpapers,
   ...
 }:
 with lib; let
   cfg = config.mario.modules.themes;
-  inherit (nix-colors.lib-contrib {inherit pkgs;}) gtkThemeFromScheme;
+  inherit (inputs.nix-colors.lib-contrib {inherit pkgs;}) gtkThemeFromScheme;
   inherit (config.mario.modules) xorg;
 in {
   options.mario.modules.themes = with types; {

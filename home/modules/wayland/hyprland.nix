@@ -3,12 +3,17 @@
   lib,
   pkgs,
   wallpapers,
+  inputs,
   ...
 }:
 with lib; let
   cfg = config.mario.modules.wayland;
   inherit (config.colorScheme) colors;
 in {
+  imports = [
+    inputs.hyprland.homeManagerModules.default
+  ];
+
   config = mkIf (cfg.enable && (elem "hyprland" cfg.wm)) {
     wayland.windowManager.hyprland = {
       enable = true;

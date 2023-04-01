@@ -2,13 +2,13 @@
   config,
   lib,
   pkgs,
-  nix-colors,
+  inputs,
   ...
 }:
 with lib; let
   cfg = config.mario.modules.themes;
 in {
-  imports = [nix-colors.homeManagerModule];
+  imports = [inputs.nix-colors.homeManagerModule];
 
   config = mkIf (cfg.active == "modus") {
     gtk = {

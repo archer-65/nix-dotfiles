@@ -2,13 +2,13 @@
   config,
   lib,
   pkgs,
-  nix-colors,
+  inputs,
   ...
 }:
 with lib; let
   cfg = config.mario.modules.themes;
 in {
-  imports = [nix-colors.homeManagerModule];
+  imports = [inputs.nix-colors.homeManagerModule];
 
   config = mkIf (cfg.active == "onedark") {
     gtk = {
@@ -35,7 +35,7 @@ in {
     };
 
     colorScheme = let
-      inherit (nix-colors.colorSchemes) onedark one-light;
+      inherit (inputs.nix-colors.colorSchemes) onedark one-light;
     in
       if cfg.darkTheme
       then onedark
