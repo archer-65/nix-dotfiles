@@ -35,7 +35,6 @@ with builtins; let
       specialArgs = {
         inherit inputs outputs;
         inherit (import ../wallpapers) wallpapers;
-        homeConfig = outputs.homeConfigurations."mario@${hostname}".config;
       };
     };
 in

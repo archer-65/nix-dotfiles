@@ -5,7 +5,7 @@ inputs: {
 
   # Overlays for various pkgs (e.g. broken, not updated)
   modifications = final: prev: {
-    swaylock-effects = prev.swaylock-effects.overrideAttrs (_old: rec {
+    swaylock-effects = prev.swaylock-effects.overrideAttrs (oldAttrs: {
       pname = "swaylock-effects";
       version = "1.6.11";
 
@@ -23,7 +23,7 @@ inputs: {
 
     # notmuch-mailmover = inputs.notmuch-mailmover.packages.x86_64-linux.default;
 
-    tdlib = prev.tdlib.overrideAttrs (_old: rec {
+    tdlib = prev.tdlib.overrideAttrs (oldAttrs: {
       version = "1.8.8";
       src = final.fetchFromGitHub {
         owner = "tdlib";
