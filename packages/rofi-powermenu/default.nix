@@ -11,7 +11,7 @@
 in
   pkgs.symlinkJoin {
     inherit name;
-    paths = with pkgs; [procps bash rofi] ++ [script];
+    paths = with pkgs; [procps rofi] ++ [script];
     nativeBuildInputs = [makeWrapper];
     postBuild = "wrapProgram $out/bin/${name} --prefix PATH : $out/bin";
     meta = {description = "My rofi powermenu launch script";};
