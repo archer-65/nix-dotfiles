@@ -1,6 +1,5 @@
 {pkgs, lib, ...}: {
   networking = {
-    useDHCP = false;
     firewall.enable = true;
 
     nameservers = [
@@ -14,11 +13,16 @@
 
     networkmanager = {
       enable = true;
-      dns = "none";
+      dns = "systemd-resolved";
+      wifi.powersave = true;
     };
   };
 
   services = {
+    # DNS
+    resolved.enable = true;
+
+    # VPN
     tailscale.enable = true;
   };
 
@@ -28,7 +32,4 @@
     targets.network-online.wantedBy = pkgs.lib.mkForce []; # Normally ["multi-user.target"]
     services.NetworkManager-wait-online.wantedBy = pkgs.lib.mkForce []; # Normally ["network-online.target"]
   };
-
-  # systemd.services.NetworkManager-wait-online.enable = lib.mkForce false;
-  # systemd.services.systemd-networkd-wait-online.enable = lib.mkForce false;
 }
