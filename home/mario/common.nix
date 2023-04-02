@@ -12,6 +12,15 @@ with lib; let
   ];
 in {
   programs.home-manager.enable = true;
+  systemd.user.startServices = "sd-switch";
+
+  nix = {
+    package = lib.mkDefault pkgs.nix;
+    settings = {
+      experimental-features = [ "nix-command" "flakes" "repl-flake" ];
+      warn-dirty = false;
+    };
+  };
 
   home.packages = archivePkgs;
 
