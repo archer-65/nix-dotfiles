@@ -21,27 +21,25 @@ I will put a tree like this in every *important* folder.
   .
   ├── flake.nix
   ├── flake.lock                  
-  ├── shell.nix                   # Needed dependencies 
+  ├── shell.nix                   # Shell declaration for this repo 
   ├── wallpapers
   ├── home                        # Home-manager configuration 
-  │   ├── configurations          # Configurations, home by home
+  │   ├── mario                   # User configuration, per host files/folders
   │   └── modules                 # Modules :: options to build a cute home
-  ├── lib                         # Custom utility functions to reduce boilerplate code
+  ├── lib                         # Utility functions
   │   ├── default.nix             
   │   ├── home.nix                # Home configurations generator
-  │   └── nixos.nix               # System configurations generator
-  ├── outputs                     # Contains sets of possible configurations
-  │   └── configs.nix             
+  │   └── nixos.nix               # System configurations generator             
   ├── overlays                    # Overlays folder
   ├── packages                    # Personal packages folder
   └── system                      # System configurations
-      ├── configurations          # Configurations for every host
+      ├── hosts                   # System configuration, olders for each host
       └── modules                 # Modules :: options for system related stuff
 #+end_src
 
 ** Instructions
 
-*** First installation on new hardware
+*** Installation with new hardware
 
 1. Boot into the NixOS installer;
 2. Switch to root user;
@@ -50,7 +48,6 @@ I will put a tree like this in every *important* folder.
    #+begin_src bash
      nix-shell -p git nixFlakes
 
-     ### Thanks to hlissner for this trick ###
      # Set HOST for the hostname of the new system
      HOST=...
      # Set USER to your desired username
@@ -60,19 +57,19 @@ I will put a tree like this in every *important* folder.
      cd /etc/dotfiles
 
      # Create a new host folder
-     mkdir -p system/configurations/$HOST
-
-     # You have to create a new set in `outputs/configs.nix`
-     # Follow the other sets structure.
+     mkdir -p system/hosts/$HOST
 
      # This step generates your hardware-configuration and a basic configuration file
-     nixos-generate-config --root /mnt --dir /etc/dotfiles/system/configurations/$HOST
+     nixos-generate-config --root /mnt --dir /etc/dotfiles/system/hosts/$HOST
      # You can remove the `configuration.nix` file, follow the other hosts structure to create your own configuration
-     rm -f system/configurations/$HOST/configuration.nix
+     rm -f system/hosts/$HOST/configuration.nix
      # [OPTIONAL] You can copy the other files and modify what you want (be careful!), for instance:
-     cp system/configurations/mate/{default.nix,options.nix} system/configurations/$HOST/
+     cp system/hosts/mate/{default.nix,options.nix} system/hosts/$HOST/
 
-     git add -A
+     # Add a set definition in `flake.nix` for the desired host
+
+     # Flakes need staged files
+     git add .
 
      # Install
      nixos-install --root /mnt --flake .#$HOST
@@ -93,9 +90,10 @@ I'm assuming you're referring to flake configurations in your working directory.
 If you want to build your home-manager configuration:
    #+begin_src bash
      # Create your own folder with `default.nix` under `/home/configurations`
-     cp -R /home/configurations/mario@mate /home/configurations/"${USER}"@"${HOSTNAME}"
+     cp -R /home/$USER/mate.nix /home/$USER/${HOSTNAME}.nix
 
-     # Modify what you want, then create your set under `/outputs/configs.nix`
+     # Add a set definition in `flake.nix` for the desired host
+
      # Build and activate!
      nix build .#homeConfigurations."${USER}@${HOSTNAME}".activationPackage
      ./result/activate
