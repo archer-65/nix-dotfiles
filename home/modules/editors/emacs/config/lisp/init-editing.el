@@ -123,7 +123,9 @@
   (setq mouse-wheel-follow-mouse t)
   (setq mouse-wheel-progressive-speed nil)
   (setq mouse-1-click-follows-link t)
-  (setq mouse-yank-at-point t))
+  (setq mouse-yank-at-point t)
+
+  (:global "<mouse-2>" clipboard-yank))
 
 (setup elec-pair
   (electric-pair-mode 1))
