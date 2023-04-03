@@ -14,10 +14,10 @@
            org-shiftright-final-hook windmove-right))
 
 (setup window
-  (:global "C-S-k" enlarge-window
-           "C-S-j" shrink-window
-           "C-S-h" shrink-window-horizontally
-           "C-S-l" enlarge-window-horizontally))
+  (:global "C-S-<up>" enlarge-window
+           "C-S-<down>" shrink-window
+           "C-S-<left>" shrink-window-horizontally
+           "C-S-<right>" enlarge-window-horizontally))
 
 (setup (:pkg ace-window)
   (:global "M-o" ace-window
