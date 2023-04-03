@@ -156,6 +156,7 @@
 (setup (:require autorevert)
   (:blackout auto-revert)
   (setq auto-revert-verbose t)
+  (setq global-auto-revert-non-file-buffers t)
   (:with-hook after-init-hook
     (:hook global-auto-revert-mode)))
 

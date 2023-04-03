@@ -11,18 +11,20 @@
   (setq frame-title-format '("%b – Emacs")
         icon-title-format frame-title-format)
 
+
   ;; Stuff
+  (setq calendar-date-style 'european)
   (setq display-time-default-load-average nil)
   (setq highlight-nonselected-windows nil)
   (setq echo-keystrokes 0.1)
 
   ;; Other graphical stuff
   (setq visible-bell nil)
-  (setq x-gtk-use-system-tooltips nil)
+  (setq x-gtk-use-system-tooltips t)
   (setq x-stretch-cursor nil)
 
   ;; Dialogs
-  (setq use-dialog-box nil    ; Mouse events dialog
+  (setq use-dialog-box nil      ; Mouse events dialog
         use-file-dialog nil)    ; Disable dialog for files
 
   ;; Cursor
