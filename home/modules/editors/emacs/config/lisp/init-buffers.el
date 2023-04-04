@@ -105,11 +105,11 @@
            uniquify-after-kill-buffer-p t))
 
 (setup desktop
-  (:option desktop-auto-save-timeout 300
+  (setq desktop-auto-save-timeout 300
            desktop-path `(,user-emacs-directory)
            desktop-base-file-name "desktop"
-           desktop-files-not-to-save ".*"
-           desktop-buffers-not-to-save ".*"
+           desktop-files-not-to-save nil
+           desktop-buffers-not-to-save nil
            desktop-globals-to-clear nil
            desktop-load-locked-desktop t
            desktop-missing-file-warning nil

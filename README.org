@@ -45,7 +45,7 @@ I will put a tree like this in every *important* folder.
 2. Switch to root user;
 3. Do your manual partitioning, and mount all (if you don't know how to do this step, go away);
 4. Installation process:
-   #+begin_src bash
+#+begin_src bash
      nix-shell -p git nixFlakes
 
      # Set HOST for the hostname of the new system

@@ -34,6 +34,7 @@
                       :weight 'light))
 
 (setup faces
+  (:option use-default-font-for-symbols t)
   (:option archer-font-height (if (string-equal (system-name) "quietfrost")
                                   180
                                 140))
