@@ -97,6 +97,7 @@
 
 (setup (:pkg meow)
   (:require meow)
+  (:blackout)
   (:when-loaded
     (meow-setup)
     (meow-setup-indicator)
