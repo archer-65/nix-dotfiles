@@ -31,16 +31,21 @@
            dired-hide-details-hide-symlink-targets nil
            delete-by-moving-to-trash t)
 
-  (:global "C-x C-j" dired-jump)
-  (:bind "C-c o" archer-dired-open-file))
+  (:bind-into dired-jump-map
+    "j" dired-jump)
+
+  (:bind-into dired-mode-map
+    "C-c o" archer-dired-open-file))
 
 (setup (:require dired-x)
-  (:option dired-clean-confirm-killing-deleted-buffers nil
+  (:option dired-clean-confirm-killing-deleted-buffers t
            dired-clean-up-buffers-too t
            dired-x-hands-off-my-keys t
            dired-omit-files "^\\.$\\|^\\.[^.]")
 
-  (:global "C-c d" dired-omit-mode)
+  (:bind-into dired-mode-map
+    "C-c d" dired-omit-mode)
+
   (:bind-into dired-mode-map
     "I" #'dired-info)
 
@@ -51,6 +56,16 @@
            dired-do-revert-buffer t
            dired-isearch-filenames 'dwim
            dired-vc-rename-file t))
+
+(setup (:pkg dired-subtree)
+  (:option dired-subtree-use-backgrounds nil)
+  (:bind-into dired-mode-map
+    "<tab>" dired-subtree-toggle
+    "<backtab>" dired-subtree-remove))
+
+(setup (:pkg dired-sidebar)
+  (:autoload dired-sidebar-toggle-sidebar)
+  (:global "C-x C-n" dired-sidebar-toggle-sidebar))
 
 (setup (:require wdired)
   (:option wdired-allow-to-change-permissions t
@@ -71,6 +86,7 @@
     (:hooks dired-load-hook dired-collapse)))
 
 (setup (:pkg all-the-icons-dired)
+  (:option all-the-icons-dired-monochrome nil)
   (:load-after (all-the-icons dired)
     (:hooks dired-mode-hook all-the-icons-dired-mode)))
 
