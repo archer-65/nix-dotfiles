@@ -120,6 +120,14 @@ With optional prefix ARG (\\[universal-argument]) call
       (notmuch-refresh-all-buffers)
     (notmuch-refresh-this-buffer)))
 
+(defun archer-lieer-sendmail ()
+  "Set the required variables to send a mail through `lieer'.
+To improve."
+  (let (from (message-fetch-field "from"))
+    (when (string= from "mario.liguori.056@gmail.com")
+      (setq-local sendmail-program "gmi"
+                  message-sendmail-extra-arguments '("send" "--quiet" "-t" "-C" "~/mails/gmail")))))
+
 ;; Current client for mails
 (setup notmuch
   (:autoload notmuch notmuch-mua-new-mail)
@@ -244,7 +252,7 @@ With optional prefix ARG (\\[universal-argument]) call
 
   ;; Identities
   (:option notmuch-identies '("mario.liguori.056@gmail.com" "mario.liguori6@studenti.unina.it")
-           notmuch-fcc-dirs '(("mario.liguori.056@gmail.com" . "gmail/sent +personal +sent")
+           notmuch-fcc-dirs '(("mario.liguori.056@gmail.com" . "gmail +personal +sent")
                               ("mario.liguori6@studenti.unina.it" . "unina/sent +university +sent")))
 
   ;; Other cosmetic formatting
@@ -282,7 +290,9 @@ With optional prefix ARG (\\[universal-argument]) call
   (:option send-mail-function 'sendmail-send-it
            mail-specify-envelope-from t
            message-sendmail-envelope-from 'header
-           mail-envelope-from 'header))
+           mail-envelope-from 'header)
+  (:with-hook message-send-hook
+    (:hook archer-lieer-sendmail)))
 
 (setup message
   (:option message-cite-style 'message-cite-style-gmail

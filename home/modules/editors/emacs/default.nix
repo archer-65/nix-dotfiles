@@ -62,5 +62,9 @@ in {
         VISUAL = "emacsclient -c -a emacs";
       };
     })
+
+    (mkIf config.programs.notmuch.enable {
+      home.packages = [pkgs.notmuch.emacs];
+    })
   ]);
 }

@@ -21,6 +21,27 @@ inputs: {
       mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
     });
 
+    lieer = prev.lieer.overrideAttrs(oldAttrs: {
+      pname = "lieer";
+      version = "1.3";
+
+      src = final.fetchFromGitHub {
+        owner = "gauteh";
+        repo = "lieer";
+        #rev = "v${version}";
+        rev = "a4ab209c721de7146f4301b426bdb6482d687a85";
+        sha256 = "sha256-BL5F7sJ818Ky33eJDR9Eh5/XayhddkBWxk1HkQxh0Qc=";
+      };
+ 
+      propagatedBuildInputs = with final.pkgs.python3Packages; [
+        notmuch2
+        oauth2client
+        google-api-python-client
+        tqdm
+        setuptools
+      ];
+    });
+
     # notmuch-mailmover = inputs.notmuch-mailmover.packages.x86_64-linux.default;
 
     tdlib = prev.tdlib.overrideAttrs (oldAttrs: {
