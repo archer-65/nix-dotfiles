@@ -57,7 +57,7 @@
     "shell/extensions" = import ./shell/extensions.nix;
     "shell/git" = import ./shell/git.nix;
     "shell/starship" = import ./shell/starship.nix;
-    "shell/zellij" = import ./shell/zellij.nix;
+    "shell/tmux" = import ./shell/tmux.nix;
 
     "themes" = import ./themes;
     "themes/bar.nix" = import ./themes/bar.nix;

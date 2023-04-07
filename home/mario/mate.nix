@@ -63,7 +63,7 @@
       zsh.enable = true;
       extensions.enable = true;
       starship.enable = true;
-      zellij.enable = true;
+      tmux.enable = true;
 
       direnv.enable = true;
 
