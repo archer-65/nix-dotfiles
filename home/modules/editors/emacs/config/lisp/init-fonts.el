@@ -15,33 +15,31 @@
   :type 'integer
   :group 'archer-faces)
 
-(defun archer-font-setup ()
-  "Simple function to initialize font, usually called with a few hooks."
-  ;; Global fonts
-  (set-face-attribute 'default nil
-                      :font "VictorMono Nerd Font"
-                      :height archer-font-height)
+(setup (:pkg fontaine)
+  (:option x-underline-at-descent-line nil
+           use-default-font-for-symbols t)
 
-  ;; Set the fixed pitch face
-  (set-face-attribute 'fixed-pitch nil
-                      :font "VictorMono Nerd Font"
-                      :height archer-font-height)
+  (unless (version< emacs-version "28")
+    (setq-default text-scale-remap-header-line t))
 
-  ;; Set the variable pitch face
-  (set-face-attribute 'variable-pitch nil
-                      :font "VictorMono Nerd Font"
-                      :height archer-font-height
-                      :weight 'light))
+  (:option archer-font-height (pcase (system-name)
+                                ("quietfrost" 180)
+                                ("mate" 140)))
 
-(setup faces
-  (:option use-default-font-for-symbols t)
-  (:option archer-font-height (if (string-equal (system-name) "quietfrost")
-                                  180
-                                140))
-  ;; Run this hook after we have initialized the first time
-  ;; and if we create a new frame from daemonized Emacs.
-  (:with-hook (after-init-hook server-after-make-frame-hook)
-    (:hook archer-font-setup)))
+  (:option fontaine-latest-state-file (locate-user-emacs-file "var/fontaine-state.eld"))
+
+  (:option fontaine-presets
+           `((victor
+              :default-family "VictorMono Nerd Font"
+              :default-height ,archer-font-height))
+
+  (fontaine-set-preset (or (fontaine-restore-latest-preset) 'victor))
+
+  (:with-hook kill-emacs-hook
+    (:hook fontaine-store-latest-preset))
+
+  (:with-hook (modus-themes-after-load-theme-hook ef-themes-post-load-hook)
+    (:hook fontaine-apply-current-preset)))
 
 (provide 'init-fonts)
 ;;; init-fonts.el ends here
