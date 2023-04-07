@@ -8,7 +8,8 @@
 
 ;;; Code:
 
-(setup (:pkg telega (not (archer-using-nix-p)))
+(setup (:and (not (archer-using-nix-p))
+             (:pkg telega))
   (:autoload telega)
   (:option telega-use-images t
            telega-emoji-font-family "Noto Color Emoji"
@@ -30,20 +31,6 @@
   ;; From Andrew Tropin <3
   (defun archer-telega-chat-mode ()
     "Add completion at point functions made from company backends."
-
-    ;; Too much noise appending to other functions
-    ;; (setq-local
-    ;;  completion-at-point-functions
-    ;;  (append (mapcar
-    ;;           'cape-company-to-capf
-    ;;           (append (list 'telega-company-emoji
-    ;;                         'telega-company-username
-    ;;                         'telega-company-hashtag)
-    ;;                   (when (telega-chat-bot-p telega-chatbuf--chat)
-    ;;                     '(telega-company-botcmd))))
-    ;;          completion-at-point-functions))
-
-    ;; Maybe?
     (setq-local
      completion-at-point-functions
      (mapcar #'cape-company-to-capf (append (list 'telega-company-emoji

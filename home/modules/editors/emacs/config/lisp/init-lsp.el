@@ -108,7 +108,8 @@
 
 ;; Eglot is built-in in Emacs 29+, so this condition doesn't consent the installation
 ;; if it is already present.
-(setup (:pkg eglot (not (package-installed-p 'eglot)))
+(setup (:and (not (package-installed-p 'eglot))
+             (:pkg eglot))
   ;; List of modes and servers
   (:when-loaded
     (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))

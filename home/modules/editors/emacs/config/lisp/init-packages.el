@@ -34,49 +34,20 @@
 (straight-use-package 'setup)
 (require 'setup)
 
-;; https://git.acdw.net/emacs/tree/lisp/+setup.el
-(defun setup--straight-handle-arg (arg var)
-  (cond
-   ((and (boundp var) (symbol-value var)) t)
-   ((keywordp arg) (set var t))
-   ((functionp arg) (set var nil) (funcall arg))
-   ((listp arg) (set var nil) arg)))
-
 (setup-define :pkg
-  (lambda (recipe &rest predicates)
-    (let* ((skp (make-symbol "straight-keyword-p"))
-           (straight-use-p
-            (cl-mapcar
-             (lambda (f) (setup--straight-handle-arg f skp))
-             predicates))
-           (form `(when ,@straight-use-p
-                    (condition-case e
-                        (straight-use-package ',recipe)
-                      (error
-                       ,(setup-quit))
-                      (:success t)))))
-      ;; Keyword arguments --- :quit is special and should short-circuit
-      (if (memq :quit predicates)
-          (setq form `,(setup-quit))
-        ;; Otherwise, handle the rest of them ...
-        (when-let ((after (cadr (memq :after predicates))))
-          (setq form `(with-eval-after-load ,(if (eq after t)
-                                                 (setup-get 'feature)
-                                               after)
-                        ,form))))
-      ;; Finally ...
-      form))
-  :documentation "Install RECIPE with `straight-use-package'.
-If PREDICATES are given, only install RECIPE if all of them return non-nil.
-The following keyword arguments are also recognized:
-- :quit          --- immediately stop evaluating.  Good for commenting.
-- :after FEATURE --- only install RECIPE after FEATURE is loaded.
-                     If FEATURE is t, install RECIPE after the current feature."
-  :repeatable nil
-  :indent 1
+  (lambda (recipe)
+    `(unless (straight-use-package ',recipe)
+       ,(setup-quit)))
+  :documentation
+  "Install RECIPE with `straight-use-package'.
+This macro can be used as HEAD, and will replace itself with the
+first RECIPE's package."
+  :repeatable t
   :shorthand (lambda (sexp)
                (let ((recipe (cadr sexp)))
-                 (or (car-safe recipe) recipe))))
+                 (if (consp recipe)
+                     (car recipe)
+                   recipe))))
 
 (setup-define :face
   (lambda (face spec) `(custom-set-faces (quote (,face ,spec))))
