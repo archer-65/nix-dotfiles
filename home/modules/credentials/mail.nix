@@ -15,8 +15,8 @@ with lib; let
     CopyArrivalDate = "yes";
   };
 
-  lieerAccounts =
-    filter (a: a.lieer.enable) (attrValues config.accounts.email.accounts);
+  lieerAccounts = filter (a: a.lieer.enable) (attrValues config.accounts.email.accounts);
+  lieerSyncAccounts = filterAttrs (_: acc: acc.lieer.enable && acc.lieer.sync.enable) config.accounts.email.accounts;
 in {
   options.mario.modules.credentials.mail-defaults = {
     enable = mkEnableOption "mail support";
@@ -27,6 +27,7 @@ in {
     accounts.email.accounts = {
       gmail = rec {
         primary = true;
+        flavor = "gmail.com";
         realName = "Mario Liguori";
         address = "mario.liguori.056@gmail.com";
         userName = address;
@@ -40,7 +41,7 @@ in {
           };
           settings = {
             replace_slash_with_dot = true;
-            ignore_tags = ["new"];
+            ignore_tags = ["new" "university"];
             ignore_remote_labels = [];
           };
         };
@@ -317,6 +318,15 @@ in {
       preExec = "${pkgs.notmuch-mailmover}/bin/notmuch-mailmover";
       postExec = "${pkgs.notmuch}/bin/notmuch new";
     };
+
+    services.lieer.enable = true;
+    systemd.user.services = mkIf config.services.lieer.enable (
+      mapAttrs' (_: acc:
+        nameValuePair "lieer-${acc.name}" {
+          Service.ExecStartPost = "${pkgs.notmuch}/bin/notmuch new";
+        })
+      lieerSyncAccounts
+    );
 
     home.activation = mkIf (lieerAccounts != []) {
       createLieerMaildir = lib.hm.dag.entryBetween ["linkGeneration"] ["writeBoundary"] ''

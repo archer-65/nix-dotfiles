@@ -46,11 +46,11 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
-        "lastModified": 1680858543,
-        "narHash": "sha256-M7pqqcDHd5pCFTaKnteyf9nn5nHXwDOLp9NECzAvvso=",
+        "lastModified": 1680893874,
+        "narHash": "sha256-d0t/czWsAuN5OdxgFJ7C+1WIPQP+uwYS3g/estSAa+c=",
         "owner": "nix-community",
         "repo": "emacs-overlay",
-        "rev": "34bb46ef62a3069ac6cf8dca07cbfa1137822d20",
+        "rev": "c89b34da3461fe336dfed895d67d2b9d072a9b66",
         "type": "github"
       },
       "original": {
@@ -149,11 +149,11 @@
         "xdph": "xdph"
       },
       "locked": {
-        "lastModified": 1680811184,
-        "narHash": "sha256-jAppsQiY/QQtbLZqbvCFA0KYDmaQTsqBgmj+Jj4B9MQ=",
+        "lastModified": 1680901308,
+        "narHash": "sha256-XtJm2VMTx3PW5AoxR35ExvUwmt5uvYnxfS9OVgcFE/0=",
         "owner": "hyprwm",
         "repo": "Hyprland",
-        "rev": "366ebc123bc17165a599f44768c7338d166124ae",
+        "rev": "10b9e9bbe5fc71c5d7617776927c22db1167b10b",
         "type": "github"
       },
       "original": {
@@ -235,11 +235,11 @@
     },
     "nixpkgs_2": {
       "locked": {
-        "lastModified": 1680487167,
-        "narHash": "sha256-9FNIqrxDZgSliGGN2XJJSvcDYmQbgOANaZA4UWnTdg4=",
+        "lastModified": 1680669251,
+        "narHash": "sha256-AVNE+0u4HlI3v96KCXE9risH7NKqj0QDLLfSckYXIbA=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "53dad94e874c9586e71decf82d972dfb640ef044",
+        "rev": "9c8ff8b426a8b07b9e0a131ac3218740dc85ba1e",
         "type": "github"
       },
       "original": {
@@ -357,11 +357,11 @@
       "flake": false,
       "locked": {
         "host": "gitlab.freedesktop.org",
-        "lastModified": 1680629978,
-        "narHash": "sha256-2iVx5zqU2CpMgmtVadsHSkhkAsoxAWKQp6RQqt2OgQY=",
+        "lastModified": 1680810405,
+        "narHash": "sha256-LmI/4Yp/pOOoI4RxLRx9I90NBsiqdRLVOfbATKlgpkg=",
         "owner": "wlroots",
         "repo": "wlroots",
-        "rev": "835208db98a29431fa687c9506f4b43fe645ff65",
+        "rev": "7abda952d0000b72d240fe1d41457b9288f0b6e5",
         "type": "gitlab"
       },
       "original": {
