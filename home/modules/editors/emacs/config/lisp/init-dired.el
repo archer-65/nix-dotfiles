@@ -57,6 +57,10 @@
            dired-isearch-filenames 'dwim
            dired-vc-rename-file t))
 
+(setup (:pkg diredfl)
+  (:disable)
+  (diredfl-global-mode 1))
+
 (setup (:pkg dired-subtree)
   (:option dired-subtree-use-backgrounds nil)
   (:bind-into dired-mode-map

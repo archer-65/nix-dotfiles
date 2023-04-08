@@ -31,7 +31,7 @@
   (:option fontaine-presets
            `((victor
               :default-family "VictorMono Nerd Font"
-              :default-height ,archer-font-height))
+              :default-height ,archer-font-height)))
 
   (fontaine-set-preset (or (fontaine-restore-latest-preset) 'victor))
 

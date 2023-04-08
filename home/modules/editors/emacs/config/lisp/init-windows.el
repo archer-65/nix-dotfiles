@@ -7,17 +7,46 @@
 ;;; Code:
 
 (setup windmove
-  (windmove-default-keybindings) ; Windmove with shift+arrows
-  (:hooks  org-shiftup-final-hook    windmove-up
-           org-shiftdown-final-hook  windmove-down
-           org-shiftleft-final-hook  windmove-left
-           org-shiftright-final-hook windmove-right))
+  ;; Windmove with shift+arrows
+  (windmove-default-keybindings)
+  (:hooks org-shiftup-final-hook    windmove-up
+          org-shiftdown-final-hook  windmove-down
+          org-shiftleft-final-hook  windmove-left
+          org-shiftright-final-hook windmove-right))
 
 (setup window
-  (:global "C-S-<up>" enlarge-window
-           "C-S-<down>" shrink-window
-           "C-S-<left>" shrink-window-horizontally
-           "C-S-<right>" enlarge-window-horizontally))
+  (:global "C-x <up>"   enlarge-window
+           "C-x <down>" shrink-window
+           "C-x {"      shrink-window-horizontally
+           "C-x }"      enlarge-window-horizontally))
+
+(setup (:pkg beframe)
+  (:option beframe-functions-in-frames '(project-prompt-project-dir)
+           beframe-global-buffers '("*scratch*"
+                                    "*Messages"
+                                    "*Async-native-compile-log*"
+                                    "*straight-byte-compilation*"
+                                    "*straight-process*"
+                                    "*dashboard*"))
+
+  (:with-after consult
+    (defface beframe-buffer
+      '((t :inherit font-lock-string-face))
+      "Face for `consult' framed buffers.")
+
+    (defvar beframe--consult-source
+      `( :name     "Frame-specific buffers (current frame)"
+         :narrow   ?F
+         :category buffer
+         :face     beframe-buffer
+         :history  beframe-history
+         :items    ,#'beframe-buffer-names
+         :action   ,#'switch-to-buffer
+         :state    ,#'consult--buffer-state))
+
+    (add-to-list 'consult-buffer-sources 'beframe--consult-source))
+
+  (beframe-mode 1))
 
 (setup (:pkg ace-window)
   (:global "M-o" ace-window
