@@ -23,6 +23,8 @@
              flymake-mode-line-warning-counter
              flymake-mode-line-note-counter ""))
 
+  (add-to-list 'elisp-flymake-byte-compile-load-path load-path)
+
   (:bind-into ctl-x-x-map
     "m" #'flymake-mode)
 
@@ -42,6 +44,8 @@
       (setq-local flymake-diagnostic-functions
                   (append flymake-diagnostic-functions
                           (flymake-flycheck-all-chained-diagnostic-functions))))
+
+    (:option flycheck-emacs-lisp-load-path 'inherit)
 
     (:hooks flymake-mode sanityinc/enable-flymake-flycheck)))
 

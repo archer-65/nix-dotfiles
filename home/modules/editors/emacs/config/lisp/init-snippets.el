@@ -7,7 +7,7 @@
 ;;; Code:
 
 (setup (:pkg yasnippet)
-  (:blackout)
+  (:blackout yas-minor-mode)
   (:hooks prog-mode-hook yas-minor-mode)
   (:when-loaded
     (yas-reload-all)))
