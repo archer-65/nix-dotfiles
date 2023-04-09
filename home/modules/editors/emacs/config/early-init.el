@@ -13,20 +13,23 @@
 ;; enabling `gcmh-mode'.
 (setq gc-cons-threshold  most-positive-fixnum)
 
+;; Add load-path for submodules
+(add-to-list 'load-path (expand-file-name "lisp" user-emacs-directory))
+
+;; Set a better directory to store the native comp cache
+(when (and (fboundp 'native-comp-available-p)
+           (native-comp-available-p))
+  (add-to-list 'native-comp-eln-load-path (expand-file-name "var/eln-cache/" user-emacs-directory)))
+
 ;; From DOOM
 ;; Prevent unwanted runtime compilation for gccemacs (native-comp) users;
 ;; packages are compiled ahead-of-time when they are installed and site files
 ;; are compiled when gccemacs is installed.
 (when (and (fboundp 'native-comp-available-p)
-	   (native-comp-available-p))
+     (native-comp-available-p))
   (setq native-comp-deferred-compilation nil)
   ;; Silence compiler warnings as they can be pretty disruptive
   (setq native-comp-async-report-warnings-errors nil))
-
-;; In Emacs 27+, package initialization occurs before `user-init-file' is
-;; loaded, but after `early-init-file'. Doom handles package initialization, so
-;; we must prevent Emacs from doing it early!
-(setq package-enable-at-startup nil)
 
 ;; Another trick from DOOM
 (unless (or (daemonp)
@@ -80,12 +83,38 @@
       column-number-mode t
       fringe-mode 10)
 
-;; (set-default-coding-systems 'utf-8)
-
 ;; Minor message for gc after loading
 (add-hook 'emacs-startup-hook
           (lambda ()
             (message "Emacs loaded in %s with %d garbage collections."
                      (emacs-init-time) gcs-done)))
+
+;; In Emacs 27+, package initialization occurs before `user-init-file' is
+;; loaded, but after `early-init-file'. Doom handles package initialization, so
+;; we must prevent Emacs from doing it early!
+(setq package-enable-at-startup nil
+      package-quickstart nil)
+
+;; Configure and bootstrap `straight.el'
+(setq straight-repository-branch "develop"
+      straight-check-for-modifications '(check-on-save find-when-checking)
+      straight-profiles `((nil . ,(expand-file-name "straight/versions/lock.el" user-emacs-directory))))
+
+(defvar bootstrap-version)
+(let ((bootstrap-file
+       (expand-file-name "straight/repos/straight.el/bootstrap.el" user-emacs-directory))
+      (bootstrap-version 5))
+  (unless (file-exists-p bootstrap-file)
+    (with-current-buffer
+        (url-retrieve-synchronously
+         "https://raw.githubusercontent.com/radian-software/straight.el/develop/install.el"
+         'silent 'inhibit-cookies)
+      (goto-char (point-max))
+      (eval-print-last-sexp)))
+  (load bootstrap-file nil 'nomessage))
+
+;; Additional post-setup of `straight.el'
+(require 'straight-x)
+(defalias 'straight-ಠ_ಠ-mode nil)
 
 ;;; early-init.el ends here

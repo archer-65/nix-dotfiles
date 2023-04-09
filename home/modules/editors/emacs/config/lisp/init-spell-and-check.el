@@ -45,7 +45,7 @@
 
     (:hooks flymake-mode sanityinc/enable-flymake-flycheck)))
 
-;; (setup flycheck (:disable) (:pkg flycheck)
+;; (setup flycheck (:quit) (:pkg flycheck)
 ;;   (:autoload flycheck-list-errors flycheck-buffer)
 ;;   (:option flycheck-emacs-lisp-load-path 'inherit
 ;;            flycheck-idle-change-delay 1.0

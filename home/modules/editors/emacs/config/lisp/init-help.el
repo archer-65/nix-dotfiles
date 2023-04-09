@@ -12,7 +12,7 @@
   (which-key-mode 1))
 
 (setup (:pkg helpful)
-  (:disable)
+  (:quit)
   (:bind "C-h f"    helpful-callable
    "C-h v"    helpful-variable
    "C-h k"    helpful-key

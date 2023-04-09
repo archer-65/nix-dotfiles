@@ -58,7 +58,7 @@
            dired-vc-rename-file t))
 
 (setup (:pkg diredfl)
-  (:disable)
+  (:quit)
   (diredfl-global-mode 1))
 
 (setup (:pkg dired-subtree)
