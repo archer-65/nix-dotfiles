@@ -83,7 +83,7 @@
 
   ;; Vertical scroll
   (setq scroll-step 1
-        scroll-margin 8
+        scroll-margin 10
         ;; Reduce cursor lag by a tiny bit by not auto-adjusting `window-vscroll'
         ;; for tall lines.
         auto-window-vscroll nil)

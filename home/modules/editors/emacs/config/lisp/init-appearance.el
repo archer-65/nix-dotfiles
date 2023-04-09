@@ -30,6 +30,7 @@
   ;; Cursor
   (setq-default cursor-in-non-selected-windows nil)
   (setq-default cursor-type 'bar)
+  (blink-cursor-mode 0)
 
   ;; Bidirectional settings
   (setq-default bidi-display-reordering 'left-to-right)

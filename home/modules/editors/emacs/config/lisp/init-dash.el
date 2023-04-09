@@ -29,14 +29,20 @@
            `(((,(all-the-icons-faicon "archive" :height 1.1 :v-adjust 0.0)
                "Update Packages"
                "Click to updates your packages"
-               (lambda (&rest _) (straight-pull-all))))))
+               (lambda (&rest _) (straight-pull-all)))))
+
+           ;; Footer
+           dashboard-footer-icon (all-the-icons-fileicon "emacs" :face 'font-lock-keyword-face))
 
   ;; This is required with PGTK!
   (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
   (dashboard-setup-startup-hook)
 
   (:with-hook after-init-hook
-    (:hook dashboard-insert-startupify-lists)))
+    (:hook dashboard-insert-startupify-lists))
+
+  (:with-hook server-after-make-frame-hook
+    (:hook dashboard-refresh-buffer)))
 
 (provide 'init-dash)
 ;;; init-dash.el ends here

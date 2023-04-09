@@ -9,17 +9,15 @@
 (setup (:pkg corfu)
   (global-corfu-mode)
 
-  ;; Load and enable corfu-history
   (load "extensions/corfu-history")
   (load "extensions/corfu-popupinfo")
 
-  (corfu-history-mode)
-  (corfu-popupinfo-mode)
+  (corfu-history-mode 1)
+
+  (corfu-popupinfo-mode 1)
+  (:option corfu-popupinfo-delay t)
 
   (add-to-list 'savehist-additional-variables 'corfu-history)
-
-  ;; TAB cycle if there are only few candidates
-  ;; (setq completion-cycle-threshold t)
 
   ;; SECTION FOR SPECIAL FUNCTIONS
   ;; Movement
@@ -51,22 +49,24 @@
   (defun contrib-corfu-enable-always-in-minibuffer ()
     "Enable Corfu in the minibuffer if Vertico is not active.
 Useful for prompts such as `eval-expression' and `shell-command'."
-    (unless (bound-and-true-p vertico--input)
+    (unless (or (bound-and-true-p vertico--input)
+                (eq (current-local-map) read-passwd-map))
+      (setq-local corfu-auto nil) ;; Enable/disable auto completion
+      (setq-local corfu-popupinfo-delay nil)
       (corfu-mode 1)))
   (add-hook 'minibuffer-setup-hook #'contrib-corfu-enable-always-in-minibuffer 1)
-  ;; END OF SECTION (TODO Refactor)
 
   (:option corfu-cycle t
-     corfu-auto t
-     corfu-separator ?\s
-     corfu-quit-at-boundary nil
-     corfu-quit-no-match t
-     corfu-preview-current #'insert
-     corfu-preselect-first t
-     corfu-on-exact-match #'insert
-     corfu-echo-documentation 0.25
-     corfu-min-width 30
-     corfu-scroll-margin 5)
+           corfu-auto t
+           corfu-separator ?\s
+           corfu-quit-at-boundary nil
+           corfu-quit-no-match t
+           corfu-preview-current #'insert
+           corfu-preselect-first t
+           corfu-on-exact-match #'insert
+           corfu-echo-documentation 0.25
+           corfu-min-width 30
+           corfu-scroll-margin 5)
 
   (:bind-into corfu-popupinfo-map
     "M-p" corfu-popupinfo-scroll-down

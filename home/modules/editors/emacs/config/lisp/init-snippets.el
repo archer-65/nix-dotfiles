@@ -16,16 +16,15 @@
   (:load-after yasnippet))
 
 (setup (:pkg (cape-yasnippet :type git :host github :repo "elken/cape-yasnippet"))
-  (:load-after yasnippet)
+  (:load-after (cape yasnippet)
+    (defun archer-add-cape-yasnippet ()
+      (add-to-list 'completion-at-point-functions #'cape-yasnippet))
 
-  (defun archer-add-cape-yasnippet ()
-    (add-to-list 'completion-at-point-functions #'cape-yasnippet))
+    (:with-mode eglot-managed-mode-hook
+      (:hook archer-add-cape-yasnippet))
 
-  (:when-loaded (archer-add-cape-yasnippet))
+    (:global "C-c p y" cape-yasnippet)))
 
-  (:hooks eglot-managed-mode-hook archer-add-cape-yasnippet)
-
-  (:global "C-c p y" cape-yasnippet))
 
 (provide 'init-snippets)
 ;;; init-snippets.el ends here
