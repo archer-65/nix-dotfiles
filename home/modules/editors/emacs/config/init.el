@@ -35,7 +35,7 @@
       (expand-file-name user-emacs-directory))))
 
 ;; Require package management file
-(require 'init-packages)
+(require 'init-setup)
 
 (require 'init-performance)
 

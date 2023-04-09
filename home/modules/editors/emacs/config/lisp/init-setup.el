@@ -1,9 +1,8 @@
-;;; init-packages.el --- Package manager and related configuration -*- lexical-binding: t -*-
+;;; init-setup.el --- `setup.el' configuration -*- lexical-binding: t -*-
 
 ;;; Commentary:
 
-;; This file should be the `core'.
-;; The package `setup.el' is configured here, with new forms and general settings.
+;; The package `setup.el' is configured here, with new forms and settings.
 
 ;;; Code:
 
@@ -68,9 +67,10 @@
   :repeatable t
   :after-loaded t)
 
+;; Blackout to hide minor modes
+(straight-use-package 'blackout)
 (setup-define :blackout
   (lambda (&optional mode)
-    (straight-use-package 'blackout)
     (let* ((mode (or mode (setup-get 'mode)))
            (mode (if (string-match-p "-mode\\'" (symbol-name mode))
                      mode
@@ -80,7 +80,6 @@
 MODE can be specified manually, and override the current-mode."
   :after-loaded t)
 
-;; Integration with straight.el
 ;; From https://git.acdw.net/emacs/tree/lisp/+setup.el
 (defun +setup-warn (message &rest args)
   "Warn the user with that something bad happened in `setup'.
@@ -107,7 +106,7 @@ it includes the NAME of the setup form in the warning output."
     (+with-progress ((format "[Setup] %S..." head))
       (apply fn head args))))
 
-;; Configure `straight.el' integration
+;; Integration with `straight.el'
 (defun setup--straight-handle-arg (arg var)
   (cond
    ((and (boundp var) (symbol-value var)) t)
@@ -148,5 +147,5 @@ The following keyword arguments are also recognized:
                  (let ((recipe (cadr sexp)))
                    (or (car-safe recipe) recipe)))))
 
-(provide 'init-packages)
-;;; init-packages.el ends here
+(provide 'init-setup)
+;;; init-setup.el ends here

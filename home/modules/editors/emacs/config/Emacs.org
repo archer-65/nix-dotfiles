@@ -29,7 +29,8 @@ Anyway, this document is not intended as a way to show my =elisp-fu= or somethin
 
 Is good practice to define an =early-init.el= file: this kind of approach provides better loading for essential stuff.
 
-Specifically, there are some tweaks taken from [[https://github.com/doomemacs/doomemacs][DOOM Emacs]], [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][David Wilson]], [[https://protesilaos.com/emacs/dotemacs][Protesilaos Stavrou]]...but I'll put some credits at the end of this document, along with useful resources.
+- There are some tweaks taken from [[https://github.com/doomemacs/doomemacs][DOOM Emacs]], [[https://github.com/daviwil/dotfiles/blob/master/Emacs.org][David Wilson]], [[https://protesilaos.com/emacs/dotemacs][Protesilaos Stavrou]]...but I'll put some credits at the end of this document, along with useful resources.
+- The package manager, [[https://github.com/radian-software/straight.el][straight.el]], provides reproducibility (like Nix and Guix) with recipes, allows the editing of packages and manual version control operations on repos. [[https://github.com/radian-software/straight.el#advantages-of-straightel-5][Here]] the list of advantages.
 
 #+include: "early-init.el" src emacs-lisp :tangle no
 
@@ -93,23 +94,18 @@ Functions to determine if we are using a Nix installation of Emacs, or not, then
 
 ** Packages bootstrap
 
-We are requiring =init-packages=, where package manager (e.g. =package.el=, =straight.el=) and macro configuration tools (e.g. =use-package=, =leaf.el=, =setup.el=) are initialized.
-
-Right now I'm using =straight.el= along with =setup.el=.
-
-- [[https://github.com/radian-software/straight.el][straight.el]] provides reproducibility (like Nix and Guix) with recipes, allows the editing of packages and manual version control operations on repos. [[https://github.com/radian-software/straight.el#advantages-of-straightel-5][Here]] the list of advantages.
-- [[https://git.sr.ht/~pkal/setup][setup.el]] is less declarative compared to other solutions: you have more control, I would say that it's similar to vanilla Emacs configuration, but less verbose and with easy definition of new macros.
+We are requiring =init-setup=, where configuration tools based on macros (e.g. =use-package=, =leaf.el=, =setup.el=) are initialized. I'm using [[https://git.sr.ht/~pkal/setup][setup.el]] right now. Compared to =use-package=, =setup.el= is less declarative: you have more control, I would say that it's similar to vanilla Emacs configuration, but less verbose and with easy definition of new macros.
   
-I also install [[https://github.com/radian-software/blackout][blackout.el]], to manage modes displayed in the mode-line.
+I also install [[https://github.com/radian-software/blackout][blackout.el]] (and define a macro with =setup.el=) here, to manage modes displayed in the mode-line.
 
 #+begin_src emacs-lisp
 
   ;; Require package management file
-  (require 'init-packages)
+  (require 'init-setup)
 
 #+end_src
 
-#+include: "lisp/init-packages.el" src emacs-lisp :tangle no
+#+include: "lisp/init-setup.el" src emacs-lisp :tangle no
 
 ** Performances enhancement
 
