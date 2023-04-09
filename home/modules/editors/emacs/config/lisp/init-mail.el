@@ -286,6 +286,9 @@ To improve."
     "D" archer-notmuch-show-delete-message
     "S" archer-notmuch-show-spam-message))
 
+(setup (:pkg consult-notmuch)
+  (:load-after (consult notmuch)))
+
 (setup sendmail
   (:option send-mail-function 'sendmail-send-it
            mail-specify-envelope-from t

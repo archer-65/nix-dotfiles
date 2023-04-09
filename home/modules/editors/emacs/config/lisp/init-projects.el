@@ -17,6 +17,9 @@
 
   (:global "C-c C-p" projectile-command-map))
 
+(setup (:pkg consult-projectile)
+  (:load-after (consult projectile)))
+
 (setup (:pkg direnv)
   (:hook-into prog-mode))
 
@@ -83,8 +86,8 @@
 
   (:when-loaded
     (setq treemacs-collapse-dirs         (if treemacs-python-executable 3 0)
-	  treemacs-file-extension-regex  treemacs-last-period-regex-value)
-    
+          treemacs-file-extension-regex  treemacs-last-period-regex-value)
+
     (treemacs-follow-mode t)
     (treemacs-filewatch-mode t)
     (treemacs-fringe-indicator-mode 'always)
@@ -94,7 +97,7 @@
       (treemacs-git-commit-diff-mode t))
 
     (pcase (cons (not (null (executable-find "git")))
-		 (not (null treemacs-python-executable)))
+                 (not (null treemacs-python-executable)))
       (`(t . t)
        (treemacs-git-mode 'deferred))
       (`(t . _)
