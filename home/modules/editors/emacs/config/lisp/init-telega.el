@@ -8,9 +8,13 @@
 
 ;;; Code:
 
-(setup (:and (not (archer-using-nix-p))
-             (:pkg telega))
+(setup telega
+
+  (unless (archer-using-nix-p)
+    (:pkg telega))
+
   (:autoload telega)
+
   (:option telega-use-images t
            telega-emoji-font-family "Noto Color Emoji"
            telega-emoji-use-images nil
@@ -41,11 +45,14 @@
 
   (:when-loaded
     (:also-load telega-mnz)
-    (define-key global-map (kbd "C-c t") telega-prefix-map))
+    (:global "C-c t" telega-prefix-map))
 
-  (:hooks telega-chat-mode-hook archer-telega-chat-mode
-          telega-load-hook telega-notifications-mode
-          telega-chat-mode-hook telega-mnz-mode))
+  (:with-mode telega-chat-mode
+    (:hook archer-telega-chat-mode)
+    (:hook telega-mnz-mode))
+
+  (:with-hook telega-load-hook
+    (:hook telega-notifications-mode)))
 
 (provide 'init-telega)
 ;;; init-telega.el ends here

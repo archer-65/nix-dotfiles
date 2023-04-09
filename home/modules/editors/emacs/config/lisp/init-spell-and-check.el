@@ -7,6 +7,9 @@
 ;;; Code:
 
 (setup flymake
+  ;; Dumb `flymake' made me crash for this
+  (add-to-list 'elisp-flymake-byte-compile-load-path load-path)
+
   (:option flymake-fringe-indicator-position 'left-fringe
            flymake-suppress-zero-counters t
            flymake-start-on-flymake-mode t
@@ -23,8 +26,6 @@
              flymake-mode-line-warning-counter
              flymake-mode-line-note-counter ""))
 
-  (add-to-list 'elisp-flymake-byte-compile-load-path load-path)
-
   (:bind-into ctl-x-x-map
     "m" #'flymake-mode)
 
@@ -36,30 +37,24 @@
 
   (:hook-into prog-mode text-mode))
 
-;; From Purcell's dotfiles
+;; From Purcell
 (setup (:pkg flymake-flycheck)
-  (:load-after flymake)
-  (:when-loaded
-    (defun sanityinc/enable-flymake-flycheck ()
-      (setq-local flymake-diagnostic-functions
+  (:with-after flycheck
+    (setq-default flycheck-disabled-checkers
+                  (append (default-value 'flycheck-disabled-checkers)
+                          '(emacs-lisp emacs-lisp-checkdoc emacs-lisp-package)))
+
+    (:with-mode flymake-mode
+      (:local-set flymake-diagnostic-functions
                   (append flymake-diagnostic-functions
-                          (flymake-flycheck-all-chained-diagnostic-functions))))
-
-    (:option flycheck-emacs-lisp-load-path 'inherit)
-
-    (:hooks flymake-mode sanityinc/enable-flymake-flycheck)))
-
-;; (setup flycheck (:quit) (:pkg flycheck)
-;;   (:autoload flycheck-list-errors flycheck-buffer)
-;;   (:option flycheck-emacs-lisp-load-path 'inherit
-;;            flycheck-idle-change-delay 1.0
-;;            flycheck-display-errors-delay 0.25
-;;            flycheck-emacs-lisp-initialize-packages t)
-;;   (global-flycheck-mode))
+                          (flymake-flycheck-all-chained-diagnostic-functions))))))
 
 (setup flyspell
-  (:hooks text-mode-hook (lambda () flyspell-mode 1)
-          prog-mode-hook flyspell-prog-mode))
+  (:with-mode text-mode
+    (:hook flyspell-mode))
+
+  (:with-mode prog-mode
+    (:hook flyspell-prog-mode)))
 
 (provide 'init-spell-and-check)
 ;;; init-spell-and-check.el ends here

@@ -31,13 +31,16 @@
 
 (setup (:pkg company-terraform)
   (:autoload company-terraform)
-  (:when-loaded
+
+  (:with-after (cape terraform-mode)
     (defun archer-cape-company-terraform()
       "Add completion at point functions made from company backends for `terraform'."
       (setq-local
        completion-at-point-functions
        (append (list (cape-company-to-capf #'company-terraform)) completion-at-point-functions)))
-    (:hooks terraform-mode-hook archer-cape-company-terraform)))
+
+    (:with-hook terraform-mode-hook
+      (:hook archer-cape-company-terraform))))
 
 (provide 'init-extra-modes)
 ;;; init-extra-modes.el ends here

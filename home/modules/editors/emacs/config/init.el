@@ -43,11 +43,13 @@
 
 (require 'init-fonts)
 
+(require 'init-themes)
+
 (require 'init-appearance)
 
-(require 'init-dash)
-
 (require 'init-modeline)
+
+(require 'init-dash)
 
 (require 'init-editing)
 

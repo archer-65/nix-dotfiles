@@ -259,7 +259,8 @@ To improve."
   (add-to-list 'notmuch-tag-formats '("encrypted" (concat tag "🔒")))
   (add-to-list 'notmuch-tag-formats '("attachment" (concat tag "📎")))
 
-  (:hooks notmuch-mua-send-hook notmuch-mua-attachment-check)
+  (:with-hook notmuch-mua-send-hook
+    (:hook notmuch-mua-attachment-check))
 
   (:global "C-c m" notmuch
            "C-x m" notmuch-mua-new-mail)

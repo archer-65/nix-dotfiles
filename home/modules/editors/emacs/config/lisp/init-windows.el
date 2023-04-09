@@ -9,12 +9,23 @@
 (setup windmove
   ;; Windmove with shift+arrows
   (windmove-default-keybindings)
-  (:hooks org-shiftup-final-hook    windmove-up
-          org-shiftdown-final-hook  windmove-down
-          org-shiftleft-final-hook  windmove-left
-          org-shiftright-final-hook windmove-right))
+  (add-hook 'org-shiftup-final-hook    #'windmove-up)
+  (add-hook 'org-shiftdown-final-hook  #'windmove-down)
+  (add-hook 'org-shiftleft-final-hook  #'windmove-left)
+  (add-hook 'org-shiftright-final-hook #'windmove-right))
 
 (setup window
+  (setq window-resize-pixelwise nil)
+
+  ;; Splitting around
+  (setq split-width-threshold 160
+        split-height-threshold nil)
+
+  ;; Dividers
+  (setq window-divider-default-right-width 8)
+  (setq window-divider-default-places 'right-only)
+  (window-divider-mode 0)
+
   (:global "C-x <up>"   enlarge-window
            "C-x <down>" shrink-window
            "C-x {"      shrink-window-horizontally

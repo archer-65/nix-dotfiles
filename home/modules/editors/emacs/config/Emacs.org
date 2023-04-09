@@ -127,9 +127,6 @@ Other tweaks in this section have been stolen from DOOM and other configurations
 
 Sometimes we forget shortcuts as we type them, [[https://github.com/justbur/emacs-which-key][which-key]] is a minor mode for Emacs that displays the key bindings following your currently entered incomplete command in a popup.
 
-I'm not using helpful anymore.
-+The [[https://github.com/Wilfred/helpful][helpful]] adds a lot of very helpful information to =describe-= command buffers. For example, if you use =describe-function=, you will not only get the documentation about the function, you will also see the source code of the function and where it gets used in other places in the Emacs configuration.+
-
 #+begin_src emacs-lisp
 
   (require 'init-help)
@@ -144,7 +141,7 @@ In this section are contained line-numbers settings, modeline related configurat
 
 *** Font
 
-Readability is important.
+Readability is important, another package from Protesilaos, much more!
 Currently using [[https://rubjo.github.io/victor-mono/][Victor Mono]] as font, I love it, also for variable-pitch face.
 
 #+begin_src emacs-lisp
@@ -153,13 +150,24 @@ Currently using [[https://rubjo.github.io/victor-mono/][Victor Mono]] as font, I
 
 #+end_src
 
-#+include: "lisp/init-fonts.el" src emacs-lisp :tangle no
+#+include: "lisp/init-fonts.el" src emacs-lisp :tangle normal
 
 *** Colors and general UI
 
 I'm currently using [[https://protesilaos.com/emacs/modus-themes][Modus Themes]], with [[https://github.com/guidoschmidt/circadian.el][Circadian]] to set light/dark version, based on time. It's possible to switch themes on sunrise and sunset. Protesilaos made a great work, and these themes are, indeed, built into Emacs (but I always get the packaged version :D)
 
-Here the =init.appearance.el= file.
+
+#+begin_src emacs-lisp
+
+  (require 'init-themes)
+
+#+end_src
+
+#+include: "lisp/init-themes.el" src emacs-lisp :tangle no
+
+*** Minor UI settings
+
+Nothing special, just =all-the-icons= and misc settings.
 
 #+begin_src emacs-lisp
 
@@ -168,6 +176,18 @@ Here the =init.appearance.el= file.
 #+end_src
 
 #+include: "lisp/init-appearance.el" src emacs-lisp :tangle no
+
+*** Modeline
+
+Just modeline customized.
+
+#+begin_src emacs-lisp
+
+ (require 'init-modeline)
+
+#+end_src
+
+#+include: "lisp/init-modeline.el" src emacs-lisp :tangle no
 
 *** Dashboard Configuration
 
@@ -182,18 +202,6 @@ Useless and cute dashboard, nothing to say, and there are minor tweaks to make i
 Here the =init-dash.el= file.
 
 #+include: "lisp/init-dash.el" src emacs-lisp :tangle no
-
-*** Modeline
-
-Just modeline customized.
-
-#+begin_src emacs-lisp
-
- (require 'init-modeline)
-
-#+end_src
-
-#+include: "lisp/init-modeline.el" src emacs-lisp :tangle no
 
 * Interface interaction
 

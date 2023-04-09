@@ -6,20 +6,6 @@
 
 ;;; Code:
 
-(setup (:pkg projectile)
-  (:blackout)
-
-  ;; NOTE: Set this to the folder where you keep your Git repos!
-  (:option projectile-project-search-path '("~/projects")
-           projectile-switch-project-action #'projectile-dired)
-
-  (projectile-mode)
-
-  (:global "C-c C-p" projectile-command-map))
-
-(setup (:pkg consult-projectile)
-  (:load-after (consult projectile)))
-
 (setup (:pkg direnv)
   (:hook-into prog-mode))
 
@@ -32,7 +18,23 @@
 
 (setup (:pkg blamer))
 
-(setup (:pkg treemacs)
+;; `projectile', not using to try `project.el'
+(setup (:pkg projectile :quit)
+  (:blackout)
+
+  ;; NOTE: Set this to the folder where you keep your Git repos!
+  (:option projectile-project-search-path '("~/projects")
+           projectile-switch-project-action #'projectile-dired)
+
+  (projectile-mode)
+
+  (:global "C-c C-p" projectile-command-map))
+
+(setup (:pkg consult-projectile :quit)
+  (:load-after (consult projectile)))
+
+;; `treemacs' stuff, I'm not using it
+(setup (:pkg treemacs :quit)
   (:option treemacs-deferred-git-apply-delay        0.5
            treemacs-directory-name-transformer      #'identity
            treemacs-display-in-side-window          t
@@ -112,15 +114,14 @@
            "C-c C-t f"  treemacs-find-file
            "C-c C-t T"  treemacs-find-tag))
 
-(setup (:pkg treemacs-projectile)
+(setup (:pkg treemacs-projectile :quit)
   (:load-after (treemacs projectile)))
 
-(setup (:pkg treemacs-all-the-icons)
-  (:load-after (treemacs))
-  (:when-loaded
+(setup (:pkg treemacs-all-the-icons :quit)
+  (:load-after treemacs
     (treemacs-load-theme "all-the-icons")))
 
-(setup (:pkg treemacs-magit)
+(setup (:pkg treemacs-magit :quit)
   (:load-after (treemacs magit)))
 
 (provide 'init-projects)

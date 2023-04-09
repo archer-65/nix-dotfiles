@@ -7,8 +7,9 @@
 ;;; Code:
 
 (setup (:pkg yasnippet)
-  (:blackout yas-minor-mode)
-  (:hooks prog-mode-hook yas-minor-mode)
+  (:with-mode yas-minor-mode
+    (:blackout)
+    (:hook-into prog-mode))
   (:when-loaded
     (yas-reload-all)))
 
@@ -20,7 +21,7 @@
     (defun archer-add-cape-yasnippet ()
       (add-to-list 'completion-at-point-functions #'cape-yasnippet))
 
-    (:with-mode eglot-managed-mode-hook
+    (:with-hook eglot-managed-mode-hook
       (:hook archer-add-cape-yasnippet))
 
     (:global "C-c p y" cape-yasnippet)))

@@ -43,8 +43,11 @@
 
 (setup (:pkg tree-sitter)
   (:autoload tree-sitter-mode tree-sitter-hl-mode)
-  (:hook-into nix-mode c-mode c++-mode java-mode python-mode)
-  (:hooks tree-sitter-after-on-hook tree-sitter-hl-mode))
+
+  (:with-hook tree-sitter-after-on-hook
+    (:hook tree-sitter-hl-mode))
+
+  (global-tree-sitter-mode 1))
 
 (setup (:pkg tree-sitter-langs)
   (:load-after treesitter))

@@ -5,14 +5,14 @@
 ;; Dired utilities and configuration for a better experience.
 
 ;;; Code:
-
-(defun archer-dired-open-file ()
-  "In Dired, open the file named on this line through xdg-open."
-  (interactive)
-  (let* ((file (dired-get-filename nil t)))
-    (call-process "xdg-open" nil 0 nil file)))
-
 (setup dired
+  ;; 'Kay, with this I'm good, maybe
+  (defun archer-dired-open-file ()
+    "In Dired, open the file named on this line through xdg-open."
+    (interactive)
+    (let* ((file (dired-get-filename nil t)))
+      (call-process "xdg-open" nil 0 nil file)))
+
   ;; Kill the current Dired buffer, then visit the file or directory
   (put 'dired-find-alternate-file 'disabled nil)
 
@@ -49,27 +49,14 @@
   (:bind-into dired-mode-map
     "I" #'dired-info)
 
-  (:hooks dired-mode-hook dired-omit-mode))
+  (:with-mode dired-mode
+    (:hook dired-omit-mode)))
 
 (setup (:require dired-aux)
   (:option dired-create-destination-dirs 'always
            dired-do-revert-buffer t
            dired-isearch-filenames 'dwim
            dired-vc-rename-file t))
-
-(setup (:pkg diredfl)
-  (:quit)
-  (diredfl-global-mode 1))
-
-(setup (:pkg dired-subtree)
-  (:option dired-subtree-use-backgrounds nil)
-  (:bind-into dired-mode-map
-    "<tab>" dired-subtree-toggle
-    "<backtab>" dired-subtree-remove))
-
-(setup (:pkg dired-sidebar)
-  (:autoload dired-sidebar-toggle-sidebar)
-  (:global "C-x C-n" dired-sidebar-toggle-sidebar))
 
 (setup (:require wdired)
   (:option wdired-allow-to-change-permissions t
@@ -85,14 +72,28 @@
   (:bind-into image-dired-thumbnail-mode-map
     "<return>" #'image-dired-thumbnail-display-external))
 
+(setup (:pkg diredfl)
+  (:quit)
+  (diredfl-global-mode 1))
+
+(setup (:pkg dired-subtree)
+  (:option dired-subtree-use-backgrounds nil)
+  (:bind-into dired-mode-map
+    "<tab>" dired-subtree-toggle
+    "<backtab>" dired-subtree-remove))
+
+(setup (:pkg dired-sidebar)
+  (:autoload dired-sidebar-toggle-sidebar)
+  (:global "C-x C-n" dired-sidebar-toggle-sidebar))
+
 (setup (:pkg dired-collapse)
   (:load-after dired
-    (:hooks dired-load-hook dired-collapse)))
+    (:hook-into dired-mode-hook)))
 
 (setup (:pkg all-the-icons-dired)
   (:option all-the-icons-dired-monochrome nil)
   (:load-after (all-the-icons dired)
-    (:hooks dired-mode-hook all-the-icons-dired-mode)))
+    (:hook-into dired-mode-hook)))
 
 (setup (:pkg trashed)
   (:option trashed-action-confirmer 'y-or-n-p

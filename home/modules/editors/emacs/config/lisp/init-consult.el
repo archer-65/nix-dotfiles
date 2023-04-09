@@ -105,7 +105,8 @@
   ;; Enable automatic preview at point in the *Completions* buffer. This is
   ;; relevant when you use the default completion UI. You may want to also
   ;; enable `consult-preview-at-point-mode` in Embark Collect buffers.
-  (:hooks completion-list-mode consult-preview-at-point-mode))
+  (:with-mode completion-list-mode
+    (:hook consult-preview-at-point-mode)))
 
 (setup (:pkg consult-dir)
   (:load-after consult

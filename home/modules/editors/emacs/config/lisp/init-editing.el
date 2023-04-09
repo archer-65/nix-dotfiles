@@ -168,11 +168,14 @@
 (setup (:pkg diff-hl)
   (:hook-into prog-mode)
 
-  (:hooks dired-mode-hook diff-hl-dired-mode)
+  (:with-mode dired-mode
+    (:hook diff-hl-dired-mode))
 
   (:with-after magit
-    (:hooks magit-pre-refresh-hook diff-hl-magit-pre-refresh
-            magit-post-refresh-hook diff-hl-magit-post-refresh)))
+    (:with-hook magit-pre-refresh-hook
+      (:hook diff-hl-magit-pre-refresh))
+    (:with-hook magit-post-refresh-hook
+      (:hook diff-hl-magit-post-refresh))))
 
 (setup long-lines
   (set-display-table-slot standard-display-table 'truncation (make-glyph-code ?…))

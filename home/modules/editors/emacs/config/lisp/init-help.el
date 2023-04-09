@@ -11,13 +11,12 @@
   (:option which-key-idle-delay 0.2)
   (which-key-mode 1))
 
-(setup (:pkg helpful)
-  (:quit)
+(setup (:pkg helpful :quit)
   (:bind "C-h f"    helpful-callable
-   "C-h v"    helpful-variable
-   "C-h k"    helpful-key
-   "C-h C"    helpful-command
-   "C-c C-d"  helpful-at-point))
+         "C-h v"    helpful-variable
+         "C-h k"    helpful-key
+         "C-h C"    helpful-command
+         "C-c C-d"  helpful-at-point))
 
 (provide 'init-help)
 ;;; init-help.el ends here

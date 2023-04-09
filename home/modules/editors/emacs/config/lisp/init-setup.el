@@ -53,12 +53,6 @@
   :indent 1
   :documentation "Evaluate BODY after FEATURES are loaded.")
 
-(setup-define :hooks
-  (lambda (hook func)
-    `(add-hook ',hook #',func))
-  :documentation "Add pairs of hooks."
-  :repeatable t)
-
 (setup-define :face
   (lambda (face spec) `(custom-set-faces (quote (,face ,spec))))
   :documentation "Customize FACE to SPEC."

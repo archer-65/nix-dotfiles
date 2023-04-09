@@ -6,9 +6,12 @@
 
 ;;; Code:
 
-(setup (:and (not (archer-using-nix-p))
-             (:pkg vterm))
+(setup vterm
+  (unless (archer-using-nix-p)
+    (:pkg vterm))
+
   (:autoload vterm vterm-other-window)
+
   (:option vterm-buffer-name-string "vterm: %s"
            vterm-max-scrollback 5000
            vterm-kill-buffer-on-exit t))

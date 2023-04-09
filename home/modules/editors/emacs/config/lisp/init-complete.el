@@ -80,6 +80,12 @@
                    "  ")
                  cand)))
 
+  ;; Sort directories before files
+  (defun sort-directories-first (files)
+    (setq files (vertico-sort-history-length-alpha files))
+    (nconc (seq-filter (lambda (x) (string-suffix-p "/" x)) files)
+           (seq-remove (lambda (x) (string-suffix-p "/" x)) files)))
+
   (:option vertico-multiform-commands
            '((dired (vertico-sort-function . sort-directories-first))))
 
@@ -90,14 +96,12 @@
              (consult-find buffer)
              (file (vertico-sort-function . sort-directories-first))))
 
-  (:hooks rfn-eshadow-update-overlay-hook vertico-directory-tidy
-          minibuffer-setup-hook  vertico-repeat-save)
+  (:with-hook rfn-eshadow-update-overlay-hook
+    (:hook vertico-directory-tidy))
 
-  ;; Sort directories before files
-  (defun sort-directories-first (files)
-    (setq files (vertico-sort-history-length-alpha files))
-    (nconc (seq-filter (lambda (x) (string-suffix-p "/" x)) files)
-           (seq-remove (lambda (x) (string-suffix-p "/" x)) files)))
+  (:with-mode minibuffer-setup-hook
+    (:hook vertico-repeat-save))
+
 
   (vertico-mode 1)
   (vertico-multiform-mode 1))
@@ -116,52 +120,52 @@
       (:hook all-the-icons-completion-marginalia-setup))))
 
 ;; Orderless
-(defun archer-orderless-literal-dispatcher (pattern _index _total)
-  "Literal style dispatcher, using equal sign as a suffix."
-  (cond
-   ((equal "=" pattern)
-    '(orderless-literal . "="))
-   ((string-suffix-p "=" pattern)
-    (cons 'orderless-literal (substring pattern 0 -1)))))
-
-(defun archer-orderless-without-literal-dispatcher (pattern _index _total)
-  "Literal without style dispatcher using the exclamation mark as a suffix."
-  (cond
-   ((equal "!" pattern)
-    '(orderless-literal . "!"))
-   ((string-suffix-p "!" pattern)
-    (cons 'orderless-without-literal (substring pattern 0 -1)))))
-
-(defun archer-orderless-initialism-dispatcher (pattern _index _total)
-  "Leading initialism dispatcher using comma as suffix."
-  (cond
-   ((equal "," pattern)
-    '(orderless-literal . ","))
-   ((string-suffix-p "," pattern)
-    (cons 'orderless-initialism (substring pattern 0 -1)))))
-
-(defun archer-orderless-flex-dispatcher (pattern _index _total)
-  "Flex dispatcher using the tilde suffix."
-  (cond
-   ((equal "~" pattern)
-    '(orderless-literal . "~"))
-   ((string-suffix-p "~" pattern)
-    (cons 'orderless-flex (substring pattern 0 -1)))))
-
 (setup (:pkg orderless)
-  (setq completion-styles '(orderless basic)
-        orderless-component-separator 'orderless-escapable-split-on-space
-        completion-category-defaults nil)
+  (defun archer-orderless-literal-dispatcher (pattern _index _total)
+    "Literal style dispatcher, using equal sign as a suffix."
+    (cond
+     ((equal "=" pattern)
+      '(orderless-literal . "="))
+     ((string-suffix-p "=" pattern)
+      (cons 'orderless-literal (substring pattern 0 -1)))))
 
-  (setq orderless-style-dispatchers
-        '(archer-orderless-literal-dispatcher
-          archer-orderless-without-literal-dispatcher
-          archer-orderless-initialism-dispatcher
-          archer-orderless-flex-dispatcher))
+  (defun archer-orderless-without-literal-dispatcher (pattern _index _total)
+    "Literal without style dispatcher using the exclamation mark as a suffix."
+    (cond
+     ((equal "!" pattern)
+      '(orderless-literal . "!"))
+     ((string-suffix-p "!" pattern)
+      (cons 'orderless-without-literal (substring pattern 0 -1)))))
 
-  (setq completion-category-overrides
-        '((file (styles . (partial-completion basic orderless)))
-          (project-file (styles . (partial-completion basic orderless))))))
+  (defun archer-orderless-initialism-dispatcher (pattern _index _total)
+    "Leading initialism dispatcher using comma as suffix."
+    (cond
+     ((equal "," pattern)
+      '(orderless-literal . ","))
+     ((string-suffix-p "," pattern)
+      (cons 'orderless-initialism (substring pattern 0 -1)))))
+
+  (defun archer-orderless-flex-dispatcher (pattern _index _total)
+    "Flex dispatcher using the tilde suffix."
+    (cond
+     ((equal "~" pattern)
+      '(orderless-literal . "~"))
+     ((string-suffix-p "~" pattern)
+      (cons 'orderless-flex (substring pattern 0 -1)))))
+
+  (:option completion-styles '(orderless basic)
+           orderless-component-separator 'orderless-escapable-split-on-space
+           completion-category-defaults nil)
+
+  (:option orderless-style-dispatchers
+           '(archer-orderless-literal-dispatcher
+             archer-orderless-without-literal-dispatcher
+             archer-orderless-initialism-dispatcher
+             archer-orderless-flex-dispatcher))
+
+  (:option completion-category-overrides
+           '((file (styles . (partial-completion basic orderless)))
+             (project-file (styles . (partial-completion basic orderless))))))
 
 (provide 'init-complete)
 ;;; init-complete.el ends here
