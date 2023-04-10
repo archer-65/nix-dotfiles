@@ -214,7 +214,6 @@ Tweaks present here:
 - Truncate lines hook for =prog-mode=;
 - Electric-pair mode and show-paren;
 - Autorevert files after changes;
-- [[https://www.emacswiki.org/emacs/UndoTree][Undo Tree]] mode for simpler undo-redo (and visual branches!).
 - Rainbow-mode;
 - Delete-selection mode to overwrite selected regions;
 - Drag-stuff to...drag stuff around;

@@ -137,10 +137,11 @@
   (show-paren-mode 1))
 
 (setup selection
-  (setq save-interprogram-paste-before-kill t)
-  (setq kill-do-not-save-duplicates t)
-  (setq select-enable-clipboard t)
-  (setq select-enable-primary nil))
+  (:option save-interprogram-paste-before-kill t
+           kill-do-not-save-duplicates t
+           kill-whole-line t
+           select-enable-clipboard t
+           select-enable-primary nil))
 
 (setup (:require delsel)
   (:hide-mode delete-selection)
@@ -157,8 +158,8 @@
 
 (setup (:require autorevert)
   (:hide-mode auto-revert)
-  (setq auto-revert-verbose t)
-  (setq global-auto-revert-non-file-buffers t)
+  (:option auto-revert-verbose t
+           global-auto-revert-non-file-buffers t)
   (:with-hook after-init-hook
     (:hook global-auto-revert-mode)))
 

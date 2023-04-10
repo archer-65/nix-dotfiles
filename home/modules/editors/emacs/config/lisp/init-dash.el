@@ -36,13 +36,7 @@
 
   ;; This is required with PGTK!
   (setq initial-buffer-choice (lambda () (get-buffer-create "*dashboard*")))
-  (dashboard-setup-startup-hook)
-
-  (:with-hook after-init-hook
-    (:hook dashboard-insert-startupify-lists))
-
-  (:with-hook server-after-make-frame-hook
-    (:hook dashboard-refresh-buffer)))
+  (dashboard-setup-startup-hook))
 
 (provide 'init-dash)
 ;;; init-dash.el ends here

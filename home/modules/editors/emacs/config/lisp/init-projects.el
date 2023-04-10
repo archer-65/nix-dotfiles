@@ -6,8 +6,10 @@
 
 ;;; Code:
 
-(setup (:pkg direnv)
-  (:hook-into prog-mode))
+(setup (:pkg envrc)
+  (:needs "direnv")
+  (:with-hook after-init-hook
+    (:hook envrc-global-mode)))
 
 (setup (:pkg magit)
   (:autoload magit-status)
