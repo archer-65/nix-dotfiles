@@ -90,12 +90,17 @@
            '((dired (vertico-sort-function . sort-directories-first))))
 
   (:option vertico-multiform-categories
-           '((consult-grep buffer)
-             (consult-ripgrep buffer)
-             (consult-git-grep buffer)
-             (consult-find buffer)
+           '(
+             ;; (consult-grep buffer)
+             ;; (consult-ripgrep buffer)
+             ;; (consult-git-grep buffer)
+             ;; (consult-find buffer)
              (file (vertico-sort-function . sort-directories-first))))
 
+  ;; This works with `file-name-shadow-mode'.  When you are in a
+  ;; sub-directory and use, say, `find-file' to go to your home '~/' or
+  ;; root '/' directory, Vertico will clear the old path to keep only
+  ;; your current input.
   (:with-hook rfn-eshadow-update-overlay-hook
     (:hook vertico-directory-tidy))
 

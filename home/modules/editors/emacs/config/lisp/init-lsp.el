@@ -114,6 +114,13 @@
     (add-to-list 'eglot-server-programs '(terraform-mode . ("terraform-ls" "serve")))
     (add-to-list 'eglot-server-programs `(nix-mode . ,(eglot-alternatives '(("nil")
                                                                             ("rnix-lsp"))))))
+
+  (:with-after (cape yasnippet)
+    (:local-set completion-at-point-functions (list (cape-super-capf
+                                                     #'eglot-completion-at-point
+                                                     #'cape-yasnippet
+                                                     #'cape-file))))
+
   ;; Hooks
   (:with-mode (c-mode c++-mode java-mode nix-mode rustic-mode terraform-mode)
     (:hook eglot-ensure)))

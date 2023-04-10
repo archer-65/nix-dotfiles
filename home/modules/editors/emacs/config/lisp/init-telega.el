@@ -28,27 +28,23 @@
            telega-completing-read-function 'completing-read
            telega-root-fill-column (+ 20 telega-chat-button-width))
 
-
   (put (get 'telega-chat 'button-category-symbol)
        :inserter 'telega-ins--chat-full-2lines)
-
-  ;; From Andrew Tropin <3
-  (defun archer-telega-chat-mode ()
-    "Add completion at point functions made from company backends."
-    (setq-local
-     completion-at-point-functions
-     (mapcar #'cape-company-to-capf (append (list 'telega-company-emoji
-                                                  'telega-company-username
-                                                  'telega-company-hashtag)
-                                            (when (telega-chat-bot-p telega-chatbuf--chat)
-                                              '(telega-company-botcmd))))))
 
   (:when-loaded
     (:also-load telega-mnz)
     (:global "C-c t" telega-prefix-map))
 
   (:with-mode telega-chat-mode
-    (:hook archer-telega-chat-mode)
+    ;; (:hook archer-telega-chat-mode)
+    ;; From Andrew Tropin <3
+    (:local-set completion-at-point-functions (mapcar
+                                               #'cape-company-to-capf
+                                               (append (list 'telega-company-emoji
+                                                             'telega-company-username
+                                                             'telega-company-hashtag)
+                                                       (when (telega-chat-bot-p telega-chatbuf--chat)
+                                                         '(telega-company-botcmd)))))
     (:hook telega-mnz-mode))
 
   (:with-hook telega-load-hook
