@@ -35,7 +35,7 @@
     "j" dired-jump)
 
   (:bind-into dired-mode-map
-    "C-c o" archer-dired-open-file))
+    "M-<return>" archer-dired-open-file))
 
 (setup (:require dired-x)
   (:option dired-clean-confirm-killing-deleted-buffers t
@@ -72,27 +72,27 @@
   (:bind-into image-dired-thumbnail-mode-map
     "<return>" #'image-dired-thumbnail-display-external))
 
-(setup (:pkg diredfl)
-  (:quit)
+(setup (:pkg diredfl :quit)
   (diredfl-global-mode 1))
 
 (setup (:pkg dired-subtree)
+  (:load-after dired)
   (:option dired-subtree-use-backgrounds nil)
   (:bind-into dired-mode-map
     "<tab>" dired-subtree-toggle
     "<backtab>" dired-subtree-remove))
 
 (setup (:pkg dired-sidebar)
-  (:autoload dired-sidebar-toggle-sidebar)
+  (:load-after dired)
   (:global "C-x C-n" dired-sidebar-toggle-sidebar))
 
 (setup (:pkg dired-collapse)
-  (:load-after dired
+  (:with-after dired
     (:hook-into dired-mode-hook)))
 
 (setup (:pkg all-the-icons-dired)
   (:option all-the-icons-dired-monochrome nil)
-  (:load-after (all-the-icons dired)
+  (:with-after (all-the-icons dired)
     (:hook-into dired-mode-hook)))
 
 (setup (:pkg trashed)

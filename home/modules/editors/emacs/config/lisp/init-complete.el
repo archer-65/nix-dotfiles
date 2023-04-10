@@ -114,7 +114,7 @@
   (marginalia-mode 1))
 
 (setup (:pkg all-the-icons-completion)
-  (:load-after (all-the-icons marginalia)
+  (:with-after (all-the-icons marginalia)
     (all-the-icons-completion-mode 1)
     (:with-mode marginalia-mode
       (:hook all-the-icons-completion-marginalia-setup))))

@@ -62,19 +62,18 @@
 (setup (:pkg ace-window)
   (:global "M-o" ace-window
            "M-O" ace-swap-window)
-  (setq aw-scope 'frame
-        aw-dispatch-always t
-        aw-minibuffer-flag t)
-  (ace-window-display-mode 1))
+  (:option aw-scope 'frame
+           aw-dispatch-always t
+           aw-minibuffer-flag t))
 
 (setup (:pkg avy)
   (:global "M-g j" avy-goto-char-timer)
-  (setq avy-all-windows nil   ;; only current
-        avy-all-windows-alt t ;; all windows with C-u
-        avy-single-candidate-jump t
-        avy-case-fold-search nil
-        avy-timeout-seconds 0.5
-        avy-style 'pre))
+  (:option avy-all-windows nil   ;; only current
+           avy-all-windows-alt t ;; all windows with C-u
+           avy-single-candidate-jump t
+           avy-case-fold-search nil
+           avy-timeout-seconds 0.5
+           avy-style 'pre))
 
 (provide 'init-windows)
 ;;; init-windows.el ends here

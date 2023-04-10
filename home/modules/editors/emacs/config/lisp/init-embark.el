@@ -44,10 +44,10 @@ targets."
 
 ;; Embark configuration
 (setup (:pkg embark)
-  (:load-after consult
+  (:with-after consult
     (:pkg embark-consult))
 
-  (:load-after which-key
+  (:with-after which-key
     (setq prefix-help-command #'embark-prefix-help-command)
     (advice-add #'embark-completing-read-prompter :around #'archer-embark-hide-which-key-indicator))
 

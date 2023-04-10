@@ -7,7 +7,7 @@
 ;;; Code:
 
 (setup (:pkg which-key)
-  (:blackout)
+  (:hide-mode)
   (:option which-key-idle-delay 0.2)
   (which-key-mode 1))
 

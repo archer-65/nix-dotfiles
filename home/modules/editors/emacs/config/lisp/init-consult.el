@@ -109,14 +109,14 @@
     (:hook consult-preview-at-point-mode)))
 
 (setup (:pkg consult-dir)
-  (:load-after consult
+  (:with-after consult
     (:global "C-x C-d" consult-dir)
     (:bind-into minibuffer-local-completion-map
       "C-x C-d" consult-dir-maybe
       "C-x C-j" consult-dir-jump-file)))
 
 (setup (:pkg consult-eglot)
-  (:load-after (consult eglot)
+  (:with-after (consult eglot)
     (:global "M-g s" consult-eglot-symbols)))
 
 (provide 'init-consult)

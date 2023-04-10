@@ -6,10 +6,6 @@
 
 ;;; Code:
 
-;; ???
-;; (pdf-view-mode-hook . (lambda () (display-line-numbers-mode -1)))
-;; (pdf-view-mode-hook . pdf-tools-enable-minor-modes)
-
 (setup (:pkg pdf-tools)
   (:option display-buffer-alist '(("^\\*outline"
                                    display-buffer-in-side-window

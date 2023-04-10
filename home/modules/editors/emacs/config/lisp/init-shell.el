@@ -17,8 +17,8 @@
            vterm-kill-buffer-on-exit t))
 
 (setup (:pkg multi-vterm)
-  (:load-after vterm)
-  (:option multi-vterm-dedicated-window-height-percent 20))
+  (:with-after vterm
+    (:option multi-vterm-dedicated-window-height-percent 20)))
 
 (provide 'init-shell)
 ;;; init-shell.el ends here

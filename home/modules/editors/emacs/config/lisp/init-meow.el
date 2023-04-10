@@ -8,7 +8,12 @@
 
 (setup (:pkg meow)
   (:require meow)
-  (:blackout meow-mode)
+
+  (:hide-mode meow-normal)
+  (:hide-mode meow-insert)
+  (:hide-mode meow-beacon)
+  (:hide-mode meow-motion)
+  (:hide-mode meow-keypad)
 
   (defun meow-setup ()
     (setq meow-cheatsheet-layout meow-cheatsheet-layout-qwerty)

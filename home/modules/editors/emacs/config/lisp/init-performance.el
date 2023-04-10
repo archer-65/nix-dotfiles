@@ -9,7 +9,7 @@
 
 (setup (:pkg gcmh)
   (:require)
-  (:blackout)
+  (:hide-mode)
   ;; The GC introduces annoying pauses and stuttering into our Emacs experience,
   ;; so we use `gcmh' to stave off the GC while we're using Emacs, and provoke it
   ;; when it's idle. However, if the idle delay is too long, we run the risk of

@@ -84,9 +84,7 @@
 
   (:hook-into lsp-enable-which-key-integration))
 
-(setup lsp-ui
-  (:quit)
-  (:pkg lsp-ui)
+(setup (:pkg lsp-ui :quit)
   (:autoload lsp-ui-mode)
   (:hook-into lsp-mode)
   (:load-after lsp)
@@ -98,9 +96,7 @@
              lsp-ui-sideline-show-code-actions t
              lsp-ui-sideline-delay 0.05)))
 
-(setup lsp-java
-  (:quit)
-  (:pkg lsp-java)
+(setup (:pkg lsp-java :quit)
   (:load-after lsp))
 
 ;;

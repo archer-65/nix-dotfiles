@@ -74,7 +74,7 @@ Useful for prompts such as `eval-expression' and `shell-command'."
     "M-d" corfu-popupinfo-toggle))
 
 (setup (:pkg kind-icon)
-  (:load-after corfu
+  (:with-after corfu
     (:option kind-icon-default-face 'corfu-default
        kind-icon-default-style '(:padding 0 :stroke 0 :margin 0 :radius 0 :height 0.7 :scale 1.0))
     (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter)))

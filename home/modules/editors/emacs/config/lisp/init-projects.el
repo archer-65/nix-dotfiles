@@ -20,7 +20,7 @@
 
 ;; `projectile', not using to try `project.el'
 (setup (:pkg projectile :quit)
-  (:blackout)
+  (:hide-mode)
 
   ;; NOTE: Set this to the folder where you keep your Git repos!
   (:option projectile-project-search-path '("~/projects")
@@ -31,7 +31,7 @@
   (:global "C-c C-p" projectile-command-map))
 
 (setup (:pkg consult-projectile :quit)
-  (:load-after (consult projectile)))
+  (:load-after consult projectile))
 
 ;; `treemacs' stuff, I'm not using it
 (setup (:pkg treemacs :quit)
@@ -115,14 +115,14 @@
            "C-c C-t T"  treemacs-find-tag))
 
 (setup (:pkg treemacs-projectile :quit)
-  (:load-after (treemacs projectile)))
+  (:load-after treemacs projectile))
 
 (setup (:pkg treemacs-all-the-icons :quit)
-  (:load-after treemacs
+  (:with-after treemacs
     (treemacs-load-theme "all-the-icons")))
 
 (setup (:pkg treemacs-magit :quit)
-  (:load-after (treemacs magit)))
+  (:load-after treemacs magit))
 
 (provide 'init-projects)
 ;;; init-projects.el ends here

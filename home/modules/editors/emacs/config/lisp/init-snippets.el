@@ -8,7 +8,7 @@
 
 (setup (:pkg yasnippet)
   (:with-mode yas-minor-mode
-    (:blackout)
+    (:hide-mode)
     (:hook-into prog-mode))
   (:when-loaded
     (yas-reload-all)))
@@ -17,7 +17,7 @@
   (:load-after yasnippet))
 
 (setup (:pkg (cape-yasnippet :type git :host github :repo "elken/cape-yasnippet"))
-  (:load-after (cape yasnippet)
+  (:with-after (cape yasnippet)
     (defun archer-add-cape-yasnippet ()
       (add-to-list 'completion-at-point-functions #'cape-yasnippet))
 

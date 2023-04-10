@@ -143,12 +143,12 @@
   (setq select-enable-primary nil))
 
 (setup (:require delsel)
-  (:blackout delete-selection)
+  (:hide-mode delete-selection)
   (:with-hook after-init-hook
     (:hook delete-selection-mode)))
 
 (setup (:pkg drag-stuff)
-  (:blackout)
+  (:hide-mode)
   (drag-stuff-global-mode 1)
   (drag-stuff-define-keys))
 
@@ -156,7 +156,7 @@
   (:global "C-z" goto-last-change))
 
 (setup (:require autorevert)
-  (:blackout auto-revert)
+  (:hide-mode auto-revert)
   (setq auto-revert-verbose t)
   (setq global-auto-revert-non-file-buffers t)
   (:with-hook after-init-hook

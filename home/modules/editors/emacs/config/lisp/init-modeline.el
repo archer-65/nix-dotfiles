@@ -5,6 +5,7 @@
 ;; Modeline customization and other useless/cute packages.
 
 ;;; Code:
+
 (setup modeline
   (unless (version< emacs-version "28")
     (setq mode-line-compact nil)
@@ -16,23 +17,20 @@
 
   (setq-default mode-line-format
                 '("%e"
-                  mode-line-front-space
-                  mode-line-client
-                  "  "
+                  " "
                   mode-line-mule-info
-                  "  "
+                  " "
                   mode-line-modified
                   mode-line-remote
-                  mode-line-frame-identification
+                  " "
                   mode-line-buffer-identification
                   "  "
                   mode-line-position
+                  " "
                   (vc-mode vc-mode)
-                  "  "
+                  " "
                   mode-line-modes
-                  mode-line-misc-info
-                  mode-line-end-spaces)))
-
+                  mode-line-misc-info)))
 
 ;; <https://github.com/minad/recursion-indicator>.
 (setup (:pkg recursion-indicator)

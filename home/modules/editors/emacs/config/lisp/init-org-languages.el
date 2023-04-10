@@ -9,7 +9,7 @@
 ;;; Code:
 
 (setup org-tempo
-  (:load-after org
+  (:with-after org
     (add-to-list 'org-structure-template-alist '("bash" . "src bash"))
     (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
     (add-to-list 'org-structure-template-alist '("cc" . "src c"))

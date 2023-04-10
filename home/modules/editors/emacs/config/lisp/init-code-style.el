@@ -8,23 +8,23 @@
 ;;; Code:
 
 (setup (:pkg format-all)
-  (:blackout)
+  (:hide-mode)
   (:hook-into prog-mode)
   (:global "<f1>" format-all-buffer))
 
 (setup (:pkg editorconfig)
-  (:blackout)
+  (:hide-mode)
   (editorconfig-mode 1))
 
 (setup eldoc
-  (:blackout)
+  (:hide-mode)
   (global-eldoc-mode 1))
 
 (setup (:pkg rainbow-mode)
   (:hook-into web-mode json-mode))
 
 (setup (:pkg ethan-wspace)
-  (:blackout)
+  (:hide-mode)
   (:global "C-c c" ethan-wspace-clean-all)
   (:hook-into prog-mode)
   ;; Required
