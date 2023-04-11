@@ -8,7 +8,7 @@
   mario.modules = {
     credentials = {
       gpg.enable = true;
-      mail-defaults.enable = true;
+      mail-defaults.enable = false;
       bitwarden.enable = true;
     };
 
