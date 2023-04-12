@@ -48,10 +48,13 @@ in {
     programs.regreet = {
       enable = true;
       settings = {
-        background = wallpapers.nixos-dark.src;
-        background_fit = "Cover";
+        background = {
+          path =  wallpapers.nixos-dark.src;
+          fit = "Cover";
+        };
         GTK = {
-          theme_name = "Catppuccin-Mocha-Compact-Mauve-Dark";
+          application_prefer_dark_theme = true;
+          theme_name = "Adwaita";
           icon_theme_name = "Adwaita";
           cursor_theme_name = "Bibata-Modern-Classic";
           font_name = "Roboto 12";
