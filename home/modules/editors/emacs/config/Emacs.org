@@ -541,6 +541,18 @@ It is a very fast tag-based email indexer and system to use with multiple client
 
 #+include: "lisp/init-mail.el" src emacs-lisp :tangle no
 
+** Writing
+
+TeX, with AUCTeX!
+
+#+begin_src emacs-lisp
+
+  (require 'init-tex)
+  
+#+end_src
+
+#+include: "lisp/init-tex.el" src emacs-lisp :tangle no
+
 ** Reading
 
 I don't like DocView because the rendering is given by images in tmp storage, zoom is "bad" (for me, of course), rendering can be slow, with especially PDFs big.

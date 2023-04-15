@@ -89,6 +89,8 @@
 
 (require 'init-mail)
 
+(require 'init-tex)
+
 (require 'init-pdf)
 
 (require 'init-shell)
