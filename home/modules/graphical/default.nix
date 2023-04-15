@@ -32,7 +32,6 @@ with lib; let
     brightnessctl
     ffmpeg-full
     playerctl
-    ispell
     exiftool
     imagemagick
   ];
