@@ -14,11 +14,11 @@
   (:option TeX-master nil
            TeX-output-dir "output"
            TeX-auto-save t
+           TeX-parse-self t
            TeX-auto-untabify t
            TeX-clean-confirm nil
            TeX-electric-sub-and-superscript t
-           TeX-electric-math t
-           TeX-parse-self t
+           TeX-electric-math '("$" . "$")
            TeX-quote-after-quote nil
            TeX-save-query nil
            TeX-source-correlate-method 'synctex
@@ -31,7 +31,8 @@
            LaTeX-fill-break-at-separators nil
 
            tex-fontify-script nil
-           font-latex-fontify-sectioning 1.0)
+           font-latex-fontify-sectioning 1.0
+  )
 
   (:with-hook TeX-after-compilation-finished-functions
     (:hook TeX-revert-document-buffer)))
