@@ -5,18 +5,6 @@ inputs: {
 
   # Overlays for various pkgs (e.g. broken, not updated)
   modifications = final: prev: {
-    swaylock-effects = prev.swaylock-effects.overrideAttrs (oldAttrs: {
-      pname = "swaylock-effects";
-      version = "1.6.11";
-
-      src = final.fetchFromGitHub {
-        owner = "jirutka";
-        repo = "swaylock-effects";
-        rev = "a7691b86dabe5241c7292c7b8d0551d579ba1848";
-        sha256 = "sha256-MKmWVYssO9HAcP5uqwpy9kDa6/kfZyV2NI7ibozt7Ug=";
-      };
-    });
-
     waybar = prev.waybar.overrideAttrs (oldAttrs: {
       mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
     });
@@ -44,14 +32,14 @@ inputs: {
 
     # notmuch-mailmover = inputs.notmuch-mailmover.packages.x86_64-linux.default;
 
-    tdlib = prev.tdlib.overrideAttrs (oldAttrs: {
-      version = "1.8.8";
-      src = final.fetchFromGitHub {
-        owner = "tdlib";
-        repo = "td";
-        rev = "bbe37ee594d97f3c7820dd23ebcd9c9b8dac51a0";
-        sha256 = "sha256-jLJglvq+7f+zCoanDRTFpUsH/M1Qf7PWJ1JjvmZsa24==";
-      };
-    });
+    # tdlib = prev.tdlib.overrideAttrs (oldAttrs: {
+    #   version = "1.8.8";
+    #   src = final.fetchFromGitHub {
+    #     owner = "tdlib";
+    #     repo = "td";
+    #     rev = "bbe37ee594d97f3c7820dd23ebcd9c9b8dac51a0";
+    #     sha256 = "sha256-jLJglvq+7f+zCoanDRTFpUsH/M1Qf7PWJ1JjvmZsa24==";
+    #   };
+    # });
   };
 }
