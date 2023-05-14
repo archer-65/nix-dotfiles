@@ -2,6 +2,7 @@
   description = "Nix config /w home-manager and flakes";
 
   inputs = {
+    nixpkgs-stable.url = "github:nixos/nixpkgs/nixos-22.11";
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     nix-colors.url = "github:misterio77/nix-colors";
 

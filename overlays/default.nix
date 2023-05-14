@@ -5,6 +5,11 @@ inputs: {
 
   # Overlays for various pkgs (e.g. broken, not updated)
   modifications = final: prev: {
+    stable = import inputs.nixpkgs-stable { 
+      system = final.system;
+      config.allowUnfree = true;
+    };
+
     waybar = prev.waybar.overrideAttrs (oldAttrs: {
       mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
     });

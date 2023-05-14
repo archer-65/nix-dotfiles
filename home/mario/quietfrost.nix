@@ -38,7 +38,7 @@
     term = {
       font = {
         family = "VictorMono Nerd Font";
-        package = pkgs.nerdfonts.override {fonts = ["VictorMono"];};
+        package = pkgs.stable.nerdfonts.override {fonts = ["VictorMono"];};
         size = 18;
       };
       alacritty.enable = true;
@@ -93,14 +93,14 @@
 
       font.monospace = {
         family = "FiraCode Nerd Font";
-        package = pkgs.nerdfonts.override {fonts = ["FiraCode"];};
+        package = pkgs.stable.nerdfonts.override {fonts = ["FiraCode"];};
         size = 14;
       };
 
       bar = {
         font = {
           family = "Iosevka Nerd Font";
-          package = pkgs.nerdfonts.override {fonts = ["Iosevka"];};
+          package = pkgs.stable.nerdfonts.override {fonts = ["Iosevka"];};
           size = 20;
         };
         temperature = "/sys/class/hwmon/hwmon2/temp4_input";

@@ -9,7 +9,7 @@ with lib; let
   cfg = config.mario.modules.apps.rofi;
   cfgWayland = config.mario.modules.wayland;
   cfgBitwarden = config.mario.modules.credentials.bitwarden;
-  rofiFonts = pkgs.nerdfonts.override {
+  rofiFonts = pkgs.stable.nerdfonts.override {
     fonts = ["Iosevka"];
   };
 in {
