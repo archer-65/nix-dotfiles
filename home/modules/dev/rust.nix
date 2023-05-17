@@ -13,5 +13,8 @@ in {
   };
 
   config =
-    mkIf cfg.enable {home.packages = with pkgs; [rustup rust-analyzer];};
+    mkIf cfg.enable {home.packages = with pkgs; [
+      rustup 
+      # rust-analyzer
+    ];};
 }
