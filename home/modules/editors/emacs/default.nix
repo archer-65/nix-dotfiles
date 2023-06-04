@@ -29,10 +29,11 @@ in {
 
       programs.emacs = {
         enable = true;
-        package = pkgs.emacsPgtk;
+        package = pkgs.emacs-pgtk;
 
         extraPackages = epkgs:
           [
+            epkgs.treesit-grammars.with-all-grammars
             epkgs.vterm
           ]
           ++ (optionals cfg.telega.enable [
