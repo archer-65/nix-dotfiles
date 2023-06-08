@@ -7,7 +7,7 @@
 }:
 with lib; let
   cfg = config.mario.modules.media.documents;
-  cfgTerm = config.mario.modules.term;
+  cfgTheme = config.mario.modules.themes;
   inherit (config.colorScheme) colors;
 in {
   options.mario.modules.media.documents = {
@@ -21,8 +21,8 @@ in {
         enable = true;
         options = {
           font =
-            "${cfgTerm.font.family} "
-            + (toString cfgTerm.font.size);
+            "${cfgTheme.font.term.family} "
+            + (toString cfgTheme.font.term.size);
 
           default-bg = "#${colors.base00}";
           default-fg = "#${colors.base01}";

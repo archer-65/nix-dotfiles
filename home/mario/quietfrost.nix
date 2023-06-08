@@ -33,14 +33,12 @@
     wayland = {
       enable = true;
       wm = ["sway" "hyprland"];
+      waybar = {
+        temperature = "/sys/class/hwmon/hwmon2/temp4_input";
+      };
     };
 
     term = {
-      font = {
-        family = "VictorMono Nerd Font";
-        package = pkgs.stable.nerdfonts.override {fonts = ["VictorMono"];};
-        size = 18;
-      };
       alacritty.enable = true;
     };
 
@@ -85,6 +83,8 @@
       active = "modus";
       darkTheme = true;
 
+      cursor.size = 24;
+
       font.regular = {
         family = "Roboto";
         package = pkgs.roboto;
@@ -97,16 +97,17 @@
         size = 14;
       };
 
-      bar = {
-        font = {
-          family = "Iosevka Nerd Font";
-          package = pkgs.stable.nerdfonts.override {fonts = ["Iosevka"];};
-          size = 20;
-        };
-        temperature = "/sys/class/hwmon/hwmon2/temp4_input";
+      font.term = {
+        family = "VictorMono Nerd Font";
+        package = pkgs.stable.nerdfonts.override {fonts = ["VictorMono"];};
+        size = 18;
       };
 
-      cursor.size = 24;
+      font.bar = {
+        family = "Iosevka Nerd Font";
+        package = pkgs.stable.nerdfonts.override {fonts = ["Iosevka"];};
+        size = 20;
+      };
     };
   };
 }

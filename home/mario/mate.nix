@@ -31,14 +31,13 @@
     wayland = {
       enable = true;
       wm = ["sway" "hyprland"];
+      waybar = {
+        battery = "BAT1";
+        temperature = "/sys/class/hwmon/hwmon3/temp1_input";
+      };
     };
 
     term = {
-      font = {
-        family = "VictorMono Nerd Font";
-        package = pkgs.stable.nerdfonts.override {fonts = ["VictorMono"];};
-        size = 14;
-      };
       alacritty.enable = true;
     };
 
@@ -86,15 +85,16 @@
         size = 12;
       };
 
-      bar = {
-        font = {
-          family = "Iosevka Nerd Font";
-          package = pkgs.stable.nerdfonts.override {fonts = ["Iosevka"];};
-          size = 16;
-        };
+      font.term = {
+        family = "VictorMono Nerd Font";
+        package = pkgs.stable.nerdfonts.override {fonts = ["VictorMono"];};
+        size = 14;
+      };
 
-        battery = "BAT1";
-        temperature = "/sys/class/hwmon/hwmon3/temp1_input";
+      font.bar = {
+        family = "Iosevka Nerd Font";
+        package = pkgs.stable.nerdfonts.override {fonts = ["Iosevka"];};
+        size = 16;
       };
     };
   };

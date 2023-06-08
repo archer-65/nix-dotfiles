@@ -6,7 +6,7 @@
 }:
 with lib; let
   cfg = config.mario.modules.term.alacritty;
-  cfgTerm = config.mario.modules.term;
+  cfgTheme = config.mario.modules.themes;
   inherit (config.colorScheme) colors;
 in {
   options.mario.modules.term.alacritty = {
@@ -36,8 +36,8 @@ in {
 
         # Font configuration
         font = let
-          family = cfgTerm.font.family;
-          size = cfgTerm.font.size;
+          family = cfgTheme.font.term.family;
+          size = cfgTheme.font.term.size;
         in {
           normal = {
             inherit family;

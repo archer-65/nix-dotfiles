@@ -32,7 +32,6 @@
     "media/documents" = import ./media/documents.nix;
     "media/videos" = import ./media/videos.nix;
 
-    "term" = import ./term;
     "term/alacritty" = import ./term/alacritty.nix;
 
     "dev/cc" = import ./dev/cc.nix;
@@ -60,9 +59,6 @@
     "shell/tmux" = import ./shell/tmux.nix;
 
     "themes" = import ./themes;
-    "themes/bar.nix" = import ./themes/bar.nix;
     "themes/fonts" = import ./themes/fonts.nix;
-    "themes/onedark" = import ./themes/onedark.nix;
-    "themes/modus" = import ./themes/modus.nix;
   };
 }

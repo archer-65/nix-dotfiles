@@ -33,6 +33,16 @@ with lib; let
 in {
   options.mario.modules.wayland.waybar = {
     enable = mkEnableOption "waybar configuration";
+
+    battery = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+    };
+
+    temperature = mkOption {
+      type = types.nullOr types.str;
+      default = null;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -67,7 +77,7 @@ in {
               "memory"
               "pulseaudio"
             ]
-            ++ (optionals (cfgTheme.bar.battery != null) [
+            ++ (optionals (cfg.battery != null) [
               "battery"
             ])
             ++ [
@@ -137,8 +147,7 @@ in {
           };
 
           temperature = {
-            hwmon-path = "${cfgTheme.bar.temperature}";
-            # hwmon-path = "/sys/class/hwmon/hwmon2/temp4_input";
+            hwmon-path = "${cfg.temperature}";
             format = "󰔏 {temperatureC}°C";
             format-critical = "󱃂 {temperatureC}°C";
             critical-threshold = 80;
@@ -150,8 +159,8 @@ in {
             interval = 10;
           };
 
-          battery = optionalAttrs (cfgTheme.bar.battery != null) {
-            bat = "${cfgTheme.bar.battery}";
+          battery = optionalAttrs (cfg.battery != null) {
+            bat = "${cfg.battery}";
             interval = 30;
             format-icons = ["" "" "" "" "" "" "" "" "" ""];
             format = "{icon} {capacity}%";
@@ -184,8 +193,8 @@ in {
         * {
             border: none;
             border-radius: 0;
-            font-family: "${cfgTheme.bar.font.family}";
-            font-size: ${toString cfgTheme.bar.font.size}px;
+            font-family: "${cfgTheme.font.bar.family}";
+            font-size: ${toString cfgTheme.font.bar.size}px;
             font-weight: normal;
         }
 

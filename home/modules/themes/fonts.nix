@@ -26,12 +26,15 @@ with lib; let
   };
 in {
   options.mario.modules.themes.font = {
+    enable = lib.mkEnableOption "whether to enable font profiles";
     regular = mkFontOption "Sans";
     monospace = mkFontOption "Monospace";
+    term = mkFontOption "Monospace";
+    bar = mkFontOption "Monospace";
   };
 
   config = {
     fonts.fontconfig.enable = true;
-    home.packages = [cfg.regular.package cfg.monospace.package];
+    home.packages = [cfg.regular.package cfg.monospace.package cfg.term.package cfg.bar.package ];
   };
 }

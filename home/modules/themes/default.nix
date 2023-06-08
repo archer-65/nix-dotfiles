@@ -4,7 +4,6 @@
   config,
   lib,
   inputs,
-  wallpapers,
   ...
 }:
 with lib; let
@@ -12,9 +11,11 @@ with lib; let
   inherit (inputs.nix-colors.lib-contrib {inherit pkgs;}) gtkThemeFromScheme;
   inherit (config.mario.modules) xorg;
 in {
+  imports = [ ./onedark.nix ./modus.nix ];
+
   options.mario.modules.themes = with types; {
     active = mkOption {
-      type = nullOr str;
+      type = nullOr (enum [ "onedark" "modus" ]);
       default = null;
       description = ''
         Name of the theme to enable.
@@ -22,7 +23,7 @@ in {
     };
 
     darkTheme = mkOption {
-      type = types.bool;
+      type = bool;
       default = false;
       description = ''
         If available, set the variant of chosen theme to light/dark one.
@@ -36,19 +37,6 @@ in {
   };
 
   config = mkIf (cfg.active != null) (mkMerge [
-    # Wallpapers
-    {
-      home.file =
-        lib.attrsets.concatMapAttrs
-        (name: value: {
-          ${name} = {
-            target = "${config.xdg.userDirs.pictures}/walls/${name}.${value.ext}";
-            source = value.src;
-          };
-        })
-        wallpapers;
-    }
-
     # GTK
     {
       home.packages = [pkgs.theme-toggle];

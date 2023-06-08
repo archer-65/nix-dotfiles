@@ -2,6 +2,7 @@
   pkgs,
   config,
   lib,
+  wallpapers,
   ...
 }:
 with lib; let
@@ -11,16 +12,27 @@ with lib; let
     unrar
   ];
 in {
-  programs.home-manager.enable = true;
-  systemd.user.startServices = "sd-switch";
-
   nix = {
     package = lib.mkDefault pkgs.nix;
     settings = {
-      experimental-features = [ "nix-command" "flakes" "repl-flake" ];
+      experimental-features = ["nix-command" "flakes" "repl-flake"];
       warn-dirty = false;
     };
   };
+
+  systemd.user.startServices = "sd-switch";
+
+  programs.home-manager.enable = true;
+
+  home.file =
+    lib.attrsets.concatMapAttrs
+    (name: value: {
+      ${name} = {
+        target = "${config.xdg.userDirs.pictures}/walls/${name}.${value.ext}";
+        source = value.src;
+      };
+    })
+    wallpapers;
 
   home.packages = archivePkgs;
 
