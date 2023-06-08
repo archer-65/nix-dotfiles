@@ -75,15 +75,15 @@ in {
           name = cfg.font.regular.family;
           inherit (cfg.font.regular) size;
         };
-      };
 
-      gtk.gtk3.extraConfig = let
-        is-dark =
-          if cfg.darkTheme
-          then 1
-          else 0;
-      in {
-        gtk-application-prefer-dark-theme = is-dark;
+        gtk3.extraConfig = let
+          is-dark =
+            if cfg.darkTheme
+            then 1
+            else 0;
+        in {
+          gtk-application-prefer-dark-theme = is-dark;
+        };
       };
 
       home.pointerCursor = {
