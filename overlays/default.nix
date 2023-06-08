@@ -5,7 +5,7 @@ inputs: {
 
   # Overlays for various pkgs (e.g. broken, not updated)
   modifications = final: prev: {
-    stable = import inputs.nixpkgs-stable { 
+    stable = import inputs.nixpkgs-stable {
       system = final.system;
       config.allowUnfree = true;
     };
@@ -25,7 +25,7 @@ inputs: {
         rev = "a4ab209c721de7146f4301b426bdb6482d687a85";
         sha256 = "sha256-BL5F7sJ818Ky33eJDR9Eh5/XayhddkBWxk1HkQxh0Qc=";
       };
- 
+
       propagatedBuildInputs = with final.pkgs.python3Packages; [
         notmuch2
         oauth2client
@@ -35,8 +35,7 @@ inputs: {
       ];
     });
 
-    # notmuch-mailmover = inputs.notmuch-mailmover.packages.x86_64-linux.default;
-
+    # Keep this if borked
     # tdlib = prev.tdlib.overrideAttrs (oldAttrs: {
     #   version = "1.8.8";
     #   src = final.fetchFromGitHub {
