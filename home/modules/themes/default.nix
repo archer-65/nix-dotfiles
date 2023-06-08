@@ -36,17 +36,7 @@ in {
   };
 
   config = mkIf (cfg.active != null) (mkMerge [
-    # QT
-    {
-      home.sessionVariables = {QT_QPA_PLATFORMTHEME = "qt5ct";};
-      home.packages = with pkgs.libsForQt5; [
-        qtstyleplugin-kvantum
-        breeze-qt5
-        qt5ct
-      ];
-    }
-
-    # Walls
+    # Wallpapers
     {
       home.file =
         lib.attrsets.concatMapAttrs
@@ -59,7 +49,7 @@ in {
         wallpapers;
     }
 
-    # General
+    # GTK
     {
       home.packages = [pkgs.theme-toggle];
 
@@ -90,6 +80,16 @@ in {
         inherit (config.gtk.cursorTheme) name size package;
         gtk.enable = true;
       };
+    }
+
+    # QT
+    {
+      home.sessionVariables = {QT_QPA_PLATFORMTHEME = "qt5ct";};
+      home.packages = with pkgs.libsForQt5; [
+        qtstyleplugin-kvantum
+        breeze-qt5
+        qt5ct
+      ];
     }
 
     # Xorg
