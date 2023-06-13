@@ -13,7 +13,7 @@ in {
     wayland.windowManager.sway = {
       enable = true;
       xwayland = true;
-      systemdIntegration = true;
+      systemd.enable = true;
 
       config = {
         bars = [{command = "waybar";}];
