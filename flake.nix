@@ -51,6 +51,11 @@
         system = "x86_64-linux";
         stateVersion = "22.05";
       };
+      mli-pc = mkSystem {
+        hostname = "mli-pc";
+	system = "x86_64-linux";
+        stateVersion = "23.05";
+      };
     };
 
     homeConfigurations = {
@@ -65,6 +70,12 @@
         hostname = "mate";
         system = "x86_64-linux";
         stateVersion = "22.05";
+      };
+      "mario@mli-pc" = mkHome {
+        username = "mario";
+        hostname = "mli-pc";
+        system = "x86_64-linux";
+        stateVersion = "23.05";
       };
     };
   };
