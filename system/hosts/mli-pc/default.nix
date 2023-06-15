@@ -31,7 +31,8 @@
     };
   };
 
-  networking.interfaces.enp42s0.useDHCP = true;
+  networking.interfaces.enp1s0.useDHCP = true;
+  networking.interfaces.wlp0s20f3.useDHCP = true;
 
   # Graphics
   hardware.opengl = {
