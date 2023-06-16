@@ -15,24 +15,31 @@ in {
   config = mkMerge [
     (mkIf cfg.work.enable {
 
-      sops = {
-        secrets."work_client.ovpn" = {
+      sops.secrets."work_client.ovpn" = {
         mode = "0400";
-        # owner = config.users.users.root.name;
-        # group = config.users.users.nobody.group;
         sopsFile = ./work_client.ovpn;
         format = "binary";
-        };
       };
 
+      services.openvpn.restartAfterSleep = false;
       services.openvpn.servers.work = let
         if-name = "work-vpn";
         set-dns = "${pkgs.systemd}/bin/resolvectl dns ${if-name}";
         set-domain = "${pkgs.systemd}/bin/resolvectl domain ${if-name}";
       in {
+        # TOTP as password
         authUserPass.username = "mli";
         authUserPass.password = "";
-        updateResolvConf = true;
+
+        # Just disable this. Find a way to ask for TOTP with a dialog
+        autoStart = false;
+
+        config = ''
+          dev ${if-name}
+          dev-type tun
+          config ${config.sops.secrets."work_client.ovpn".path}
+        '';
+
         up = ''
           ${set-dns} 192.168.0.1
           ${set-domain} intranet.bit4id.com
@@ -40,11 +47,6 @@ in {
         down = ''
           ${set-dns} ""
           ${set-domain} ""
-        '';
-        config = ''
-          dev ${if-name}
-          dev-type tun
-          config ${config.sops.secrets."work_client.ovpn".path}
         '';
       };
     })
