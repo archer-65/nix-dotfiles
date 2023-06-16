@@ -13,6 +13,7 @@
 
     hyprland.url = "github:hyprwm/Hyprland";
     emacs-overlay.url = "github:nix-community/emacs-overlay";
+    sops-nix.url = "github:Mic92/sops-nix";
     notmuch-mailmover.url = "github:michaeladler/notmuch-mailmover";
   };
 
@@ -53,7 +54,7 @@
       };
       mli-pc = mkSystem {
         hostname = "mli-pc";
-	system = "x86_64-linux";
+        system = "x86_64-linux";
         stateVersion = "23.05";
       };
     };

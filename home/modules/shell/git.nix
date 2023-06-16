@@ -6,6 +6,18 @@
 }:
 with lib; let
   cfg = config.mario.modules.shell.git;
+
+  work-git = {
+    condition = "gitdir:${config.xdg.userDirs.extraConfig.XDG_WORK_DIR}/";
+    contents = {
+      user = {
+        email = "mli@bit4id.com";
+        name = "mli";
+        signingKey = "BAC570B2172822A3";
+      };
+      commit.gpgSign = true;
+    };
+  };
 in {
   options.mario.modules.shell.git = {
     enable = mkEnableOption "main user git configuration";
@@ -21,6 +33,10 @@ in {
         key = "BAC570B2172822A3";
         signByDefault = true;
       };
+
+      includes = [
+        work-git
+      ];
     };
   };
 }

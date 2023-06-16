@@ -12,6 +12,12 @@ in {
   };
 
   config = mkIf cfg.enable {
+    sops.age.sshKeyPaths = let
+      isEd25519 = k: k.type == "ed25519";
+      getKeyPath = k: k.path;
+      keys = builtins.filter isEd25519 config.services.openssh.hostKeys;
+    in map getKeyPath keys;
+
     services.openssh = {
       enable = true;
       startWhenNeeded = true;
@@ -32,6 +38,11 @@ in {
         AllowStreamLocalForwarding no
         AuthenticationMethods publickey
       '';
+
+      hostKeys = [{
+        path = "/etc/ssh/ssh_host_ed25519_key";
+        type = "ed25519";
+      }];
     };
   };
 }

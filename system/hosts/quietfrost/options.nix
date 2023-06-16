@@ -44,6 +44,10 @@
       bash.enable = true;
       zsh.enable = true;
     };
+
+    network = {
+      openvpn.work.enable = true;
+    };
   };
 
   primaryUser.shell = pkgs.zsh;

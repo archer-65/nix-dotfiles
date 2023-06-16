@@ -29,6 +29,7 @@ with builtins; let
         [
           baseSystem
           "${self}/system/hosts/${hostname}"
+          inputs.sops-nix.nixosModules.sops
         ]
         ++ attrValues nixosModules;
 

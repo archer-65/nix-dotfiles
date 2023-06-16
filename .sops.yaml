@@ -1,0 +1,12 @@
+keys:
+  - &users:
+    - &mario 2080983ce6822c29c09f8d5ebac570b2172822a3
+  - &hosts:
+    - &quietfrost age1ryaeqtrxtp3u5ku78wqlcxrn7vp3zuknhuwykt2ps6hh5ck2taqqqxlj49
+creation_rules:
+  - path_regex: system/modules/network/.*.ovpn
+    key_groups:
+    - age:
+      - *quietfrost
+      pgp:
+      - *mario
