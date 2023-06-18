@@ -13,6 +13,7 @@
     };
 
     apps = {
+      beancount.enable = true;
       rofi.enable = true;
       discord.enable = true;
       teams.enable = true;

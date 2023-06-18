@@ -93,6 +93,8 @@
 
 (require 'init-pdf)
 
+(setup (:pkg (beancount-mode :type git :host github :repo "beancount/beancount-mode")))
+
 (require 'init-shell)
 
 (require 'init-telega)

@@ -566,6 +566,15 @@ My choice is [[https://github.com/vedang/pdf-tools][pdf-tools]], that renders on
 
 #+include: "lisp/init-pdf.el" src emacs-lisp :tangle no
 
+** Finances
+
+#+begin_src emacs-lisp
+
+  (setup (:pkg (beancount-mode :type git :host github :repo "beancount/beancount-mode")))
+
+#+end_src
+
+
 ** Terminal
 
 The "best" terminal emulator in Emacs.

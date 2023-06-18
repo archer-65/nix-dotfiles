@@ -17,6 +17,7 @@
     "wayland/locker" = import ./wayland/locker.nix;
     "wayland/waybar" = import ./wayland/waybar.nix;
 
+    "apps/beancount" = import ./apps/beancount.nix;
     "apps/dunst" = import ./apps/dunst.nix;
     "apps/rofi" = import ./apps/rofi;
     "apps/discord" = import ./apps/discord.nix;
