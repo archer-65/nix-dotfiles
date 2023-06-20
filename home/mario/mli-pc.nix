@@ -1,9 +1,16 @@
 {
   pkgs,
   config,
+  lib,
   ...
 }: {
   imports = [ ./common.nix ];
+
+  home.sessionVariables.GSM_SKIP_SSH_AGENT_WORKAROUND = "1";
+  xdg.configFile."autostart/gnome-keyring-ssh.desktop".text = ''
+    ${lib.fileContents "${pkgs.gnome3.gnome-keyring}/etc/xdg/autostart/gnome-keyring-ssh.desktop"}
+    Hidden = true
+  '';
 
   mario.modules = {
     credentials = {
@@ -23,18 +30,18 @@
       documents = {
         zathura.enable = true;
       };
-
       videos.enable = true;
     };
 
     wayland = {
       enable = true;
-      wm = ["sway" "hyprland"];
-      waybar = {
-        temperature = "/sys/class/hwmon/hwmon0/temp1_input";
-      };
+      wm = [];
+      # wm = ["sway" "hyprland"];
+      # waybar = {
+      #   temperature = "/sys/class/hwmon/hwmon0/temp1_input";
+      # };
     };
-
+ 
     term = {
       alacritty.enable = true;
     };

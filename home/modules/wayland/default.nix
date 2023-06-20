@@ -10,11 +10,10 @@ with lib; let
 in {
   options.mario.modules.wayland = {
     enable = mkEnableOption "wayland configuration management for user";
-
     wm = mkOption {
       description = "An option to choose the window manager [wayland] configuration to enable";
       default = null;
-      type = with types; listOf (enum ["sway" "hyprland"]);
+      type = with types; nullOr (listOf (enum ["sway" "hyprland"]));
       example = "sway";
     };
   };

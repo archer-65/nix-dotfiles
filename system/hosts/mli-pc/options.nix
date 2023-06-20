@@ -21,8 +21,10 @@
       yubikey.enable = true;
     };
 
-    graphical.wayland.enable = true;
-    graphical.greetd.enable = true;
+    # graphical.xorg.enable = true;
+    # graphical.wayland.enable = true;
+    # graphical.greetd.enable = true;
+    # graphical.sddm.enable = true;
 
     core = {
       boot.quietboot.enable = true;

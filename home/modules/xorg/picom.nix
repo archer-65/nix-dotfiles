@@ -17,7 +17,7 @@ in {
 
       backend = "glx";
       vSync = true;
-      experimentalBackends = true;
+      # experimentalBackends = true;
 
       fade = true;
       fadeDelta = 4;

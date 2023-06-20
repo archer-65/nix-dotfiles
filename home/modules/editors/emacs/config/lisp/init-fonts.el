@@ -10,7 +10,7 @@
   "Extensions for faces."
   :group 'faces)
 
-(defcustom archer-font-height 120
+(defcustom archer-font-height 140
   "Variable that specifies the font height."
   :type 'integer
   :group 'archer-faces)
@@ -24,7 +24,8 @@
 
   (:option archer-font-height (pcase (system-name)
                                 ("quietfrost" 180)
-                                ("mate" 140)))
+                                ("mate" 140)
+                                ("mli-pc" 150)))
 
   (:option fontaine-latest-state-file (locate-user-emacs-file "var/fontaine-state.eld"))
 

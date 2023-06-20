@@ -2,13 +2,15 @@
   pkgs,
   lib,
   ...
-}: {
+}: let
+in {
   imports = [./hardware-configuration.nix ./options.nix];
 
   # Kernel related
   boot.kernelPackages = pkgs.linuxPackages_latest;
+
   boot.kernelModules = [];
-  boot.kernelParams = ["zswap.enabled=0"];
+  boot.kernelParams = ["zswap.enabled=0" "i915.force_probe=46a8"] ;
 
   boot.initrd.kernelModules = [];
   boot.initrd.availableKernelModules = [];
@@ -39,13 +41,21 @@
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
-    extraPackages = with pkgs; [intel-media-driver vaapiIntel libvdpau-va-gl];
+    extraPackages = with pkgs; [mesa intel-media-driver vaapiIntel vaapiVdpau libvdpau-va-gl];
+
+    extraPackages32 = with pkgs; [
+      driversi686Linux.mesa
+    ];
   };
 
   services.xserver = {
     enable = true;
     # Disable `lightdm` because it is enabled by default sometimes (e.g. greetd with also `xserver` option enabled).
     displayManager.lightdm.enable = lib.mkForce false;
+    videoDrivers = [ "displaylink" "modesetting" ];
+
+    displayManager.gdm.enable = true;
+    desktopManager.gnome.enable = true;
   };
 
   zramSwap = {

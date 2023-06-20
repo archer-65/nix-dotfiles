@@ -13,7 +13,15 @@ with builtins; let
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
-      overlays = attrValues overlays;
+      overlays = attrValues overlays ++ [
+        (final: prev: {
+          hyprland = inputs.hyprland.packages.${system}.default.override {
+            wlroots = inputs.hyprland.packages.${system}.wlroots-hyprland.overrideAttrs (oldAttrs: {
+              patches = oldAttrs.patches ++ [ ../overlays/displaylink.patch ];
+            });
+          };
+        })
+      ];
     };
 
     baseHome = {

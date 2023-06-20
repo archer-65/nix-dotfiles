@@ -28,7 +28,7 @@ in {
 
     mario.modules.xorg = {
       autorandr.enable = true;
-      greenclip.enable = true;
+      # greenclip.enable = true;
       locker.enable = true;
       picom.enable = true;
     };
