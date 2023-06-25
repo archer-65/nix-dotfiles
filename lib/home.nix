@@ -13,15 +13,17 @@ with builtins; let
     pkgs = import nixpkgs {
       inherit system;
       config.allowUnfree = true;
-      overlays = attrValues overlays ++ [
-        (final: prev: {
-          hyprland = inputs.hyprland.packages.${system}.default.override {
-            wlroots = inputs.hyprland.packages.${system}.wlroots-hyprland.overrideAttrs (oldAttrs: {
-              patches = oldAttrs.patches ++ [ ../overlays/displaylink.patch ];
-            });
-          };
-        })
-      ];
+      overlays =
+        attrValues overlays
+        ++ [
+          (final: prev: {
+            hyprland = inputs.hyprland.packages.${system}.default.override {
+              wlroots = inputs.hyprland.packages.${system}.wlroots-hyprland.overrideAttrs (oldAttrs: {
+                patches = oldAttrs.patches ++ [../overlays/displaylink.patch];
+              });
+            };
+          })
+        ];
     };
 
     baseHome = {
@@ -42,10 +44,7 @@ with builtins; let
         ]
         ++ attrValues homeModules.${username};
 
-      extraSpecialArgs = {
-        inherit inputs outputs;
-        inherit (import ../wallpapers) wallpapers;
-      };
+      extraSpecialArgs = {inherit inputs outputs;};
     };
 in
   genConfiguration

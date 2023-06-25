@@ -3,7 +3,7 @@
   config,
   lib,
   pkgs,
-  wallpapers,
+  outputs,
   ...
 }:
 with lib; let
@@ -26,7 +26,7 @@ in {
         transparent = "#00000000";
       in {
         font = cfgTheme.font.regular.family;
-        image = wallpapers.digital-flowers.src;
+        image = outputs.wallpapers.digital-flowers.src;
         effect-blur = "5x5";
 
         ignore-empty-password = true;

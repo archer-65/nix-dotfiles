@@ -2,8 +2,8 @@
   config,
   lib,
   pkgs,
-  wallpapers,
   inputs,
+  outputs,
   ...
 }:
 with lib; let
@@ -141,7 +141,7 @@ in {
         windowrulev2 = idleinhibit fullscreen, class:^(firefox)$
 
         exec-once = waybar
-        exec = ${pkgs.swaybg}/bin/swaybg -i ${wallpapers.digital-flowers.src} --mode fill
+        exec = ${pkgs.swaybg}/bin/swaybg -i ${outputs.wallpapers.digital-flowers.src} --mode fill
 
         exec-once = wl-paste -t text --watch clipman store --no-persist
         exec-once = wl-paste -p -t text --watch clipman store -P --histpath=\"~/.local/share/clipman-primary.json\"

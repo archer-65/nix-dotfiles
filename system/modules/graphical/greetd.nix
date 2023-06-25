@@ -3,7 +3,7 @@
   config,
   lib,
   pkgs,
-  wallpapers,
+  outputs,
   ...
 }:
 with lib; let
@@ -49,7 +49,7 @@ in {
       enable = true;
       settings = {
         background = {
-          path =  wallpapers.nixos-dark.src;
+          path =  outputs.wallpapers.nixos-dark.src;
           fit = "Cover";
         };
         GTK = {

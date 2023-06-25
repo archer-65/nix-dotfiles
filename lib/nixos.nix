@@ -33,10 +33,7 @@ with builtins; let
         ]
         ++ attrValues nixosModules;
 
-      specialArgs = {
-        inherit inputs outputs;
-        inherit (import ../wallpapers) wallpapers;
-      };
+      specialArgs = {inherit inputs outputs;};
     };
 in
   genConfiguration

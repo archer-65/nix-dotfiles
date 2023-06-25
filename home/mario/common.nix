@@ -2,7 +2,7 @@
   pkgs,
   config,
   lib,
-  wallpapers,
+  outputs,
   ...
 }:
 with lib; let
@@ -32,7 +32,7 @@ in {
         source = value.src;
       };
     })
-    wallpapers;
+    outputs.wallpapers;
 
   home.packages = archivePkgs;
 

@@ -40,6 +40,8 @@
         import ./shell.nix {pkgs = nixpkgs.legacyPackages.${system};}
     );
 
+    wallpapers = import ./wallpapers;
+
     nixosConfigurations = {
       quietfrost = mkSystem {
         hostname = "quietfrost";
