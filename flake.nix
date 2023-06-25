@@ -16,14 +16,15 @@
     nix-colors.url = "github:misterio77/nix-colors";
   };
 
-  outputs = inputs @ {nixpkgs, ...}: let
+  outputs = inputs @ { self, nixpkgs, ... }: let
+    inherit (self) outputs;
     lib = import ./lib {inherit inputs;};
     inherit (lib) mkSystem mkHome forAllSystems;
   in {
     nixosModules = import ./system/modules;
     homeModules = import ./home/modules;
 
-    overlays = import ./overlays inputs;
+    overlays = import ./overlays { inherit inputs outputs; };
 
     formatter = forAllSystems (
       system:

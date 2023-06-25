@@ -1,9 +1,20 @@
 # With inputs as an argument it is possible to access to the flake itself. This could be helpful in future.
-inputs: let
+# Thanks to Misterio77 for these functions!!!
+{ outputs, inputs }: 
+let
   addPatches = pkg: patches: pkg.overrideAttrs (oldAttrs: {
     patches = (oldAttrs.patches or [ ]) ++ patches;
   });
 in {
+  # For every flake input, aliases 'pkgs.inputs.${flake}' to
+  # 'inputs.${flake}.packages.${pkgs.system}' or
+  # 'inputs.${flake}.legacyPackages.${pkgs.system}' or
+  flake-inputs = final: _: {
+    inputs = builtins.mapAttrs
+      (_: flake: (flake.legacyPackages or flake.packages or { }).${final.system} or { })
+      inputs;
+  };
+
   # Overlays for personal pkgs (callPackage)
   additions = final: _: import ../packages {pkgs = final;};
 
@@ -18,16 +29,15 @@ in {
       mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
     });
 
-    lieer = prev.lieer.overrideAttrs(oldAttrs: {
+    lieer = prev.lieer.overrideAttrs(oldAttrs: rec {
       pname = "lieer";
-      version = "1.3";
+      version = "1.4";
 
       src = final.fetchFromGitHub {
         owner = "gauteh";
         repo = "lieer";
-        #rev = "v${version}";
-        rev = "a4ab209c721de7146f4301b426bdb6482d687a85";
-        sha256 = "sha256-BL5F7sJ818Ky33eJDR9Eh5/XayhddkBWxk1HkQxh0Qc=";
+        rev = "v${version}";
+        sha256 = "sha256-2LujfvsxMHHmYjYOnLJaLdSlzDeej+ehUr4YfVe903U=";
       };
 
       propagatedBuildInputs = with final.pkgs.python3Packages; [
@@ -39,6 +49,18 @@ in {
       ];
     });
 
+    # Keep this if telega is borked
+    # tdlib = prev.tdlib.overrideAttrs (oldAttrs: {
+    #   version = "1.8.8";
+    #   src = final.fetchFromGitHub {
+    #     owner = "tdlib";
+    #     repo = "td";
+    #     rev = "bbe37ee594d97f3c7820dd23ebcd9c9b8dac51a0";
+    #     sha256 = "sha256-jLJglvq+7f+zCoanDRTFpUsH/M1Qf7PWJ1JjvmZsa24==";
+    #   };
+    # });
+
+    # Wait until https://github.com/NixOS/nixpkgs/pull/232415 is merged    
     linuxPackages_latest = let
       python3WithLibs = final.python3.withPackages (ps: with ps; [
         pybind11
@@ -97,16 +119,5 @@ in {
     wlroots = prev.wlroots.overrideAttrs (oldAttrs: {
       patches = (oldAttrs.patches or []) ++ [ ./displaylink.patch ];
     });
-
-    # Keep this if borked
-    # tdlib = prev.tdlib.overrideAttrs (oldAttrs: {
-    #   version = "1.8.8";
-    #   src = final.fetchFromGitHub {
-    #     owner = "tdlib";
-    #     repo = "td";
-    #     rev = "bbe37ee594d97f3c7820dd23ebcd9c9b8dac51a0";
-    #     sha256 = "sha256-jLJglvq+7f+zCoanDRTFpUsH/M1Qf7PWJ1JjvmZsa24==";
-    #   };
-    # });
   };
 }
