@@ -109,13 +109,13 @@ in {
           idle_inhibitor = {
             format = "{icon}";
             format-icons = {
-              activated = "零";
-              deactivated = "鈴";
+              activated = "󰒳";
+              deactivated = "󰒲";
             };
           };
 
           "custom/hostname" = {
-            exec = "echo $USER@$(hostname)";
+            exec = "echo $(hostname)";
             on-click = "alacritty";
           };
 
@@ -162,9 +162,9 @@ in {
           battery = optionalAttrs (cfg.battery != null) {
             bat = "${cfg.battery}";
             interval = 30;
-            format-icons = ["" "" "" "" "" "" "" "" "" ""];
+            format-icons = [ "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
             format = "{icon} {capacity}%";
-            format-charging = " {capacity}%";
+            format-charging = "󰂄 {capacity}%";
           };
 
           pulseaudio = {
@@ -242,7 +242,7 @@ in {
             margin-left: 2px;
             margin-right: 2px;
             padding-left: 12px;
-            padding-right: 22px;
+            padding-right: 12px;
             border-radius: 14px;
         }
 

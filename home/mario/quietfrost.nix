@@ -94,19 +94,19 @@
 
       font.monospace = {
         family = "FiraCode Nerd Font";
-        package = pkgs.stable.nerdfonts.override {fonts = ["FiraCode"];};
+        package = pkgs.nerdfonts.override {fonts = ["FiraCode"];};
         size = 14;
       };
 
       font.term = {
         family = "VictorMono Nerd Font";
-        package = pkgs.stable.nerdfonts.override {fonts = ["VictorMono"];};
+        package = pkgs.nerdfonts.override {fonts = ["VictorMono"];};
         size = 18;
       };
 
       font.bar = {
         family = "Iosevka Nerd Font";
-        package = pkgs.stable.nerdfonts.override {fonts = ["Iosevka"];};
+        package = pkgs.nerdfonts.override {fonts = ["Iosevka"];};
         size = 20;
       };
     };
