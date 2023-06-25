@@ -27,7 +27,9 @@
                                 ("mate" 140)
                                 ("mli-pc" 150)))
 
-  (:option fontaine-latest-state-file (locate-user-emacs-file "var/fontaine-state.eld"))
+
+  ;; TODO: fix this, the state is not re-stored correctly.
+  ; (:option fontaine-latest-state-file (locate-user-emacs-file "var/fontaine-state.eld"))
 
   (:option fontaine-presets
            `((victor
