@@ -64,5 +64,10 @@ in {
     priority = 10;
   };
 
+  environment.etc."modprobe.d/evdi.conf".text = ''
+    softdep evdi pre: i915 drm_display_helper
+    options evdi initial_device_count=2 initial_loglevel=3
+  '';
+
   environment.systemPackages = [pkgs.compsize];
 }
