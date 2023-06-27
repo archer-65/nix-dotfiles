@@ -21,10 +21,12 @@
       yubikey.enable = true;
     };
 
-    # graphical.xorg.enable = true;
-    # graphical.wayland.enable = true;
-    # graphical.greetd.enable = true;
-    # graphical.sddm.enable = true;
+    graphical = {
+      gnome.enable = true;
+      displaylink.enable = true;
+      # wayland.enable = true;
+      # greetd.enable = true;
+    };
 
     core = {
       boot.quietboot.enable = true;

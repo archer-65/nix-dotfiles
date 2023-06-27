@@ -14,6 +14,8 @@
   "graphical/wayland" = import ./graphical/wayland.nix;
   "graphical/sddm" = import ./graphical/sddm.nix;
   "graphical/greetd" = import ./graphical/greetd.nix;
+  "graphical/gnome" = import ./graphical/gnome.nix;
+  "graphical/displaylink" = import ./graphical/displaylink.nix;
 
   "dev/adb" = import ./dev/adb.nix;
   "dev/virt-manager" = import ./dev/virt-manager.nix;

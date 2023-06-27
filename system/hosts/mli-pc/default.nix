@@ -22,7 +22,6 @@ in {
   };
   boot.loader.timeout = 5;
 
-  # Use the systemd-boot EFI boot loader.
   boot.loader = {
     grub = {
       enable = true;
@@ -41,7 +40,13 @@ in {
     enable = true;
     driSupport = true;
     driSupport32Bit = true;
-    extraPackages = with pkgs; [mesa intel-media-driver vaapiIntel vaapiVdpau libvdpau-va-gl];
+    extraPackages = with pkgs; [
+      mesa
+      intel-media-driver
+      vaapiIntel
+      vaapiVdpau
+      libvdpau-va-gl
+    ];
 
     extraPackages32 = with pkgs; [
       driversi686Linux.mesa
@@ -52,10 +57,6 @@ in {
     enable = true;
     # Disable `lightdm` because it is enabled by default sometimes (e.g. greetd with also `xserver` option enabled).
     displayManager.lightdm.enable = lib.mkForce false;
-    videoDrivers = [ "displaylink" "modesetting" ];
-
-    displayManager.gdm.enable = true;
-    desktopManager.gnome.enable = true;
   };
 
   zramSwap = {
@@ -63,11 +64,6 @@ in {
     memoryPercent = 40;
     priority = 10;
   };
-
-  environment.etc."modprobe.d/evdi.conf".text = ''
-    softdep evdi pre: i915 drm_display_helper
-    options evdi initial_device_count=2 initial_loglevel=3
-  '';
 
   environment.systemPackages = [pkgs.compsize];
 }
