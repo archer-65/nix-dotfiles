@@ -21,7 +21,7 @@
     inherit (lib) mkSystem mkHome forAllSystems;
   in {
     nixosModules = import ./system/modules;
-    homeModules = import ./home/modules;
+    homeModules = import ./home/mario/modules;
 
     overlays = import ./overlays { inherit inputs outputs; };
 

@@ -40,7 +40,7 @@ with builtins; let
       in
         [
           {home = baseHome;}
-          "${configs}/${hostname}.nix"
+          "${configs}/hosts/${hostname}.nix"
         ]
         ++ attrValues homeModules.${username};
 

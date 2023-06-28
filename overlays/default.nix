@@ -119,5 +119,11 @@ in {
     wlroots = prev.wlroots.overrideAttrs (oldAttrs: {
       patches = (oldAttrs.patches or []) ++ [ ./displaylink.patch ];
     });
+
+    # hyprland = inputs.hyprland.packages.${system}.default.override {
+    #   wlroots = inputs.hyprland.packages.${system}.wlroots-hyprland.overrideAttrs (oldAttrs: {
+    #     patches = oldAttrs.patches ++ [../overlays/displaylink.patch];
+    #   });
+    # };
   };
 }
