@@ -38,15 +38,17 @@ in {
     programs.evince.enable = lib.mkForce false;
     programs.geary.enable = lib.mkForce false;
 
-    environment.gnome.excludePackages = (with pkgs.gnome; [
-      gnome-backgrounds
-      gnome-themes-extra
-    ]) ++ (with pkgs; [
-      gnome-tour
-      gnome-user-docs
-      orca
-    ]);
- 
+    environment.gnome.excludePackages =
+      (with pkgs.gnome; [
+        gnome-backgrounds
+        gnome-themes-extra
+      ])
+      ++ (with pkgs; [
+        gnome-tour
+        gnome-user-docs
+        orca
+      ]);
+
     environment.systemPackages = with pkgs.gnome; [
       nautilus
     ];

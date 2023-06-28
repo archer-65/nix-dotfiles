@@ -3,7 +3,6 @@
   lib,
   ...
 }: {
-
   home.sessionVariables.GSM_SKIP_SSH_AGENT_WORKAROUND = "1";
   xdg.configFile."autostart/gnome-keyring-ssh.desktop".text = ''
     ${lib.fileContents "${pkgs.gnome3.gnome-keyring}/etc/xdg/autostart/gnome-keyring-ssh.desktop"}
@@ -23,7 +22,6 @@
 
     browsers = {firefox.enable = true;};
 
-
     media = {
       documents = {
         zathura.enable = true;
@@ -39,7 +37,7 @@
       #   temperature = "/sys/class/hwmon/hwmon0/temp1_input";
       # };
     };
- 
+
     term = {
       alacritty.enable = true;
     };

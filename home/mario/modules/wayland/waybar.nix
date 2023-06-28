@@ -162,7 +162,7 @@ in {
           battery = optionalAttrs (cfg.battery != null) {
             bat = "${cfg.battery}";
             interval = 30;
-            format-icons = [ "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
+            format-icons = ["󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
             format = "{icon} {capacity}%";
             format-charging = "󰂄 {capacity}%";
           };

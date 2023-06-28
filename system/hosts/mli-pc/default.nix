@@ -2,15 +2,14 @@
   pkgs,
   lib,
   ...
-}: let
-in {
+}: {
   imports = [./hardware-configuration.nix ./options.nix];
 
   # Kernel related
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot.kernelModules = [];
-  boot.kernelParams = ["zswap.enabled=0" "i915.force_probe=46a8"] ;
+  boot.kernelParams = ["zswap.enabled=0" "i915.force_probe=46a8"];
 
   boot.initrd.kernelModules = [];
   boot.initrd.availableKernelModules = [];

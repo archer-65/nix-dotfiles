@@ -1,7 +1,4 @@
-{
-  pkgs,
-  ...
-}: {
+{pkgs, ...}: {
   mario.modules = {
     credentials = {
       gpg.enable = true;

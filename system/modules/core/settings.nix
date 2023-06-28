@@ -1,4 +1,10 @@
-{pkgs, lib, inputs, config, ...}: {
+{
+  pkgs,
+  lib,
+  inputs,
+  config,
+  ...
+}: {
   nix = {
     package = pkgs.nixFlakes;
 
@@ -7,7 +13,7 @@
       allowed-users = ["root" "@wheel"];
 
       auto-optimise-store = lib.mkDefault true;
-      experimental-features = [ "nix-command" "flakes" "repl-flake" ];
+      experimental-features = ["nix-command" "flakes" "repl-flake"];
       warn-dirty = false;
     };
 
@@ -24,7 +30,7 @@
 
     # Add each flake input as a registry
     # To make nix3 commands consistent with the flake
-    registry = lib.mapAttrs (_: value: { flake = value; }) inputs;
+    registry = lib.mapAttrs (_: value: {flake = value;}) inputs;
 
     # Map registries to channels
     # Very useful when using legacy commands

@@ -9,10 +9,10 @@
 }: {
   imports = [(modulesPath + "/installer/scan/not-detected.nix")];
 
-  boot.initrd.availableKernelModules = [ "xxhash" "vmd" "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
+  boot.initrd.availableKernelModules = ["xxhash" "vmd" "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod"];
   boot.initrd.kernelModules = [];
   boot.kernelModules = ["kvm-intel"];
-  boot.extraModulePackages = []; 
+  boot.extraModulePackages = [];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/3f0101ea-22f7-4ca9-9d3c-5ff918a94dfe";
@@ -71,7 +71,7 @@
     fsType = "vfat";
   };
 
- services.btrfs.autoScrub = {
+  services.btrfs.autoScrub = {
     enable = true;
     interval = "monthly";
   };

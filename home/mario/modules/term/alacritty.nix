@@ -36,8 +36,8 @@ in {
 
         # Font configuration
         font = let
-          family = cfgTheme.font.term.family;
-          size = cfgTheme.font.term.size;
+          inherit (cfgTheme.font.term) family;
+          inherit (cfgTheme.font.term) size;
         in {
           normal = {
             inherit family;

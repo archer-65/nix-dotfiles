@@ -11,11 +11,11 @@ with lib; let
   inherit (inputs.nix-colors.lib-contrib {inherit pkgs;}) gtkThemeFromScheme;
   inherit (config.mario.modules) xorg;
 in {
-  imports = [ ./onedark.nix ./modus.nix ];
+  imports = [./onedark.nix ./modus.nix];
 
   options.mario.modules.themes = with types; {
     active = mkOption {
-      type = nullOr (enum [ "onedark" "modus" ]);
+      type = nullOr (enum ["onedark" "modus"]);
       default = null;
       description = ''
         Name of the theme to enable.

@@ -14,7 +14,6 @@ in {
 
   config = mkMerge [
     (mkIf cfg.work.enable {
-
       sops.secrets."work_client.ovpn" = {
         mode = "0400";
         sopsFile = ./work_client.ovpn;

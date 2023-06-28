@@ -7,7 +7,7 @@
 with lib; let
   cfg = config.system.modules.graphical.wayland;
 in {
-  imports = [ inputs.hyprland.nixosModules.default ];
+  imports = [inputs.hyprland.nixosModules.default];
 
   options.system.modules.graphical.wayland = {
     enable = mkEnableOption "wayland basic configuration and packages";
@@ -29,6 +29,5 @@ in {
         };
       };
     };
-
   };
 }

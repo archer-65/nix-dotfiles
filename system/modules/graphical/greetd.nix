@@ -49,7 +49,7 @@ in {
       enable = true;
       settings = {
         background = {
-          path =  outputs.wallpapers.nixos-dark.src;
+          path = outputs.wallpapers.nixos-dark.src;
           fit = "Cover";
         };
         GTK = {

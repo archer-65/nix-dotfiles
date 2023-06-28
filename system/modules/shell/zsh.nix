@@ -23,7 +23,7 @@ in {
       zsh-completions
       nix-zsh-completions
     ];
-  
+
     environment.pathsToLink = ["/share/zsh"];
   };
 }

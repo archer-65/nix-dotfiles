@@ -15,7 +15,11 @@
     nix-colors.url = "github:misterio77/nix-colors";
   };
 
-  outputs = inputs @ { self, nixpkgs, ... }: let
+  outputs = inputs @ {
+    self,
+    nixpkgs,
+    ...
+  }: let
     inherit (self) outputs;
     lib = import ./lib {inherit inputs;};
     inherit (lib) mkSystem mkHome forAllSystems;
@@ -23,7 +27,7 @@
     nixosModules = import ./system/modules;
     homeModules = import ./home/mario/modules;
 
-    overlays = import ./overlays { inherit inputs outputs; };
+    overlays = import ./overlays {inherit inputs outputs;};
 
     formatter = forAllSystems (
       system:

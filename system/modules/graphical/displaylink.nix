@@ -12,7 +12,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    services.xserver.videoDrivers = [ "displaylink" "modesetting" ];
+    services.xserver.videoDrivers = ["displaylink" "modesetting"];
 
     # NOTE: Just to try wlroots + displaylink
     # environment.etc."modprobe.d/evdi.conf".text = ''

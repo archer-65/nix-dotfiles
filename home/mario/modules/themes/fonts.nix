@@ -35,6 +35,6 @@ in {
 
   config = {
     fonts.fontconfig.enable = true;
-    home.packages = [cfg.regular.package cfg.monospace.package cfg.term.package cfg.bar.package ];
+    home.packages = [cfg.regular.package cfg.monospace.package cfg.term.package cfg.bar.package];
   };
 }
