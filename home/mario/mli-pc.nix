@@ -1,10 +1,8 @@
 {
   pkgs,
-  config,
   lib,
   ...
 }: {
-  imports = [ ./common.nix ];
 
   home.sessionVariables.GSM_SKIP_SSH_AGENT_WORKAROUND = "1";
   xdg.configFile."autostart/gnome-keyring-ssh.desktop".text = ''

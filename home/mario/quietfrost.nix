@@ -1,10 +1,7 @@
 {
   pkgs,
-  config,
   ...
 }: {
-  imports = [ ./common.nix ];
-
   mario.modules = {
     credentials = {
       gpg.enable = true;

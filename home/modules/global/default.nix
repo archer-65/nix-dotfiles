@@ -4,14 +4,7 @@
   lib,
   outputs,
   ...
-}:
-with lib; let
-  archivePkgs = with pkgs; [
-    zip
-    unzip
-    unrar
-  ];
-in {
+}: {
   nix = {
     package = lib.mkDefault pkgs.nix;
     settings = {
@@ -33,8 +26,6 @@ in {
       };
     })
     outputs.wallpapers;
-
-  home.packages = archivePkgs;
 
   xdg.userDirs = {
     enable = true;
@@ -61,6 +52,8 @@ in {
 
   services = {
     keybase.enable = true;
-    kbfs.enable = true;
+    kbfs = {
+      enable = true;
+    };
   };
 }

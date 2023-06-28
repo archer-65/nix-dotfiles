@@ -6,6 +6,15 @@
   # System-wide packages
   environment = {
     defaultPackages = lib.mkForce [];
-    systemPackages = with pkgs; [killall procps wget git vim];
+    systemPackages = with pkgs; [
+      killall
+      procps
+      wget
+      git
+      vim
+      zip
+      unzip
+      unrar
+    ];
   };
 }
