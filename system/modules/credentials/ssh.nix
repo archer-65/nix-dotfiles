@@ -12,13 +12,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    sops.age.sshKeyPaths = let
-      isEd25519 = k: k.type == "ed25519";
-      getKeyPath = k: k.path;
-      keys = builtins.filter isEd25519 config.services.openssh.hostKeys;
-    in
-      map getKeyPath keys;
-
     services.openssh = {
       enable = true;
       startWhenNeeded = true;

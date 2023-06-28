@@ -32,6 +32,7 @@
   "services/jellyfin" = import ./services/jellyfin.nix;
   "services/printing" = import ./services/printing.nix;
 
+  "credentials/sops" = import ./credentials/sops.nix;
   "credentials/ssh" = import ./credentials/ssh.nix;
   "credentials/gpg" = import ./credentials/gpg.nix;
   "credentials/yubikey" = import ./credentials/yubikey.nix;
