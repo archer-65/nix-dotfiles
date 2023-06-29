@@ -14,7 +14,7 @@ in {
   config = mkIf cfg.enable {
     services.openssh = {
       enable = true;
-      startWhenNeeded = true;
+      # startWhenNeeded = true;
       openFirewall = true;
 
       settings = {
