@@ -1,7 +1,6 @@
 {
   makeWrapper,
   pkgs,
-  lib,
 }: let
   name = "theme-toggle";
   script = (pkgs.writeScriptBin "${name}" (builtins.readFile ./theme-toggle.sh)).overrideAttrs (old: {

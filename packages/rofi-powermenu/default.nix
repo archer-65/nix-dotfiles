@@ -1,8 +1,6 @@
 {
-  stdenv,
   makeWrapper,
   pkgs,
-  lib,
 }: let
   name = "rofi-powermenu";
   script = (pkgs.writeScriptBin "${name}" (builtins.readFile ./powermenu.sh)).overrideAttrs (old: {
