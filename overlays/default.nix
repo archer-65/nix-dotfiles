@@ -24,16 +24,18 @@ in {
 
   # Overlays for various pkgs (e.g. broken, not updated)
   modifications = final: prev: rec {
-    stable = import inputs.nixpkgs-stable {
-      inherit (final) system;
-      config.allowUnfree = true;
-    };
+    hyprland = with final.pkgs.inputs.hyprland;
+      default.override {
+        wlroots = addPatches wlroots-hyprland [./displaylink.patch];
+      };
+
+    wlroots = addPatches prev.wlroots [./displaylink.patch];
 
     waybar = prev.waybar.overrideAttrs (oldAttrs: {
       mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
     });
 
-    lieer = prev.lieer.overrideAttrs (oldAttrs: rec {
+    lieer = prev.lieer.overrideAttrs (_oldAttrs: rec {
       pname = "lieer";
       version = "1.4";
 
@@ -71,7 +73,7 @@ in {
           pybind11
         ]);
     in
-      prev.linuxPackages_latest.extend (self: super: {
+      prev.linuxPackages_latest.extend (_self: super: {
         evdi = super.evdi.overrideAttrs (oldAttrs: rec {
           pname = "evdi";
           version = "1.13.1";
@@ -92,7 +94,7 @@ in {
       });
 
     displaylink =
-      (prev.displaylink.overrideAttrs (oldAttrs: {
+      (prev.displaylink.overrideAttrs (_oldAttrs: {
         pname = "displaylink";
         version = "5.7.0-61.129";
 
@@ -123,9 +125,5 @@ in {
       .override {
         inherit (final.linuxPackages_latest) evdi;
       };
-
-    wlroots = prev.wlroots.overrideAttrs (oldAttrs: {
-      patches = (oldAttrs.patches or []) ++ [./displaylink.patch];
-    });
   };
 }
