@@ -30,6 +30,15 @@ in {
 
       programs.fzf = {
         enable = true;
+
+        defaultOptions = [
+          "--ansi"
+          "--reverse"
+          "--border"
+          "--inline-info"
+          "--color=16"
+        ];
+
         enableBashIntegration = true;
         enableZshIntegration = true;
 
@@ -48,10 +57,6 @@ in {
     # Useful aliases for our shells
     (mkIf cfgBash.enable {
       programs.bash = {
-        bashrcExtra = ''
-          export FZF_DEFAULT_OPTS='--color 16'
-        '';
-
         shellAliases = {
           cat = "${pkgs.bat}/bin/bat";
         };
@@ -60,10 +65,6 @@ in {
 
     (mkIf cfgZsh.enable {
       programs.zsh = {
-        initExtra = ''
-          export FZF_DEFAULT_OPTS='--color 16'
-        '';
-
         shellAliases = {
           cat = "${pkgs.bat}/bin/bat";
         };
