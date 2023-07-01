@@ -11,10 +11,10 @@ rofi_command="rofi -theme $theme"
 
 # Options
 shutdown=""
-reboot="勒"
+reboot=""
 lock=""
 suspend=""
-logout=""
+logout="󰍃"
 
 # Convenience
 execute_with_confirm() {
