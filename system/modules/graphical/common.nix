@@ -20,7 +20,10 @@ in {
     programs.dconf.enable = true;
     services.dbus = {
       enable = true;
-      packages = [pkgs.dconf];
+      packages = with pkgs; [
+        dconf
+        gcr # pinentry-gnome3 may not work without this
+      ];
     };
 
     # Trash and GTK apps features
