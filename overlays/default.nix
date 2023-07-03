@@ -35,25 +35,26 @@ in {
       mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
     });
 
-    lieer = prev.lieer.overrideAttrs (_oldAttrs: rec {
-      pname = "lieer";
-      version = "1.4";
+    # Merged https://github.com/NixOS/nixpkgs/pull/225725
+    # lieer = prev.lieer.overrideAttrs (_oldAttrs: rec {
+    #   pname = "lieer";
+    #   version = "1.4";
 
-      src = final.fetchFromGitHub {
-        owner = "gauteh";
-        repo = "lieer";
-        rev = "v${version}";
-        sha256 = "sha256-2LujfvsxMHHmYjYOnLJaLdSlzDeej+ehUr4YfVe903U=";
-      };
+    #   src = final.fetchFromGitHub {
+    #     owner = "gauteh";
+    #     repo = "lieer";
+    #     rev = "v${version}";
+    #     sha256 = "sha256-2LujfvsxMHHmYjYOnLJaLdSlzDeej+ehUr4YfVe903U=";
+    #   };
 
-      propagatedBuildInputs = with final.pkgs.python3Packages; [
-        notmuch2
-        oauth2client
-        google-api-python-client
-        tqdm
-        setuptools
-      ];
-    });
+    #   propagatedBuildInputs = with final.pkgs.python3Packages; [
+    #     notmuch2
+    #     oauth2client
+    #     google-api-python-client
+    #     tqdm
+    #     setuptools
+    #   ];
+    # });
 
     # Keep this if telega is borked
     # tdlib = prev.tdlib.overrideAttrs (oldAttrs: {
@@ -67,63 +68,63 @@ in {
     # });
 
     # Wait until https://github.com/NixOS/nixpkgs/pull/232415 is merged
-    linuxPackages_latest = let
-      python3WithLibs = final.python3.withPackages (ps:
-        with ps; [
-          pybind11
-        ]);
-    in
-      prev.linuxPackages_latest.extend (_self: super: {
-        evdi = super.evdi.overrideAttrs (oldAttrs: rec {
-          pname = "evdi";
-          version = "1.13.1";
+    # linuxPackages_latest = let
+    #   python3WithLibs = final.python3.withPackages (ps:
+    #     with ps; [
+    #       pybind11
+    #     ]);
+    # in
+    #   prev.linuxPackages_latest.extend (_self: super: {
+    #     evdi = super.evdi.overrideAttrs (oldAttrs: rec {
+    #       pname = "evdi";
+    #       version = "1.13.1";
 
-          src = final.fetchFromGitHub {
-            owner = "DisplayLink";
-            repo = pname;
-            rev = "v${version}";
-            sha256 = "sha256-Or4hhnFOtC8vmB4kFUHbFHn2wg/NsUMY3d2Tiea6YbY=";
-          };
+    #       src = final.fetchFromGitHub {
+    #         owner = "DisplayLink";
+    #         repo = pname;
+    #         rev = "v${version}";
+    #         sha256 = "sha256-Or4hhnFOtC8vmB4kFUHbFHn2wg/NsUMY3d2Tiea6YbY=";
+    #       };
 
-          buildInputs = with final.pkgs; [python3WithLibs] ++ oldAttrs.buildInputs;
+    #       buildInputs = with final.pkgs; [python3WithLibs] ++ oldAttrs.buildInputs;
 
-          patches = [
-            ./0000-fix-drm-path.patch
-          ];
-        });
-      });
+    #       patches = [
+    #         ./0000-fix-drm-path.patch
+    #       ];
+    #     });
+    #   });
 
-    displaylink =
-      (prev.displaylink.overrideAttrs (_oldAttrs: {
-        pname = "displaylink";
-        version = "5.7.0-61.129";
+    # displaylink =
+    #   (prev.displaylink.overrideAttrs (_oldAttrs: {
+    #     pname = "displaylink";
+    #     version = "5.7.0-61.129";
 
-        src = final.requireFile rec {
-          name = "displaylink-570.zip";
-          sha256 = "807f1c203ac1e71c6f1f826493b9bb32e277f07cb2cf48537bf8cfdc68dd1515";
-          message = ''
-              In order to install the DisplayLink drivers, you must first
-              comply with DisplayLink's EULA and download the binaries and
-              sources from here:
-              https://www.synaptics.com/products/displaylink-graphics/downloads/ubuntu-5.6.1
-              https://www.synaptics.com/products/displaylink-graphics/downloads/ubuntu-5.7
-              Once you have downloaded the file, please use the following
-              commands and re-run the installation:
-              mv \$PWD/"DisplayLink USB Graphics Software for Ubuntu5.6.1-EXE.zip" \$PWD/${name}
-            #   mv \$PWD/"DisplayLink USB Graphics Software for Ubuntu5.7-EXE.zip" \$PWD/${name}
-            #   nix-prefetch-url file://\$PWD/${name}
-            # '';
-        };
-        unpackPhase = let
-          version = "5.7.0-61.129";
-        in ''
-          unzip $src
-          chmod +x displaylink-driver-${version}.run
-          ./displaylink-driver-${version}.run --target . --noexec --nodiskspace
-        '';
-      }))
-      .override {
-        inherit (final.linuxPackages_latest) evdi;
-      };
+    #     src = final.requireFile rec {
+    #       name = "displaylink-570.zip";
+    #       sha256 = "807f1c203ac1e71c6f1f826493b9bb32e277f07cb2cf48537bf8cfdc68dd1515";
+    #       message = ''
+    #           In order to install the DisplayLink drivers, you must first
+    #           comply with DisplayLink's EULA and download the binaries and
+    #           sources from here:
+    #           https://www.synaptics.com/products/displaylink-graphics/downloads/ubuntu-5.6.1
+    #           https://www.synaptics.com/products/displaylink-graphics/downloads/ubuntu-5.7
+    #           Once you have downloaded the file, please use the following
+    #           commands and re-run the installation:
+    #           mv \$PWD/"DisplayLink USB Graphics Software for Ubuntu5.6.1-EXE.zip" \$PWD/${name}
+    #         #   mv \$PWD/"DisplayLink USB Graphics Software for Ubuntu5.7-EXE.zip" \$PWD/${name}
+    #         #   nix-prefetch-url file://\$PWD/${name}
+    #         # '';
+    #     };
+    #     unpackPhase = let
+    #       version = "5.7.0-61.129";
+    #     in ''
+    #       unzip $src
+    #       chmod +x displaylink-driver-${version}.run
+    #       ./displaylink-driver-${version}.run --target . --noexec --nodiskspace
+    #     '';
+    #   }))
+    #   .override {
+    #     inherit (final.linuxPackages_latest) evdi;
+    #   };
   };
 }
