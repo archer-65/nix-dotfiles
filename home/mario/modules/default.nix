@@ -2,7 +2,9 @@
   mario = {
     "global" = import ./global;
 
+    "credentials/ssh" = import ./credentials/ssh;
     "credentials/gpg" = import ./credentials/gpg.nix;
+    "credentials/sops" = import ./credentials/sops.nix;
     "credentials/mail" = import ./credentials/mail.nix;
     "credentials/bitwarden" = import ./credentials/bitwarden.nix;
 

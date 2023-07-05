@@ -12,3 +12,10 @@ creation_rules:
       - *mli-pc
       pgp:
       - *mario
+  - path_regex: home/mario/modules/credentials/ssh/work/*
+    key_groups:
+    - age:
+      - *quietfrost
+      - *mli-pc
+        # pgp:
+        # - *mario 
