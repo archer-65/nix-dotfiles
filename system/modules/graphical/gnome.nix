@@ -24,7 +24,7 @@ in {
         gnome-initial-setup.enable = lib.mkForce false;
         gnome-online-accounts.enable = lib.mkForce false;
         gnome-online-miners.enable = lib.mkForce false;
-        gnome-browser-connector.enable = lib.mkForce false;
+        # gnome-browser-connector.enable = lib.mkForce false;
         games.enable = lib.mkForce false;
         evolution-data-server.enable = lib.mkForce false;
       };
