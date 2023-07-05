@@ -11,7 +11,7 @@
 
   mario.modules = {
     credentials = {
-      # ssh.enable = true;
+      ssh.enable = true;
       gpg.enable = true;
       bitwarden.enable = true;
     };
