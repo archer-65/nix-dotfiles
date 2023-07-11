@@ -32,6 +32,7 @@ with builtins; let
           {home = baseHome;}
           "${configs}/hosts/${hostname}.nix"
         ]
+        ++ [inputs.nix-index-database.hmModules.nix-index]
         ++ attrValues homeModules.${username};
 
       extraSpecialArgs = {inherit inputs outputs;};
