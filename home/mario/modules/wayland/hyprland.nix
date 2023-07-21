@@ -11,7 +11,7 @@ with lib; let
   inherit (config.colorScheme) colors;
 in {
   imports = [
-    inputs.hyprland.homeManagerModules.default
+    # inputs.hyprland.homeManagerModules.default
   ];
 
   config = mkIf (cfg.enable && (elem "hyprland" cfg.wm)) {
