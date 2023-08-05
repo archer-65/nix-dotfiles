@@ -24,6 +24,6 @@ in {
       users.users.jellyfin.extraGroups = ["users"];
     }
 
-    (mkIf (!cfg.systemd.disable) {systemd.services.jellyfin.wantedBy = mkForce [];})
+    (mkIf (!cfg.service.enable) {systemd.services.jellyfin.wantedBy = mkForce [];})
   ]);
 }

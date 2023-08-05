@@ -20,6 +20,7 @@
 
     media = {
       plex.enable = true;
+      jellyfin.enable = true;
     };
 
     credentials = {
