@@ -41,9 +41,9 @@ in {
       gnome.adwaita-icon-theme
     ];
 
-    fonts.fonts = with pkgs; [
+    fonts.packages = with pkgs; [
       roboto
-    ];
+    ]; 
 
     programs.regreet = {
       enable = true;

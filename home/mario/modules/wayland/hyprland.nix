@@ -13,10 +13,7 @@ in {
   config = mkIf (cfg.enable && (elem "hyprland" cfg.wm)) {
     wayland.windowManager.hyprland = {
       enable = true;
-      xwayland = {
-        enable = true;
-        hidpi = true;
-      };
+      xwayland.enable = true;
       systemdIntegration = true;
 
       settings =  let
