@@ -37,7 +37,7 @@ in {
           inactive_opacity = 0.98;
           fullscreen_opacity = 1.0;
           rounding = 5;
-          blur = false;
+          blur.enabled = false;
         };
 
         animations = {
