@@ -11,7 +11,7 @@ with lib; let
   cfgZsh = config.mario.modules.shell.zsh;
 in {
   options.mario.modules.shell.extensions = {
-    enable = mkEnableOption "shell useful commands (e.g. bat, exa) ";
+    enable = mkEnableOption "shell useful commands (e.g. bat, eza) ";
   };
 
   config = mkIf cfg.enable (mkMerge [
@@ -45,7 +45,7 @@ in {
     }
 
     {
-      programs.exa = {
+      programs.eza = {
         enable = true;
         enableAliases = true;
         git = true;
