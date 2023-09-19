@@ -23,6 +23,8 @@ with lib; let
     # Icons
     font-awesome
     material-design-icons
+    # Fira
+    fira
   ];
 
   social = with pkgs; [tdesktop];

@@ -16,6 +16,7 @@ in {
     home.packages = with pkgs; [
       texlive.combined.scheme-full
       python310Packages.pygments
+      inkscape
     ];
   };
 }
