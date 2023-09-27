@@ -130,76 +130,76 @@ in {
       #   };
       # };
 
-      unina = rec {
-        primary = false;
-        realName = "Mario Liguori";
-        userName = "mario.liguori6";
-        address = "mario.liguori6@studenti.unina.it";
-        passwordCommand = "${pkgs.libsecret}/bin/secret-tool lookup unina password";
+      # unina = rec {
+      #   primary = false;
+      #   realName = "Mario Liguori";
+      #   userName = "mario.liguori6";
+      #   address = "mario.liguori6@studenti.unina.it";
+      #   passwordCommand = "${pkgs.libsecret}/bin/secret-tool lookup unina password";
 
-        imap = {
-          host = "studenti.unina.it";
-          port = 993;
-          tls.enable = true;
-        };
+      #   imap = {
+      #     host = "studenti.unina.it";
+      #     port = 993;
+      #     tls.enable = true;
+      #   };
 
-        smtp = {
-          host = "studenti.unina.it";
-          port = 465;
-          tls.enable = true;
-        };
+      #   smtp = {
+      #     host = "studenti.unina.it";
+      #     port = 465;
+      #     tls.enable = true;
+      #   };
 
-        notmuch.enable = true;
-        msmtp.enable = true;
+      #   notmuch.enable = true;
+      #   msmtp.enable = true;
 
-        mbsync.enable = true;
-        mbsync.subFolders = "Verbatim";
-        mbsync.groups.unina.channels = {
-          inbox = {
-            farPattern = "INBOX";
-            nearPattern = "inbox";
-            extraConfig =
-              {
-                Sync = "All";
-                Expunge = "Both";
-              }
-              // channelExtraConfig;
-          };
+      #   mbsync.enable = true;
+      #   mbsync.subFolders = "Verbatim";
+      #   mbsync.groups.unina.channels = {
+      #     inbox = {
+      #       farPattern = "INBOX";
+      #       nearPattern = "inbox";
+      #       extraConfig =
+      #         {
+      #           Sync = "All";
+      #           Expunge = "Both";
+      #         }
+      #         // channelExtraConfig;
+      #     };
 
-          sent = {
-            farPattern = "Posta inviata";
-            nearPattern = "sent";
-            extraConfig =
-              {
-                Sync = "All";
-                Expunge = "Both";
-              }
-              // channelExtraConfig;
-          };
+      #     sent = {
+      #       farPattern = "Posta inviata";
+      #       nearPattern = "sent";
+      #       extraConfig =
+      #         {
+      #           Sync = "All";
+      #           Expunge = "Both";
+      #         }
+      #         // channelExtraConfig;
+      #     };
 
-          drafts = {
-            farPattern = "Bozze";
-            nearPattern = "drafts";
-            extraConfig =
-              {
-                Sync = "Pull";
-                Expunge = "Both";
-              }
-              // channelExtraConfig;
-          };
+      #     drafts = {
+      #       farPattern = "Bozze";
+      #       nearPattern = "drafts";
+      #       extraConfig =
+      #         {
+      #           Sync = "Pull";
+      #           Expunge = "Both";
+      #         }
+      #         // channelExtraConfig;
+      #     };
 
-          trash = {
-            farPattern = "Posta eliminata";
-            nearPattern = "trash";
-            extraConfig =
-              {
-                Sync = "All";
-                Expunge = "None";
-              }
-              // channelExtraConfig;
-          };
-        };
-      };
+      #     trash = {
+      #       farPattern = "Posta eliminata";
+      #       nearPattern = "trash";
+      #       extraConfig =
+      #         {
+      #           Sync = "All";
+      #           Expunge = "None";
+      #         }
+      #         // channelExtraConfig;
+      #     };
+      #   };
+      # };
     };
 
     programs.notmuch = {
@@ -267,15 +267,15 @@ in {
         # folder_transforms = gmail/inbox:inbox gmail/drafts:draft gmail/sent:sent gmail/trash:deleted gmail/spam:spam
         # folder_lowercases = true
 
-        [FolderNameFilter.2]
-        folder_explicit_list = unina/inbox unina/drafts unina/sent unina/trash
-        folder_transforms = unina/inbox:university unina/drafts:university unina/sent:university unina/trash:university
-        folder_lowercases = true
+        # [FolderNameFilter.2]
+        # folder_explicit_list = unina/inbox unina/drafts unina/sent unina/trash
+        # folder_transforms = unina/inbox:university unina/drafts:university unina/sent:university unina/trash:university
+        # folder_lowercases = true
 
-        [FolderNameFilter.3]
-        folder_explicit_list = unina/inbox unina/drafts unina/sent unina/trash
-        folder_transforms = unina/inbox:inbox unina/drafts:draft unina/sent:sent unina/trash:deleted
-        folder_lowercases = true
+        # [FolderNameFilter.3]
+        # folder_explicit_list = unina/inbox unina/drafts unina/sent unina/trash
+        # folder_transforms = unina/inbox:inbox unina/drafts:draft unina/sent:sent unina/trash:deleted
+        # folder_lowercases = true
 
         [Filter.0]
         message = Applying notify tag and removing new tag
@@ -306,10 +306,10 @@ in {
         #   query: tag:personal and tag:spam
         # - folder: gmail/inbox
         #   query: tag:personal and tag:inbox and not tag:deleted and not tag:spam
-        - folder: unina/trash
-          query: tag:university and tag:deleted
-        - folder: unina/inbox
-          query: tag:university and tag:inbox and not tag:deleted
+        # - folder: unina/trash
+        #   query: tag:university and tag:deleted
+        # - folder: unina/inbox
+        #   query: tag:university and tag:inbox and not tag:deleted
     '';
 
     services.mbsync = {
