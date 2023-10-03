@@ -64,7 +64,7 @@ in {
               "sway/mode"
             ])
             ++ (optionals config.wayland.windowManager.hyprland.enable [
-              "wlr/workspaces"
+              "hyprland/workspaces"
             ]);
 
           modules-center = ["clock"];
@@ -100,7 +100,7 @@ in {
             };
           };
 
-          "wlr/workspaces" = {
+          "hyprland/workspaces" = {
             on-click = "activate";
             on-scroll-up = "hyprctl dispatch workspace e+1";
             on-scroll-down = "hyprctl dispatch workspace e-1";
