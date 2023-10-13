@@ -25,6 +25,8 @@ with lib; let
     material-design-icons
     # Fira
     fira
+    # IBM Plex Mono - Waybar
+    ibm-plex
   ];
 
   social = with pkgs; [tdesktop];
