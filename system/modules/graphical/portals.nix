@@ -16,7 +16,8 @@ in {
 
     (mkIf cfgWayland.enable {
       xdg.portal = {
-        extraPortals = lib.mkForce [pkgs.xdg-desktop-portal-gtk];
+        xdgOpenUsePortal = true;
+        extraPortals = [pkgs.xdg-desktop-portal-gtk];
         wlr = {
           enable = true;
           settings.screencast = {
