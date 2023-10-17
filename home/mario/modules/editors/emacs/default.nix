@@ -53,14 +53,7 @@ in {
       services.emacs = {
         enable = true;
         client.enable = true;
-      };
-
-      systemd.user.services.emacs = {
-        # Needed for Wayland sessions
-        Unit = {
-          After = ["default.target"];
-          PartOf = ["default.target"];
-        };
+        startWithUserSession = "graphical";
       };
 
       home.sessionVariables = {

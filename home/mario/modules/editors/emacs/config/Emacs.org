@@ -235,7 +235,7 @@ Keybindings are listed in =init-meow.el=.
 
 #+begin_src emacs-lisp
 
-  (require 'init-meow)
+  ;; (require 'init-meow)
 
 #+end_src
 
