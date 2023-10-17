@@ -15,8 +15,8 @@
   (:autoload magit-status)
   (:option magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1))
 
-(setup (:pkg forge)
-  (:load-after magit))
+;; (setup (:pkg forge)
+;;   (:load-after magit))
 
 (setup (:pkg blamer))
 
