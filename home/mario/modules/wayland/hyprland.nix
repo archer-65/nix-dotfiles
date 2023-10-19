@@ -13,6 +13,8 @@ in {
   config = mkIf (cfg.enable && (elem "hyprland" cfg.wm)) {
     wayland.windowManager.hyprland = {
       enable = true;
+      package = pkgs.inputs.hyprland.hyprland;
+
       xwayland.enable = true;
       systemd.enable = true;
 
