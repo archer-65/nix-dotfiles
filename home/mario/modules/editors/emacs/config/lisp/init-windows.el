@@ -31,33 +31,33 @@
            "C-x {"      shrink-window-horizontally
            "C-x }"      enlarge-window-horizontally))
 
-;; (setup (:pkg beframe)
-;;   (:option beframe-functions-in-frames '(project-prompt-project-dir)
-;;            beframe-global-buffers '("*scratch*"
-;;                                     "*Messages"
-;;                                     "*Async-native-compile-log*"
-;;                                     "*straight-byte-compilation*"
-;;                                     "*straight-process*"
-;;                                     "*dashboard*"))
+(setup (:pkg beframe)
+  (:option beframe-functions-in-frames '(project-prompt-project-dir)
+           beframe-global-buffers '("*scratch*"
+                                    "*Messages"
+                                    "*Async-native-compile-log*"
+                                    "*straight-byte-compilation*"
+                                    "*straight-process*"
+                                    "*dashboard*"))
 
-;;   (:with-after consult
-;;     (defface beframe-buffer
-;;       '((t :inherit font-lock-string-face))
-;;       "Face for `consult' framed buffers.")
+  (:with-after consult
+    (defface beframe-buffer
+      '((t :inherit font-lock-string-face))
+      "Face for `consult' framed buffers.")
 
-;;     (defvar beframe--consult-source
-;;       `( :name     "Frame-specific buffers (current frame)"
-;;          :narrow   ?F
-;;          :category buffer
-;;          :face     beframe-buffer
-;;          :history  beframe-history
-;;          :items    ,#'beframe-buffer-names
-;;          :action   ,#'switch-to-buffer
-;;          :state    ,#'consult--buffer-state))
+    (defvar beframe--consult-source
+      `( :name     "Frame-specific buffers (current frame)"
+         :narrow   ?F
+         :category buffer
+         :face     beframe-buffer
+         :history  beframe-history
+         :items    ,#'beframe-buffer-names
+         :action   ,#'switch-to-buffer
+         :state    ,#'consult--buffer-state))
 
-;;     (add-to-list 'consult-buffer-sources 'beframe--consult-source))
+    (add-to-list 'consult-buffer-sources 'beframe--consult-source))
 
-;;   (beframe-mode 1))
+  (beframe-mode 1))
 
 (setup (:pkg ace-window)
   (:global "M-o" ace-window

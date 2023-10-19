@@ -17,8 +17,6 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     {
-      nixpkgs.overlays = [inputs.emacs-overlay.overlays.default];
-
       home.packages = with pkgs; [
         hack-font
 
@@ -29,7 +27,7 @@ in {
 
       programs.emacs = {
         enable = true;
-        package = pkgs.emacs-pgtk;
+        package = pkgs.emacs29-pgtk;
 
         extraPackages = epkgs:
           [
