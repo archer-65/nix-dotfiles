@@ -15,6 +15,9 @@ with lib; let
     CopyArrivalDate = "yes";
   };
 
+  mbsyncEnabled = length (filter (a: a.mbsync.enable) (attrValues config.accounts.email.accounts)) > 0;
+  msmtpEnabled = length (filter (a: a.msmtp.enable) (attrValues config.accounts.email.accounts)) > 0;
+
   lieerAccounts = filter (a: a.lieer.enable) (attrValues config.accounts.email.accounts);
   lieerSyncAccounts = filterAttrs (_: acc: acc.lieer.enable && acc.lieer.sync.enable) config.accounts.email.accounts;
 in {
@@ -237,8 +240,8 @@ in {
     };
 
     programs = {
-      mbsync.enable = true;
-      msmtp.enable = true;
+      mbsync.enable = mbsyncEnabled;
+      msmtp.enable = msmtpEnabled;
     };
 
     programs.afew = {
@@ -313,7 +316,7 @@ in {
     '';
 
     services.mbsync = {
-      enable = true;
+      enable = mbsyncEnabled;
       frequency = "*:0/10";
       preExec = "${pkgs.notmuch-mailmover}/bin/notmuch-mailmover";
       postExec = "${pkgs.notmuch}/bin/notmuch new";
