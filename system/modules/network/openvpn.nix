@@ -23,8 +23,6 @@ in {
       services.openvpn.restartAfterSleep = false;
       services.openvpn.servers.work = let
         if-name = "work-vpn";
-        set-dns = "${pkgs.systemd}/bin/resolvectl dns ${if-name}";
-        set-domain = "${pkgs.systemd}/bin/resolvectl domain ${if-name}";
       in {
         # TOTP as password
         authUserPass.username = "mli";
@@ -34,18 +32,14 @@ in {
         autoStart = false;
 
         config = ''
+          script-security 2
+          up ${pkgs.update-systemd-resolved}/libexec/openvpn/update-systemd-resolved
+          up-restart
+          down ${pkgs.update-systemd-resolved}/libexec/openvpn/update-systemd-resolved
+          down-pre
+          config ${config.sops.secrets."work_client.ovpn".path}
           dev ${if-name}
           dev-type tun
-          config ${config.sops.secrets."work_client.ovpn".path}
-        '';
-
-        up = ''
-          ${set-dns} 192.168.0.1
-          ${set-domain} intranet.bit4id.com
-        '';
-        down = ''
-          ${set-dns} ""
-          ${set-domain} ""
         '';
       };
     })
