@@ -16,7 +16,6 @@
 
   # General EFI settings
   boot.loader.efi = {
-    canTouchEfiVariables = true;
     efiSysMountPoint = "/boot/efi";
   };
   boot.loader.timeout = 5;
@@ -26,6 +25,7 @@
     grub = {
       enable = true;
       efiSupport = true;
+      efiInstallAsRemovable = true;
       device = "nodev";
       gfxmodeEfi = "3440x1440";
       useOSProber = true;
