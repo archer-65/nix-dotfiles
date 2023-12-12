@@ -1,6 +1,7 @@
 {pkgs, ...}: {
   mario.modules = {
     credentials = {
+      ssh.enable = true;
       gpg.enable = true;
       mail-defaults.enable = true;
       bitwarden.enable = true;
