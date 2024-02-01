@@ -8,7 +8,12 @@
   # Kernel related
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.kernelModules = ["amdgpu"];
-  boot.kernelParams = ["amdgpu.dcfeaturemask=0x8" "zswap.enabled=0"];
+  boot.kernelParams = [
+    "initcall_blacklist=acpi_cpufreq_init"
+    "amd_pstate=active"
+    "amdgpu.dcfeaturemask=0x8"
+    "zswap.enabled=0"
+  ];
 
   boot.initrd.kernelModules = [];
   boot.initrd.availableKernelModules = [];
