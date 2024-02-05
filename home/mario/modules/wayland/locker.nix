@@ -12,7 +12,7 @@ with lib; let
   cfgHyprland = config.wayland.windowManager.hyprland;
 
   cfgTheme = config.mario.modules.themes;
-  inherit (config.colorScheme) colors;
+  inherit (config.colorScheme) palette;
 in {
   options.mario.modules.wayland.locker = {
     enable = mkEnableOption "wayland screen locker";
@@ -37,16 +37,16 @@ in {
         indicator-radius = 80;
         indicator-thickness = 15;
 
-        layout-text-color = colors.base0E;
+        layout-text-color = palette.base0E;
 
-        bs-hl-color = colors.base08;
-        key-hl-color = colors.base0B;
-        separator-color = colors.base05;
+        bs-hl-color = palette.base08;
+        key-hl-color = palette.base0B;
+        separator-color = palette.base05;
 
-        text-color = colors.base07;
-        text-clear-color = colors.base07;
-        text-ver-color = colors.base07;
-        text-wrong-color = colors.base07;
+        text-color = palette.base07;
+        text-clear-color = palette.base07;
+        text-ver-color = palette.base07;
+        text-wrong-color = palette.base07;
 
         inside-color = transparent;
         inside-clear-color = transparent;
@@ -58,10 +58,10 @@ in {
         line-ver-color = transparent;
         line-wrong-color = transparent;
 
-        ring-color = colors.base01;
-        ring-clear-color = colors.base0A;
-        ring-ver-color = colors.base0E;
-        ring-wrong-color = colors.base08;
+        ring-color = palette.base01;
+        ring-clear-color = palette.base0A;
+        ring-ver-color = palette.base0E;
+        ring-wrong-color = palette.base08;
       };
     };
 

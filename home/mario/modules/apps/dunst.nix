@@ -9,7 +9,7 @@ with lib; let
   cfg = config.mario.modules.apps.dunst;
   cfgWayland = config.mario.modules.wayland;
   cfgTheme = config.mario.modules.themes;
-  inherit (config.colorScheme) colors;
+  inherit (config.colorScheme) palette;
 in {
   options.mario.modules.apps.dunst = {
     enable = mkEnableOption "dunst configuration";
@@ -59,7 +59,7 @@ in {
 
           corner_radius = 5;
           frame_width = 2;
-          frame_color = "#${colors.base0D}";
+          frame_color = "#${palette.base0D}";
           separator_color = "frame";
 
           sort = "yes";
@@ -116,20 +116,20 @@ in {
         };
 
         urgency_low = {
-          background = "#${colors.base00}";
-          foreground = "#${colors.base05}";
+          background = "#${palette.base00}";
+          foreground = "#${palette.base05}";
           timeout = 5;
         };
 
         urgency_normal = {
-          background = "#${colors.base00}";
-          foreground = "#${colors.base05}";
+          background = "#${palette.base00}";
+          foreground = "#${palette.base05}";
           timeout = 5;
         };
 
         urgency_critical = {
-          background = "#${colors.base0F}";
-          foreground = "#${colors.base05}";
+          background = "#${palette.base0F}";
+          foreground = "#${palette.base05}";
           timeout = 0;
         };
 

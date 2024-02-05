@@ -7,7 +7,7 @@
 with lib; let
   cfg = config.mario.modules.term.alacritty;
   cfgTheme = config.mario.modules.themes;
-  inherit (config.colorScheme) colors;
+  inherit (config.colorScheme) palette;
 in {
   options.mario.modules.term.alacritty = {
     enable = mkEnableOption "alacritty configuration";
@@ -56,28 +56,28 @@ in {
 
         colors = {
           primary = {
-            background = "#${colors.base00}";
-            foreground = "#${colors.base05}";
+            background = "#${palette.base00}";
+            foreground = "#${palette.base05}";
           };
           normal = {
-            black = "#${colors.base00}";
-            red = "#${colors.base08}";
-            green = "#${colors.base0B}";
-            yellow = "#${colors.base09}";
-            blue = "#${colors.base0D}";
-            magenta = "#${colors.base0E}";
-            cyan = "#${colors.base0C}";
-            white = "#${colors.base05}";
+            black = "#${palette.base00}";
+            red = "#${palette.base08}";
+            green = "#${palette.base0B}";
+            yellow = "#${palette.base09}";
+            blue = "#${palette.base0D}";
+            magenta = "#${palette.base0E}";
+            cyan = "#${palette.base0C}";
+            white = "#${palette.base05}";
           };
           bright = {
-            black = "#${colors.base03}";
-            red = "#${colors.base06}";
-            green = "#${colors.base0B}";
-            yellow = "#${colors.base09}";
-            blue = "#${colors.base0D}";
-            magenta = "#${colors.base0E}";
-            cyan = "#${colors.base0C}";
-            white = "#${colors.base05}";
+            black = "#${palette.base03}";
+            red = "#${palette.base06}";
+            green = "#${palette.base0B}";
+            yellow = "#${palette.base09}";
+            blue = "#${palette.base0D}";
+            magenta = "#${palette.base0E}";
+            cyan = "#${palette.base0C}";
+            white = "#${palette.base05}";
           };
         };
 
