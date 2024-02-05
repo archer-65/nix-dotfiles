@@ -6,7 +6,7 @@
   imports = [./hardware-configuration.nix ./options.nix];
 
   # Kernel related
-  boot.kernelPackages = pkgs.linuxPackages_6_5;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot.kernelModules = [];
   boot.kernelParams = ["zswap.enabled=0" "i915.force_probe=46a8"];
