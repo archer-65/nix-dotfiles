@@ -42,11 +42,11 @@ in {
         bindkey '^[[3;5~' kill-word
 
         bindkey ' ' magic-space  # [Space] - Don't do history expansion
-        
+
         # Edit current command line in $EDITOR
         autoload -U edit-command-line
         zle -N edit-command-line
-        bindkey '^X^e' edit-command-line        
+        bindkey '^X^e' edit-command-line
       '';
     };
   };

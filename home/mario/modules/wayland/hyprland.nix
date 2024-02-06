@@ -18,7 +18,7 @@ in {
       xwayland.enable = true;
       systemd.enable = true;
 
-      settings =  let
+      settings = let
         hyprctl = "${pkgs.hyprland}/bin/hyprctl";
         terminal = "${pkgs.alacritty}/bin/alacritty";
         browser = "${pkgs.firefox}/bin/firefox";
@@ -145,105 +145,102 @@ in {
           "SUPER, mouse:273, resizewindow"
         ];
 
-         bind = [
-           "SUPER, g, togglegroup"
-           "SUPER, apostrophe, changegroupactive, f"
-           "SUPERSHIFT, apostrophe, changegroupactive, b"
+        bind = [
+          "SUPER, g, togglegroup"
+          "SUPER, apostrophe, changegroupactive, f"
+          "SUPERSHIFT, apostrophe, changegroupactive, b"
 
-           "SUPER, m, layoutmsg, focusmaster"
-           "SUPERSHIFT, m, layoutmsg, swapwithmaster"
-           "SUPER, down, layoutmsg, cyclenext"
-           "SUPER, up, layoutmsg, cycleprev"
-           "SUPERSHIFT, down, layoutmsg,swapnext"
-           "SUPERSHIFT, up, layoutmsg, swapprev"
+          "SUPER, m, layoutmsg, focusmaster"
+          "SUPERSHIFT, m, layoutmsg, swapwithmaster"
+          "SUPER, down, layoutmsg, cyclenext"
+          "SUPER, up, layoutmsg, cycleprev"
+          "SUPERSHIFT, down, layoutmsg,swapnext"
+          "SUPERSHIFT, up, layoutmsg, swapprev"
 
-           # Toggle bar
-           "SUPERCTRL, F1, exec, ${pkgs.procps}/bin/pkill -USR1 waybar"
-           "SUPERSHIFT, F1, exec, ${pkgs.procps}/bin/pkill waybar && waybar"
+          # Toggle bar
+          "SUPERCTRL, F1, exec, ${pkgs.procps}/bin/pkill -USR1 waybar"
+          "SUPERSHIFT, F1, exec, ${pkgs.procps}/bin/pkill waybar && waybar"
 
-           "SUPERCTRL, d, exec, ${hyprctl} keyword general:layout dwindle"
-           "SUPERCTRL, m, exec, ${hyprctl} keyword general:layout master"
+          "SUPERCTRL, d, exec, ${hyprctl} keyword general:layout dwindle"
+          "SUPERCTRL, m, exec, ${hyprctl} keyword general:layout master"
 
-           "SUPER, 1, workspace, 01"
-           "SUPER, 2, workspace, 02"
-           "SUPER, 3, workspace, 03"
-           "SUPER, 4, workspace, 04"
-           "SUPER, 5, workspace, 05"
-           "SUPER, 6, workspace, 06"
-           "SUPER, 7, workspace, 07"
-           "SUPER, 8, workspace, 08"
-           "SUPER, 9, workspace, 09"
+          "SUPER, 1, workspace, 01"
+          "SUPER, 2, workspace, 02"
+          "SUPER, 3, workspace, 03"
+          "SUPER, 4, workspace, 04"
+          "SUPER, 5, workspace, 05"
+          "SUPER, 6, workspace, 06"
+          "SUPER, 7, workspace, 07"
+          "SUPER, 8, workspace, 08"
+          "SUPER, 9, workspace, 09"
 
-           "SUPERSHIFT, 1, movetoworkspace, 01"
-           "SUPERSHIFT, 2, movetoworkspace, 02"
-           "SUPERSHIFT, 3, movetoworkspace, 03"
-           "SUPERSHIFT, 4, movetoworkspace, 04"
-           "SUPERSHIFT, 5, movetoworkspace, 05"
-           "SUPERSHIFT, 6, movetoworkspace, 06"
-           "SUPERSHIFT, 7, movetoworkspace, 07"
-           "SUPERSHIFT, 8, movetoworkspace, 08"
-           "SUPERSHIFT, 9, movetoworkspace, 09"
+          "SUPERSHIFT, 1, movetoworkspace, 01"
+          "SUPERSHIFT, 2, movetoworkspace, 02"
+          "SUPERSHIFT, 3, movetoworkspace, 03"
+          "SUPERSHIFT, 4, movetoworkspace, 04"
+          "SUPERSHIFT, 5, movetoworkspace, 05"
+          "SUPERSHIFT, 6, movetoworkspace, 06"
+          "SUPERSHIFT, 7, movetoworkspace, 07"
+          "SUPERSHIFT, 8, movetoworkspace, 08"
+          "SUPERSHIFT, 9, movetoworkspace, 09"
 
-           "SUPER, h, movefocus, l"
-           "SUPER, j, movefocus, d"
-           "SUPER, k, movefocus, u"
-           "SUPER, l, movefocus, r"
+          "SUPER, h, movefocus, l"
+          "SUPER, j, movefocus, d"
+          "SUPER, k, movefocus, u"
+          "SUPER, l, movefocus, r"
 
-           "SUPERSHIFT, h, movewindow, l"
-           "SUPERSHIFT, j, movewindow, d"
-           "SUPERSHIFT, k,movewindow, u"
-           "SUPERSHIFT, l, movewindow, r"
+          "SUPERSHIFT, h, movewindow, l"
+          "SUPERSHIFT, j, movewindow, d"
+          "SUPERSHIFT, k,movewindow, u"
+          "SUPERSHIFT, l, movewindow, r"
 
-           "SUPER, left, workspace, -1"
-           "SUPER, right, workspace, +1"
+          "SUPER, left, workspace, -1"
+          "SUPER, right, workspace, +1"
 
-           "SUPERSHIFT, left, movetoworkspace, -1"
-           "SUPERSHIFT, right, movetoworkspace, +1"
+          "SUPERSHIFT, left, movetoworkspace, -1"
+          "SUPERSHIFT, right, movetoworkspace, +1"
 
+          "SUPER, bracketleft, focusmonitor, l"
+          "SUPER, bracketright, focusmonitor, r"
 
-           "SUPER, bracketleft, focusmonitor, l"
-           "SUPER, bracketright, focusmonitor, r"
+          "SUPERSHIFT, backslash, movetoworkspace, special"
+          "SUPER, backslash, togglespecialworkspace"
 
-           "SUPERSHIFT, backslash, movetoworkspace, special"
-           "SUPER, backslash, togglespecialworkspace"
+          "SUPERCTRL, h, resizeactive, -50 0"
+          "SUPERCTRL, j, resizeactive, 0 -50"
+          "SUPERCTRL, k, resizeactive, 0 50"
+          "SUPERCTRL, l, resizeactive, 50 0"
 
+          "SUPER, w, killactive"
 
+          "SUPER, t, togglefloating"
 
-           "SUPERCTRL, h, resizeactive, -50 0"
-           "SUPERCTRL, j, resizeactive, 0 -50"
-           "SUPERCTRL, k, resizeactive, 0 50"
-           "SUPERCTRL, l, resizeactive, 50 0"
+          ",F11, fullscreen, 0"
+          "SUPER, F11, fullscreen, 1"
 
-           "SUPER, w, killactive"
+          ", XF86AudioRaiseVolume, exec, pamixer -u && pamixer -i 5"
+          ", XF86AudioLowerVolume, exec, pamixer -u && pamixer -d 5"
+          ", XF86AudioMute, exec, pamixer -t"
 
-           "SUPER, t, togglefloating"
+          ", XF86MonBrightnessUp, exec, brightnessctl s +5%"
+          ", XF86MonBrightnessDown, exec, brightnessctl s 5%-"
 
-           ",F11, fullscreen, 0"
-           "SUPER, F11, fullscreen, 1"
+          "SUPER, d, exec, rofi -no-lazy-grab -show drun -modi run,drun -theme $HOME/.config/rofi/themes/launcher"
+          "SUPERSHIFT, q, exec, rofi-powermenu"
+          "SUPER, comma, exec, clipman pick -t rofi -T'-theme ~/.config/rofi/themes/clipboard'"
+          "SUPER, slash, exec, rofi -show emoji -modi emoji -theme $HOME/.config/rofi/themes/emoji"
+          "SUPER, p, exec, rofi-rbw"
 
-           ", XF86AudioRaiseVolume, exec, pamixer -u && pamixer -i 5"
-           ", XF86AudioLowerVolume, exec, pamixer -u && pamixer -d 5"
-           ", XF86AudioMute, exec, pamixer -t"
+          ", Print, exec, grimshot --notify copy"
+          "SHIFT, Print, exec, grimshot --notify save"
+          "SUPER, Print, exec, grimshot --notify copy area"
+          "SUPERSHIFT, Print, exec, grimshot --notify save area"
 
-           ", XF86MonBrightnessUp, exec, brightnessctl s +5%"
-           ", XF86MonBrightnessDown, exec, brightnessctl s 5%-"
-
-           "SUPER, d, exec, rofi -no-lazy-grab -show drun -modi run,drun -theme $HOME/.config/rofi/themes/launcher"
-           "SUPERSHIFT, q, exec, rofi-powermenu"
-           "SUPER, comma, exec, clipman pick -t rofi -T'-theme ~/.config/rofi/themes/clipboard'"
-           "SUPER, slash, exec, rofi -show emoji -modi emoji -theme $HOME/.config/rofi/themes/emoji"
-           "SUPER, p, exec, rofi-rbw"
-
-           ", Print, exec, grimshot --notify copy"
-           "SHIFT, Print, exec, grimshot --notify save"
-           "SUPER, Print, exec, grimshot --notify copy area"
-           "SUPERSHIFT, Print, exec, grimshot --notify save area"
-
-           "SUPER, Return, exec, ${terminal}"
-           "SUPER, b, exec, ${browser}"
-           "SUPER, e, exec, ${editor}"
-           "SUPER, f, exec, ${fm}"
-         ];
+          "SUPER, Return, exec, ${terminal}"
+          "SUPER, b, exec, ${browser}"
+          "SUPER, e, exec, ${editor}"
+          "SUPER, f, exec, ${fm}"
+        ];
       };
     };
 

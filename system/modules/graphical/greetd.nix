@@ -43,7 +43,7 @@ in {
 
     fonts.packages = with pkgs; [
       roboto
-    ]; 
+    ];
 
     programs.regreet = {
       enable = true;
