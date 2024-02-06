@@ -28,12 +28,10 @@ in {
       mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
     });
 
-    # Not working right now, related to displaylink and wlroots compositors
-    # hyprland = with final.pkgs.inputs.hyprland;
-    #   default.override {
-    #     wlroots = addPatches wlroots-hyprland [./displaylink.patch];
-    #   };
-    # wlroots = addPatches prev.wlroots [./displaylink.patch];
+    hyprland-displaylink = with inputs.hyprland.packages.${prev.system};
+      hyprland.override {
+        wlroots = addPatches wlroots-hyprland [./displaylink.patch];
+      };
 
     # Keep this if telega is borked
     # tdlib = prev.tdlib.overrideAttrs (oldAttrs: {

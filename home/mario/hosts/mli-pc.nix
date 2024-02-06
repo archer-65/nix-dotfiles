@@ -9,6 +9,8 @@
     Hidden = true
   '';
 
+  wayland.windowManager.hyprland.package = lib.mkForce pkgs.hyprland-displaylink;
+
   mario.modules = {
     credentials = {
       ssh.enable = true;
