@@ -26,9 +26,9 @@ in {
         fm = "thunar";
       in {
         general = {
-          gaps_in = 6;
-          gaps_out = 6;
-          border_size = 3.5;
+          gaps_in = 5;
+          gaps_out = 5;
+          border_size = 2;
           layout = "master";
           "col.active_border" = "0xff${palette.base0B}";
           "col.inactive_border" = "0xff${palette.base02}";
@@ -87,12 +87,6 @@ in {
           kb_options = "ctrl:nocaps";
           accel_profile = "flat";
           follow_mouse = 1;
-        };
-
-        "device:elecom-trackball-mouse-huge-trackball-1" = {
-          scroll_method = "on_button_down";
-          scroll_button = 279;
-          accel_profile = "adaptive";
         };
 
         windowrulev2 = [
@@ -242,6 +236,15 @@ in {
           "SUPER, f, exec, ${fm}"
         ];
       };
+
+      extraConfig = ''
+        device {
+          name = elecom-trackball-mouse-huge-trackball-1
+          scroll_method = on_button_down
+          scroll_button = 279
+          accel_profile = adaptive
+        }
+      '';
     };
 
     mario.modules = {
