@@ -68,6 +68,10 @@ Useful for prompts such as `eval-expression' and `shell-command'."
   (:with-hook minibuffer-setup-hook
     (:hook contrib-corfu-enable-always-in-minibuffer))
 
+  ;; TODO: This is really buggy, to inspect.
+  (remove-hook 'completion-at-point-functions
+               #'tags-completion-at-point-function)
+
   (global-corfu-mode))
 
 (setup corfu-history

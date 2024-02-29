@@ -121,6 +121,10 @@
                                                      #'cape-yasnippet
                                                      #'cape-file))))
 
+  ;; WIP: Test cache busting feature of cape
+  (:with-after (cape)
+    (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster))
+
   ;; Hooks
   (:with-mode (c-mode c++-mode java-mode nix-mode rustic-mode terraform-mode)
     (:hook eglot-ensure)))
