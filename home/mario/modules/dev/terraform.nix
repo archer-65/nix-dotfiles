@@ -9,9 +9,35 @@ with lib; let
   cfg = config.mario.modules.dev.terraform;
 in {
   options.mario.modules.dev.terraform = {
-    enable = mkEnableOption "terraform and official language server";
+    enable = mkEnableOption "Terraform package and related tooling";
+
+    enableBashIntegration = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Whether to enable Terraform Bash integration.";
+    };
+
+    enableZshIntegration = lib.mkOption {
+      type = lib.types.bool;
+      default = true;
+      description = "Whether to enable Terraform Zsh integration.";
+    };
   };
 
-  config =
-    mkIf cfg.enable {home.packages = with pkgs; [terraform terraform-ls];};
+  config = mkIf cfg.enable {
+    home.packages = with pkgs; [
+      terraform
+      terraform-ls
+      terraform-docs
+    ];
+
+    programs.bash.initExtra = lib.mkIf cfg.enableBashIntegration ''
+      source ${pkgs.terraform}/share/bash-completion/completions/terraform
+    '';
+
+    programs.zsh.initExtra = lib.mkIf cfg.enableZshIntegration ''
+      autoload -U +X bashcompinit && bashcompinit
+      source ${pkgs.terraform}/share/bash-completion/completions/terraform
+    '';
+  };
 }
