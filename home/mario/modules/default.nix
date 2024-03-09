@@ -55,6 +55,7 @@
     "editors/neovim" = import ./editors/neovim.nix;
     "editors/vscode" = import ./editors/vscode.nix;
 
+    "shell/awscli" = import ./shell/awscli.nix;
     "shell/bash" = import ./shell/bash.nix;
     "shell/zsh" = import ./shell/zsh.nix;
     "shell/direnv" = import ./shell/direnv.nix;

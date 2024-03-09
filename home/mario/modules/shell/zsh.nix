@@ -34,7 +34,6 @@ in {
         _comp_options+=(globdots)
 
         zmodload zsh/complist
-        compinit
 
         # Keybindings
         bindkey '^[[1;5D' backward-word

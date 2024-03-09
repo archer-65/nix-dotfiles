@@ -74,6 +74,7 @@
       direnv.enable = true;
 
       git.enable = true;
+      awscli.enable = true;
     };
 
     themes = {
