@@ -260,11 +260,11 @@ in {
     xdg.portal = {
       enable = true;
       xdgOpenUsePortal = true;
-      extraPortals = [ pkgs.inputs.hyprland.xdg-desktop-portal-hyprland pkgs.xdg-desktop-portal-gtk ];
-      configPackages = [ pkgs.inputs.hyprland.hyprland ];
+      extraPortals = [pkgs.inputs.hyprland.xdg-desktop-portal-hyprland pkgs.xdg-desktop-portal-gtk];
+      configPackages = [pkgs.inputs.hyprland.hyprland];
       config = {
-        common.default = [ "*" ];
-        hyprland.default = [ "gtk" "hyprland" ];
+        common.default = ["*"];
+        hyprland.default = ["gtk" "hyprland"];
       };
     };
 

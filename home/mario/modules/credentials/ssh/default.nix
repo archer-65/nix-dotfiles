@@ -39,7 +39,7 @@ in {
         host = "github.com gitlab.*.com";
         user = "git";
         identitiesOnly = true;
-        identityFile = [ "~/.ssh/keys.d/yubikey-id_ed25519.pub" ];
+        identityFile = ["~/.ssh/keys.d/yubikey-id_ed25519.pub"];
       };
 
       includes = [
