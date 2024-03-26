@@ -12,11 +12,14 @@ in {
   };
 
   config = mkIf cfg.enable {
+    systemd.user.tmpfiles.rules = [
+      "d ${config.home.homeDirectory}/.ssh/sockets - - - - -"
+    ];
+
     home.file = {
       ".ssh/keys.d/yubikey-id_ed25519.pub".text = ''
         ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBR9GjKkCrbAbfuQJXuMTh1I6agrhiHrxlEXhWgidvLS
       '';
-      ".ssh/sockets/.keep".text = "";
     };
 
     sops.secrets."work/config" = {
