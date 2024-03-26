@@ -1,4 +1,5 @@
 {
+  pkgs,
   config,
   options,
   lib,
@@ -26,11 +27,17 @@ in {
       ];
     };
 
-    services.gpg-agent = {
-      enable = true;
-      enableSshSupport = true;
-      pinentryFlavor = "gnome3";
-      sshKeys = ["19953CB0EC3A2941EF36DA2D7BDA72F1E2404770"];
-    };
+    services.gpg-agent =
+      {
+        enable = true;
+        enableSshSupport = true;
+        sshKeys = ["19953CB0EC3A2941EF36DA2D7BDA72F1E2404770"];
+      }
+      // lib.optionalAttrs (builtins.hasAttr "pinentryFlavor" config.services.gpg-agent) {
+        pinentryPackage = "gnome3";
+      }
+      // lib.optionalAttrs (builtins.hasAttr "pinentryPackage" config.services.gpg-agent) {
+        pinentryPackage = pkgs.pinentry-gnome3;
+      };
   };
 }

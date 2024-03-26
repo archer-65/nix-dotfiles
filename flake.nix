@@ -4,6 +4,9 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
+    # Remove this after awscli2 >= 2.15.31 reaches nixos-unstable
+    nixpkgs-awscli-2-15-31.url = "github:nixos/nixpkgs/c726225724e681b3626acc941c6f95d2b0602087";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";

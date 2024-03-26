@@ -18,8 +18,8 @@ in {
   config = mkIf cfg.enable {
     programs.zsh = {
       enable = true;
-      enableAutosuggestions = true;
       enableCompletion = true;
+      autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
       shellAliases = {};
       initExtra = ''
