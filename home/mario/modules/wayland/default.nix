@@ -21,6 +21,7 @@ in {
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       wl-clipboard
+      wl-clip-persist
       wtype
       grim
       slurp

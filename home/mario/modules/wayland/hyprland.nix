@@ -139,6 +139,8 @@ in {
           "wl-paste -t text --watch clipman store --no-persist"
           "wl-paste -p -t text --watch clipman store -P --histpath=\"~/.local/share/clipman-primary.json\""
 
+          "wl-clip-persist --clipboard regular"
+
           "corectrl"
           "polychromatic-tray-applet"
         ];
