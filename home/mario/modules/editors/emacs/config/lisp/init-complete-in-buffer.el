@@ -113,25 +113,27 @@ Useful for prompts such as `eval-expression' and `shell-command'."
   (setup (:pkg company)
     (:autoload company-grab))
 
-  (dolist (backend '(cape-symbol cape-keyword cape-file cape-history cape-dabbrev))
+  (dolist (backend '(cape-elisp-symbol cape-keyword cape-file cape-history cape-dabbrev))
     (add-to-list 'completion-at-point-functions backend))
 
-  (:global "C-c p p" completion-at-point
-           "C-c p t" complete-tag
-           "C-c p d" cape-dabbrev
-           "C-c p h" cape-history
-           "C-c p f" cape-file
-           "C-c p k" cape-keyword
-           "C-c p s" cape-symbol
-           "C-c p a" cape-abbrev
-           "C-c p i" cape-ispell
-           "C-c p l" cape-line
-           "C-c p w" cape-dict
+  (:global "C-c p p"  completion-at-point
+           "C-c p t"  complete-tag
+           "C-c p d"  cape-dabbrev
+           "C-c p h"  cape-history
+           "C-c p f"  cape-file
+           "C-c p k"  cape-keyword
+           "C-c p s"  cape-elisp-symbol
+           "C-c p e"  cape-elisp-block
+           "C-c p a"  cape-abbrev
+           "C-c p i"  cape-ispell
+           "C-c p l"  cape-line
+           "C-c p w"  cape-dict
+           "C-c p :"  cape-emoji
            "C-c p \\" cape-tex
-           "C-c p _" cape-tex
-           "C-c p ^" cape-tex
-           "C-c p &" cape-sgml
-           "C-c p r" cape-rfc1345))
+           "C-c p _"  cape-tex
+           "C-c p ^"  cape-tex
+           "C-c p &"  cape-sgml
+           "C-c p r"  cape-rfc1345))
 
 (provide 'init-complete-in-buffer)
 ;;; init-complete-in-buffer.el ends here

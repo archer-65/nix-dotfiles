@@ -116,7 +116,7 @@
                                                                             ("rnix-lsp"))))))
 
   (:with-after (cape yasnippet)
-    (:local-set completion-at-point-functions (list (cape-super-capf
+    (:local-set completion-at-point-functions (list (cape-capf-super
                                                      #'eglot-completion-at-point
                                                      #'cape-yasnippet
                                                      #'cape-file))))
