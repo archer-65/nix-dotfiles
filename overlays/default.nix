@@ -24,9 +24,6 @@ in {
 
   # Overlays for various pkgs (e.g. broken, not updated)
   modifications = final: prev: {
-    # Short lived until awscli2 updated on the upstream i use regurarly
-    inherit (inputs.nixpkgs-awscli-2-15-31.legacyPackages.${prev.system}) awscli2;
-
     waybar = prev.waybar.overrideAttrs (oldAttrs: {
       mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
     });
