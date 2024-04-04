@@ -22,6 +22,7 @@ in {
       autosuggestion.enable = true;
       syntaxHighlighting.enable = true;
       shellAliases = {};
+
       initExtra = ''
         # Case insensitive tab completion
         zstyle ':completion:*' completer _complete _ignored _approximate
@@ -46,6 +47,11 @@ in {
         autoload -U edit-command-line
         zle -N edit-command-line
         bindkey '^X^e' edit-command-line
+
+        # FIXME: https://github.com/nix-community/home-manager/issues/2991
+        if [ -r "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
+          __HM_SESS_VARS_SOURCED= source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+        fi
       '';
     };
   };
