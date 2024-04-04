@@ -31,6 +31,7 @@
     core = {
       boot.quietboot.enable = true;
       cachix.enable = true;
+      nix-ld.enable = true;
     };
 
     shell = {

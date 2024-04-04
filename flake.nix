@@ -4,7 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
-    # Remove this after awscli2 >= 2.15.31 reaches nixos-unstable
+    # TODO: Remove this after awscli2 >= 2.15.31 reaches nixos-unstable
     nixpkgs-awscli-2-15-31.url = "github:nixos/nixpkgs/c726225724e681b3626acc941c6f95d2b0602087";
 
     home-manager = {
@@ -14,6 +14,11 @@
 
     nix-index-database = {
       url = "github:Mic92/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    nix-ld-rs = {
+      url = "github:nix-community/nix-ld-rs";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 

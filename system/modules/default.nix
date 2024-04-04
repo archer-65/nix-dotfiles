@@ -3,6 +3,7 @@
   "core/cachix" = import ./core/cachix.nix;
   "core/locale" = import ./core/locale.nix;
   "core/network" = import ./core/network.nix;
+  "core/nix-ld" = import ./core/nix-ld.nix;
   "core/packages" = import ./core/packages.nix;
   "core/security" = import ./core/security.nix;
   "core/settings" = import ./core/settings.nix;
