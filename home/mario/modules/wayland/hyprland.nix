@@ -85,7 +85,7 @@ in {
 
         monitor = [
           # Home
-          "desc:AOC U34G2G4R3 0x0000241D, 3440x1440@144, 0x0, 1'"
+          "desc:AOC U34G2G4R3 0x0000241D, 3440x1440@144, 0x0, 1"
           # Work
           "desc:BOE 0x083C, 1920x1080@60, 0x0, 1"
           "desc:AU Optronics 0xED8F, 1920x1080@60, 0x0, 1"
