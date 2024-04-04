@@ -69,12 +69,12 @@ in {
       plugins = with pkgs; [
         {
           plugin = tmuxPlugins.catppuccin.overrideAttrs (_: {
-            version = "unstable-2024-03-24";
+            version = "unstable-2024-03-30";
             src = pkgs.fetchFromGitHub {
               owner = "catppuccin";
               repo = "tmux";
-              rev = "e2d345648cb7e56302ee82fec6cafbbd8db23129";
-              hash = "sha256-WCJfDjYUNWqkDyCgYKADDS0SeEpfMnZ57bCsp9steh8=";
+              rev = "5ed4e8a6a20c928688da268dfcdf460ac9c3cb49";
+              sha256 = "sha256-k9Ihfk8C1jYkGUvOcgLwS4UdXR8d/4Nu/Dyh03FpDZc=";
             };
             postInstall = ''
               echo "${theme}" > $target/catppuccin-dynamic.tmuxtheme
