@@ -39,8 +39,6 @@ in {
   config = mkIf (cfg.active != null) (mkMerge [
     # GTK
     {
-      home.packages = [pkgs.theme-toggle];
-
       # https://github.com/ThinkChaos/home-manager/commit/6eaad31eb9044811ebc93622dd628cf0fb411213
       xdg.configFile."gtk-4.0/gtk.css".text = lib.mkForce "";
 
