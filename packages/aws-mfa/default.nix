@@ -3,16 +3,17 @@
   pkgs,
   stdenv,
   makeWrapper,
-  procps,
-  rofi,
+  awscli2,
+  coreutils,
+  gnugrep,
+  jq,
 }:
 with lib; let
-  name = "rofi-powermenu";
+  name = "aws-mfa";
 in
   stdenv.mkDerivation {
     inherit name;
-    version = "1.0";
-    src = ./powermenu.sh;
+    src = ./aws-mfa.sh;
 
     nativeBuildInputs = [makeWrapper];
 
@@ -25,14 +26,16 @@ in
       wrapProgram $out/bin/${name} --prefix PATH ':' \
         "${
         makeBinPath [
-          procps
-          rofi
+          awscli2
+          coreutils
+          gnugrep
+          jq
         ]
       }"
     '';
 
     meta = {
-      description = "A rofi graphical powermenu script";
+      description = "Script to generate AWS MFA credentials with STS";
       platforms = platforms.all;
       mainProgram = "${name}";
     };

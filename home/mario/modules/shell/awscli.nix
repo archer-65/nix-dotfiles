@@ -67,7 +67,7 @@ in {
   };
 
   config = lib.mkIf cfg.enable {
-    home.packages = [cfg.package];
+    home.packages = [cfg.package pkgs.aws-mfa];
 
     home.file."${config.home.homeDirectory}/.aws/config" = lib.mkIf (cfg.settings != {}) {
       source =
