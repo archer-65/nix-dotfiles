@@ -1,5 +1,6 @@
 {
   pkgs,
+  config,
   lib,
   ...
 }: {
@@ -9,7 +10,7 @@
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   boot.kernelModules = [];
-  boot.kernelParams = ["zswap.enabled=0" "i915.force_probe=46a8"];
+  boot.kernelParams = ["intel_pstate=active" "zswap.enabled=0" "i915.force_probe=46a8"];
 
   boot.initrd.kernelModules = [];
   boot.initrd.availableKernelModules = [];
@@ -51,6 +52,18 @@
       driversi686Linux.mesa
     ];
   };
+
+
+  # Power management
+  services.power-profiles-daemon.enable = true;
+  services.thermald.enable = true;
+  services.udev.extraRules = ''
+    ACTION=="change", SUBSYSTEM=="power_supply", ENV{POWER_SUPPLY_ONLINE}=="0", RUN+="${pkgs.power-profiles-daemon}/bin/powerprofilesctl set power-saver"
+    ACTION=="change", SUBSYSTEM=="power_supply", ENV{POWER_SUPPLY_ONLINE}=="1", RUN+="${pkgs.power-profiles-daemon}/bin/powerprofilesctl set balanced"
+  '';
+
+  # Firmware updater
+  services.fwupd.enable = true;
 
   services.xserver = {
     enable = true;
