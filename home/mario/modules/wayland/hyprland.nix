@@ -65,11 +65,13 @@ in {
         master = {
           new_is_master = false;
           new_on_top = false;
+          special_scale_factor = 0.85;
         };
 
         dwindle = {
           pseudotile = true;
           preserve_split = true;
+          special_scale_factor = 0.85;
         };
 
         gestures = {
@@ -104,6 +106,7 @@ in {
           "float, class:^(thunar)$"
           "float, class:^(Rofi)$"
           "noborder, class:^(Rofi)$"
+          "stayfocused, class:^(Rofi)$"
           "float, class:^(ipv)$"
           "float, class:^(mpv)$"
           "float, class:^(pavucontrol)$"
