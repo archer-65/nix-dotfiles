@@ -28,6 +28,18 @@ in {
       mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
     });
 
+    rofi-emoji-wayland = prev.rofi-emoji.overrideAttrs (oldAttrs: rec {
+      buildInputs = with final; [
+        rofi-wayland-unwrapped
+        cairo
+        glib
+        libnotify
+        wl-clipboard
+        xclip
+        xsel
+      ];
+    });
+
     hyprland-displaylink = with inputs.hyprland.packages.${prev.system};
       hyprland.override {
         wlroots = addPatches wlroots-hyprland [./displaylink.patch];
