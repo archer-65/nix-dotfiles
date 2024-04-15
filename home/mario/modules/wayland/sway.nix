@@ -219,7 +219,7 @@ in {
           "XF86AudioMute" = "exec pamixer -t";
 
           # Launchers
-          "${mod}+d" = "exec rofi -no-lazy-grab -show drun -modi run,drun -theme $HOME/.config/rofi/themes/launcher";
+          "${mod}+d" = "exec rofi -no-lazy-grab -show drun -modi run,drun,window -theme $HOME/.config/rofi/themes/launcher";
           "${mod}+Shift+q" = "exec rofi-powermenu";
           "${mod}+slash" = "exec rofi -show emoji -modi emoji -theme $HOME/.config/rofi/themes/emoji";
           "${mod}+p" = "exec rofi-rbw";

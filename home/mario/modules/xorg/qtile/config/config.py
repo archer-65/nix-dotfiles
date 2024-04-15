@@ -227,7 +227,7 @@ keys = [
 
     ##### Rofi #####
     Key([mod], "d",
-        lazy.spawn("rofi -no-lazy-grab -show drun -modi run,drun -theme $HOME/.config/rofi/themes/launcher"),
+        lazy.spawn("rofi -no-lazy-grab -show drun -modi run,drun,window -theme $HOME/.config/rofi/themes/launcher"),
         desc="Rofi launcher"),
 
     Key([mod, "shift"], "q",

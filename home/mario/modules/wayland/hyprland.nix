@@ -234,7 +234,7 @@ in {
           ", XF86MonBrightnessUp, exec, brightnessctl s +5%"
           ", XF86MonBrightnessDown, exec, brightnessctl s 5%-"
 
-          "SUPER, d, exec, rofi -no-lazy-grab -show drun -modi run,drun -theme $HOME/.config/rofi/themes/launcher"
+          "SUPER, d, exec, rofi -no-lazy-grab -show drun -modi run,drun,window -theme $HOME/.config/rofi/themes/launcher"
           "SUPERSHIFT, q, exec, rofi-powermenu"
           "SUPER, comma, exec, clipman pick -t rofi -T'-theme ~/.config/rofi/themes/clipboard'"
           "SUPER, slash, exec, rofi -show emoji -modi emoji -theme $HOME/.config/rofi/themes/emoji"
