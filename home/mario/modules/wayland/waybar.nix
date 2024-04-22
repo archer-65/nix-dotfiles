@@ -65,6 +65,7 @@ in {
             ])
             ++ (optionals config.wayland.windowManager.hyprland.enable [
               "hyprland/workspaces"
+              "hyprland/submap"
             ]);
 
           modules-center = ["clock"];
