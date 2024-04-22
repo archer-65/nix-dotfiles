@@ -104,6 +104,7 @@ in {
         windowrulev2 = [
           # Needed
           "float, class:^(thunar)$"
+          "float, class:^(Thunar)$"
           "float, class:^(Rofi)$"
           "noborder, class:^(Rofi)$"
           "stayfocused, class:^(Rofi)$"
