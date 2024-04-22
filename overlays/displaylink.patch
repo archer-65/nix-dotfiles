@@ -1,48 +1,52 @@
-diff --git a/render/egl.c b/render/egl.c
-index 8a1e6dae..d0e6adb6 100644
---- a/render/egl.c
-+++ b/render/egl.c
-@@ -508,8 +508,43 @@ static int open_render_node(int drm_fd) {
- 		}
- 		wlr_log(WLR_DEBUG, "DRM device '%s' has no render node, "
- 			"falling back to primary node", render_name);
-+
-+		drmVersion *render_version = drmGetVersion(drm_fd);
-+		if (render_version != NULL && render_version->name != NULL) {
-+			wlr_log(WLR_DEBUG, "DRM device version.name '%s'", render_version->name);
-+			if (strcmp(render_version->name, "evdi") == 0) {
-+				free(render_name);
-+
-+				uint32_t flags = 0;
-+				const int devices_len = drmGetDevices2(flags, NULL, 0);
-+				if (devices_len < 0) {
-+					wlr_log(WLR_ERROR, "drmGetDevices2 failed: %s", strerror(-devices_len));
-+					return -1;
-+				}
-+
-+				const char *render_devices[] = {
-+					"/dev/dri/card0",
-+					"/dev/dri/card1",
-+					"/dev/dri/card2",
-+					"/dev/dri/card3",
-+					"/dev/dri/card4",
-+					"/dev/dri/card5",
-+					"/dev/dri/card6",
-+					"/dev/dri/card7",
-+					"/dev/dri/card8",
-+					"/dev/dri/card9",
-+					NULL
-+				};
-+
-+				render_name = malloc(sizeof(char)*15);
-+				render_name = strcpy(render_name, render_devices[env_parse_switch("WLR_EVDI_RENDER_DEVICE", render_devices)]);
-+			}
-+			drmFreeVersion(render_version);
-+		}
+diff --git a/backend/drm/backend.c b/backend/drm/backend.c
+index f91492ac..97301d34 100644
+--- a/backend/drm/backend.c
++++ b/backend/drm/backend.c
+@@ -224,10 +224,15 @@ struct wlr_backend *wlr_drm_backend_create(struct wlr_session *session,
+ 		goto error_event;
  	}
-
-+	wlr_log(WLR_DEBUG, "open_render_node() DRM device '%s'", render_name);
+ 
++	drm->session_destroy.notify = handle_session_destroy;
++	wl_signal_add(&session->events.destroy, &drm->session_destroy);
 +
- 	int render_fd = open(render_name, O_RDWR | O_CLOEXEC);
- 	if (render_fd < 0) {
- 		wlr_log_errno(WLR_ERROR, "Failed to open DRM node '%s'", render_name);
+ 	if (drm->parent) {
+ 		if (!init_drm_renderer(drm, &drm->mgpu_renderer)) {
+ 			wlr_log(WLR_ERROR, "Failed to initialize renderer");
+-			goto error_resources;
++			wl_list_remove(&drm->parent_destroy.link);
++			drm->parent = NULL;
++			return &drm->backend;
+ 		}
+ 
+ 		// We'll perform a multi-GPU copy for all submitted buffers, we need
+@@ -237,7 +242,10 @@ struct wlr_backend *wlr_drm_backend_create(struct wlr_session *session,
+ 			wlr_renderer_get_dmabuf_texture_formats(renderer);
+ 		if (texture_formats == NULL) {
+ 			wlr_log(WLR_ERROR, "Failed to query renderer texture formats");
+-			goto error_mgpu_renderer;
++			finish_drm_renderer(&drm->mgpu_renderer);
++			wl_list_remove(&drm->parent_destroy.link);
++			drm->parent = NULL;
++			return &drm->backend;
+ 		}
+ 
+ 		// Forbid implicit modifiers, because their meaning changes from one
+@@ -254,15 +262,8 @@ struct wlr_backend *wlr_drm_backend_create(struct wlr_session *session,
+ 		}
+ 	}
+ 
+-	drm->session_destroy.notify = handle_session_destroy;
+-	wl_signal_add(&session->events.destroy, &drm->session_destroy);
+-
+ 	return &drm->backend;
+ 
+-error_mgpu_renderer:
+-	finish_drm_renderer(&drm->mgpu_renderer);
+-error_resources:
+-	finish_drm_resources(drm);
+ error_event:
+ 	wl_list_remove(&drm->session_active.link);
+ 	wl_event_source_remove(drm->drm_event);
+-- 
+2.44.0
+

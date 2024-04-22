@@ -42,7 +42,7 @@ in {
 
     hyprland-displaylink = with inputs.hyprland.packages.${prev.system};
       hyprland.override {
-        wlroots = addPatches wlroots-hyprland [./displaylink.patch];
+        wlroots-hyprland = addPatches wlroots-hyprland [./displaylink.patch];
       };
 
     # Keep this if telega is borked

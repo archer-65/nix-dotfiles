@@ -1,5 +1,8 @@
 # Work laptop laptop
 {pkgs, ...}: {
+
+  programs.hyprland.package = lib.mkForce pkgs.hyprland-displaylink;
+
   system.modules = {
     hardware = {
       audio.enable = true;
