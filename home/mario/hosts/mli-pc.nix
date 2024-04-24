@@ -9,7 +9,6 @@
     Hidden = true
   '';
 
-  wayland.windowManager.hyprland.package = lib.mkForce pkgs.hyprland-displaylink;
   services.blueman-applet.enable = true;
 
   dconf.settings."org/blueman/general" = {
