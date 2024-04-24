@@ -15,6 +15,10 @@
     plugin-list = ["!ConnectionNotifier"];
   };
 
+  wayland.windowManager.sway.extraOptions = [
+    "--unsupported-gpu"
+  ];
+
   mario.modules = {
     credentials = {
       ssh.enable = true;
