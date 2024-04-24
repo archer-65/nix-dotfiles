@@ -217,6 +217,8 @@ in {
           "XF86AudioRaiseVolume" = "exec pamixer -u && pamixer -i 5";
           "XF86AudioLowerVolume" = "exec pamixer -u && pamixer -d 5";
           "XF86AudioMute" = "exec pamixer -t";
+          "XF86MonBrightnessUp" = "exec brightnessctl s +5%";
+          "XF86MonBrightnessDown" = "exec brightnessctl s 5%-";
 
           # Launchers
           "${mod}+d" = "exec rofi -no-lazy-grab -show drun -modi run\\,drun\\,window -theme $HOME/.config/rofi/themes/launcher";
