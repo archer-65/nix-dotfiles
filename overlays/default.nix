@@ -41,8 +41,43 @@ in {
     });
 
     hyprland-displaylink = with inputs.hyprland.packages.${prev.system};
-      hyprland.override {
+      (hyprland.override {
         wlroots-hyprland = addPatches wlroots-hyprland [./displaylink.patch];
+      })
+      .overrideAttrs (o: {
+        pname = "${o.pname}-displaylink";
+      });
+
+    sway-displaylink = let
+      wlroots-sway = prev.wlroots.overrideAttrs (_: {
+        src = prev.fetchFromGitLab {
+          domain = "gitlab.freedesktop.org";
+          owner = "wlroots";
+          repo = "wlroots";
+          rev = "172c8add7dfae2853debe9cd70e41d736059e978";
+          sha256 = "sha256-VqvogF/g+hrf0D9DIXKg/oB3Z+79GVUobtLSB/aPWZE=";
+        };
+
+        patches = [
+          ./displaylink.patch
+        ];
+      });
+
+      sway-unwrapped =
+        (prev.sway-unwrapped.overrideAttrs (o: {
+          src = prev.fetchFromGitHub {
+            owner = "swaywm";
+            repo = "sway";
+            rev = "bc258a3be2f946c1c93bcbe40735b2db068e0ea8";
+            sha256 = "sha256-FTzDk2t1u3ckhBSLKB+rJSofc5wBYh3rGUffHkLRDco=";
+          };
+        }))
+        .override {
+          wlroots = wlroots-sway;
+        };
+    in
+      prev.sway.override {
+        inherit sway-unwrapped;
       };
 
     # Keep this if telega is borked

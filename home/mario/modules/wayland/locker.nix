@@ -82,8 +82,8 @@ in {
       ];
 
       timeouts = let
-        hyprctl = "${pkgs.hyprland}/bin/hyprctl";
-        swaymsg = "${pkgs.sway}/bin/swaymsg";
+        hyprctl = "${config.wayland.windowManager.hyprland.finalPackage}/bin/hyprctl";
+        swaymsg = "${config.wayland.windowManager.sway.package}/bin/swaymsg";
       in
         [
           {
