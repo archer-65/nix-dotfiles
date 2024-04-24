@@ -38,11 +38,12 @@
 
     wayland = {
       enable = true;
-      wm = [];
-      # wm = ["sway" "hyprland"];
-      # waybar = {
-      #   temperature = "/sys/class/hwmon/hwmon0/temp1_input";
-      # };
+      wm = ["sway"];
+      waybar = {
+        backlight.enable = true;
+        battery = "BAT0";
+        temperature = "/sys/class/hwmon/hwmon0/temp1_input";
+      };
     };
 
     term = {

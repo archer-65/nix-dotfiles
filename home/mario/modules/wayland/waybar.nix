@@ -34,6 +34,8 @@ in {
   options.mario.modules.wayland.waybar = {
     enable = mkEnableOption "waybar configuration";
 
+    backlight.enable = mkEnableOption "enable backlight module";
+
     battery = mkOption {
       type = types.nullOr types.str;
       default = null;
@@ -80,6 +82,9 @@ in {
             ]
             ++ (optionals (cfg.battery != null) [
               "battery"
+            ])
+            ++ (optionals (cfg.backlight.enable) [
+              "backlight"
             ])
             ++ [
               "custom/hostname"
@@ -177,6 +182,27 @@ in {
           memory = {
             format = "󰍛 {used:0.1f}GB/{total:0.1f}GB ";
             interval = 10;
+          };
+
+          backlight = optionalAttrs (cfg.backlight.enable) {
+            interval = 30;
+            align = 0;
+            rotate = 0;
+            #"device": "amdgpu_bl0",
+            format = "{icon} {percent}%";
+            format-icons = [
+              "󰃞 "
+              "󰃝 "
+              "󰃟 "
+              "󰃠 "
+            ];
+            on-click = "";
+            on-click-middle = "";
+            on-click-right = "";
+            on-update = "";
+            on-scroll-up = "brightnessctl s 5%+";
+            on-scroll-down = "brightnessctl s 5%-";
+            smooth-scrolling-threshold = 1;
           };
 
           battery = optionalAttrs (cfg.battery != null) {
@@ -313,6 +339,7 @@ in {
         #temperature,
         #memory,
         #battery,
+        #backlight,
         #pulseaudio,
         #clock {
             padding: 0 10px;
@@ -360,6 +387,12 @@ in {
         /* Battery */
         #battery {
             background-color: #${palette.base0A};
+            color: #${palette.base00};
+        }
+
+        /* Brightness */
+        #backlight {
+            background-color: #${palette.base0C};
             color: #${palette.base00};
         }
 
