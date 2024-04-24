@@ -48,9 +48,15 @@ in {
   };
 
   config = mkIf cfg.enable {
+    # Let it try to start a few more times
+    systemd.user.services.waybar = {
+      Unit.StartLimitBurst = 30;
+    };
+
     programs.waybar = {
       enable = true;
       package = pkgs.waybar.override {pulseSupport = true;};
+      systemd.enable = true;
       settings = [
         {
           height = 36;

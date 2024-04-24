@@ -8,6 +8,7 @@
 with lib; let
   cfg = config.mario.modules.wayland;
   cfgTheme = config.mario.modules.themes;
+  inherit (config.colorScheme) palette;
 in {
   config = mkIf (cfg.enable && (elem "sway" cfg.wm)) {
     wayland.windowManager.sway = {
@@ -16,7 +17,7 @@ in {
       systemd.enable = true;
 
       config = {
-        bars = [{command = "waybar";}];
+        bars = [ ];
 
         input."type:keyboard" = {
           xkb_layout = "us";
@@ -44,14 +45,32 @@ in {
           size = cfgTheme.font.regular.size + 0.0;
         };
 
-        gaps.inner = 10;
-        gaps.outer = 0;
+        gaps.inner = 5;
+        gaps.outer = 5;
 
         focus.followMouse = true;
 
+        colors = rec {
+          focused = {
+            border = "#${palette.base0B}";
+            background = "#${palette.base0B}";
+            text = "#${palette.base00}";
+            indicator = "#${palette.base0B}BF";
+            childBorder = "#${palette.base0B}";
+          };
+          focusedInactive =
+            focused
+            // {
+              border = "#${palette.base02}";
+              background = "#${palette.base02}";
+              indicator = "#${palette.base02}";
+              childBorder = "#${palette.base02}";
+            };
+        };
+
         window = {
           titlebar = false;
-          border = 4;
+          border = 2;
 
           commands = [
             {
@@ -110,7 +129,7 @@ in {
 
         floating = {
           modifier = "Mod4";
-          border = 3;
+          border = 2;
         };
 
         startup = [
