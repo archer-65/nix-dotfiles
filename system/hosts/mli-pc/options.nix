@@ -6,9 +6,8 @@
   system.modules = {
     hardware = {
       audio.enable = true;
-      monitoring = {
-        enable = true;
-      };
+      monitoring.enable = true;
+      bluetooth.enable = true;
       qmk.enable = true;
     };
 

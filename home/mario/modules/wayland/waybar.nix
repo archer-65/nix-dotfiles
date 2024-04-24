@@ -86,7 +86,7 @@ in {
             ];
 
           "sway/workspaces" = {
-            all-outputs = true;
+            all-outputs = false;
             format = "{icon}";
             format-icons = {
               "1" = "1";
@@ -190,8 +190,8 @@ in {
           pulseaudio = {
             scroll-step = 1;
             format = "{icon} {volume}% {format_source}";
-            format-bluetooth = "{icon}󰂯 {volume}% {format_source}";
-            format-bluetooth-muted = "{icon}󰂲 {format_source}";
+            format-bluetooth = "{icon} 󰂯 {volume}% {format_source}";
+            format-bluetooth-muted = "{icon} 󰂲 {format_source}";
             format-muted = "󰖁 {format_source}";
             format-source = "󰍬 {volume}%";
             format-source-muted = "󰍭";
@@ -274,7 +274,7 @@ in {
         #workspaces button {
             background: #${palette.base02};
             color: #${palette.base07};
-            padding: 0 8px;
+            padding: 0 2px;
             margin-top: 5px;
             margin-bottom: 5px;
             margin-left: 2px;
@@ -292,14 +292,14 @@ in {
         #workspaces button.active {
             background-color: #${palette.base0B};
             color: #${palette.base00};
-            padding: 0 12px;
+            padding: 0 2px;
             transition-duration: 0.2s;
         }
 
         #workspaces button.focused {
             background-color: #${palette.base0B};
             color: #${palette.base00};
-            padding: 0 12px;
+            padding: 0 2px;
             transition-duration: 0.2s;
         }
 
