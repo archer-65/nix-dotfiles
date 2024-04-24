@@ -78,6 +78,7 @@ in {
     in
       prev.sway.override {
         inherit sway-unwrapped;
+        extraOptions = ["--unsupported-gpu"];
       };
 
     # Keep this if telega is borked

@@ -15,9 +15,7 @@
     plugin-list = ["!ConnectionNotifier"];
   };
 
-  wayland.windowManager.sway.extraOptions = [
-    "--unsupported-gpu"
-  ];
+  wayland.windowManager.sway.package = pkgs.sway-displaylink;
 
   mario.modules = {
     credentials = {

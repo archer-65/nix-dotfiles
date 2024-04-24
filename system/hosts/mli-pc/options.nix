@@ -4,6 +4,9 @@
   lib,
   ...
 }: {
+ 
+  programs.sway.package = pkgs.sway-displaylink;
+
   system.modules = {
     hardware = {
       audio.enable = true;
