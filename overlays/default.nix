@@ -23,7 +23,7 @@ in {
   additions = final: _: import ../packages {pkgs = final;};
 
   # Overlays for various pkgs (e.g. broken, not updated)
-  modifications = final: prev: {
+  modifications = final: prev: rec {
     waybar = prev.waybar.overrideAttrs (oldAttrs: {
       mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
     });
@@ -47,6 +47,11 @@ in {
       .overrideAttrs (o: {
         pname = "${o.pname}-displaylink";
       });
+
+    xdg-desktop-portal-hyprland-displaylink = with inputs.hyprland.packages.${prev.system};
+      xdg-desktop-portal-hyprland.override {
+        hyprland = hyprland-displaylink;
+    };
 
     sway-displaylink = let
       wlroots-sway = prev.wlroots.overrideAttrs (_: {
