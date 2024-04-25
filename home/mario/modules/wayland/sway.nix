@@ -265,6 +265,16 @@ in {
 
     home.packages = with pkgs; [autotiling];
 
+    xdg.portal = {
+      enable = true;
+      extraPortals = [ pkgs.xdg-desktop-portal-wlr pkgs.xdg-desktop-portal-gtk ];
+      configPackages = [ pkgs.xdg-desktop-portal-wlr ];
+      config = {
+        common.default = [ "*" ];
+        sway.default = [ "gtk" "wlr" ];
+      };
+    };
+
     mario.modules = {
       apps.dunst.enable = true;
       wayland = {
