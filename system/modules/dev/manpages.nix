@@ -15,11 +15,16 @@ in {
   config = mkIf cfg.enable {
     environment.systemPackages = with pkgs; [man-pages man-pages-posix];
     documentation = {
-      nixos.enable = false;
-      dev.enable = true;
-      doc.enable = true;
+      doc.enable = false;
       info.enable = true;
-      man.generateCaches = true;
+
+      nixos.enable = false;
+
+      dev.enable = true;
+      man = { 
+        enable = lib.mkDefault true;
+        generateCaches = lib.mkDefault true; 
+      };
     };
   };
 }
