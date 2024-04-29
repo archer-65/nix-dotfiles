@@ -23,7 +23,7 @@ in {
       dev.enable = true;
       man = { 
         enable = lib.mkDefault true;
-        generateCaches = lib.mkDefault true; 
+        generateCaches = lib.mkDefault false; # Slows down rebuilds!
       };
     };
   };
