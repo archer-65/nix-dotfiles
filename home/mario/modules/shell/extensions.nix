@@ -3,6 +3,7 @@
   config,
   lib,
   pkgs,
+  inputs,
   ...
 }:
 with lib; let
@@ -10,6 +11,8 @@ with lib; let
   cfgBash = config.mario.modules.shell.bash;
   cfgZsh = config.mario.modules.shell.zsh;
 in {
+  imports = [inputs.nix-index-database.hmModules.nix-index];
+
   options.mario.modules.shell.extensions = {
     enable = mkEnableOption "shell useful commands (e.g. bat, eza) ";
   };
@@ -71,7 +74,13 @@ in {
       };
     }
 
+    # TODO: Refactor out to dedicated module
     {
+      programs.nix-index-database.comma.enable = true;
+ 
+      # `command-not-found` relies on nix-channel.
+      # Enable and use `nix-index` instead.
+      programs.command-not-found.enable = false;
       programs.nix-index = {
         enable = true;
         enableBashIntegration = true;
