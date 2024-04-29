@@ -15,6 +15,8 @@
     plugin-list = ["!ConnectionNotifier"];
   };
 
+  wayland.windowManager.sway.package = pkgs.sway-displaylink;
+
   mario.modules = {
     credentials = {
       ssh.enable = true;

@@ -30,8 +30,26 @@ in {
           scroll_button = "BTN_TASK";
         };
 
+        # TODO: Improve output management
         output."Unknown U34G2G4R3 0x0000241D" = {
           mode = "3440x1440@144.001Hz";
+        };
+
+        output."AU Optronics 0xED8F Unknown" = {
+          mode = "1920x1080@120.213Hz";
+          pos = "2126 1376";
+        };
+
+        output."Ancor Communications Inc VG248 LBLMQS291339" = {
+          mode = "1920x1080@60.0Hz";
+          pos = "187 0";
+          transform = "270";
+        };
+
+        output."Philips Consumer Electronics Company PHL 243S5L UK02111017301" = {
+          mode = "1920x1080@60.0Hz";
+          pos = "1267 296";
+          transform = "normal";
         };
 
         output."*" = {bg = "${outputs.wallpapers.city-lights.src} fill";};
@@ -246,7 +264,7 @@ in {
           "${mod}+p" = "exec rofi-rbw";
 
           # Clipboard
-          "${mod}+comma" = "clipman pick -t rofi -T'-theme ~/.config/rofi/themes/clipboard'";
+          "${mod}+comma" = "exec clipman pick -t rofi -T'-theme ~/.config/rofi/themes/clipboard'";
 
           # Screenshots
           "Print" = "exec grimshot --notify copy";

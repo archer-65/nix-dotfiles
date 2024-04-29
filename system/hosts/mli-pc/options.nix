@@ -1,13 +1,17 @@
 # Work laptop laptop
-{pkgs, ...}: {
-
-  programs.hyprland.package = lib.mkForce pkgs.hyprland-displaylink;
+{
+  pkgs,
+  lib,
+  ...
+}: {
+ 
+  programs.sway.package = pkgs.sway-displaylink;
 
   system.modules = {
     hardware = {
       audio.enable = true;
-      monitoring.enable = true;
       bluetooth.enable = true;
+      monitoring.enable = true;
       qmk.enable = true;
     };
 
@@ -24,10 +28,9 @@
     };
 
     graphical = {
-      gnome.enable = true;
       displaylink.enable = true;
-      # wayland.enable = true;
-      # greetd.enable = true;
+      wayland.enable = true;
+      greetd.enable = true;
     };
 
     core = {

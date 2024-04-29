@@ -62,6 +62,6 @@ in {
       };
     };
 
-    services.greetd.settings.default_session.command = "${pkgs.sway}/bin/sway --config ${greetd-sway-config}";
+    services.greetd.settings.default_session.command = "${config.programs.sway.package}/bin/sway --config ${greetd-sway-config}";
   };
 }

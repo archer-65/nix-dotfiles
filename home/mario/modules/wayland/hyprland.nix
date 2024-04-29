@@ -29,7 +29,7 @@ in {
       };
 
       settings = let
-        hyprctl = "${pkgs.hyprland}/bin/hyprctl";
+        hyprctl = "${config.wayland.windowManager.hyprland.finalPackage}/bin/hyprctl";
         terminal = "${pkgs.alacritty}/bin/alacritty";
         browser = "${pkgs.firefox}/bin/firefox";
         editor = "emacsclient -c";
@@ -264,8 +264,8 @@ in {
     xdg.portal = {
       enable = true;
       xdgOpenUsePortal = true;
-      extraPortals = [pkgs.inputs.hyprland.xdg-desktop-portal-hyprland pkgs.xdg-desktop-portal-gtk];
-      configPackages = [pkgs.inputs.hyprland.hyprland];
+      extraPortals = [pkgs.hyprland.hyprland.xdg-desktop-portal-hyprland pkgs.xdg-desktop-portal-gtk];
+      configPackages = [pkgs.hyprland.hyprland];
       config = {
         common.default = ["*"];
         hyprland.default = ["gtk" "hyprland"];
