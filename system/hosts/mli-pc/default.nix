@@ -18,17 +18,13 @@
   # General EFI settings
   boot.loader.efi = {
     canTouchEfiVariables = true;
-    efiSysMountPoint = "/boot/efi";
   };
   boot.loader.timeout = 5;
 
   boot.loader = {
-    grub = {
+    systemd-boot = {
       enable = true;
-      efiSupport = true;
-      device = "nodev";
-      gfxmodeEfi = "1920x1080";
-      useOSProber = true;
+      consoleMode = "max";
     };
   };
 

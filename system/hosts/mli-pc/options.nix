@@ -4,7 +4,6 @@
   lib,
   ...
 }: {
- 
   programs.sway.package = pkgs.sway-displaylink;
 
   system.modules = {
