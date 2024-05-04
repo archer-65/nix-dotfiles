@@ -41,7 +41,7 @@ in {
       initExtraFirst = ''
         # source  ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
       '';
- 
+
       completionInit = ''
         zmodload zsh/zle
         zmodload zsh/zpty
@@ -142,13 +142,13 @@ in {
         }
         {
           name = "zsh-you-should-use";
-	  src = pkgs.zsh-you-should-use;
-	  file = "share/zsh/plugins/you-should-use/you-should-use.plugin.zsh";
+          src = pkgs.zsh-you-should-use;
+          file = "share/zsh/plugins/you-should-use/you-should-use.plugin.zsh";
         }
         {
           name = "zsh-nix-shell";
-	  src = pkgs.zsh-nix-shell;
-	  file = "share/zsh-nix-shell/nix-shell.plugin.zsh";
+          src = pkgs.zsh-nix-shell;
+          file = "share/zsh-nix-shell/nix-shell.plugin.zsh";
         }
       ];
     };

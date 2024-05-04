@@ -51,7 +51,7 @@ in {
     xdg-desktop-portal-hyprland-displaylink = with inputs.hyprland.packages.${prev.system};
       xdg-desktop-portal-hyprland.override {
         hyprland = hyprland-displaylink;
-    };
+      };
 
     sway-displaylink = let
       wlroots-sway = prev.wlroots.overrideAttrs (_: {

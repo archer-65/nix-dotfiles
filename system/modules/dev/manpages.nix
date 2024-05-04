@@ -21,7 +21,7 @@ in {
       nixos.enable = false;
 
       dev.enable = true;
-      man = { 
+      man = {
         enable = lib.mkDefault true;
         generateCaches = lib.mkDefault false; # Slows down rebuilds!
       };
