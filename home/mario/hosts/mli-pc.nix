@@ -9,11 +9,11 @@
     Hidden = true
   '';
 
-  services.blueman-applet.enable = true;
+  # services.blueman-applet.enable = true;
 
-  dconf.settings."org/blueman/general" = {
-    plugin-list = ["!ConnectionNotifier"];
-  };
+  # dconf.settings."org/blueman/general" = {
+  #   plugin-list = ["!ConnectionNotifier"];
+  # };
 
   wayland.windowManager.sway.package = pkgs.sway-displaylink;
 
@@ -40,12 +40,13 @@
 
     wayland = {
       enable = true;
-      wm = ["sway"];
-      waybar = {
-        backlight.enable = true;
-        battery = "BAT0";
-        temperature = "/sys/class/hwmon/hwmon0/temp1_input";
-      };
+
+      # wm = ["sway"];
+      # waybar = {
+      #   backlight.enable = true;
+      #   battery = "BAT0";
+      #   temperature = "/sys/class/hwmon/hwmon0/temp1_input";
+      # };
     };
 
     term = {

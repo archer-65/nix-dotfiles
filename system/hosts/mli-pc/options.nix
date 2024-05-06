@@ -9,7 +9,7 @@
   system.modules = {
     hardware = {
       audio.enable = true;
-      bluetooth.enable = true;
+      # bluetooth.enable = true;
       monitoring.enable = true;
       qmk.enable = true;
     };
@@ -28,8 +28,9 @@
 
     graphical = {
       displaylink.enable = true;
-      wayland.enable = true;
-      greetd.enable = true;
+      gnome.enable = true;
+      # wayland.enable = true;
+      # greetd.enable = true;
     };
 
     core = {
