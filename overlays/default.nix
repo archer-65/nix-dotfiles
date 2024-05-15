@@ -40,6 +40,10 @@ in {
       ];
     });
 
+    openrazer-daemon = prev.openrazer-daemon.overrideAttrs (oldAttrs: {
+      nativeBuildInputs = (oldAttrs.nativeBuildInputs or []) ++ [final.pkgs.gobject-introspection final.pkgs.wrapGAppsHook3 final.pkgs.python3Packages.wrapPython];
+    });
+
     hyprland-displaylink = with inputs.hyprland.packages.${prev.system};
       (hyprland.override {
         wlroots-hyprland = addPatches wlroots-hyprland [./displaylink.patch];
