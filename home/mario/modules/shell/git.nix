@@ -1,11 +1,13 @@
 {
   options,
+  pkgs,
   config,
   lib,
   ...
 }:
 with lib; let
   cfg = config.mario.modules.shell.git;
+  cfgBw = config.mario.modules.credentials.bitwarden;
 
   work-git = {
     condition = "gitdir:${config.xdg.userDirs.extraConfig.XDG_WORK_DIR}/";
@@ -32,6 +34,10 @@ in {
       signing = {
         key = "BAC570B2172822A3";
         signByDefault = true;
+      };
+
+      extraConfig = {
+        credential.helper = lib.mkIf cfgBw.enable "${pkgs.rbw}/bin/git-credential-rbw";
       };
 
       includes = [
