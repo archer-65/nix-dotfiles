@@ -12,6 +12,9 @@ in {
   };
 
   config = mkIf cfg.enable {
+    # x11-askpass is a bad default.
+    programs.ssh.askPassword = "";
+
     services.openssh = {
       enable = true;
       # startWhenNeeded = true;
