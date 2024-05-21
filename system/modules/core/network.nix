@@ -3,6 +3,10 @@
   lib,
   ...
 }: {
+
+  # Writable /etc/hosts
+  environment.etc.hosts.mode = "0644";
+
   networking = {
     firewall.enable = true;
 
