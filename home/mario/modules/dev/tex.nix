@@ -14,8 +14,8 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      texlive.combined.scheme-full
-      python310Packages.pygments
+      texliveFull
+      python311Packages.pygments
       inkscape
     ];
   };
