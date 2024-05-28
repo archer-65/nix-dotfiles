@@ -43,7 +43,7 @@ in {
       };
 
       includes = [
-        "work/config"
+        "work/*"
       ];
     };
   };
