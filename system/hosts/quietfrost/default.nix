@@ -60,7 +60,7 @@
     priority = 10;
   };
 
-  services.xserver.libinput = {
+  services.libinput = {
     enable = true;
 
     mouse = {

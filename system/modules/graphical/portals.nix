@@ -19,7 +19,7 @@ in {
         xdgOpenUsePortal = true;
         extraPortals = [pkgs.xdg-desktop-portal-gtk];
         wlr = {
-          enable = true;
+          enable = lib.mkForce true;
           settings.screencast = {
             chooser_type = "simple";
             chooser_cmd = "${pkgs.slurp}/bin/slurp -f %o -or";

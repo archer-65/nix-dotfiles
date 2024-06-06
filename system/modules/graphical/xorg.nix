@@ -20,7 +20,7 @@ in {
       xkbOptions = "ctrl:nocaps";
     };
 
-    services.xserver.libinput.enable = true;
+    services.libinput.enable = true;
 
     services.xserver.windowManager = {qtile.enable = true;};
   };
