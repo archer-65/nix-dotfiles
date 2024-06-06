@@ -16,6 +16,8 @@ in {
     environment.systemPackages = [pkgs.cachix];
 
     nix.settings = {
+      builders-use-substitutes = true;
+
       substituters = [
         "https://cache.nixos.org"
         "https://nixpkgs-wayland.cachix.org"

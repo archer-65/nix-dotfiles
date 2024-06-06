@@ -6,27 +6,82 @@
   ...
 }: {
   nix = {
-    package = pkgs.nixFlakes;
+    package = pkgs.nixVersions.latest;
 
     settings = {
-      trusted-users = ["root" "@wheel"];
-      allowed-users = ["root" "@wheel"];
+      trusted-users = ["root" "@wheel" "nix-builder"];
+      allowed-users = ["root" "@wheel" "nix-builder"];
 
-      auto-optimise-store = lib.mkDefault true;
-      experimental-features = ["nix-command" "flakes" "repl-flake"];
+      auto-optimise-store = true;
+
+      # let the system decide the number of max jobs
+      max-jobs = "auto";
+
+      # build inside sandboxed environments
+      sandbox = true;
+      sandbox-fallback = false;
+
+      # supported system features
+      system-features = ["nixos-test" "kvm" "recursive-nix" "big-parallel"];
+
+      # extra architectures supported by my builders
+      extra-platforms = config.boot.binfmt.emulatedSystems;
+
+      # continue building derivations if one fails
+      keep-going = true;
+
+      # bail early on missing cache hits
+      connect-timeout = 5;
+
+      # show more log lines for failed builds
+      log-lines = 30;
+
+      # enable new nix command and flakes
+      # and also "unintended" recursion as well as content addressed nix
+      extra-experimental-features = [
+        "flakes" # flakes
+        "nix-command" # experimental nix commands
+        "recursive-nix" # let nix invoke itself
+        "ca-derivations" # content addressed nix
+        "auto-allocate-uids" # allow nix to automatically pick UIDs, rather than creating nixbld* user accounts
+        "configurable-impure-env" # allow impure environments
+        "cgroups" # allow nix to execute builds inside cgroups
+        "git-hashing" # allow store objects which are hashed via Git's hashing algorithm
+        "verified-fetches" # enable verification of git commit signatures for fetchGit
+      ];
+
       warn-dirty = false;
+
+      # maximum number of parallel TCP connections used to fetch imports and binary caches, 0 means no limit
+      http-connections = 50;
+
+      # whether to accept nix configuration from a flake without prompting
+      accept-flake-config = false;
+
+      # execute builds inside cgroups
+      use-cgroups = true;
+
+      # for direnv GC roots
+      keep-outputs = true;
+      keep-derivations = true;
     };
 
     gc = {
       automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than 7d";
+      dates = "Tue *-*-* 18:00:00";
+      options = "--delete-older-than 14d";
     };
 
-    extraOptions = ''
-      keep-outputs          = true
-      keep-derivations      = true
-    '';
+    optimise = {
+      automatic = true;
+      dates = [ "19:00" ];
+    };
+
+    # make builds run with low priority so my system stays responsive
+    # this is especially helpful if you have auto-upgrade on
+    daemonCPUSchedPolicy = "batch";
+    daemonIOSchedClass = "idle";
+    daemonIOSchedPriority = 7;
 
     # Add each flake input as a registry
     # To make nix3 commands consistent with the flake
