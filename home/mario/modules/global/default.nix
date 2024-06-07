@@ -6,9 +6,9 @@
   ...
 }: {
   nix = {
-    package = lib.mkDefault pkgs.nix;
+    package = pkgs.nixVersions.latest;
     settings = {
-      experimental-features = ["nix-command" "flakes" "repl-flake"];
+      experimental-features = ["nix-command" "flakes"];
       warn-dirty = false;
     };
   };
