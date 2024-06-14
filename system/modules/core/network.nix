@@ -8,6 +8,14 @@
   environment.etc.hosts.mode = "0644";
 
   networking = {
+    # global dhcp has been deprecated upstream
+    # use the new networkd service instead of the legacy
+    # "script-based" network setups. Host may contain individual
+    # dhcp interfaces or systemd-networkd configurations in host
+    # specific directories
+    useDHCP = lib.mkForce false;
+    useNetworkd = lib.mkForce true;
+
     firewall.enable = true;
 
     nameservers = [
@@ -28,7 +36,12 @@
 
   services = {
     # DNS
-    resolved.enable = true;
+    resolved = {
+      enable = true;
+      dnssec = "allow-downgrade";
+      domains = [ "~." ];
+      dnsovertls = "opportunistic";
+    };
 
     # VPN
     tailscale.enable = true;
