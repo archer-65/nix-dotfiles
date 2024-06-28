@@ -63,7 +63,7 @@ in {
         };
 
         master = {
-          new_is_master = false;
+          new_status = "slave";
           new_on_top = false;
           special_scale_factor = 0.85;
         };
