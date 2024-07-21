@@ -22,8 +22,6 @@ in {
 
     hardware.pulseaudio.enable = false;
 
-    sound.mediaKeys.enable = false;
-
     security.rtkit.enable = true;
 
     environment.systemPackages = with pkgs; [
