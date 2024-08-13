@@ -44,19 +44,6 @@ in {
       nativeBuildInputs = (oldAttrs.nativeBuildInputs or []) ++ [final.pkgs.gobject-introspection final.pkgs.wrapGAppsHook3 final.pkgs.python3Packages.wrapPython];
     });
 
-    hyprland-displaylink = with inputs.hyprland.packages.${prev.system};
-      (hyprland.override {
-        wlroots-hyprland = addPatches wlroots-hyprland [./displaylink.patch];
-      })
-      .overrideAttrs (o: {
-        pname = "${o.pname}-displaylink";
-      });
-
-    xdg-desktop-portal-hyprland-displaylink = with inputs.hyprland.packages.${prev.system};
-      xdg-desktop-portal-hyprland.override {
-        hyprland = hyprland-displaylink;
-      };
-
     sway-displaylink = let
       wlroots-sway = prev.wlroots.overrideAttrs (_: {
         src = prev.fetchFromGitLab {

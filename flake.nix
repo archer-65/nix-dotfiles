@@ -20,7 +20,7 @@
     };
 
     # https://github.com/hyprwm/Hyprland/commit/f15513309b24790099d42974274eb23f66f7c985
-    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1&rev=0a6e83005f1910b5c1ec78476fcffc05af47833a";
+    hyprland.url = "git+https://github.com/hyprwm/Hyprland?submodules=1&tag=v0.42.0";
 
     sops-nix.url = "github:Mic92/sops-nix";
     nix-colors.url = "github:misterio77/nix-colors";
