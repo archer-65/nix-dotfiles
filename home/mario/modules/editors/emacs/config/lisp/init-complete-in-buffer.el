@@ -22,14 +22,15 @@
            corfu-min-width 30
            corfu-scroll-margin 5)
 
-  (:bind-into corfu-map
-    "C-n"      corfu-next
-    [tab]      corfu-next
-    "C-p"      corfu-previous
-    [backtab]  corfu-previous
-    "<escape>" corfu-quit
-    "<return>" corfu-insert
-    "M-SPC"    corfu-insert-separator)
+  (:with-map corfu-map
+    (:bind
+      "C-n"      corfu-next
+      [tab]      corfu-next
+      "C-p"      corfu-previous
+      [backtab]  corfu-previous
+      "<escape>" corfu-quit
+      "<return>" corfu-insert
+      "M-SPC"    corfu-insert-separator))
 
   ;; Cute extras ;)
   (defun contrib-corfu-beginning-of-prompt ()
@@ -50,10 +51,11 @@
           completion-cycle-threshold completion-cycling)
       (apply #'consult-completion-in-region completion-in-region--data)))
 
-  (:bind-into corfu-map
-    [remap move-beginning-of-line] #'corfu-beginning-of-prompt
-    [remap move-end-of-line] #'corfu-end-of-prompt
-    "M-m" contrib-corfu-move-to-minibuffer)
+  (:with-map corfu-map
+    (:bind
+      [remap move-beginning-of-line] #'corfu-beginning-of-prompt
+      [remap move-end-of-line] #'corfu-end-of-prompt
+      "M-m" contrib-corfu-move-to-minibuffer))
 
   ;; Found in Prot's configuration
   (defun contrib-corfu-enable-always-in-minibuffer ()
@@ -89,18 +91,20 @@ Useful for prompts such as `eval-expression' and `shell-command'."
   (:autoload corfu-popupinfo-mode)
   (:option corfu-popupinfo-delay '(0.5 . 0))
   (corfu-popupinfo-mode 1)
-  (:bind-into corfu-popupinfo-map
-    "M-p" corfu-popupinfo-scroll-down
-    "M-n" corfu-popupinfo-scroll-up
-    "M-d" corfu-popupinfo-toggle))
+  (:with-map corfu-popupinfo-map
+    (:bind
+      "M-p" corfu-popupinfo-scroll-down
+      "M-n" corfu-popupinfo-scroll-up
+      "M-d" corfu-popupinfo-toggle)))
 
 (setup corfu-info
   (:pkg (corfu :files (:defaults "extensions/*")
                :includes (corfu-info)))
   (:load-after corfu)
-  (:bind-into corfu-map
-    "M-d" corfu-info-documentation
-    "M-l" corfu-info-location))
+  (:with-map corfu-map
+    (:bind
+      "M-d" corfu-info-documentation
+      "M-l" corfu-info-location)))
 
 (setup (:pkg kind-icon)
   (:with-after corfu

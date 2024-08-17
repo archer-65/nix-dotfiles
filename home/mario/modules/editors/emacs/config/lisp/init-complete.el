@@ -68,8 +68,9 @@
            vertico-resize t
            vertico-cycle t)
 
-  (:bind-into vertico-map
-    "<escape>" #'minibuffer-keyboard-quit)
+  (:with-map vertico-map
+    (:bind
+      "<escape>" #'minibuffer-keyboard-quit))
 
   (advice-add #'vertico--format-candidate :around
               (lambda (orig cand prefix suffix index _start)
@@ -114,11 +115,17 @@
 ;; Marginalia
 (setup (:pkg marginalia)
   (:load-after vertico)
-  (:bind-into minibuffer-local-map
-    "M-A" marginalia-cycle)
+  (:with-map minibuffer-local-map
+    (:bind
+      "M-A" marginalia-cycle))
   (marginalia-mode 1))
 
-(setup (:pkg all-the-icons-completion)
+;; TODO: Remove fork when https://github.com/iyefrat/all-the-icons-completion/pull/33 is merged
+;; TODO: Then, remove direct reference to GitHub when on MELPA
+(setup (:pkg (all-the-icons-completion :type git :host github :repo "iyefrat/all-the-icons-completion"
+                                       :fork (:host github
+                                              :repo "maxecharel/all-the-icons-completion"
+                                              :branch "contrib")))
   (:with-after (all-the-icons marginalia)
     (all-the-icons-completion-mode 1)
     (:with-mode marginalia-mode

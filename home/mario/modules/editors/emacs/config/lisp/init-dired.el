@@ -31,11 +31,11 @@
            dired-hide-details-hide-symlink-targets nil
            delete-by-moving-to-trash t)
 
-  (:bind-into dired-jump-map
-    "j" dired-jump)
+  (:with-map dired-jump-map
+    (:bind "j" dired-jump))
 
-  (:bind-into dired-mode-map
-    "M-<return>" archer-dired-open-file))
+  (:with-map dired-mode-map
+    (:bind "M-<return>" archer-dired-open-file)))
 
 (setup (:require dired-x)
   (:option dired-clean-confirm-killing-deleted-buffers t
@@ -43,11 +43,11 @@
            dired-x-hands-off-my-keys t
            dired-omit-files "^\\.$\\|^\\.[^.]")
 
-  (:bind-into dired-mode-map
-    "C-c d" dired-omit-mode)
+  (:with-map dired-mode-map
+    (:bind "C-c d" dired-omit-mode))
 
-  (:bind-into dired-mode-map
-    "I" #'dired-info)
+  (:with-map dired-mode-map
+    (:bind "I" #'dired-info))
 
   (:with-mode dired-mode
     (:hook dired-omit-mode)))
@@ -69,8 +69,8 @@
            image-dired-thumb-relief 0
            image-dired-thumbs-per-row 4)
 
-  (:bind-into image-dired-thumbnail-mode-map
-    "<return>" #'image-dired-thumbnail-display-external))
+  (:with-map image-dired-thumbnail-mode-map
+    (:bind "<return>" #'image-dired-thumbnail-display-external)))
 
 (setup (:pkg diredfl :quit)
   (diredfl-global-mode 1))
@@ -78,9 +78,10 @@
 (setup (:pkg dired-subtree)
   (:load-after dired)
   (:option dired-subtree-use-backgrounds nil)
-  (:bind-into dired-mode-map
-    "<tab>" dired-subtree-toggle
-    "<backtab>" dired-subtree-remove))
+  (:with-map dired-mode-map
+    (:bind
+      "<tab>" dired-subtree-toggle
+      "<backtab>" dired-subtree-remove)))
 
 (setup (:pkg dired-sidebar)
   (:load-after dired)

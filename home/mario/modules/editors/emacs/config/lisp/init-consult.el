@@ -31,36 +31,39 @@
            "C-h a" consult-apropos)  ; orig. apropos-comman
 
   ;; M-g bindings (goto-map)
-  (:bind-into goto-map
-    "g"   consult-goto-line     ; orig. goto-line
-    "o"   consult-org-heading   ; Alternative: consult-org-heading
-    "m"   consult-mark
-    "k"   consult-global-mark
-    "i"   consult-imenu
-    "I"   consult-imenu-multi
-    "e"   consult-compile-error
-    "f"   consult-flymake)     ; Alternative: consult-flymake
+  (:with-map goto-map
+    (:bind
+     "g"   consult-goto-line     ; orig. goto-line
+     "o"   consult-org-heading   ; Alternative: consult-org-heading
+     "m"   consult-mark
+     "k"   consult-global-mark
+     "i"   consult-imenu
+     "I"   consult-imenu-multi
+     "e"   consult-compile-error
+     "f"   consult-flymake))     ; Alternative: consult-flymake
 
   ;; M-s bindings (search-map)
-  (:bind-into search-map
-    "f" consult-find
-    "F" consult-locate
-    "g" consult-grep
-    "G" consult-git-grep
-    "r" consult-ripgrep
-    "l" consult-line
-    "L" consult-line-multi
-    "m" consult-multi-occur
-    "k" consult-keep-lines
-    "u" consult-focus-lines
-    "e" consult-isearch-history)  ; Isearch integration
+  (:with-map search-map
+    (:bind
+     "f" consult-find
+     "F" consult-locate
+     "g" consult-grep
+     "G" consult-git-grep
+     "r" consult-ripgrep
+     "l" consult-line
+     "L" consult-line-multi
+     "m" consult-multi-occur
+     "k" consult-keep-lines
+     "u" consult-focus-lines
+     "e" consult-isearch-history))  ; Isearch integration
 
-  ;; ??? From wiki
-  ;; (:bind-into isearch-mode-map
-  ;;   "M-e" consult-isearch-history       ; orig. isearch-edit-string
-  ;;   "M-s e" consult-isearch-history     ; orig. isearch-edit-string
-  ;;   "M-s l" consult-line                ; needed by consult-line to detect isearch
-  ;;   "M-s L" consult-line-multi)         ; needed by consult-line to detect isearch
+  ;; Isearch map integration
+  (:with-map isearch-mode-map
+    (:bind
+     "M-e" consult-isearch-history       ; orig. isearch-edit-string
+     "M-s e" consult-isearch-history     ; orig. isearch-edit-string
+     "M-s l" consult-line                ; needed by consult-line to detect isearch
+     "M-s L" consult-line-multi))        ; needed by consult-line to detect isearch
 
   ;; Register formatting. This improves the register
   ;; preview for `consult-register', `consult-register-load',
@@ -111,9 +114,10 @@
 (setup (:pkg consult-dir)
   (:with-after consult
     (:global "C-x C-d" consult-dir)
-    (:bind-into minibuffer-local-completion-map
-      "C-x C-d" consult-dir-maybe
-      "C-x C-j" consult-dir-jump-file)))
+    (:with-map minibuffer-local-completion-map
+      (:bind
+       "C-x C-d" consult-dir-maybe
+       "C-x C-j" consult-dir-jump-file))))
 
 (setup (:pkg consult-eglot)
   (:with-after (consult eglot)

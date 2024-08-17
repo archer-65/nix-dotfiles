@@ -26,8 +26,8 @@
              flymake-mode-line-warning-counter
              flymake-mode-line-note-counter ""))
 
-  (:bind-into ctl-x-x-map
-    "m" #'flymake-mode)
+  (:with-map ctl-x-x-map
+    (:bind "m" #'flymake-mode))
 
   (:bind "C-c ! s" #'flymake-start
          "C-c ! d" #'flymake-show-buffer-diagnostics ; Emacs28

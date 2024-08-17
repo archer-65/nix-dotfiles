@@ -265,23 +265,23 @@ To improve."
   (:global "C-c m" notmuch
            "C-x m" notmuch-mua-new-mail)
 
-  (:bind-into notmuch-search-mode-map
+  (:bind-into notmuch-search
     "/" notmuch-search-filter
     "r" notmuch-search-reply-to-thread
     "R" notmuch-search-reply-to-thread-sender)
 
-  (:bind-into notmuch-show-mode-map
+  (:bind-into notmuch-show
     "r" notmuch-show-reply
     "R" notmuch-show-reply-sender)
 
-  (:bind-into notmuch-search-mode-map
+  (:bind-into notmuch-search
     "a" nil
     "A" notmuch-search-archive-thread
     "D" archer-notmuch-search-delete-thread
     "S" archer-notmcuh-search-spam-thread
     "g" archer-notmuch-refresh-buffer)
 
-  (:bind-into notmuch-show-mode-map
+  (:bind-into notmuch-show
     "a" nil
     "A" notmuch-show-archive-message-then-next-or-next-thread
     "D" archer-notmuch-show-delete-message
