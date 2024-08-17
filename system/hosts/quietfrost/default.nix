@@ -53,6 +53,9 @@
     videoDrivers = ["amdgpu"];
   };
 
+  # Firmware updater
+  services.fwupd.enable = true;
+
   zramSwap = {
     enable = true;
     memoryPercent = 40;
