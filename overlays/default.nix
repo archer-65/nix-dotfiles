@@ -40,22 +40,15 @@ in {
       ];
     });
 
-    openrazer-daemon = prev.openrazer-daemon.overrideAttrs (oldAttrs: {
-      nativeBuildInputs = (oldAttrs.nativeBuildInputs or []) ++ [final.pkgs.gobject-introspection final.pkgs.wrapGAppsHook3 final.pkgs.python3Packages.wrapPython];
-    });
-
     sway-displaylink = let
       wlroots-sway = prev.wlroots.overrideAttrs (_: {
-        src = prev.fetchFromGitLab {
-          domain = "gitlab.freedesktop.org";
-          owner = "wlroots";
-          repo = "wlroots";
-          rev = "172c8add7dfae2853debe9cd70e41d736059e978";
-          sha256 = "sha256-VqvogF/g+hrf0D9DIXKg/oB3Z+79GVUobtLSB/aPWZE=";
-        };
-
+        # https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/4640
         patches = [
-          ./displaylink.patch
+           (prev.fetchpatch {
+              name = "scannout-without-mgpu-renderer.patch";
+              url = "https://gitlab.freedesktop.org/-/project/12103/uploads/839d4179d715217513c5c6a9f7ae1963/scannout-without-mgpu-renderer.patch";
+              sha256 = "1wkw93zla6ddk5c6g01k0j4sv51wcl3szbd7n8q4hh2ffawv8f49";
+            })
         ];
       });
 

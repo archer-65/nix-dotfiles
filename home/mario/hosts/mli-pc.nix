@@ -9,14 +9,6 @@
     Hidden = true
   '';
 
-  # services.blueman-applet.enable = true;
-
-  # dconf.settings."org/blueman/general" = {
-  #   plugin-list = ["!ConnectionNotifier"];
-  # };
-
-  wayland.windowManager.sway.package = pkgs.sway-displaylink;
-
   mario.modules = {
     credentials = {
       ssh.enable = true;
@@ -41,7 +33,7 @@
     wayland = {
       enable = true;
 
-      # wm = ["sway"];
+      # wm = ["hyprland"];
       # waybar = {
       #   backlight.enable = true;
       #   battery = "BAT0";
