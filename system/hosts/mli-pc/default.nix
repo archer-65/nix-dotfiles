@@ -43,21 +43,30 @@
   networking.interfaces.wlp0s20f3.useDHCP = true;
 
   # Graphics
-  hardware.opengl = {
-    enable = true;
-    driSupport32Bit = true;
-    extraPackages = with pkgs; [
-      mesa
-      intel-media-driver
-      vaapiIntel
-      vaapiVdpau
-      libvdpau-va-gl
-    ];
-
-    extraPackages32 = with pkgs; [
-      driversi686Linux.mesa
-    ];
+  environment.variables = {
+    VDPAU_DRIVER = lib.mkIf config.hardware.graphics.enable (lib.mkDefault "va_gl");
   };
+
+  hardware.graphics.extraPackages = with pkgs; [
+    (
+      if (lib.versionOlder (lib.versions.majorMinor lib.version) "23.11") then
+        vaapiIntel
+      else
+        intel-vaapi-driver
+    )
+    intel-media-driver
+  ];
+
+  hardware.graphics.extraPackages32 = with pkgs.driversi686Linux; [
+    (
+      if (lib.versionOlder (lib.versions.majorMinor lib.version) "23.11") then
+        vaapiIntel
+      else
+        intel-vaapi-driver
+    )
+    intel-media-driver
+  ];
+
 
   # Power management
   services.power-profiles-daemon.enable = true;
