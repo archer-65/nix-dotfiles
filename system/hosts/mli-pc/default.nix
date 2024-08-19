@@ -7,7 +7,18 @@
   imports = [./hardware-configuration.nix ./options.nix];
 
   # Kernel related
-  boot.kernelPackages = pkgs.linuxPackages_latest;
+  boot.kernelPackages = pkgs.linuxPackages_6_9.extend (lfinal: lprev: {
+    evdi = lprev.evdi.overrideAttrs (efinal: eprev: rec {
+      version = "1.14.2";
+
+      src = pkgs.fetchFromGitHub {
+        owner = "DisplayLink";
+        repo = "evdi";
+        rev = "refs/tags/v${version}";
+        hash = "sha256-HnZ3EmSG1MUc2maaX2HZdyfI1e/J5WEQAXPfPL1C39A=";
+      };
+    });
+  });
 
   boot.kernelModules = [];
   boot.kernelParams = ["intel_pstate=active" "zswap.enabled=0" "i915.force_probe=46a8"];
