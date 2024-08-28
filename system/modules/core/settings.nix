@@ -91,4 +91,14 @@
     # Very useful when using legacy commands
     nixPath = lib.mapAttrsToList (key: value: "${key}=${value.to.path}") config.nix.registry;
   };
+
+  # https://www.reddit.com/r/NixOS/comments/1enj0ab/note_to_self_do_not_collect_garbage_and_optimise
+  systemd.services.nix-optimise = {
+    after = [ "nix-gc.service" ];
+  };
+
+  # https://github.com/NotAShelf/nyx/blob/d407b4d6e5ab7f60350af61a3d73a62a5e9ac660/modules/core/common/system/nix/module.nix#L236-L244
+  systemd.services.nix-gc = {
+    unitConfig.ConditionACPower = true;
+  };
 }
