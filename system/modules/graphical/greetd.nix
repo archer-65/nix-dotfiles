@@ -52,12 +52,13 @@ in {
           path = outputs.wallpapers.nixos-dark.src;
           fit = "Cover";
         };
+        # TODO: Change with theme dedicated options after 24.11 release
         GTK = {
-          application_prefer_dark_theme = true;
-          theme_name = "Adwaita";
-          icon_theme_name = "Adwaita";
-          cursor_theme_name = "Bibata-Modern-Classic";
-          font_name = "Roboto 12";
+          application_prefer_dark_theme = lib.mkDefault true;
+          theme_name = lib.mkDefault "Adwaita";
+          icon_theme_name = lib.mkDefault "Adwaita";
+          cursor_theme_name = lib.mkDefault "Bibata-Modern-Classic";
+          font_name = lib.mkDefault "Roboto 12";
         };
       };
     };
