@@ -13,7 +13,10 @@ in {
   };
 
   config = mkIf cfg.enable {
-    environment.systemPackages = with pkgs; [qmk vial];
-    services.udev.packages = [pkgs.qmk-udev-rules];
+    hardware.keyboard.qmk.enable = true;
+
+    environment.systemPackages = with pkgs; [ qmk vial ];
+
+    primaryUser.extraGroups = ["plugdev"];
   };
 }
