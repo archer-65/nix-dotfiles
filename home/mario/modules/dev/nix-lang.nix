@@ -17,7 +17,7 @@ in {
       statix
       deadnix
       alejandra
-      nil
+      nixd
     ];
   };
 }

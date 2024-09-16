@@ -112,8 +112,7 @@
   (:when-loaded
     (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
     (add-to-list 'eglot-server-programs '(terraform-mode . ("terraform-ls" "serve")))
-    (add-to-list 'eglot-server-programs `(nix-mode . ,(eglot-alternatives '(("nil")
-                                                                            ("rnix-lsp"))))))
+    (add-to-list 'eglot-server-programs `(nix-mode . ("nixd"))))
 
   (:with-after (cape yasnippet)
     (:local-set completion-at-point-functions (list (cape-capf-super
