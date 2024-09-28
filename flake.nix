@@ -21,7 +21,8 @@
 
     # https://github.com/hyprwm/Hyprland/commit/f15513309b24790099d42974274eb23f66f7c985
     hyprland = {
-      url = "https://github.com/hyprwm/Hyprland?ref=refs/tags/v0.43.0";
+      url = "https://github.com/hyprwm/Hyprland";
+      ref = "refs/tags/v0.43.0";
       type = "git";
       submodules = true;
     };
