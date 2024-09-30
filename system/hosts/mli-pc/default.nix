@@ -10,13 +10,13 @@
   boot.kernelPackages = pkgs.linuxPackages_latest.extend (lfinal: lprev: {
     # TODO: Remove when https://github.com/DisplayLink/evdi/issues/489 is resolved
     evdi = lprev.evdi.overrideAttrs (efinal: eprev: rec {
-      version = "1.14.6";
+      version = "1.14.7";
 
       src = pkgs.fetchFromGitHub {
         owner = "DisplayLink";
         repo = "evdi";
         rev = "refs/tags/v${version}";
-        hash = "sha256-/XIWacrsB7qBqlLUwIGuDdahvt2dAwiK7dauFaYh7lU=";
+        hash = "sha256-z3GawjaokbmmUC1LihwGSnF3tUp9n/FO+kDiWvBq+mY=";
       };
 
       patches = [
