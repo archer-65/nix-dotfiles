@@ -14,11 +14,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nix-ld-rs = {
-      url = "github:nix-community/nix-ld-rs";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     # https://github.com/hyprwm/Hyprland/commit/f15513309b24790099d42974274eb23f66f7c985
     hyprland = {
       url = "https://github.com/hyprwm/Hyprland";
