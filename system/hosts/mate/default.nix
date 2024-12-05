@@ -28,9 +28,9 @@
   networking.interfaces.wlp1s0.useDHCP = true;
 
   # Graphics
-  hardware.opengl = {
+  hardware.graphics = {
     enable = true;
-    driSupport32Bit = true;
+    enable32Bit = true;
     extraPackages = with pkgs; [amdvlk vaapiVdpau libvdpau-va-gl];
   };
 

@@ -14,7 +14,7 @@ in {
 
   config = mkIf cfg.enable {
     programs.bash = {
-      enableCompletion = true;
+      completion.enable = true;
       enableLsColors = true;
     };
 

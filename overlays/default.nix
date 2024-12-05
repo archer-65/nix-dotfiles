@@ -24,10 +24,6 @@ in {
 
   # Overlays for various pkgs (e.g. broken, not updated)
   modifications = final: prev: rec {
-    waybar = prev.waybar.overrideAttrs (oldAttrs: {
-      mesonFlags = oldAttrs.mesonFlags ++ ["-Dexperimental=true"];
-    });
-
     rofi-emoji-wayland = prev.rofi-emoji.overrideAttrs (oldAttrs: rec {
       buildInputs = with final; [
         rofi-wayland-unwrapped

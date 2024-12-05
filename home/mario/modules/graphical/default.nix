@@ -60,7 +60,7 @@ with lib; let
     ];
 
   desktop = with pkgs; [
-    transmission-gtk
+    transmission_3-gtk
   ];
 in {
   config = {
