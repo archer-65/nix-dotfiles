@@ -32,7 +32,7 @@ in {
     services.udisks2.enable = true;
 
     environment.systemPackages = with pkgs; [
-      gnome.seahorse
+      seahorse
       libsecret
       libinput
     ];

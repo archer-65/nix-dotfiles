@@ -15,9 +15,7 @@ with lib; let
     then pkgs.rofi-wayland
     else pkgs.rofi;
 
-  rofiFonts = pkgs.nerdfonts.override {
-    fonts = ["Iosevka"];
-  };
+  rofiFonts = pkgs.nerd-fonts.iosevka;
 
   rofi-emoji =
     if cfgWayland.enable

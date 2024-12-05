@@ -10,7 +10,7 @@ with lib; let
   cfg = config.system.modules.graphical.greetd;
 
   greetd-sway-config = pkgs.writeText "greetd-sway-config" ''
-    exec "dbus-update-activation-environment --systemd DISPLAY WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP"
+    exec "dbus-update-activation-environment --systemd WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP"
     input "type:touchpad" {
       tap enabled
     }
@@ -22,7 +22,7 @@ with lib; let
       -b 'Poweroff' 'systemctl poweroff' \
       -b 'Reboot' 'systemctl reboot'
 
-    exec "${config.programs.regreet.package}/bin/regreet -l debug; swaymsg exit"
+    exec "${config.programs.regreet.package}/bin/regreet -l debug; ${config.programs.sway.package}/bin/swaymsg exit"
   '';
 in {
   options.system.modules.graphical.greetd = {
@@ -37,32 +37,54 @@ in {
         size = "compact";
         variant = "mocha";
       })
-      bibata-cursors
-      gnome.adwaita-icon-theme
     ];
 
-    fonts.packages = with pkgs; [
-      roboto
-    ];
-
-    programs.regreet = {
-      enable = true;
+    # FIXME: greetd + sway seems borked. Find a workaround or remove the entire config.
+    # tuigreet works great, but has to be tuned "graphically" if you care about that.
+    services.greetd = {
       settings = {
-        background = {
-          path = outputs.wallpapers.nixos-dark.src;
-          fit = "Cover";
-        };
-        # TODO: Change with theme dedicated options after 24.11 release
-        GTK = {
-          application_prefer_dark_theme = lib.mkDefault true;
-          theme_name = lib.mkDefault "Adwaita";
-          icon_theme_name = lib.mkDefault "Adwaita";
-          cursor_theme_name = lib.mkDefault "Bibata-Modern-Classic";
-          font_name = lib.mkDefault "Roboto 12";
+        default_session = {
+          # command = "${config.programs.sway.package}/bin/sway --config ${greetd-sway-config}";
+          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember";
+          user = "greeter";
         };
       };
     };
 
-    services.greetd.settings.default_session.command = "${config.programs.sway.package}/bin/sway --config ${greetd-sway-config}";
+    # I've had permission issues on `/var/empty/.cache` lately with greetd. Give him a home.
+    users.users.greeter = {
+      home = "/var/lib/greeter";
+      createHome = true;
+    };
+
+    programs.regreet = {
+      enable = true;
+      settings = {
+        theme = {
+          name = "Adwaita";
+          package = pkgs.gnome-themes-extra;
+        };
+        iconTheme = {
+          name = "Adwaita";
+          package = pkgs.adwaita-icon-theme;
+        };
+        cursorTheme = {
+          name = "Bibata-Modern-Classic";
+          package = pkgs.bibata-cursors;
+        };
+        font = {
+          name = "Roboto";
+          size = 16;
+          package = pkgs.roboto;
+        };
+        background = {
+          path = outputs.wallpapers.nixos-dark.src;
+          fit = "Cover";
+        };
+        GTK = {
+          application_prefer_dark_theme = lib.mkDefault true;
+        };
+      };
+    };
   };
 }

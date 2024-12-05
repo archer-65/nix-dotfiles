@@ -15,7 +15,7 @@
     };
 
     hyprland = {
-      url = "github:hyprwm/Hyprland/v0.44.1";
+      url = "github:hyprwm/Hyprland/v0.45.2";
     };
 
     sops-nix.url = "github:Mic92/sops-nix";
