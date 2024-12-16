@@ -13,7 +13,7 @@
     NIX_CONFIG = "extra-experimental-features = nix-command flakes";
 
     nativeBuildInputs = with pkgs; [
-      nixFlakes
+      nixVersions.stable
       git
       home-manager
     ];
