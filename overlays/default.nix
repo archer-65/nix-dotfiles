@@ -38,28 +38,19 @@ in {
 
     sway-displaylink = let
       wlroots-sway = prev.wlroots.overrideAttrs (_: {
-        # https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/4640
+        # https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/4824
         patches = [
-           (prev.fetchpatch {
-              name = "scannout-without-mgpu-renderer.patch";
-              url = "https://gitlab.freedesktop.org/-/project/12103/uploads/839d4179d715217513c5c6a9f7ae1963/scannout-without-mgpu-renderer.patch";
-              sha256 = "1wkw93zla6ddk5c6g01k0j4sv51wcl3szbd7n8q4hh2ffawv8f49";
-            })
+          (prev.fetchpatch {
+            name = "scannout-without-mgpu-renderer.patch";
+            url = "https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/4824.patch";
+            sha256 = "19phmcplc1y2rvhvgi6a2vkzflkf9b2xzlyb58dvbffl87vgv224";
+          })
         ];
       });
 
-      sway-unwrapped =
-        (prev.sway-unwrapped.overrideAttrs (o: {
-          src = prev.fetchFromGitHub {
-            owner = "swaywm";
-            repo = "sway";
-            rev = "bc258a3be2f946c1c93bcbe40735b2db068e0ea8";
-            sha256 = "sha256-FTzDk2t1u3ckhBSLKB+rJSofc5wBYh3rGUffHkLRDco=";
-          };
-        }))
-        .override {
-          wlroots = wlroots-sway;
-        };
+      sway-unwrapped = prev.sway-unwrapped.override {
+        wlroots = wlroots-sway;
+      };
     in
       prev.sway.override {
         inherit sway-unwrapped;
