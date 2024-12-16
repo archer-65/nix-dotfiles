@@ -3,7 +3,6 @@
   lib,
   ...
 }: {
-
   # Writable /etc/hosts
   environment.etc.hosts.mode = "0644";
 
@@ -39,7 +38,7 @@
     resolved = {
       enable = true;
       dnssec = "allow-downgrade";
-      domains = [ "~." ];
+      domains = ["~."];
       dnsovertls = "opportunistic";
     };
 

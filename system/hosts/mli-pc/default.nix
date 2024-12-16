@@ -20,7 +20,7 @@
       };
 
       patches = [
-	(pkgs.fetchpatch {
+        (pkgs.fetchpatch {
           name = "dont-allow-mmap-imported-gem-objects.patch";
           url = "https://github.com/DisplayLink/evdi/commit/3323f3190dc922f1b4ad5f525f09b72afd2739e0.diff";
           sha256 = "sha256-KT3E+Pe0Iw6+BNjPgXbi7/igwNSvGzs0YO7HLv3px+0=";
@@ -59,24 +59,21 @@
 
   hardware.graphics.extraPackages = with pkgs; [
     (
-      if (lib.versionOlder (lib.versions.majorMinor lib.version) "23.11") then
-        vaapiIntel
-      else
-        intel-vaapi-driver
+      if (lib.versionOlder (lib.versions.majorMinor lib.version) "23.11")
+      then vaapiIntel
+      else intel-vaapi-driver
     )
     intel-media-driver
   ];
 
   hardware.graphics.extraPackages32 = with pkgs.driversi686Linux; [
     (
-      if (lib.versionOlder (lib.versions.majorMinor lib.version) "23.11") then
-        vaapiIntel
-      else
-        intel-vaapi-driver
+      if (lib.versionOlder (lib.versions.majorMinor lib.version) "23.11")
+      then vaapiIntel
+      else intel-vaapi-driver
     )
     intel-media-driver
   ];
-
 
   # Power management
   services.power-profiles-daemon.enable = true;

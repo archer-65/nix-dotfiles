@@ -27,20 +27,19 @@ in {
       ];
     };
 
-    services.gpg-agent =
-      {
-        enable = true;
-        enableSshSupport = true;
-        pinentryPackage = pkgs.pinentry-gnome3;
+    services.gpg-agent = {
+      enable = true;
+      enableSshSupport = true;
+      pinentryPackage = pkgs.pinentry-gnome3;
 
-	# NOTE: This should not be needed anymore, it is commented out until (and if) I find issues.
-	#       - GPG on smartcards is automatically exposed as SSH key
-	#	- Deprecated for GPG keys as the attribute 'use-for-ssh' exists
-	#       - Usable by `ssh-add` for SSH keys
-	#
-	# https://www.gnupg.org/documentation/manuals/gnupg/Agent-Configuration.html#index-sshcontrol
-	#
-	# sshKeys = ["19953CB0EC3A2941EF36DA2D7BDA72F1E2404770"];
-      };
+      # NOTE: This should not be needed anymore, it is commented out until (and if) I find issues.
+      #       - GPG on smartcards is automatically exposed as SSH key
+      #	- Deprecated for GPG keys as the attribute 'use-for-ssh' exists
+      #       - Usable by `ssh-add` for SSH keys
+      #
+      # https://www.gnupg.org/documentation/manuals/gnupg/Agent-Configuration.html#index-sshcontrol
+      #
+      # sshKeys = ["19953CB0EC3A2941EF36DA2D7BDA72F1E2404770"];
+    };
   };
 }
