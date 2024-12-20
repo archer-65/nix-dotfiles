@@ -7,26 +7,19 @@
   imports = [./hardware-configuration.nix ./options.nix];
 
   # Kernel related
-  boot.kernelPackages = pkgs.linuxPackages_6_11.extend (lfinal: lprev: {
-    # TODO: Remove when https://github.com/DisplayLink/evdi/issues/489 is resolved
+  boot.kernelPackages = pkgs.linuxPackages_latest.extend (lfinal: lprev: {
+    # TODO: Remove when 1.14.8 is merged in nixpkgs
     evdi = lprev.evdi.overrideAttrs (efinal: eprev: rec {
-      version = "1.14.7";
+      version = "1.14.8";
 
       src = pkgs.fetchFromGitHub {
         owner = "DisplayLink";
         repo = "evdi";
         rev = "refs/tags/v${version}";
-        hash = "sha256-z3GawjaokbmmUC1LihwGSnF3tUp9n/FO+kDiWvBq+mY=";
+        hash = "sha256-57DP8kKsPEK1C5A6QfoZZDmm76pn4SaUKEKu9cicyKI=";
       };
 
-      patches = [
-        (pkgs.fetchpatch {
-          name = "dont-allow-mmap-imported-gem-objects.patch";
-          url = "https://github.com/DisplayLink/evdi/commit/3323f3190dc922f1b4ad5f525f09b72afd2739e0.diff";
-          sha256 = "sha256-KT3E+Pe0Iw6+BNjPgXbi7/igwNSvGzs0YO7HLv3px+0=";
-          revert = true;
-        })
-      ];
+      patches = [];
     });
   });
 
