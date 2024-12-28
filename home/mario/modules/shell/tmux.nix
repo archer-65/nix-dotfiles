@@ -7,23 +7,6 @@
 }:
 with lib; let
   cfg = config.mario.modules.shell.tmux;
-
-  theme = with config.colorScheme.palette; ''
-    # --> Catppuccin (Dynamic)
-    thm_bg=\"#${strings.toLower base00}\"
-    thm_fg=\"#${strings.toLower base05}\"
-    thm_cyan=\"#${strings.toLower base0C}\"
-    thm_black=\"#${strings.toLower base01}\"
-    thm_gray=\"#${strings.toLower base01}\"
-    thm_magenta=\"#${strings.toLower base0E}\"
-    thm_pink=\"#${strings.toLower base0E}\"
-    thm_red=\"#${strings.toLower base08}\"
-    thm_green=\"#${strings.toLower base0B}\"
-    thm_yellow=\"#${strings.toLower base09}\"
-    thm_blue=\"#${strings.toLower base0D}\"
-    thm_orange=\"#${strings.toLower base0A}\"
-    thm_black4=\"#${strings.toLower base00}\"
-  '';
 in {
   options.mario.modules.shell.tmux = {
     enable = mkOption {
@@ -68,49 +51,33 @@ in {
 
       plugins = with pkgs; [
         {
-          plugin = tmuxPlugins.catppuccin.overrideAttrs (_: {
-            version = "unstable-2024-03-30";
+          plugin = tmuxPlugins.catppuccin.overrideAttrs (_: rec {
+            version = "2.1.2";
             src = pkgs.fetchFromGitHub {
               owner = "catppuccin";
               repo = "tmux";
-              rev = "5ed4e8a6a20c928688da268dfcdf460ac9c3cb49";
-              sha256 = "sha256-k9Ihfk8C1jYkGUvOcgLwS4UdXR8d/4Nu/Dyh03FpDZc=";
+              rev = "v${version}";
+              sha256 = "sha256-vBYBvZrMGLpMU059a+Z4SEekWdQD0GrDqBQyqfkEHPg=";
             };
-            postInstall = ''
-              echo "${theme}" > $target/catppuccin-dynamic.tmuxtheme
-            '';
           });
           extraConfig = with config.colorScheme.palette; ''
-            set -g @catppuccin_flavour "dynamic"
+            set -g @catppuccin_flavor "mocha"
 
-            set -g @catppuccin_status_background "default"
+            set -g @catppuccin_status_background "none"
+            set -g @catppuccin_window_status_style "basic"
+
+            set -g @catppuccin_window_number_position "right"
+            set -g @catppuccin_window_current_text "#W"
+            set -g @catppuccin_window_current_number_color "#{@thm_green}"
 
             set -g @catppuccin_status_left_separator "█"
+            set -g @catppuccin_status_middle_separator ""
             set -g @catppuccin_status_right_separator "█"
-            set -g @catppuccin_window_middle_separator " █"
-            set -g @catppuccin_window_number_position "right"
 
-            set -g @catppuccin_window_default_fill "number"
-            set -g @catppuccin_window_default_text "#W"
+            set -g @catppuccin_directory_text "#{pane_current_path}"
 
-            set -g @catppuccin_window_current_fill "number"
-            set -g @catppuccin_window_current_text "#W"
-            set -g @catppuccin_window_current_background "#${strings.toLower base02}"
-
-            set -g @catppuccin_status_modules_right "directory session"
-
-            set -g @catppuccin_weather_icon " "
-            set -g @catppuccin_uptime_icon "󰔟 "
-            set -g @catppuccin_load_icon "󰊚 "
-            set -g @catppuccin_battery_icon "#{battery_icon}"
-            set -g @catppuccin_host_icon "󰒋 "
-            set -g @catppuccin_cpu_icon " "
-            set -g @catppuccin_application_icon " "
-            set -g @catppuccin_clima_icon " "
-            set -g @catppuccin_directory_icon " "
-            set -g @catppuccin_date_time_icon "󰃰 "
-            set -g @catppuccin_user_icon " "
-            set -g @catppuccin_session_icon " "
+            set -g status-left  ""
+            set -g status-right "#{E:@catppuccin_status_directory}#{E:@catppuccin_status_session}"
           '';
         }
       ];
