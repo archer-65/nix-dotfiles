@@ -30,7 +30,10 @@ in {
     services.gpg-agent = {
       enable = true;
       enableSshSupport = true;
-      pinentryPackage = pkgs.pinentry-gnome3;
+      pinentryPackage =
+        if pkgs.stdenv.isDarwin
+        then pkgs.pinentry_mac
+        else pkgs.pinentry-gnome3;
 
       # NOTE: This should not be needed anymore, it is commented out until (and if) I find issues.
       #       - GPG on smartcards is automatically exposed as SSH key

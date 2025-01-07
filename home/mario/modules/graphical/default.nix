@@ -63,7 +63,7 @@ with lib; let
     transmission_3-gtk
   ];
 in {
-  config = {
+  config = mkIf (cfgXorg.enable || cfgWayland.enable) {
     assertions = [
       {
         assertion = cfgExclusive;
