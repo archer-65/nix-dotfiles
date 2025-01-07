@@ -3,10 +3,21 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    darwin = {
+      url = "github:lnl7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
+    };
+
+    mac-app-util = {
+      url = "github:hraban/mac-app-util";
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
 
     nix-index-database = {
@@ -25,6 +36,9 @@
   outputs = inputs @ {
     self,
     nixpkgs,
+    nixpkgs-darwin,
+    home-manager,
+    darwin,
     ...
   }: let
     inherit (self) outputs;
@@ -89,6 +103,68 @@
         hostname = "mli-pc";
         system = "x86_64-linux";
         stateVersion = "23.05";
+      };
+    };
+
+    darwinConfigurations = let
+      system = "aarch64-darwin";
+      pkgs = import nixpkgs-darwin {
+        inherit system;
+        config.allowUnfree = true;
+        overlays = builtins.attrValues self.outputs.overlays;
+      };
+    in {
+      macbook = darwin.lib.darwinSystem {
+        inherit system;
+        inherit pkgs;
+        modules = [
+          {
+            system.stateVersion = 5;
+            users.users."m.liguori" = {
+              name = "m.liguori";
+              home = "/Users/m.liguori";
+            };
+
+            nix.settings.trusted-users = ["m.liguori"];
+
+            homebrew = {
+              enable = true;
+
+              brews = [
+                "coreutils"
+              ];
+
+              casks = [
+                "firefox"
+                "docker"
+                "microsoft-teams"
+                "tunnelblick"
+                "keybase"
+                "karabiner-elements"
+              ];
+            };
+          }
+
+          inputs.mac-app-util.darwinModules.default
+
+          home-manager.darwinModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.extraSpecialArgs = {inherit inputs outputs;};
+            home-manager.sharedModules = [inputs.mac-app-util.homeManagerModules.default];
+            home-manager.users."m.liguori" = {
+              imports = (builtins.attrValues self.outputs.homeModules.mario) ++ [./home/m.liguori/hosts/macbook.nix];
+
+              home = {
+                username = "m.liguori";
+                stateVersion = "25.05";
+                homeDirectory = "/Users/m.liguori";
+              };
+            };
+          }
+        ];
+        specialArgs = {inherit inputs outputs;};
       };
     };
   };

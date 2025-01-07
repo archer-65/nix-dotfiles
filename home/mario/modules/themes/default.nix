@@ -36,7 +36,7 @@ in {
     };
   };
 
-  config = mkIf (cfg.active != null) (mkMerge [
+  config = mkIf (cfg.active != null && pkgs.stdenv.isDarwin == false) (mkMerge [
     # GTK
     {
       # https://github.com/ThinkChaos/home-manager/commit/6eaad31eb9044811ebc93622dd628cf0fb411213

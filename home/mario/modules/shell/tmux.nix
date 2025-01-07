@@ -77,7 +77,7 @@ in {
             set -g @catppuccin_directory_text "#{pane_current_path}"
 
             set -g status-left  ""
-            set -g status-right "#{E:@catppuccin_status_directory}#{E:@catppuccin_status_session}"
+            set -g status-right "#{E:@catppuccin_status_application}#{E:@catppuccin_status_session}"
           '';
         }
       ];
