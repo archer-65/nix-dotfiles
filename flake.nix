@@ -125,6 +125,8 @@
               home = "/Users/m.liguori";
             };
 
+            nix.settings.trusted-users = ["m.liguori"];
+
             homebrew = {
               enable = true;
 
