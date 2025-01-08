@@ -131,6 +131,8 @@ in {
         if [ -r "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
           __HM_SESS_VARS_SOURCED= source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
         fi
+
+	[ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
       '';
 
       # TODO: fast-syntax-highlighting?
