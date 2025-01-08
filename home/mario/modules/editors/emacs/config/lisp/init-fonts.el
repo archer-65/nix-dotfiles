@@ -16,7 +16,6 @@
   :group 'archer-faces)
 
 (setup (:pkg fontaine)
-  (:require fontaine)
   (:option x-underline-at-descent-line nil
            use-default-font-for-symbols t)
 

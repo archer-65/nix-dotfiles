@@ -12,8 +12,6 @@
   (:hook-into prog-mode)
   (:global "<f1>" format-all-buffer))
 
-(setup (:pkg language-id))
-
 (setup (:pkg editorconfig)
   (:hide-mode)
   (editorconfig-mode 1))
