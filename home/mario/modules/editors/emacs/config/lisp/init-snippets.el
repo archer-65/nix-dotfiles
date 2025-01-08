@@ -7,6 +7,7 @@
 ;;; Code:
 
 (setup (:pkg yasnippet)
+  (:require yasnippet)
   (:with-mode yas-minor-mode
     (:hide-mode)
     (:hook-into prog-mode))

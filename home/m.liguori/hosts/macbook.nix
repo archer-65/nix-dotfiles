@@ -1,4 +1,6 @@
 {pkgs, ...}: {
+  home.packages = with pkgs; [coreutils-prefixed];
+
   mario.modules = {
     credentials = {
       gpg.enable = true;
@@ -13,14 +15,14 @@
     dev = {
       nix.enable = true;
       kube.enable = true;
-      # terraform.enable = true;
+      terraform.enable = true;
     };
 
     editors = {
-      # emacs = {
-      #   enable = true;
-      #   daemon.enable = true;
-      # };
+      emacs = {
+        enable = true;
+        daemon.enable = true;
+      };
 
       vscode.enable = true;
     };
@@ -35,6 +37,8 @@
       direnv.enable = true;
 
       git.enable = true;
+
+      awscli.enable = true;
     };
 
     themes = {

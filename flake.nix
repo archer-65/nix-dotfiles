@@ -130,10 +130,16 @@
             homebrew = {
               enable = true;
 
+              brews = [
+                "coreutils"
+              ];
+
               casks = [
                 "firefox"
                 "docker"
                 "microsoft-teams"
+                "tunnelblick"
+                "keybase"
               ];
             };
           }

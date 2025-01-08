@@ -44,6 +44,7 @@
  ("emms" . "28127920e4e7dfb225bcff250e1efef30d347663")
  ("envrc" . "60f509153828c45a0e05e11a4d83b2b1798f0706")
  ("ethan-wspace" . "d205f7781f18f6746d50e562dc5e3595189ccd64")
+ ("exec-path-from-shell" . "4896a797252fbfdac32fb77508500ac7d220f717")
  ("external-completion" . "69f06e1eff72df60bb10153169edc859f27f58f2")
  ("f.el" . "931b6d0667fe03e7bf1c6c282d6d8d7006143c52")
  ("flycheck" . "ebaf48359b3e21879c8f6f3c1b5d0221b345035e")
