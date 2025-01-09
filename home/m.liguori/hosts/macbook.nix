@@ -21,7 +21,8 @@
     editors = {
       emacs = {
         enable = true;
-        daemon.enable = true;
+        # NOTE: Root cause https://www.reddit.com/r/emacs/comments/1heyuq4/comment/m28c73o
+        daemon.enable = false;
       };
 
       vscode.enable = true;
