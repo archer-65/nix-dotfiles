@@ -30,6 +30,7 @@ in {
             then "Full"
             else "None";
           opacity = 0.95;
+          option_as_alt = "OnlyLeft";
         };
 
         # Scrolling history and multiplier
