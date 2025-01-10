@@ -140,6 +140,7 @@
                 "microsoft-teams"
                 "tunnelblick"
                 "keybase"
+                "karabiner-elements"
               ];
             };
           }
