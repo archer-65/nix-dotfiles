@@ -23,9 +23,10 @@
     (setq-default text-scale-remap-header-line t))
 
   (:option archer-font-height (pcase (system-name)
-                                ("quietfrost" 180)
+                                ("quietfrost" 140)
                                 ("mate" 140)
-                                ("mli-pc" 150)))
+                                ("mli-pc" 140)
+                                (_ 140)))
 
 
   ;; TODO: fix this, the state is not re-stored correctly.
