@@ -70,12 +70,6 @@
            org-src-tab-acts-natively t        ;; use lang bindings
            org-confirm-babel-evaluate t       ;; confirm evaluation
 
-           ;; TODOS
-           org-use-fast-todo-selection 'expert ;; don't use popup window for todos
-           ;; don't set to DONE if children aren’t DONE
-           org-enforce-todo-dependencies t
-           org-enforce-todo-checkbox-dependencies t
-
            ;; Source blocks
            org-hide-block-startup nil
            org-src-preserve-indentation nil
@@ -89,6 +83,39 @@
   (push '("conf-unix" . conf-unix) org-src-lang-modes)
 
   (:local-set completion-at-point-functions '(cape-dabbrev cape-file))
+
+  (:option org-directory "~/projects/pkm"
+           org-agenda-files '("inbox.org" "todo.org")
+
+           ;; Standard refiling is awful
+           org-refile-use-outline-path 'file
+           org-refile-use-cache t
+           org-refile-allow-creating-parent-nodes t
+           org-outline-path-complete-in-steps nil
+
+           org-refile-targets '((nil :maxlevel . 4)
+                                (org-agenda-files :maxlevel . 4))
+
+           org-log-done 'time
+           org-log-into-drawer t
+           org-log-state-notes-insert-after-drawers nil
+
+           org-use-fast-todo-selection 'expert       ;; don't use popup window for todos
+           org-enforce-todo-dependencies t           ;; don't set to DONE if children aren’t DONE
+           org-enforce-todo-checkbox-dependencies t
+
+           org-todo-keywords '((sequence "TODO(t)" "NEXT(n)" "PROG(p)" "|" "DONE(d!)")
+                               (sequence "WAIT(w@/!)" "SOMEDAY(s)" "|" "KILL(k@/!)" ))
+
+           org-capture-templates
+           '(("t" "Task" entry
+              (file+headline "inbox.org" "Tasks")
+              "* TODO %?\n:PROPERTIES:\n:CREATED: %U\n:END:\n\n"
+              :empty-lines 1)
+             ("n" "Note" entry
+              (file+headline "inbox.org" "Notes")
+              "* %?\n\n %i"
+              :empty-lines 1)))
 
   (:hook archer-org-mode-setup))
 
