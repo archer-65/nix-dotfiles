@@ -131,7 +131,7 @@
               enable = true;
 
               onActivation = {
-                cleanup = "uninstall";
+                cleanup = "zap";
               };
 
               casks = [
