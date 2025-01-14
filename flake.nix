@@ -130,14 +130,15 @@
             homebrew = {
               enable = true;
 
-              brews = [
-                "coreutils"
-              ];
+              onActivation = {
+                cleanup = "uninstall";
+              };
 
               casks = [
                 "firefox"
                 "docker"
                 "microsoft-teams"
+                "microsoft-excel"
                 "tunnelblick"
                 "keybase"
                 "karabiner-elements"
