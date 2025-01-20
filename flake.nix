@@ -43,7 +43,7 @@
   }: let
     inherit (self) outputs;
     lib = import ./lib {inherit inputs;};
-    inherit (lib) mkSystem mkHome forAllSystems;
+    inherit (lib) mkSystem mkHome mkDarwin forAllSystems;
   in {
     nixosModules = import ./system/modules;
     homeModules = import ./home/mario/modules;
@@ -106,66 +106,12 @@
       };
     };
 
-    darwinConfigurations = let
-      system = "aarch64-darwin";
-      pkgs = import nixpkgs-darwin {
-        inherit system;
-        config.allowUnfree = true;
-        overlays = builtins.attrValues self.outputs.overlays;
-      };
-    in {
-      macbook = darwin.lib.darwinSystem {
-        inherit system;
-        inherit pkgs;
-        modules = [
-          {
-            system.stateVersion = 5;
-            users.users."m.liguori" = {
-              name = "m.liguori";
-              home = "/Users/m.liguori";
-            };
-
-            nix.settings.trusted-users = ["m.liguori"];
-
-            homebrew = {
-              enable = true;
-
-              onActivation = {
-                cleanup = "zap";
-              };
-
-              casks = [
-                "firefox"
-                "docker"
-                "microsoft-teams"
-                "microsoft-excel"
-                "tunnelblick"
-                "keybase"
-                "karabiner-elements"
-              ];
-            };
-          }
-
-          inputs.mac-app-util.darwinModules.default
-
-          home-manager.darwinModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.extraSpecialArgs = {inherit inputs outputs;};
-            home-manager.sharedModules = [inputs.mac-app-util.homeManagerModules.default];
-            home-manager.users."m.liguori" = {
-              imports = (builtins.attrValues self.outputs.homeModules.mario) ++ [./home/m.liguori/hosts/macbook.nix];
-
-              home = {
-                username = "m.liguori";
-                stateVersion = "25.05";
-                homeDirectory = "/Users/m.liguori";
-              };
-            };
-          }
-        ];
-        specialArgs = {inherit inputs outputs;};
+    darwinConfigurations = {
+      macbook = mkDarwin {
+        username = "m.liguori";
+        system = "aarch64-darwin";
+        stateVersion = 5;
+        homeStateVersion = "25.05";
       };
     };
   };

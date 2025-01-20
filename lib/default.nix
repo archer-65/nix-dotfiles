@@ -5,5 +5,6 @@ in rec {
   forAllSystems = lib.genAttrs supportedSystems;
 
   mkSystem = import ./nixos.nix {inherit inputs;};
+  mkDarwin = import ./darwin.nix {inherit inputs;};
   mkHome = import ./home.nix {inherit inputs;};
 }
