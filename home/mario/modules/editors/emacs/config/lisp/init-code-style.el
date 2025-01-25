@@ -23,13 +23,11 @@
 (setup (:pkg rainbow-mode)
   (:hook-into web-mode json-mode))
 
-(setup (:pkg ethan-wspace)
-  (:hide-mode)
-  (:global "C-c c" ethan-wspace-clean-all)
+(setup (:pkg ws-butler)
+  (:require)
   (:hook-into prog-mode)
-  ;; Required
-  (:option mode-require-final-newline nil
-           require-final-newline nil))
+  (:option mode-require-final-newline t
+           require-final-newline t))
 
 ;; Tabs, indentation, and the TAB key
 (setup indent
