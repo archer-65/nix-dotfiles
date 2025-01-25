@@ -39,16 +39,35 @@
 (setup (:pkg rainbow-delimiters)
   (:hook-into prog-mode))
 
-(setup (:pkg tree-sitter)
+(setup treesit
+  (:only-if (treesit-available-p))
+  (:option treesit-font-lock-level 4))
+
+(setup treesit-auto
+  (:only-if (treesit-available-p))
+  (:pkg treesit-auto)
+
+  (:load-after treesit)
+  (:autoload global-treesit-auto-mode)
+
+  (:option treesit-auto-install 'prompt)
+  (global-treesit-auto-mode))
+
+(setup tree-sitter
+  (:only-if (or (version< emacs-version "29") (not (treesit-available-p))))
+
+  (:pkg tree-sitter-langs)
+
+  (:pkg tree-sitter)
+
+  (:load-after tree-sitter-langs)
+
   (:autoload tree-sitter-mode tree-sitter-hl-mode)
 
   (:with-hook tree-sitter-after-on-hook
     (:hook tree-sitter-hl-mode))
 
   (global-tree-sitter-mode 1))
-
-(setup (:pkg tree-sitter-langs)
-  (:load-after treesitter))
 
 (provide 'init-code-style)
 ;;; init-code-style.el ends here
