@@ -75,7 +75,6 @@
  ("notmuch" . "969b26704da11c9e1935e5b442f6a88b32bb7e22")
  ("olivetti" . "845eb7a95a3ca3325f1120c654d761b91683f598")
  ("orderless" . "2b7a1688f24cc8ef5a3c3a6dab8e00d833bcda59")
- ("org" . "0af98b8411f6d852bc297d85b48b6118da7341ab")
  ("org-appear" . "32ee50f8fdfa449bbc235617549c1bccb503cb09")
  ("org-modern" . "8420e4f839bee2c34488ce94fa08212dfe0b2797")
  ("org-modern-indent" . "52b46c6ecd63e627ab5bfb83c580b51f68a23774")

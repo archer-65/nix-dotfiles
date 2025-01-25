@@ -15,7 +15,7 @@
   (variable-pitch-mode 1)
   (visual-line-mode 1))
 
-(setup (:pkg org)
+(setup (:pkg (org :type built-in))
   ;; General
   (:option org-adapt-indentation nil
            org-fold-catch-invisible-edits 'smart
