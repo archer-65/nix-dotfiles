@@ -102,9 +102,12 @@
 ;;
 ;;; EGLOT
 
-;; Eglot is built-in in Emacs 29+, so this condition doesn't consent the installation
-;; if it is already present.
+;; FIXME: This is not working as I expected. I tried multiple times
+;; and `straight.el' is pulling dependencies instead of using built-in
+;; packages.
 (setup eglot
+  ;; Eglot is built-in in Emacs 29+, so this condition doesn't consent
+  ;; the installation if it is already present.
   (unless (package-installed-p 'eglot)
     (:pkg eglot))
 
