@@ -15,7 +15,9 @@
     };
 
     hyprland = {
-      url = "github:hyprwm/Hyprland/v0.45.2";
+      # Set a tag when you want to pin Hyprland
+      # url = "github:hyprwm/Hyprland/v0.46.2";
+      url = "github:hyprwm/Hyprland";
     };
 
     sops-nix.url = "github:Mic92/sops-nix";
