@@ -6,7 +6,7 @@
 
 ;;; Code:
 
-(setup (:pkg dashboard)
+(elpaca-setup dashboard
   (:option dashboard-banner-logo-title "SUCK(EMAC)S - Personal Workspace"
            dashboard-startup-banner (expand-file-name "img/stallman.png" user-emacs-directory)
            dashboard-center-content t
@@ -29,7 +29,7 @@
            `(((,(all-the-icons-faicon "archive" :height 1.1 :v-adjust 0.0)
                "Update Packages"
                "Click to updates your packages"
-               (lambda (&rest _) (straight-pull-all)))))
+               (lambda (&rest _) (elpaca-fetch-all)))))
 
            ;; Footer
            dashboard-footer-icon (all-the-icons-fileicon "emacs" :face 'font-lock-keyword-face))

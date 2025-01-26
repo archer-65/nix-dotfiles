@@ -8,18 +8,6 @@
 with lib; let
   cfg = config.mario.modules.shell.git;
   cfgBw = config.mario.modules.credentials.bitwarden;
-
-  work-git = {
-    condition = "gitdir:${config.xdg.userDirs.extraConfig.XDG_WORK_DIR}/";
-    contents = {
-      user = {
-        email = "mli@bit4id.com";
-        name = "mli";
-        signingKey = "BAC570B2172822A3";
-      };
-      commit.gpgSign = true;
-    };
-  };
 in {
   options.mario.modules.shell.git = {
     enable = mkEnableOption "main user git configuration";
@@ -40,8 +28,18 @@ in {
         credential.helper = lib.mkIf cfgBw.enable "${pkgs.rbw}/bin/git-credential-rbw";
       };
 
-      includes = [
-        work-git
+      includes = lib.optionals (builtins.hasAttr "XDG_WORK_DIR" config.xdg.userDirs.extraConfig) [
+        {
+	  condition = "gitdir:${config.xdg.userDirs.extraConfig.XDG_WORK_DIR}/";
+	  contents = {
+	    user = {
+	      email = "mli@bit4id.com";
+	      name = "mli";
+	      signingKey = "BAC570B2172822A3";
+	    };
+	    commit.gpgSign = true;
+	  };
+	}
       ];
     };
   };

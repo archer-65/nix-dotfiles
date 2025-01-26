@@ -6,22 +6,25 @@
 
 ;;; Code:
 
-(setup (:pkg envrc)
+(elpaca-setup envrc
   (:needs "direnv")
   (:with-hook after-init-hook
     (:hook envrc-global-mode)))
 
-(setup (:pkg magit)
+(setup magit
+  (elpaca transient)
+  (elpaca (magit :wait t))
   (:autoload magit-status)
   (:option magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1))
 
-;; (setup (:pkg forge)
+;; (elpaca-setup forge
 ;;   (:load-after magit))
 
-(setup (:pkg blamer))
+(elpaca-setup blamer)
 
 ;; `projectile', not using to try `project.el'
-(setup (:pkg projectile :quit)
+(elpaca-setup projectile
+  :disabled
   (:hide-mode)
 
   ;; NOTE: Set this to the folder where you keep your Git repos!
@@ -32,11 +35,13 @@
 
   (:global "C-c C-p" projectile-command-map))
 
-(setup (:pkg consult-projectile :quit)
+(elpaca-setup consult-projectile
+  :disabled
   (:load-after consult projectile))
 
 ;; `treemacs' stuff, I'm not using it
-(setup (:pkg treemacs :quit)
+(elpaca-setup treemacs
+  :disabled
   (:option treemacs-deferred-git-apply-delay        0.5
            treemacs-directory-name-transformer      #'identity
            treemacs-display-in-side-window          t
@@ -116,14 +121,17 @@
            "C-c C-t f"  treemacs-find-file
            "C-c C-t T"  treemacs-find-tag))
 
-(setup (:pkg treemacs-projectile :quit)
+(elpaca-setup treemacs-projectile
+  :disabled
   (:load-after treemacs projectile))
 
-(setup (:pkg treemacs-all-the-icons :quit)
+(elpaca-setup treemacs-all-the-icons
+  :disabled
   (:with-after treemacs
     (treemacs-load-theme "all-the-icons")))
 
-(setup (:pkg treemacs-magit :quit)
+(elpaca-setup treemacs-magit
+  :disabled
   (:load-after treemacs magit))
 
 (provide 'init-projects)

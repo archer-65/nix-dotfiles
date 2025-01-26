@@ -8,7 +8,7 @@
 
 (setup vterm
   (unless (archer-using-nix-p)
-    (:pkg vterm))
+    (elpaca vterm))
 
   (:autoload vterm vterm-other-window)
 
@@ -16,7 +16,7 @@
            vterm-max-scrollback 5000
            vterm-kill-buffer-on-exit t))
 
-(setup (:pkg multi-vterm)
+(elpaca-setup multi-vterm
   (:with-after vterm
     (:option multi-vterm-dedicated-window-height-percent 20)))
 

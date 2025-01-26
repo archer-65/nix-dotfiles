@@ -6,47 +6,19 @@
 
 ;;; Code:
 
-(defun archer-human-readable-file-sizes-to-bytes (string)
-  "Convert a human-readable file (as STRING) size into BYTES."
-  (interactive)
-  (cond
-   ((string-suffix-p "G" string t)
-    (* 1000000000 (string-to-number (substring string 0 (- (length string) 1)))))
-   ((string-suffix-p "M" string t)
-    (* 1000000 (string-to-number (substring string 0 (- (length string) 1)))))
-   ((string-suffix-p "K" string t)
-    (* 1000 (string-to-number (substring string 0 (- (length string) 1)))))
-   (t
-    (string-to-number (substring string 0 (- (length string) 1))))))
-
-(defun archer-bytes-to-human-readable-file-sizes (bytes)
-  "Convert number of BYTES to human-readable file size."
-  (interactive)
-  (cond
-   ((> bytes 1000000000) (format "%10.1fG" (/ bytes 1000000000.0)))
-   ((> bytes 100000000) (format "%10.0fM" (/ bytes 1000000.0)))
-   ((> bytes 1000000) (format "%10.1fM" (/ bytes 1000000.0)))
-   ((> bytes 100000) (format "%10.0fk" (/ bytes 1000.0)))
-   ((> bytes 1000) (format "%10.1fk" (/ bytes 1000.0)))
-   (t (format "%10d" bytes))))
-
 (setup (:require ibuffer)
-  ;; Use human readable Size column instead of original one
-  (define-ibuffer-column size-h
-    (:name "Size" :inline t :summarizer
-           (lambda (column-strings)
-             (let ((total 0))
-               (dolist (string column-strings)
-                 (setq total (+ (float (archer-human-readable-file-sizes-to-bytes string))
-                                total)))
-               (archer-bytes-to-human-readable-file-sizes total))))
-    (archer-bytes-to-human-readable-file-sizes (buffer-size)))
+  ;; Redefine size column to display human readable size
+  (define-ibuffer-column size
+    (:name "Size"
+     :inline t
+     :header-mouse-map ibuffer-size-header-map)
+    (file-size-human-readable (buffer-size)))
   ;; Modify the default ibuffer-formats
   (:option ibuffer-formats
            '((mark modified read-only locked " "
                    (name 20 20 :left :elide)
                    " "
-                   (size-h 11 -1 :right)
+                   (size 11 -1 :right)
                    " "
                    (mode 16 16 :left :elide)
                    " "

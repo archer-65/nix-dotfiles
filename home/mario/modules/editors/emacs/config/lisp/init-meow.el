@@ -6,7 +6,7 @@
 
 ;;; Code:
 
-(setup (:pkg meow)
+(elpaca-setup meow
   (:require meow)
 
   (:hide-mode meow-normal)

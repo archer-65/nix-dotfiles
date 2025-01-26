@@ -43,9 +43,8 @@
 ;;
 ;;; LSP-MODE
 
-(setup lsp-mode
-  (:quit)
-  (:pkg lsp-mode)
+(elpaca-setup lsp-mode
+  :disabled
   (:autoload lsp)
 
   (:when-loaded
@@ -84,7 +83,8 @@
 
   (:hook-into lsp-enable-which-key-integration))
 
-(setup (:pkg lsp-ui :quit)
+(elpaca-setup lsp-ui
+  :disabled
   (:autoload lsp-ui-mode)
   (:hook-into lsp-mode)
   (:load-after lsp)
@@ -96,18 +96,18 @@
              lsp-ui-sideline-show-code-actions t
              lsp-ui-sideline-delay 0.05)))
 
-(setup (:pkg lsp-java :quit)
+(elpaca-setup lsp-java
+  (:quit)
   (:load-after lsp))
 
 ;;
 ;;; EGLOT
 
-;; Eglot is built-in in Emacs 29+, so this condition doesn't consent the installation
-;; if it is already present.
+;; FIXME: This is not working as I expected. I tried multiple times
+;; and `straight.el' is pulling dependencies instead of using built-in
+;; packages.
+(cl-pushnew 'eglot elpaca-ignored-dependencies)
 (setup eglot
-  (unless (package-installed-p 'eglot)
-    (:pkg eglot))
-
   ;; List of modes and servers
   (:when-loaded
     (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
@@ -128,7 +128,7 @@
   (:with-mode (c-mode c++-mode java-mode nix-mode rustic-mode terraform-mode)
     (:hook eglot-ensure)))
 
-(setup (:pkg eglot-java)
+(elpaca-setup eglot-java
   (:load-after eglot)
   (:with-mode (java-mode)
     (:hook eglot-java-mode)))

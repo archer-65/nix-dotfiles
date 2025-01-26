@@ -42,7 +42,7 @@
   (setq-default indicate-buffer-boundaries nil))
 
 ;; You must run `all-the-icons-install-fonts` the first time.
-(setup (:pkg all-the-icons)
+(elpaca-setup all-the-icons
   (:require all-the-icons))
 
 (provide 'init-appearance)

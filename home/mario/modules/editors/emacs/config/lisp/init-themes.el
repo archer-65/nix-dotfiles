@@ -7,12 +7,12 @@
 ;;; Code:
 
 
-(setup (:pkg modus-themes)
+(elpaca-setup modus-themes
   ;; Preferences
   (:option modus-themes-org-blocks 'gray-background
            modus-themes-mixed-fonts nil
            modus-themes-variable-pitch-ui nil)
-
+  
   ;; Overrides
   (:option modus-themes-common-palette-overrides
            ;; Modeline
@@ -82,10 +82,10 @@
 
   (modus-themes-select 'modus-operandi))
 
-(setup (:pkg ef-themes))
+(elpaca-setup ef-themes)
 
 ;; I set circadian in the configuration of my themes
-(setup (:pkg circadian)
+(elpaca-setup circadian
   (:load-after modus-themes)
   (:option circadian-themes '(("8:00" . modus-operandi)
                               ("20:00" . modus-vivendi)))

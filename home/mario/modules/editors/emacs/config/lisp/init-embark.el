@@ -43,9 +43,9 @@ targets."
     (apply fn args)))
 
 ;; Embark configuration
-(setup (:pkg embark)
+(elpaca-setup embark
   (:with-after consult
-    (:pkg embark-consult))
+    (elpaca embark-consult))
 
   (:with-after which-key
     (setq prefix-help-command #'embark-prefix-help-command)
@@ -62,7 +62,7 @@ targets."
                  (window-parameters (mode-line-format . none)))))
 
 ;; Used for export and edit after ripgrep magic.
-(setup (:pkg wgrep))
+(elpaca-setup wgrep)
 
 (provide 'init-embark)
 ;;; init-embark.el ends here

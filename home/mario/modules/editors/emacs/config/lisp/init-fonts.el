@@ -15,7 +15,7 @@
   :type 'integer
   :group 'archer-faces)
 
-(setup (:pkg fontaine)
+(elpaca-setup fontaine
   (:option x-underline-at-descent-line nil
            use-default-font-for-symbols t)
 
@@ -41,11 +41,12 @@
 
   (fontaine-set-preset (or (fontaine-restore-latest-preset) 'victor))
 
-  (:with-hook kill-emacs-hook
-    (:hook fontaine-store-latest-preset))
+  ;; NOTE: Is this really obsolete?
+  ;; (:with-hook (modus-themes-after-load-theme-hook ef-themes-post-load-hook)
+  ;;   (:hook fontaine-apply-current-preset))
 
-  (:with-hook (modus-themes-after-load-theme-hook ef-themes-post-load-hook)
-    (:hook fontaine-apply-current-preset)))
+  (:with-hook kill-emacs-hook
+    (:hook fontaine-store-latest-preset)))
 
 (provide 'init-fonts)
 ;;; init-fonts.el ends here

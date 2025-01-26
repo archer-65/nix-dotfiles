@@ -107,6 +107,30 @@ I also install [[https://github.com/radian-software/blackout][blackout.el]] (and
 
 #+include: "lisp/init-setup.el" src emacs-lisp :tangle no
 
+** TODO OS Specific Settings
+
+#+begin_src emacs-lisp
+
+  (elpaca-setup exec-path-from-shell
+    (:only-if (eq system-type 'darwin))
+    (:require exec-path-from-shell)
+    (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE" "NIX_SSL_CERT_FILE" "NIX_PATH"))
+      (add-to-list 'exec-path-from-shell-variables var))
+    (exec-path-from-shell-initialize))
+
+  (when (eq system-type 'darwin)
+    ;; mac-* variables are used by the special emacs-mac build of Emacs by
+    ;; Yamamoto Mitsuharu, while other builds use ns-*.
+    (setq mac-command-modifier      'super
+          ns-command-modifier       'super
+          mac-option-modifier       'meta
+          ns-option-modifier        'meta
+          ;; Free up the right option for character composition
+          mac-right-option-modifier 'none
+          ns-right-option-modifier  'none))
+
+#+end_src
+
 ** Performances enhancement
 
 [[https://github.com/emacsmirror/gcmh][GCMH]] allows the auto-regulation of garbage collector based on idle timers. During normal use a high GC threshold is set; when idling GC is triggered and a low threshold is set.
@@ -570,7 +594,7 @@ My choice is [[https://github.com/vedang/pdf-tools][pdf-tools]], that renders on
 
 #+begin_src emacs-lisp
 
-  (setup (:pkg (beancount-mode :type git :host github :repo "beancount/beancount-mode")))
+  (elpaca-setup (beancount-mode :host github :repo "beancount/beancount-mode" :main "beancount.el"))
 
 #+end_src
 
@@ -617,7 +641,7 @@ Nice mode to control your system (and user) services without leaving Emacs.
 
 #+begin_src emacs-lisp
 
-  (setup (:pkg daemons))
+  (elpaca-setup daemons)
 
 #+end_src
 
