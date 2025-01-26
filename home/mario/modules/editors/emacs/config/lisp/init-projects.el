@@ -20,6 +20,11 @@
 ;; (elpaca-setup forge
 ;;   (:load-after magit))
 
+(setup ediff
+  (:autoload ediff-buffers ediff-files ediff-buffers3 ediff-files3)
+  (:option ediff-split-window-function 'split-window-horizontally
+           ediff-window-setup-function 'ediff-setup-windows-plain))
+
 (elpaca-setup blamer)
 
 ;; `projectile', not using to try `project.el'
