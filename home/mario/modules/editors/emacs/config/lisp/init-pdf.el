@@ -6,7 +6,10 @@
 
 ;;; Code:
 
-(setup (:pkg pdf-tools)
+(setup pdf-tools
+  (unless (archer-using-nix-p)
+    (elpaca vterm))
+
   (:option display-buffer-alist '(("^\\*outline"
                                    display-buffer-in-side-window
                                    (side . left)
@@ -18,7 +21,7 @@
 
   (pdf-tools-install :no-query))
 
-(setup (:pkg saveplace-pdf-view)
+(elpaca-setup saveplace-pdf-view
   (:load-after pdf-tools))
 
 (provide 'init-pdf)

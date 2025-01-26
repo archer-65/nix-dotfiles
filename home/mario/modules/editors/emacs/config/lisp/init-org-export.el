@@ -44,12 +44,12 @@
                                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))))
 
 ;; Reveal.js
-(setup (:pkg (ox-reveal :type git :host github :repo "yjwen/org-reveal"))
+(elpaca-setup (ox-reveal :host github :repo "yjwen/org-reveal")
   (:load-after ox)
   (:option org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js"))
 
 ;; Hugo
-(setup (:pkg ox-hugo)
+(elpaca-setup ox-hugo
   (:load-after ox))
 
 (provide 'init-org-export)

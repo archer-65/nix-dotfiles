@@ -33,6 +33,7 @@ in {
           [
             epkgs.treesit-grammars.with-all-grammars
             epkgs.vterm
+            epkgs.pdf-tools
           ]
           ++ (optionals cfg.telega.enable [
             epkgs.melpaPackages.telega
@@ -43,7 +44,6 @@ in {
       xdg.configFile."emacs/init.el".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/init.el";
       xdg.configFile."emacs/early-init.el".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/early-init.el";
       xdg.configFile."emacs/lisp".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/lisp";
-      xdg.configFile."emacs/straight/versions".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/straight/versions";
       xdg.configFile."emacs/img".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/img";
     }
 

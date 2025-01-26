@@ -11,7 +11,7 @@
 (setup telega
 
   (unless (archer-using-nix-p)
-    (:pkg telega))
+    (elpaca telega))
 
   (:autoload telega)
 

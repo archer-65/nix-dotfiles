@@ -570,7 +570,7 @@ My choice is [[https://github.com/vedang/pdf-tools][pdf-tools]], that renders on
 
 #+begin_src emacs-lisp
 
-  (setup (:pkg (beancount-mode :type git :host github :repo "beancount/beancount-mode")))
+  (elpaca-setup (beancount-mode :host github :repo "beancount/beancount-mode" :main "beancount.el"))
 
 #+end_src
 
@@ -617,7 +617,7 @@ Nice mode to control your system (and user) services without leaving Emacs.
 
 #+begin_src emacs-lisp
 
-  (setup (:pkg daemons))
+  (elpaca-setup daemons)
 
 #+end_src
 

@@ -7,7 +7,7 @@
 ;;; Code:
 
 
-(setup (:pkg gcmh)
+(elpaca-setup gcmh
   (:require)
   (:hide-mode)
   ;; The GC introduces annoying pauses and stuttering into our Emacs experience,

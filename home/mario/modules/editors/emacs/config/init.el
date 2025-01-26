@@ -93,7 +93,7 @@
 
 (require 'init-pdf)
 
-(setup (:pkg (beancount-mode :type git :host github :repo "beancount/beancount-mode")))
+(elpaca-setup (beancount-mode :host github :repo "beancount/beancount-mode" :main "beancount.el"))
 
 (require 'init-shell)
 
@@ -101,6 +101,6 @@
 
 (require 'init-media)
 
-(setup (:pkg daemons))
+(elpaca-setup daemons)
 
 ;;; init.el ends here

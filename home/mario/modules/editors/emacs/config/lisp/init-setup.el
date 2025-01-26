@@ -6,8 +6,8 @@
 
 ;;; Code:
 
-(straight-use-package 'setup)
-(require 'setup)
+(elpaca setup (require 'setup))
+(elpaca-wait)
 
 ;; From https://git.acdw.net/emacs/tree/lisp/+setup.el
 (defun +setup-warn (message &rest args)
@@ -37,7 +37,7 @@ it includes the NAME of the setup form in the warning output."
 
 ;; Forms section
 (setup-define :quit
-  'setup-quit
+  #'setup-quit
   :documentation "Always stop evaluating the body.")
 
 (setup-define :needs
@@ -97,46 +97,26 @@ Alternatively, MODE can be specified manually, and override the
 current mode."
   :after-loaded t)
 
-;; Integration with `straight.el'
-(defun setup--straight-handle-arg (arg var)
-  (cond
-   ((and (boundp var) (symbol-value var)) t)
-   ((keywordp arg) (set var t))
-   ((functionp arg) (set var nil) (funcall arg))
-   ((listp arg) (set var nil) arg)))
-
-(with-eval-after-load 'straight
-  (setup-define :pkg
-    (lambda (recipe &rest predicates)
-      (let* ((skp (make-symbol "straight-keyword-p"))
-             (straight-use-p (cl-mapcar
-                              (lambda (f) (setup--straight-handle-arg f skp)) predicates))
-             (form `(unless (and ,@straight-use-p
-                                 (condition-case e (straight-use-package ',recipe)
-                                   (error (+setup-warn ":straight error: %S" ',recipe)
-                                          ,(setup-quit))
-                                   (:success t)))
-                      ,(setup-quit))))
-        ;; Keyword arguments --- :quit is special and should short-circuit
-        (if (memq :quit predicates)
-            (setq form `,(setup-quit))
-          ;; Otherwise, handle the rest of them ...
-          (when-let ((after (cadr (memq :after predicates))))
-            (setq form `(with-eval-after-load ,(if (eq after t) (setup-get 'feature) after)
-                          ,form))))
-        ;; Finally ...
-        form))
-    :documentation "Install RECIPE with `straight-use-package'.
-If PREDICATES are given, only install RECIPE if all of them return non-nil.
-The following keyword arguments are also recognized:
-- :quit          --- immediately stop evaluating.  Good for commenting.
-- :after FEATURE --- only install RECIPE after FEATURE is loaded.
-                     If FEATURE is t, install RECIPE after the current feature."
-    :repeatable nil
-    :indent 1
-    :shorthand (lambda (sexp)
-                 (let ((recipe (cadr sexp)))
-                   (or (car-safe recipe) recipe)))))
+;;;###autoload
+(defmacro elpaca-setup (order &rest body)
+  "Execute BODY in `setup' declaration after ORDER is finished.
+If the :disabled keyword is present in body, the package is completely ignored.
+This happens regardless of the value associated with :disabled.
+The expansion is a string indicating the package has been disabled."
+  (declare (indent 1))
+  (if (memq :disabled body)
+      (format "%S :disabled by elpaca-setup" order)
+    (let ((o order))
+      (when-let ((ensure (cl-position :ensure body)))
+        (setq o (if (null (nth (1+ ensure) body)) nil order)
+              body (append (cl-subseq body 0 ensure)
+                           (cl-subseq body (+ ensure 2)))))
+      `(elpaca ,o (setup
+                    ,(if-let (((memq (car-safe order) '(quote \`)))
+                              (feature (flatten-tree order)))
+                         (cadr feature)
+                       (elpaca--first order))
+                    ,@body)))))
 
 (provide 'init-setup)
 ;;; init-setup.el ends here
