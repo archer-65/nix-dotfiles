@@ -29,7 +29,7 @@
            `(((,(all-the-icons-faicon "archive" :height 1.1 :v-adjust 0.0)
                "Update Packages"
                "Click to updates your packages"
-               (lambda (&rest _) (straight-pull-all)))))
+               (lambda (&rest _) (elpaca-fetch-all)))))
 
            ;; Footer
            dashboard-footer-icon (all-the-icons-fileicon "emacs" :face 'font-lock-keyword-face))
