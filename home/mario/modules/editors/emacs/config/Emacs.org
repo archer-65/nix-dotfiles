@@ -111,7 +111,7 @@ I also install [[https://github.com/radian-software/blackout][blackout.el]] (and
 
 #+begin_src emacs-lisp
 
-  (elpaca-setup exec-path-from-shell
+  (setup-pkg exec-path-from-shell
     (:only-if (eq system-type 'darwin))
     (:require exec-path-from-shell)
     (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE" "NIX_SSL_CERT_FILE" "NIX_PATH"))
@@ -594,7 +594,7 @@ My choice is [[https://github.com/vedang/pdf-tools][pdf-tools]], that renders on
 
 #+begin_src emacs-lisp
 
-  (elpaca-setup (beancount-mode :host github :repo "beancount/beancount-mode" :main "beancount.el"))
+  (setup-pkg (beancount-mode :host github :repo "beancount/beancount-mode" :main "beancount.el"))
 
 #+end_src
 
@@ -641,7 +641,7 @@ Nice mode to control your system (and user) services without leaving Emacs.
 
 #+begin_src emacs-lisp
 
-  (elpaca-setup daemons)
+  (setup-pkg daemons)
 
 #+end_src
 

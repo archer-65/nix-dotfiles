@@ -15,7 +15,7 @@
   :type 'integer
   :group 'archer-faces)
 
-(elpaca-setup fontaine
+(setup-pkg fontaine
   (:option x-underline-at-descent-line nil
            use-default-font-for-symbols t)
 

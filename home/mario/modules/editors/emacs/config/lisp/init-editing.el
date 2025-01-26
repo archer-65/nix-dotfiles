@@ -31,7 +31,7 @@
 ;;; Keep history and keep the order
 
 ;; The `no-littering` package to keep folders where we edit files and the Emacs configuration folder clean.
-(elpaca-setup no-littering
+(setup-pkg no-littering
   ;; The package doesn't set this by default so we must place
   ;; auto save files in the same path as it uses for sessions
   (:option auto-save-file-name-transforms `((".*" ,(no-littering-expand-var-file-name "auto-save/")))))
@@ -148,12 +148,12 @@
   (:with-hook after-init-hook
     (:hook delete-selection-mode)))
 
-(elpaca-setup drag-stuff
+(setup-pkg drag-stuff
   (:hide-mode)
   (drag-stuff-global-mode 1)
   (drag-stuff-define-keys))
 
-(elpaca-setup goto-last-change
+(setup-pkg goto-last-change
   (:global "C-z" goto-last-change))
 
 (setup (:require autorevert)
@@ -166,7 +166,7 @@
 (setup (:require so-long)
   (global-so-long-mode 1))
 
-(elpaca-setup diff-hl
+(setup-pkg diff-hl
   (:hook-into prog-mode)
 
   (:with-mode dired-mode

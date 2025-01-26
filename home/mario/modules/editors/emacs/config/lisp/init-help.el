@@ -6,12 +6,12 @@
 
 ;;; Code:
 
-(elpaca-setup which-key
+(setup-pkg which-key
   (:hide-mode)
   (:option which-key-idle-delay 0.2)
   (which-key-mode 1))
 
-(elpaca-setup helpful
+(setup-pkg helpful
   :disabled
   (:bind "C-h f"    helpful-callable
          "C-h v"    helpful-variable

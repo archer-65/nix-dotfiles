@@ -7,12 +7,12 @@
 
 ;;; Code:
 
-(elpaca-setup format-all
+(setup-pkg format-all
   (:hide-mode)
   (:hook-into prog-mode)
   (:global "<f1>" format-all-buffer))
 
-(elpaca-setup editorconfig
+(setup-pkg editorconfig
   (:hide-mode)
   (editorconfig-mode 1))
 
@@ -20,10 +20,10 @@
   (:hide-mode)
   (global-eldoc-mode 1))
 
-(elpaca-setup rainbow-mode
+(setup-pkg rainbow-mode
   (:hook-into web-mode json-mode))
 
-(elpaca-setup ws-butler
+(setup-pkg ws-butler
   (:require)
   (:hook-into prog-mode)
   (:option mode-require-final-newline t
@@ -36,14 +36,14 @@
            tab-width 2
            indent-tabs-mode nil)) ; Use spaces!
 
-(elpaca-setup rainbow-delimiters
+(setup-pkg rainbow-delimiters
   (:hook-into prog-mode))
 
 (setup treesit
   (:only-if (treesit-available-p))
   (:option treesit-font-lock-level 4))
 
-(elpaca-setup treesit-auto
+(setup-pkg treesit-auto
   (:only-if (treesit-available-p))
 
   (:load-after treesit)
@@ -52,12 +52,12 @@
   (:option treesit-auto-install 'prompt)
   (global-treesit-auto-mode))
 
-(elpaca-setup tree-sitter-langs
+(setup-pkg tree-sitter-langs
   (:only-if (or (version< emacs-version "29") (not (treesit-available-p))))
 
   (:load-after tree-sitter-langs))
 
-(elpaca-setup tree-sitter
+(setup-pkg tree-sitter
   (:only-if (or (version< emacs-version "29") (not (treesit-available-p))))
 
   (:load-after tree-sitter-langs)

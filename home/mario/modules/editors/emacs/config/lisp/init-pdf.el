@@ -21,7 +21,7 @@
 
   (pdf-tools-install :no-query))
 
-(elpaca-setup saveplace-pdf-view
+(setup-pkg saveplace-pdf-view
   (:load-after pdf-tools))
 
 (provide 'init-pdf)

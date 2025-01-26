@@ -98,14 +98,14 @@ current mode."
   :after-loaded t)
 
 ;;;###autoload
-(defmacro elpaca-setup (order &rest body)
+(defmacro setup-pkg (order &rest body)
   "Execute BODY in `setup' declaration after ORDER is finished.
 If the :disabled keyword is present in body, the package is completely ignored.
 This happens regardless of the value associated with :disabled.
 The expansion is a string indicating the package has been disabled."
   (declare (indent 1))
   (if (memq :disabled body)
-      (format "%S :disabled by elpaca-setup" order)
+      (format "%S :disabled by setup-pkg" order)
     (let ((o order))
       (when-let ((ensure (cl-position :ensure body)))
         (setq o (if (null (nth (1+ ensure) body)) nil order)

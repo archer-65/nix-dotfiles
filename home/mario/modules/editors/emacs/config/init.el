@@ -37,7 +37,7 @@
 ;; Require package management file
 (require 'init-setup)
 
-(elpaca-setup exec-path-from-shell
+(setup-pkg exec-path-from-shell
   (:only-if (eq system-type 'darwin))
   (:require exec-path-from-shell)
   (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE" "NIX_SSL_CERT_FILE" "NIX_PATH"))
@@ -111,7 +111,7 @@
 
 (require 'init-pdf)
 
-(elpaca-setup (beancount-mode :host github :repo "beancount/beancount-mode" :main "beancount.el"))
+(setup-pkg (beancount-mode :host github :repo "beancount/beancount-mode" :main "beancount.el"))
 
 (require 'init-shell)
 
@@ -119,6 +119,6 @@
 
 (require 'init-media)
 
-(elpaca-setup daemons)
+(setup-pkg daemons)
 
 ;;; init.el ends here

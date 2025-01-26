@@ -6,7 +6,7 @@
 
 ;;; Code:
 
-(elpaca-setup consult
+(setup-pkg consult
   (:require consult)
 
   ;; C-c bindings (mode specific)
@@ -111,7 +111,7 @@
   (:with-mode completion-list-mode
     (:hook consult-preview-at-point-mode)))
 
-(elpaca-setup consult-dir
+(setup-pkg consult-dir
   (:with-after consult
     (:global "C-x C-d" consult-dir)
     (:with-map minibuffer-local-completion-map
@@ -119,7 +119,7 @@
        "C-x C-d" consult-dir-maybe
        "C-x C-j" consult-dir-jump-file))))
 
-(elpaca-setup consult-eglot
+(setup-pkg consult-eglot
   (:with-after (consult eglot)
     (:global "M-g s" consult-eglot-symbols)))
 

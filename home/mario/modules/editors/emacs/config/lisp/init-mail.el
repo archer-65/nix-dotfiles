@@ -287,7 +287,7 @@ To improve."
     "D" archer-notmuch-show-delete-message
     "S" archer-notmuch-show-spam-message))
 
-(elpaca-setup consult-notmuch
+(setup-pkg consult-notmuch
   (:load-after consult notmuch))
 
 (setup sendmail
