@@ -13,7 +13,9 @@
     (add-to-list 'org-structure-template-alist '("bash" . "src bash"))
     (add-to-list 'org-structure-template-alist '("el" . "src emacs-lisp"))
     (add-to-list 'org-structure-template-alist '("cc" . "src c"))
-    (add-to-list 'org-structure-template-alist '("j" . "src java")))
+    (add-to-list 'org-structure-template-alist '("j" . "src java"))
+
+    (:require org-tempo))
 
   (:with-mode org-mode
     (:local-set electric-pair-inhibit-predicate
