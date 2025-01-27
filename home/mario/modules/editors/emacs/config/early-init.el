@@ -135,4 +135,18 @@
 (add-hook 'after-init-hook #'elpaca-process-queues)
 (elpaca `(,@elpaca-order))
 
+;; Here I'm loading a newer seq
+(defun +elpaca-build-steps-with-unload (pkg)
+  (append (butlast (if (file-exists-p (file-name-concat elpaca-builds-directory
+                                                        (symbol-name pkg)))
+                       elpaca--pre-built-steps elpaca-build-steps))
+          (list `(lambda (e)
+                   (when (featurep ',pkg) (unload-feature ',pkg t))
+                   (elpaca--continue-build e))
+                'elpaca--activate-package)))
+
+(elpaca `(seq :build ,(+elpaca-build-steps-with-unload 'seq)))
+(elpaca `(map :build ,(+elpaca-build-steps-with-unload 'map)))
+(elpaca let-alist)
+
 ;;; early-init.el ends here
