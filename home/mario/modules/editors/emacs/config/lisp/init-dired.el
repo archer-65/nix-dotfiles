@@ -16,12 +16,6 @@
   ;; Kill the current Dired buffer, then visit the file or directory
   (put 'dired-find-alternate-file 'disabled nil)
 
-  (when (eq system-type 'darwin)
-    (let ((gls (executable-find "gls")))
-      (when gls
-        (setq dired-use-ls-dired t
-              insert-directory-program gls))))
-
   ;; Emacs 29 options
   (unless (version< emacs-version "29")
     (setopt dired-mouse-drag-files t

@@ -7,7 +7,7 @@
 ;;; Code:
 
 (setup-pkg (corfu :files (:defaults "extensions/*")
-                     :include (corfu-history corfu-popupinfo corfu-info))
+                  :includes (corfu-history corfu-popupinfo corfu-info))
   (:option corfu-cycle t
            corfu-auto t
            corfu-auto-delay 0.3
@@ -78,21 +78,21 @@ Useful for prompts such as `eval-expression' and `shell-command'."
   (global-corfu-mode))
 
 (setup corfu-history
-  (:load-after corfu savehist)
   (:autoload corfu-history-mode)
-  (add-to-list 'savehist-additional-variables 'corfu-history)
-  (corfu-history-mode 1))
+  (:with-after (corfu savehist)
+    (add-to-list 'savehist-additional-variables 'corfu-history)
+    (corfu-history-mode 1)))
 
 (setup corfu-popupinfo
-  (:load-after corfu)
   (:autoload corfu-popupinfo-mode)
-  (:option corfu-popupinfo-delay '(0.5 . 0))
-  (corfu-popupinfo-mode 1)
-  (:with-map corfu-popupinfo-map
-    (:bind
-      "M-p" corfu-popupinfo-scroll-down
-      "M-n" corfu-popupinfo-scroll-up
-      "M-d" corfu-popupinfo-toggle)))
+  (:with-after corfu
+    (:option corfu-popupinfo-delay '(0.5 . 0))
+    (corfu-popupinfo-mode 1)
+    (:with-map corfu-popupinfo-map
+      (:bind
+       "M-p" corfu-popupinfo-scroll-down
+       "M-n" corfu-popupinfo-scroll-up
+       "M-d" corfu-popupinfo-toggle))))
 
 (setup corfu-info
   (:load-after corfu)
