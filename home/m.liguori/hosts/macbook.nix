@@ -16,6 +16,7 @@
       nix.enable = true;
       kube.enable = true;
       terraform.enable = true;
+      tex.enable = true;
     };
 
     editors = {
