@@ -84,6 +84,9 @@
 
   (:local-set completion-at-point-functions '(cape-dabbrev cape-file))
 
+  (:with-after org-ctags
+    (:option org-ctags-open-link-functions '()))
+
   (:option org-directory "~/projects/pkm"
            org-agenda-files '("inbox.org" "todo.org")
 
