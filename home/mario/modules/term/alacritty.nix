@@ -1,4 +1,5 @@
 {
+  pkgs,
   options,
   config,
   lib,
@@ -24,8 +25,12 @@ in {
             x = 20;
             y = 15;
           };
-          decorations = "none";
+          decorations =
+            if pkgs.stdenv.isDarwin
+            then "Full"
+            else "None";
           opacity = 0.95;
+          option_as_alt = "OnlyLeft";
         };
 
         # Scrolling history and multiplier

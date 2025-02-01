@@ -6,9 +6,9 @@
 
 ;;; Code:
 
-(elpaca-setup mpv)
+(setup-pkg mpv)
 
-(elpaca-setup emms
+(setup-pkg emms
   (:require emms-setup)
   (emms-all)
 

@@ -15,7 +15,7 @@
   :type 'integer
   :group 'archer-faces)
 
-(elpaca-setup fontaine
+(setup-pkg fontaine
   (:option x-underline-at-descent-line nil
            use-default-font-for-symbols t)
 
@@ -25,7 +25,6 @@
   (:option archer-font-height (pcase (system-name)
                                 ("quietfrost" 140)
                                 ("mate" 140)
-                                ("mli-pc" 140)
                                 (_ 140)))
 
 

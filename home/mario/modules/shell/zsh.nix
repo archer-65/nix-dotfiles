@@ -121,6 +121,7 @@ in {
 
       initExtra = ''
         # Keybindings
+        bindkey "^[[3~" delete-char
         bindkey '^[[1;5D' backward-word
         bindkey '^[[1;5C' forward-word
         bindkey '^[[3;5~' kill-word
@@ -131,6 +132,8 @@ in {
         if [ -r "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
           __HM_SESS_VARS_SOURCED= source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
         fi
+
+	[ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
       '';
 
       # TODO: fast-syntax-highlighting?

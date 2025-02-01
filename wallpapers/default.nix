@@ -13,12 +13,6 @@ let
     };
   };
 in {
-  city-lights = wallhaven {
-    id = "1pke89";
-    ext = "jpg";
-    sha256 = "0mkfkji3cz2sl6ipahq7ydzmag9jdx85g8nn5madrxdb36qfrhs8";
-  };
-
   moonlight-car = wallhaven {
     id = "m3dqj8";
     ext = "jpg";

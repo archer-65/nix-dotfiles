@@ -6,7 +6,7 @@
   ...
 }: {
   nix = {
-    package = pkgs.nixVersions.latest;
+    package = lib.mkForce pkgs.nixVersions.latest;
     settings = {
       experimental-features = ["nix-command" "flakes"];
       warn-dirty = false;
@@ -28,7 +28,10 @@
     outputs.wallpapers;
 
   xdg.userDirs = {
-    enable = true;
+    enable =
+      if pkgs.stdenv.isDarwin
+      then false
+      else true;
     createDirectories = true;
 
     # These are useless to me
@@ -49,7 +52,7 @@
     };
   };
 
-  services = {
+  services = lib.optionalAttrs (pkgs.stdenv.isDarwin != true) {
     keybase.enable = true;
     kbfs = {
       enable = true;

@@ -6,7 +6,7 @@
 
 ;;; Code:
 
-(elpaca-setup envrc
+(setup-pkg envrc
   (:needs "direnv")
   (:with-hook after-init-hook
     (:hook envrc-global-mode)))
@@ -17,13 +17,18 @@
   (:autoload magit-status)
   (:option magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1))
 
-;; (elpaca-setup forge
+;; (setup-pkg forge
 ;;   (:load-after magit))
 
-(elpaca-setup blamer)
+(setup ediff
+  (:autoload ediff-buffers ediff-files ediff-buffers3 ediff-files3)
+  (:option ediff-split-window-function 'split-window-horizontally
+           ediff-window-setup-function 'ediff-setup-windows-plain))
+
+(setup-pkg blamer)
 
 ;; `projectile', not using to try `project.el'
-(elpaca-setup projectile
+(setup-pkg projectile
   :disabled
   (:hide-mode)
 
@@ -35,12 +40,12 @@
 
   (:global "C-c C-p" projectile-command-map))
 
-(elpaca-setup consult-projectile
+(setup-pkg consult-projectile
   :disabled
   (:load-after consult projectile))
 
 ;; `treemacs' stuff, I'm not using it
-(elpaca-setup treemacs
+(setup-pkg treemacs
   :disabled
   (:option treemacs-deferred-git-apply-delay        0.5
            treemacs-directory-name-transformer      #'identity
@@ -121,16 +126,16 @@
            "C-c C-t f"  treemacs-find-file
            "C-c C-t T"  treemacs-find-tag))
 
-(elpaca-setup treemacs-projectile
+(setup-pkg treemacs-projectile
   :disabled
   (:load-after treemacs projectile))
 
-(elpaca-setup treemacs-all-the-icons
+(setup-pkg treemacs-all-the-icons
   :disabled
   (:with-after treemacs
     (treemacs-load-theme "all-the-icons")))
 
-(elpaca-setup treemacs-magit
+(setup-pkg treemacs-magit
   :disabled
   (:load-after treemacs magit))
 

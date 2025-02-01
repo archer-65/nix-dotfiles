@@ -37,6 +37,31 @@
 ;; Require package management file
 (require 'init-setup)
 
+(setup-pkg exec-path-from-shell
+  (:only-if (eq system-type 'darwin))
+  (:require exec-path-from-shell)
+  (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE" "NIX_SSL_CERT_FILE" "NIX_PATH"))
+    (add-to-list 'exec-path-from-shell-variables var))
+  (exec-path-from-shell-initialize)
+
+  ;; Put this here because I installed coreutils with Nix
+  (when (eq system-type 'darwin)
+    (let ((gls (executable-find "gls")))
+      (when gls
+        (setq dired-use-ls-dired t
+              insert-directory-program gls)))))
+t
+(when (eq system-type 'darwin)
+  ;; mac-* variables are used by the special emacs-mac build of Emacs by
+  ;; Yamamoto Mitsuharu, while other builds use ns-*.
+  (setq mac-command-modifier      'super
+        ns-command-modifier       'super
+        mac-option-modifier       'meta
+        ns-option-modifier        'meta
+        ;; Free up the right option for character composition
+        mac-right-option-modifier 'none
+        ns-right-option-modifier  'none))
+
 (require 'init-performance)
 
 (require 'init-help)
@@ -93,7 +118,7 @@
 
 (require 'init-pdf)
 
-(elpaca-setup (beancount-mode :host github :repo "beancount/beancount-mode" :main "beancount.el"))
+(setup-pkg (beancount-mode :host github :repo "beancount/beancount-mode" :main "beancount.el"))
 
 (require 'init-shell)
 
@@ -101,6 +126,6 @@
 
 (require 'init-media)
 
-(elpaca-setup daemons)
+(setup-pkg daemons)
 
 ;;; init.el ends here

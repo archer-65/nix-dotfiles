@@ -6,8 +6,8 @@
 
 ;;; Code:
 
-(elpaca-setup (corfu :files (:defaults "extensions/*")
-                     :include (corfu-history corfu-popupinfo corfu-info))
+(setup-pkg (corfu :files (:defaults "extensions/*")
+                  :includes (corfu-history corfu-popupinfo corfu-info))
   (:option corfu-cycle t
            corfu-auto t
            corfu-auto-delay 0.3
@@ -78,21 +78,21 @@ Useful for prompts such as `eval-expression' and `shell-command'."
   (global-corfu-mode))
 
 (setup corfu-history
-  (:load-after corfu savehist)
   (:autoload corfu-history-mode)
-  (add-to-list 'savehist-additional-variables 'corfu-history)
-  (corfu-history-mode 1))
+  (:with-after (corfu savehist)
+    (add-to-list 'savehist-additional-variables 'corfu-history)
+    (corfu-history-mode 1)))
 
 (setup corfu-popupinfo
-  (:load-after corfu)
   (:autoload corfu-popupinfo-mode)
-  (:option corfu-popupinfo-delay '(0.5 . 0))
-  (corfu-popupinfo-mode 1)
-  (:with-map corfu-popupinfo-map
-    (:bind
-      "M-p" corfu-popupinfo-scroll-down
-      "M-n" corfu-popupinfo-scroll-up
-      "M-d" corfu-popupinfo-toggle)))
+  (:with-after corfu
+    (:option corfu-popupinfo-delay '(0.5 . 0))
+    (corfu-popupinfo-mode 1)
+    (:with-map corfu-popupinfo-map
+      (:bind
+       "M-p" corfu-popupinfo-scroll-down
+       "M-n" corfu-popupinfo-scroll-up
+       "M-d" corfu-popupinfo-toggle))))
 
 (setup corfu-info
   (:load-after corfu)
@@ -101,15 +101,15 @@ Useful for prompts such as `eval-expression' and `shell-command'."
       "M-d" corfu-info-documentation
       "M-l" corfu-info-location)))
 
-(elpaca-setup kind-icon
+(setup-pkg kind-icon
   (:with-after corfu
     (:option kind-icon-default-face 'corfu-default
              kind-icon-default-style '(:padding 0 :stroke 0 :margin 0 :radius 0 :height 0.7 :scale 1.0))
     (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter)))
 
-(elpaca-setup cape
+(setup-pkg cape
   ;; Needed for company-backends!
-  (elpaca-setup company
+  (setup-pkg company
     (:autoload company-grab))
 
   (dolist (backend '(cape-elisp-symbol cape-keyword cape-file cape-history cape-dabbrev))

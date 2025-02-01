@@ -7,7 +7,7 @@
 ;;; Code:
 
 
-(elpaca-setup modus-themes
+(setup-pkg modus-themes
   ;; Preferences
   (:option modus-themes-org-blocks 'gray-background
            modus-themes-mixed-fonts nil
@@ -82,10 +82,10 @@
 
   (modus-themes-select 'modus-operandi))
 
-(elpaca-setup ef-themes)
+(setup-pkg ef-themes)
 
 ;; I set circadian in the configuration of my themes
-(elpaca-setup circadian
+(setup-pkg circadian
   (:load-after modus-themes)
   (:option circadian-themes '(("8:00" . modus-operandi)
                               ("20:00" . modus-vivendi)))

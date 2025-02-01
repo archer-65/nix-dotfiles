@@ -17,7 +17,9 @@ in {
     programs.firefox = {
       enable = true;
       package =
-        if cfgWayland.enable
+        if pkgs.stdenv.isDarwin
+        then null
+        else if cfgWayland.enable
         then pkgs.firefox-wayland
         else pkgs.firefox;
 

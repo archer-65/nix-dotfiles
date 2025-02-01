@@ -3,10 +3,21 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs-darwin.url = "github:nixos/nixpkgs/nixpkgs-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    darwin = {
+      url = "github:lnl7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
+    };
+
+    mac-app-util = {
+      url = "github:hraban/mac-app-util";
+      inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
 
     nix-index-database = {
@@ -27,11 +38,14 @@
   outputs = inputs @ {
     self,
     nixpkgs,
+    nixpkgs-darwin,
+    home-manager,
+    darwin,
     ...
   }: let
     inherit (self) outputs;
     lib = import ./lib {inherit inputs;};
-    inherit (lib) mkSystem mkHome forAllSystems;
+    inherit (lib) mkSystem mkHome mkDarwin forAllSystems;
   in {
     nixosModules = import ./system/modules;
     homeModules = import ./home/mario/modules;
@@ -66,11 +80,6 @@
         system = "x86_64-linux";
         stateVersion = "22.05";
       };
-      mli-pc = mkSystem {
-        hostname = "mli-pc";
-        system = "x86_64-linux";
-        stateVersion = "23.05";
-      };
     };
 
     homeConfigurations = {
@@ -86,11 +95,14 @@
         system = "x86_64-linux";
         stateVersion = "22.05";
       };
-      "mario@mli-pc" = mkHome {
-        username = "mario";
-        hostname = "mli-pc";
-        system = "x86_64-linux";
-        stateVersion = "23.05";
+    };
+
+    darwinConfigurations = {
+      macbook = mkDarwin {
+        username = "m.liguori";
+        system = "aarch64-darwin";
+        stateVersion = 5;
+        homeStateVersion = "25.05";
       };
     };
   };

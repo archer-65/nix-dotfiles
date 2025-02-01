@@ -6,30 +6,30 @@
 
 ;;; Code:
 
-(elpaca-setup cmake-mode
+(setup-pkg cmake-mode
   (:file-match (rx (or "CmakeLists.txt" ".cmake") eos)))
 
-(elpaca-setup nix-mode
+(setup-pkg nix-mode
   (:file-match (rx ".nix" eos)))
 
-(elpaca-setup markdown-mode
+(setup-pkg markdown-mode
   (:file-match (rx (or ".md" ".markdown" ".mdown") eos)))
 
-(elpaca-setup yaml-mode
+(setup-pkg yaml-mode
   (:file-match (rx (or ".yml" ".yaml") eos)))
 
-(elpaca-setup json-mode
+(setup-pkg json-mode
   (:file-match (rx ".json" eos)))
 
-(elpaca-setup rustic
+(setup-pkg rustic
   (:file-match (rx ".rs" eos))
   (:option rustic-format-on-save nil ; There's `format-all-mode'
            rustic-lsp-client archer-lsp-client))
 
-(elpaca-setup terraform-mode
+(setup-pkg terraform-mode
   (:file-match (rx ".tf" eos)))
 
-(elpaca-setup company-terraform
+(setup-pkg company-terraform
   (:autoload company-terraform)
 
   (:with-after (cape terraform-mode)

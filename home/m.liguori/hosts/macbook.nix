@@ -1,45 +1,12 @@
-{
-  pkgs,
-  lib,
-  ...
-}: {
-  home.sessionVariables.GSM_SKIP_SSH_AGENT_WORKAROUND = "1";
-  xdg.configFile."autostart/gnome-keyring-ssh.desktop".text = ''
-    ${lib.fileContents "${pkgs.gnome-keyring}/etc/xdg/autostart/gnome-keyring-ssh.desktop"}
-    Hidden = true
-  '';
+{pkgs, ...}: {
+  home.packages = with pkgs; [coreutils-prefixed];
 
   mario.modules = {
     credentials = {
-      ssh.enable = true;
       gpg.enable = true;
-      bitwarden.enable = true;
-    };
-
-    apps = {
-      rofi.enable = true;
-      teams.enable = true;
     };
 
     browsers = {firefox.enable = true;};
-
-    media = {
-      documents = {
-        zathura.enable = true;
-      };
-      videos.enable = true;
-    };
-
-    wayland = {
-      enable = true;
-
-      # wm = ["hyprland"];
-      # waybar = {
-      #   backlight.enable = true;
-      #   battery = "BAT0";
-      #   temperature = "/sys/class/hwmon/hwmon0/temp1_input";
-      # };
-    };
 
     term = {
       alacritty.enable = true;
@@ -48,19 +15,17 @@
     dev = {
       nix.enable = true;
       kube.enable = true;
-      python.enable = true;
-      tex.enable = true;
       terraform.enable = true;
+      tex.enable = true;
     };
 
     editors = {
       emacs = {
         enable = true;
-        daemon.enable = true;
-        telega.enable = false;
+        # NOTE: Root cause https://www.reddit.com/r/emacs/comments/1heyuq4/comment/m28c73o
+        daemon.enable = false;
       };
 
-      intellij.enable = false;
       vscode.enable = true;
     };
 
@@ -74,6 +39,7 @@
       direnv.enable = true;
 
       git.enable = true;
+
       awscli.enable = true;
     };
 
@@ -81,30 +47,28 @@
       active = "modus";
       darkTheme = true;
 
-      cursor.size = 24;
-
       font.regular = {
         family = "Roboto";
         package = pkgs.roboto;
-        size = 12;
+        size = 16;
       };
 
       font.monospace = {
         family = "FiraCode Nerd Font";
         package = pkgs.nerd-fonts.fira-code;
-        size = 12;
+        size = 14;
       };
 
       font.term = {
         family = "VictorMono Nerd Font";
         package = pkgs.nerd-fonts.victor-mono;
-        size = 14;
+        size = 18;
       };
 
       font.bar = {
         family = "Iosevka Nerd Font";
         package = pkgs.nerd-fonts.iosevka;
-        size = 16;
+        size = 20;
       };
     };
   };
