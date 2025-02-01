@@ -109,6 +109,12 @@
         scroll-preserve-screen-position t
         scroll-preserve-screen-position t))
 
+(setup-pkg (ultra-scroll :host github :repo "jdtsmith/ultra-scroll")
+  (:option scroll-conservatively 101
+           scroll-margin 0)
+  (:when-loaded
+    (ultra-scroll-mode 1)))
+
 (setup mouse
   ;; Movement related
   (setq focus-follows-mouse t)
