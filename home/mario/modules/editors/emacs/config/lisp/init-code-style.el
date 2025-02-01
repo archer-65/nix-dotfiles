@@ -39,36 +39,33 @@
 (setup-pkg rainbow-delimiters
   (:hook-into prog-mode))
 
-(setup treesit
-  (:only-if (treesit-available-p))
-  (:option treesit-font-lock-level 4))
+(if (and (version< "29" emacs-version) (treesit-available-p))
 
-(setup-pkg treesit-auto
-  (:only-if (treesit-available-p))
+    (progn
+      (setup treesit
+        (:option treesit-font-lock-level 4))
 
-  (:load-after treesit)
-  (:autoload global-treesit-auto-mode)
+      (setup-pkg treesit-auto
+        (:load-after treesit)
+        (:autoload global-treesit-auto-mode)
 
-  (:option treesit-auto-install 'prompt)
-  (global-treesit-auto-mode))
+        (:option treesit-auto-install 'prompt)
+        (global-treesit-auto-mode)))
 
-(setup-pkg tree-sitter-langs
-  (:only-if (or (version< emacs-version "29") (not (treesit-available-p))))
+  (progn
 
-  (:load-after tree-sitter-langs))
+    (setup-pkg tree-sitter-langs
+      (:load-after tree-sitter-langs))
 
-(setup-pkg tree-sitter
-  (:only-if (or (version< emacs-version "29") (not (treesit-available-p))))
+    (setup-pkg tree-sitter
+      (:load-after tree-sitter-langs)
 
-  (:load-after tree-sitter-langs)
+      (:autoload tree-sitter-mode tree-sitter-hl-mode)
 
-  (:autoload tree-sitter-mode tree-sitter-hl-mode)
+      (:with-hook tree-sitter-after-on-hook
+        (:hook tree-sitter-hl-mode))
 
-  (:with-hook tree-sitter-after-on-hook
-    (:hook tree-sitter-hl-mode))
-
-  (global-tree-sitter-mode 1))
-
+      (global-tree-sitter-mode 1))))
 
 (provide 'init-code-style)
 ;;; init-code-style.el ends here
