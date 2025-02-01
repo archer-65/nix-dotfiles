@@ -7,7 +7,8 @@
 ;;; Code:
 
 (setup vterm
-  (unless (archer-using-nix-p)
+  (if (archer-using-nix-p)
+      (cl-pushnew 'vterm elpaca-ignored-dependencies)
     (elpaca vterm))
 
   (:autoload vterm vterm-other-window)
