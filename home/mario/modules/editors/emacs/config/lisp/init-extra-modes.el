@@ -29,15 +29,5 @@
 (setup-pkg terraform-mode
   (:file-match (rx ".tf" eos)))
 
-(setup-pkg company-terraform
-  (:autoload company-terraform)
-
-  (:with-after (cape terraform-mode)
-    (:with-mode terraform-mode
-      ;; Add completion at point functions made from company backends for `terraform'
-      (:local-set completion-at-point-functions (append
-                                                 (list (cape-company-to-capf #'company-terraform))
-                                                 completion-at-point-functions)))))
-
 (provide 'init-extra-modes)
 ;;; init-extra-modes.el ends here
