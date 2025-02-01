@@ -149,4 +149,6 @@
 (elpaca `(map :build ,(+elpaca-build-steps-with-unload 'map)))
 (elpaca let-alist)
 
+(cl-pushnew 'eglot elpaca-ignored-dependencies)
+
 ;;; early-init.el ends here

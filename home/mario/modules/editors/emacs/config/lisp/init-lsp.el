@@ -97,16 +97,12 @@
              lsp-ui-sideline-delay 0.05)))
 
 (setup-pkg lsp-java
-  (:quit)
+  :disabled
   (:load-after lsp))
 
 ;;
 ;;; EGLOT
 
-;; FIXME: This is not working as I expected. I tried multiple times
-;; and `straight.el' is pulling dependencies instead of using built-in
-;; packages.
-(cl-pushnew 'eglot elpaca-ignored-dependencies)
 (setup eglot
   ;; List of modes and servers
   (:when-loaded
