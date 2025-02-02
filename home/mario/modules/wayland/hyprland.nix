@@ -14,6 +14,7 @@ in {
     wayland.windowManager.hyprland = {
       enable = true;
       package = pkgs.inputs.hyprland.hyprland;
+      portalPackage = pkgs.inputs.hyprland.xdg-desktop-portal-hyprland;
 
       xwayland.enable = true;
 
@@ -264,7 +265,7 @@ in {
     xdg.portal = {
       enable = true;
       xdgOpenUsePortal = true;
-      extraPortals = [pkgs.inputs.hyprland.xdg-desktop-portal-hyprland pkgs.xdg-desktop-portal-gtk];
+      extraPortals = [pkgs.xdg-desktop-portal-gtk];
       configPackages = [pkgs.inputs.hyprland.hyprland];
       config = {
         common.default = ["*"];
