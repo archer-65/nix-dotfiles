@@ -52,7 +52,7 @@ in {
           transform = "normal";
         };
 
-        output."*" = {bg = "${outputs.wallpapers.city-lights.src} fill";};
+        output."*" = {bg = "${outputs.wallpapers.digital-flowers.src} fill";};
 
         modifier = "Mod4";
         terminal = "${pkgs.alacritty}/bin/alacritty";
