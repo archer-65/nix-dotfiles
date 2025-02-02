@@ -15,7 +15,7 @@ in {
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       texliveFull
-      python311Packages.pygments
+      python312Packages.pygments
       inkscape
     ];
   };
