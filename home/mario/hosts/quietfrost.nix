@@ -85,7 +85,7 @@
       font.regular = {
         family = "Roboto";
         package = pkgs.roboto;
-        size = 16;
+        size = 14;
       };
 
       font.monospace = {
@@ -97,13 +97,13 @@
       font.term = {
         family = "VictorMono Nerd Font";
         package = pkgs.nerd-fonts.victor-mono;
-        size = 18;
+        size = 14;
       };
 
       font.bar = {
         family = "Iosevka Nerd Font";
         package = pkgs.nerd-fonts.iosevka;
-        size = 20;
+        size = 17;
       };
     };
   };

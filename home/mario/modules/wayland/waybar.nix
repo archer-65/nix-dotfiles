@@ -59,7 +59,7 @@ in {
       systemd.enable = true;
       settings = [
         {
-          height = 36;
+          height = 34;
           layer = "top";
 
           modules-left =
