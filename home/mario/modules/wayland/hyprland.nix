@@ -100,6 +100,8 @@ in {
           kb_options = "ctrl:nocaps";
           accel_profile = "flat";
           follow_mouse = 1;
+          repeat_delay = 300;
+          repeat_rate = 50;
         };
 
         windowrulev2 = [
