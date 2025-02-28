@@ -29,6 +29,8 @@ with builtins; let
             home = "/Users/${username}";
           };
 
+          # https://determinate.systems/posts/nix-darwin-updates/
+          nix.enable = false;
           nix.settings.trusted-users = ["${username}"];
 
           homebrew = {
