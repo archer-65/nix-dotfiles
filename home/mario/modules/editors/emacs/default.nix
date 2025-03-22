@@ -30,7 +30,7 @@ in {
         package =
           if pkgs.stdenv.isDarwin
           then pkgs.emacs-macport
-          else pkgs.emacs29-pgtk;
+          else pkgs.emacs-pgtk;
 
         extraPackages = epkgs:
           [
