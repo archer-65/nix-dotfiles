@@ -7,6 +7,32 @@
 }:
 with lib; let
   cfg = config.mario.modules.shell.zsh;
+
+  initContent = let
+    # FIXME: Beautiful, but flashing on selection!
+    # Old issue: https://github.com/Aloxaf/fzf-tab/issues/172
+    early = lib.mkBefore ''
+      # source  ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
+    '';
+
+    general = ''
+      # Keybindings
+      bindkey "^[[3~" delete-char
+      bindkey '^[[1;5D' backward-word
+      bindkey '^[[1;5C' forward-word
+      bindkey '^[[3;5~' kill-word
+
+      bindkey ' ' magic-space  # [Space] - Don't do history expansion
+
+      # FIXME: https://github.com/nix-community/home-manager/issues/2991
+      if [ -r "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
+        __HM_SESS_VARS_SOURCED= source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+      fi
+
+      [ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+    '';
+  in
+    lib.mkMerge [early general];
 in {
   options.mario.modules.shell.zsh = {
     enable = mkOption {
@@ -35,12 +61,6 @@ in {
       };
 
       shellAliases = {};
-
-      # FIXME: Beautiful, but flashing on selection!
-      # Old issue: https://github.com/Aloxaf/fzf-tab/issues/172
-      initExtraFirst = ''
-        # source  ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
-      '';
 
       completionInit = ''
         zmodload zsh/zle
@@ -119,22 +139,7 @@ in {
         zstyle ':fzf-tab:*' switch-group ',' '.'
       '';
 
-      initExtra = ''
-        # Keybindings
-        bindkey "^[[3~" delete-char
-        bindkey '^[[1;5D' backward-word
-        bindkey '^[[1;5C' forward-word
-        bindkey '^[[3;5~' kill-word
-
-        bindkey ' ' magic-space  # [Space] - Don't do history expansion
-
-        # FIXME: https://github.com/nix-community/home-manager/issues/2991
-        if [ -r "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
-          __HM_SESS_VARS_SOURCED= source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
-        fi
-
-	[ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
-      '';
+      inherit initContent;
 
       # TODO: fast-syntax-highlighting?
       plugins = [

@@ -30,7 +30,7 @@ in {
     services.gpg-agent = {
       enable = true;
       enableSshSupport = true;
-      pinentryPackage =
+      pinentry.package =
         if pkgs.stdenv.isDarwin
         then pkgs.pinentry_mac
         else pkgs.pinentry-gnome3;

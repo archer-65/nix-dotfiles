@@ -84,7 +84,7 @@ in {
       source ${cfg.package}/share/bash-completion/completions/aws.bash
     '';
 
-    programs.zsh.initExtra = lib.mkIf cfg.enableZshIntegration ''
+    programs.zsh.initContent = lib.mkIf cfg.enableZshIntegration ''
       source ${cfg.package}/share/zsh/site-functions/_aws
     '';
   };
