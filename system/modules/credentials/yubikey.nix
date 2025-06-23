@@ -18,7 +18,7 @@ in {
 
     services.udev.packages = [pkgs.yubikey-personalization];
     services.pcscd.enable = true;
-    environment.systemPackages = with pkgs; [yubikey-manager yubioath-flutter yubikey-touch-detector yubikey-personalization-gui];
+    environment.systemPackages = with pkgs; [yubikey-manager yubioath-flutter yubikey-touch-detector];
 
     # https://github.com/mstrangfeld/nixos-configuration/blob/15f8d6bec7ce27d0cf3fefec4be96ad6bee9522f/modules/desktop/yubikey/default.nix
     systemd.user.services.yubikey-touch-detector = {
