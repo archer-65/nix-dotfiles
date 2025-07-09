@@ -1,5 +1,5 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [coreutils-prefixed];
+  home.packages = with pkgs; [coreutils-prefixed amazon-q-cli];
 
   mario.modules = {
     credentials = {
