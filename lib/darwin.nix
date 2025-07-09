@@ -28,6 +28,7 @@ with builtins; let
             name = "${username}";
             home = "/Users/${username}";
           };
+          system.primaryUser = username;
 
           # https://determinate.systems/posts/nix-darwin-updates/
           nix.enable = false;
