@@ -99,6 +99,7 @@
 
     darwinConfigurations = {
       macbook = mkDarwin {
+        hostname = "macbook";
         username = "m.liguori";
         system = "aarch64-darwin";
         stateVersion = 5;

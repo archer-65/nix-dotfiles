@@ -5,7 +5,7 @@ with builtins; let
 
   genConfiguration = {
     username,
-    hostname ? null,
+    hostname,
     system,
     stateVersion,
     homeStateVersion,
@@ -33,24 +33,6 @@ with builtins; let
           # https://determinate.systems/posts/nix-darwin-updates/
           nix.enable = false;
           nix.settings.trusted-users = ["${username}"];
-
-          homebrew = {
-            enable = true;
-
-            onActivation = {
-              cleanup = "zap";
-            };
-
-            casks = [
-              "firefox"
-              "docker"
-              "microsoft-teams"
-              "microsoft-excel"
-              "tunnelblick"
-              "keybase"
-              "karabiner-elements"
-            ];
-          };
         }
 
         inputs.mac-app-util.darwinModules.default
@@ -62,7 +44,7 @@ with builtins; let
           home-manager.extraSpecialArgs = {inherit inputs outputs;};
           home-manager.sharedModules = [inputs.mac-app-util.homeManagerModules.default];
           home-manager.users."${username}" = {config, ...}: {
-            imports = (builtins.attrValues self.outputs.homeModules.mario) ++ ["${self}/home/${username}/hosts/macbook.nix"];
+            imports = (builtins.attrValues self.outputs.homeModules.mario) ++ ["${self}/home/${username}/hosts/${hostname}.nix"];
 
             home = {
               username = "${username}";
@@ -74,6 +56,8 @@ with builtins; let
             xdg.userDirs.extraConfig.XDG_WORK_DIR = "${config.home.homeDirectory}/work";
           };
         }
+
+        "${self}/system/hosts/${hostname}"
       ];
 
       specialArgs = {inherit inputs outputs;};
