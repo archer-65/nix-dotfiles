@@ -2,12 +2,12 @@
 
 [[https://nixos.org][https://img.shields.io/badge/NixOS-grey.svg?style=flat-square&logo=NixOS&logoColor=white]]
 
-These are my *NixOS* and *home-manager* configurations. They aim for maximum reproducibility through *Flakes*. This repo is composed by modules to provide plug&play configuration based on hosts and users.
+These are my *NixOS*, *nix-darwin*, and *home-manager* configurations. They aim for maximum reproducibility through *Flakes*. This repo is composed of modules to provide plug&play configuration based on hosts and users across multiple platforms (Linux and macOS).
 
 I'm using the standalone approach for *home-manager*, but it shouldn't be difficult to integrate all this with the *NixOS module*.
 
 #+BEGIN_QUOTE
-Be careful if you want to use this "template", this is not a framework neither an easy-come-easy-go library. I'm a totally beginner.
+Be careful if you want to use this "template", this is neither a framework nor an easy-come-easy-go library. I'm a total beginner.
 
 [[./assets/patrick-meme.jpg]]
 #+END_QUOTE
@@ -29,11 +29,12 @@ I will put a tree like this in every *important* folder.
   ├── lib                         # Utility functions
   │   ├── default.nix             
   │   ├── home.nix                # Home configurations generator
-  │   └── nixos.nix               # System configurations generator             
+  │   ├── nixos.nix               # System configurations generator
+  │   └── darwin.nix              # Darwin configurations generator
   ├── overlays                    # Overlays folder
   ├── packages                    # Personal packages folder
   └── system                      # System configurations
-      ├── hosts                   # System configuration, olders for each host
+      ├── hosts                   # System configuration, folders for each host
       └── modules                 # Modules :: options for system related stuff
 #+end_src
 
@@ -89,8 +90,8 @@ I'm assuming you're referring to flake configurations in your working directory.
 
 If you want to build your home-manager configuration:
    #+begin_src bash
-     # Create your own folder with `default.nix` under `/home/configurations`
-     cp -R /home/$USER/mate.nix /home/$USER/${HOSTNAME}.nix
+     # Create your own host configuration under `/home/$USER/hosts/`
+     cp home/$USER/hosts/mate.nix home/$USER/hosts/${HOSTNAME}.nix
 
      # Add a set definition in `flake.nix` for the desired host
 
@@ -98,6 +99,10 @@ If you want to build your home-manager configuration:
      nix build .#homeConfigurations."${USER}@${HOSTNAME}".activationPackage
      ./result/activate
    #+end_src
+
+#+BEGIN_QUOTE
+*Note:* For Darwin systems, you'll need Darwin-specific home-manager configurations due to platform differences. Check the existing Darwin user configurations for reference.
+#+END_QUOTE
 
 *** Once in a while
 
