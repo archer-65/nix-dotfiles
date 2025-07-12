@@ -118,5 +118,45 @@ The expansion is a string indicating the package has been disabled."
                        (elpaca--first order))
                     ,@body)))))
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Another try... Elpaca damn you!
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(defun +setup-wrap-to-install-package (body name)
+  "Wrap BODY in an `elpaca' block if necessary.
+The body is wrapped in an `elpaca' block if `setup-attributes'
+contains an alist with the key `elpaca'.
+If `need-quit' is in `setup-attributes', skip `elpaca' installation entirely.
+
+BODY is the setup form body to be wrapped.
+NAME is the feature name being configured, used for logging messages."
+  (let ((has-elpaca (assq 'elpaca setup-attributes))
+        (need-quit (memq 'need-quit setup-attributes)))
+    (when (and need-quit has-elpaca)
+      (message "[Setup] Skipping elpaca installation for %s due to quit condition" name))
+    (cond
+     (need-quit `(progn ,@(macroexp-unprogn body)))
+     (has-elpaca `(elpaca ,(cdr has-elpaca) ,@(macroexp-unprogn body)))
+     (t body))))
+
+;; Add the wrapper function
+(add-to-list 'setup-modifier-list #'+setup-wrap-to-install-package)
+
+(setup-define :elpaca
+  (lambda (order &rest recipe)
+    (push (cond
+           ((eq order t) `(elpaca . ,(setup-get 'feature)))
+           ((eq order nil) '(elpaca . nil))
+           (`(elpaca . (,(setup-get 'feature) ,order ,@recipe))))
+          setup-attributes)
+    ;; If the macro wouldn't return nil, it would try to insert the result of
+    ;; `push' which is the new value of the modified list. As this value usually
+    ;; cannot be evaluated, it is better to return nil which the byte compiler
+    ;; would optimize away anyway.
+    nil)
+  :documentation "Install ORDER with `elpaca'.
+The ORDER can be used to deduce the feature context."
+  :shorthand #'cadr)
+
 (provide 'init-setup)
 ;;; init-setup.el ends here

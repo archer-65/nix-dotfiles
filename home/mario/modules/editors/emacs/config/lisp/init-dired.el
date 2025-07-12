@@ -72,11 +72,13 @@
   (:with-map image-dired-thumbnail-mode-map
     (:bind "<return>" #'image-dired-thumbnail-display-external)))
 
-(setup-pkg diredfl
-  :disabled
+(setup diredfl
+  (:quit)
+  (:elpaca t)
   (diredfl-global-mode 1))
 
-(setup-pkg dired-subtree
+(setup dired-subtree
+  (:elpaca t)
   (:load-after dired)
   (:option dired-subtree-use-backgrounds nil)
   (:with-map dired-mode-map
@@ -84,20 +86,24 @@
       "<tab>" dired-subtree-toggle
       "<backtab>" dired-subtree-remove)))
 
-(setup-pkg dired-sidebar
+(setup dired-sidebar
+  (:elpaca t)
   (:load-after dired)
   (:global "C-x C-n" dired-sidebar-toggle-sidebar))
 
-(setup-pkg dired-collapse
+(setup dired-collapse
+  (:elpaca t)
   (:with-after dired
     (:hook-into dired-mode-hook)))
 
-(setup-pkg all-the-icons-dired
+(setup all-the-icons-dired
+  (:elpaca t)
   (:option all-the-icons-dired-monochrome nil)
   (:with-after (all-the-icons dired)
     (:hook-into dired-mode-hook)))
 
-(setup-pkg trashed
+(setup trashed
+  (:elpaca t)
   (:option trashed-action-confirmer 'y-or-n-p
            trashed-use-header-line t
            trashed-sort-key '("Date deleted" . t)))

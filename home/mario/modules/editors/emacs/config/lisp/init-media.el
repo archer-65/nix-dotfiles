@@ -6,9 +6,11 @@
 
 ;;; Code:
 
-(setup-pkg mpv)
+(setup mpv
+  (:elpaca t))
 
-(setup-pkg emms
+(setup emms
+  (:elpaca t)
   (:require emms-setup)
   (emms-all)
 

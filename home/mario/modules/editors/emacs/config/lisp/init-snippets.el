@@ -6,17 +6,20 @@
 
 ;;; Code:
 
-(setup-pkg yasnippet
+(setup yasnippet
+  (:elpaca t)
   (:with-mode yas-minor-mode
     (:hide-mode)
     (:hook-into prog-mode))
   (:when-loaded
     (yas-reload-all)))
 
-(setup-pkg yasnippet-snippets
+(setup yasnippet-snippets
+  (:elpaca t)
   (:load-after yasnippet))
 
-(setup-pkg yasnippet-capf
+(setup yasnippet-capf
+  (:elpaca t)
   (:load-after cape)
   (:global "C-c p y" cape-yasnippet))
 

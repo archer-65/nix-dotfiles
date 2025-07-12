@@ -20,7 +20,8 @@
   (:with-mode pdf-view-mode
     (:file-match "\\.[pP][dD][fF]\\'")))
 
-(setup-pkg saveplace-pdf-view
+(setup saveplace-pdf-view
+  (:elpaca t)
   (:load-after pdf-tools))
 
 (provide 'init-pdf)

@@ -38,7 +38,8 @@
   (:hook-into prog-mode text-mode))
 
 ;; From Purcell
-(setup-pkg flymake-flycheck
+(setup flymake-flycheck
+  (:elpaca t)
   (:with-after flycheck
     (setq-default flycheck-disabled-checkers
                   (append (default-value 'flycheck-disabled-checkers)

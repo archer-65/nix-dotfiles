@@ -31,7 +31,8 @@
            "C-x {"      shrink-window-horizontally
            "C-x }"      enlarge-window-horizontally))
 
-(setup-pkg beframe
+(setup beframe
+  (:elpaca t)
   (:option beframe-functions-in-frames '(project-prompt-project-dir)
            beframe-global-buffers '("*scratch*"
                                     "*Messages"
@@ -59,14 +60,16 @@
 
   (beframe-mode 1))
 
-(setup-pkg ace-window
+(setup ace-window
+  (:elpaca t)
   (:global "M-o" ace-window
            "M-O" ace-swap-window)
   (:option aw-scope 'frame
            aw-dispatch-always t
            aw-minibuffer-flag t))
 
-(setup-pkg avy
+(setup avy
+  (:elpaca t)
   (:global "M-g j" avy-goto-char-timer)
   (:option avy-all-windows nil   ;; only current
            avy-all-windows-alt t ;; all windows with C-u

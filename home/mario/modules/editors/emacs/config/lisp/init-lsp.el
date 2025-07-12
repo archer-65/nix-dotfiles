@@ -43,8 +43,9 @@
 ;;
 ;;; LSP-MODE
 
-(setup-pkg lsp-mode
-  :disabled
+(setup lsp-mode
+  (:quit)
+  (:elpaca t)
   (:autoload lsp)
 
   (:when-loaded
@@ -83,8 +84,9 @@
 
   (:hook-into lsp-enable-which-key-integration))
 
-(setup-pkg lsp-ui
-  :disabled
+(setup lsp-ui
+  (:quit)
+  (:elpaca t)
   (:autoload lsp-ui-mode)
   (:hook-into lsp-mode)
   (:load-after lsp)
@@ -96,8 +98,9 @@
              lsp-ui-sideline-show-code-actions t
              lsp-ui-sideline-delay 0.05)))
 
-(setup-pkg lsp-java
-  :disabled
+(setup lsp-java
+  (:quit)
+  (:elpaca t)
   (:load-after lsp))
 
 ;;
@@ -124,7 +127,8 @@
   (:with-mode (c-mode c++-mode java-mode nix-mode rustic-mode terraform-mode)
     (:hook eglot-ensure)))
 
-(setup-pkg eglot-java
+(setup eglot-java
+  (:elpaca t)
   (:load-after eglot)
   (:with-mode (java-mode)
     (:hook eglot-java-mode)))

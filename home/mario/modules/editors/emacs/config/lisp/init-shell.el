@@ -17,7 +17,8 @@
            vterm-max-scrollback 5000
            vterm-kill-buffer-on-exit t))
 
-(setup-pkg multi-vterm
+(setup multi-vterm
+  (:elpaca t)
   (:with-after vterm
     (:option multi-vterm-dedicated-window-height-percent 20)))
 
