@@ -37,7 +37,8 @@
 ;; Require package management file
 (require 'init-setup)
 
-(setup-pkg exec-path-from-shell
+(setup exec-path-from-shell
+  (:pkg t)
   (:only-if (eq system-type 'darwin))
   (:require exec-path-from-shell)
   (dolist (var '("SSH_AUTH_SOCK" "SSH_AGENT_PID" "GPG_AGENT_INFO" "LANG" "LC_CTYPE" "NIX_SSL_CERT_FILE" "NIX_PATH"))
@@ -118,7 +119,8 @@ t
 
 (require 'init-pdf)
 
-(setup-pkg (beancount-mode :host github :repo "beancount/beancount-mode" :main "beancount.el"))
+(setup beancount-mode
+  (:pkg (:host github :repo "beancount/beancount-mode" :main "beancount.el")))
 
 (require 'init-shell)
 
@@ -126,6 +128,7 @@ t
 
 (require 'init-media)
 
-(setup-pkg daemons)
+(setup daemons
+  (:pkg t))
 
 ;;; init.el ends here

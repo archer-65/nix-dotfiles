@@ -33,7 +33,8 @@
                   mode-line-misc-info)))
 
 ;; <https://github.com/minad/recursion-indicator>.
-(setup-pkg recursion-indicator
+(setup recursion-indicator
+  (:pkg t)
   (:option recursion-indicator-general (concat "general" (all-the-icons-material "cached" :v-adjust -0.1))
            recursion-indicator-minibuffer (concat "minibuffer " (all-the-icons-material "cached" :v-adjust -0.1)))
 
@@ -47,7 +48,8 @@
   (recursion-indicator-mode 1))
 
 ;;; Keycast mode
-(setup-pkg keycast
+(setup keycast
+  (:pkg t)
   ;; For `keycast-mode'
   (:option keycast-mode-line-window-predicate #'keycast-active-frame-bottom-right-p
            keycast-separator-width 1

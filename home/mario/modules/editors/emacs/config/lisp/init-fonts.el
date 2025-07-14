@@ -15,7 +15,8 @@
   :type 'integer
   :group 'archer-faces)
 
-(setup-pkg fontaine
+(setup fontaine
+  (:pkg t)
   (:option x-underline-at-descent-line nil
            use-default-font-for-symbols t)
 

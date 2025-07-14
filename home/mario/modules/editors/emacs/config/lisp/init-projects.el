@@ -6,7 +6,8 @@
 
 ;;; Code:
 
-(setup-pkg envrc
+(setup envrc
+  (:pkg t)
   (:needs "direnv")
   (:with-hook after-init-hook
     (:hook envrc-global-mode)))
@@ -17,7 +18,8 @@
   (:autoload magit-status)
   (:option magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1))
 
-;; (setup-pkg forge
+;; (setup forge
+;;   (:pkg t)
 ;;   (:load-after magit))
 
 (setup ediff
@@ -25,11 +27,13 @@
   (:option ediff-split-window-function 'split-window-horizontally
            ediff-window-setup-function 'ediff-setup-windows-plain))
 
-(setup-pkg blamer)
+(setup blamer
+  (:pkg t))
 
 ;; `projectile', not using to try `project.el'
-(setup-pkg projectile
-  :disabled
+(setup projectile
+  (:disable t)
+  (:pkg t)
   (:hide-mode)
 
   ;; NOTE: Set this to the folder where you keep your Git repos!
@@ -40,13 +44,15 @@
 
   (:global "C-c C-p" projectile-command-map))
 
-(setup-pkg consult-projectile
-  :disabled
+(setup consult-projectile
+  (:disable t)
+  (:pkg t)
   (:load-after consult projectile))
 
 ;; `treemacs' stuff, I'm not using it
-(setup-pkg treemacs
-  :disabled
+(setup treemacs
+  (:disable t)
+  (:pkg t)
   (:option treemacs-deferred-git-apply-delay        0.5
            treemacs-directory-name-transformer      #'identity
            treemacs-display-in-side-window          t
@@ -126,17 +132,20 @@
            "C-c C-t f"  treemacs-find-file
            "C-c C-t T"  treemacs-find-tag))
 
-(setup-pkg treemacs-projectile
-  :disabled
+(setup treemacs-projectile
+  (:disable t)
+  (:pkg t)
   (:load-after treemacs projectile))
 
-(setup-pkg treemacs-all-the-icons
-  :disabled
+(setup treemacs-all-the-icons
+  (:disable t)
+  (:pkg t)
   (:with-after treemacs
     (treemacs-load-theme "all-the-icons")))
 
-(setup-pkg treemacs-magit
-  :disabled
+(setup treemacs-magit
+  (:disable t)
+  (:pkg t)
   (:load-after treemacs magit))
 
 (provide 'init-projects)
