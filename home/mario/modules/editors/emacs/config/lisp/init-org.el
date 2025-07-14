@@ -123,7 +123,7 @@
   (:hook archer-org-mode-setup))
 
 (setup org-appear
-  (:elpaca t)
+  (:pkg t)
   (:autoload org-appear-mode)
   (:hook-into org-mode)
   (:option org-appear-autoemphasis t
@@ -131,7 +131,7 @@
            org-appear-autosubmarkers t))
 
 (setup org-modern
-  (:elpaca t)
+  (:pkg t)
   (:load-after org)
   (:hook-into org-mode)
   (set-face-attribute 'org-modern-symbol nil :family "Iosevka Nerd Font")
@@ -145,11 +145,11 @@
            org-modern-table-horizontal 0))
 
 (setup org-modern-indent
-  (:elpaca (:host github :repo "jdtsmith/org-modern-indent"))
+  (:pkg (:host github :repo "jdtsmith/org-modern-indent"))
   (:hook-into org-indent-mode))
 
 (setup olivetti
-  (:elpaca t)
+  (:pkg t)
   (:load-after org)
   (:hook-into org-mode)
   (:option olivetti-body-width 0.75

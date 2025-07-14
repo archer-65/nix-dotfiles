@@ -50,7 +50,7 @@
 
 ;; Vertico
 (setup vertico
-  (:elpaca (:files (:defaults "extensions/*")))
+  (:pkg (:files (:defaults "extensions/*")))
 
   (:also-load vertico-indexed
               vertico-flat
@@ -115,7 +115,7 @@
 
 ;; Marginalia
 (setup marginalia
-  (:elpaca t)
+  (:pkg t)
   (:load-after vertico)
   (:with-map minibuffer-local-map
     (:bind
@@ -125,7 +125,7 @@
 ;; TODO: Remove fork when https://github.com/iyefrat/all-the-icons-completion/pull/33 is merged
 ;; TODO: Then, remove direct reference to GitHub when on MELPA
 (setup all-the-icons-completion
-  (:elpaca (:host github :repo "iyefrat/all-the-icons-completion"
+  (:pkg (:host github :repo "iyefrat/all-the-icons-completion"
                   :remotes ("fork"
                             :repo "maxecharel/all-the-icons-completion"
                             :branch "contrib")))
@@ -136,7 +136,7 @@
 
 ;; Orderless
 (setup orderless
-  (:elpaca t)
+  (:pkg t)
   (defun archer-orderless-literal-dispatcher (pattern _index _total)
     "Literal style dispatcher, using equal sign as a suffix."
     (cond

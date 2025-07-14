@@ -8,13 +8,13 @@
 ;;; Code:
 
 (setup format-all
-  (:elpaca t)
+  (:pkg t)
   (:hide-mode)
   (:hook-into prog-mode)
   (:global "<f1>" format-all-buffer))
 
 (setup editorconfig
-  (:elpaca t)
+  (:pkg t)
   (:hide-mode)
   (editorconfig-mode 1))
 
@@ -23,11 +23,11 @@
   (global-eldoc-mode 1))
 
 (setup rainbow-mode
-  (:elpaca t)
+  (:pkg t)
   (:hook-into web-mode json-mode))
 
 (setup ws-butler
-  (:elpaca t)
+  (:pkg t)
   (:require)
   (:hook-into prog-mode)
   (:option mode-require-final-newline t
@@ -41,7 +41,7 @@
            indent-tabs-mode nil)) ; Use spaces!
 
 (setup rainbow-delimiters
-  (:elpaca t)
+  (:pkg t)
   (:hook-into prog-mode))
 
 ;; FIXME: What the hell is this...
@@ -52,7 +52,7 @@
         (:option treesit-font-lock-level 4))
 
       (setup treesit-auto
-        (:elpaca t)
+        (:pkg t)
         (:load-after treesit)
         (:autoload global-treesit-auto-mode)
 
@@ -62,11 +62,11 @@
   (progn
 
     (setup tree-sitter-langs
-      (:elpaca t)
+      (:pkg t)
       (:load-after tree-sitter-langs))
 
     (setup tree-sitter
-      (:elpaca t)
+      (:pkg t)
       (:load-after tree-sitter-langs)
 
       (:autoload tree-sitter-mode tree-sitter-hl-mode)

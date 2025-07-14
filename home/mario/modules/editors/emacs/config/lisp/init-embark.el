@@ -44,7 +44,7 @@ targets."
 
 ;; Embark configuration
 (setup embark
-  (:elpaca t)
+  (:pkg t)
   (:with-after consult
     (elpaca embark-consult))
 
@@ -64,7 +64,7 @@ targets."
 
 ;; Used for export and edit after ripgrep magic.
 (setup wgrep
-  (:elpaca t))
+  (:pkg t))
 
 (provide 'init-embark)
 ;;; init-embark.el ends here

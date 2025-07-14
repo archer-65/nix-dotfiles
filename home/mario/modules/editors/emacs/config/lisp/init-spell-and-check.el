@@ -39,7 +39,7 @@
 
 ;; From Purcell
 (setup flymake-flycheck
-  (:elpaca t)
+  (:pkg t)
   (:with-after flycheck
     (setq-default flycheck-disabled-checkers
                   (append (default-value 'flycheck-disabled-checkers)

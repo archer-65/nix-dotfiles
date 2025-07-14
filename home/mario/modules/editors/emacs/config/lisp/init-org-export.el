@@ -45,13 +45,13 @@
 
 ;; Reveal.js
 (setup ox-reveal
-  (:elpaca (:host github :repo "yjwen/org-reveal"))
+  (:pkg (:host github :repo "yjwen/org-reveal"))
   (:load-after ox)
   (:option org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js"))
 
 ;; Hugo
 (setup ox-hugo
-  (:elpaca t)
+  (:pkg t)
   (:load-after ox))
 
 (provide 'init-org-export)

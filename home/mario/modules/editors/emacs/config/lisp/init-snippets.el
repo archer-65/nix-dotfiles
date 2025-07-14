@@ -7,7 +7,7 @@
 ;;; Code:
 
 (setup yasnippet
-  (:elpaca t)
+  (:pkg t)
   (:with-mode yas-minor-mode
     (:hide-mode)
     (:hook-into prog-mode))
@@ -15,11 +15,11 @@
     (yas-reload-all)))
 
 (setup yasnippet-snippets
-  (:elpaca t)
+  (:pkg t)
   (:load-after yasnippet))
 
 (setup yasnippet-capf
-  (:elpaca t)
+  (:pkg t)
   (:load-after cape)
   (:global "C-c p y" cape-yasnippet))
 

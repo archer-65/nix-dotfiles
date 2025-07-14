@@ -74,11 +74,11 @@
 
 (setup diredfl
   (:disable t)
-  (:elpaca t)
+  (:pkg t)
   (diredfl-global-mode 1))
 
 (setup dired-subtree
-  (:elpaca t)
+  (:pkg t)
   (:load-after dired)
   (:option dired-subtree-use-backgrounds nil)
   (:with-map dired-mode-map
@@ -87,23 +87,23 @@
       "<backtab>" dired-subtree-remove)))
 
 (setup dired-sidebar
-  (:elpaca t)
+  (:pkg t)
   (:load-after dired)
   (:global "C-x C-n" dired-sidebar-toggle-sidebar))
 
 (setup dired-collapse
-  (:elpaca t)
+  (:pkg t)
   (:with-after dired
     (:hook-into dired-mode-hook)))
 
 (setup all-the-icons-dired
-  (:elpaca t)
+  (:pkg t)
   (:option all-the-icons-dired-monochrome nil)
   (:with-after (all-the-icons dired)
     (:hook-into dired-mode-hook)))
 
 (setup trashed
-  (:elpaca t)
+  (:pkg t)
   (:option trashed-action-confirmer 'y-or-n-p
            trashed-use-header-line t
            trashed-sort-key '("Date deleted" . t)))

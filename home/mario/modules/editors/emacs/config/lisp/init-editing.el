@@ -32,7 +32,7 @@
 
 ;; The `no-littering` package to keep folders where we edit files and the Emacs configuration folder clean.
 (setup no-littering
-  (:elpaca t)
+  (:pkg t)
   ;; The package doesn't set this by default so we must place
   ;; auto save files in the same path as it uses for sessions
   (:option auto-save-file-name-transforms `((".*" ,(no-littering-expand-var-file-name "auto-save/")))))
@@ -111,7 +111,7 @@
         scroll-preserve-screen-position t))
 
 (setup ultra-scroll
-  (:elpaca (:host github :repo "jdtsmith/ultra-scroll"))
+  (:pkg (:host github :repo "jdtsmith/ultra-scroll"))
   (:option scroll-conservatively 101
            scroll-margin 0)
   (:when-loaded
@@ -157,13 +157,13 @@
     (:hook delete-selection-mode)))
 
 (setup drag-stuff
-  (:elpaca t)
+  (:pkg t)
   (:hide-mode)
   (drag-stuff-global-mode 1)
   (drag-stuff-define-keys))
 
 (setup goto-last-change
-  (:elpaca t)
+  (:pkg t)
   (:global "C-z" goto-last-change))
 
 (setup (:require autorevert)
@@ -177,7 +177,7 @@
   (global-so-long-mode 1))
 
 (setup diff-hl
-  (:elpaca t)
+  (:pkg t)
   (:hook-into prog-mode)
 
   (:with-mode dired-mode

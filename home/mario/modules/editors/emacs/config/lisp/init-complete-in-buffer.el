@@ -7,7 +7,7 @@
 ;;; Code:
 
 (setup corfu
-  (:elpaca (:files (:defaults "extensions/*")
+  (:pkg (:files (:defaults "extensions/*")
                    :includes (corfu-history corfu-popupinfo corfu-info)))
   (:option corfu-cycle t
            corfu-auto t
@@ -103,17 +103,17 @@ Useful for prompts such as `eval-expression' and `shell-command'."
       "M-l" corfu-info-location)))
 
 (setup kind-icon
-  (:elpaca t)
+  (:pkg t)
   (:with-after corfu
     (:option kind-icon-default-face 'corfu-default
              kind-icon-default-style '(:padding 0 :stroke 0 :margin 0 :radius 0 :height 0.7 :scale 1.0))
     (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter)))
 
 (setup cape
-  (:elpaca t)
+  (:pkg t)
   ;; Needed for company-backends!
   (setup company
-  (:elpaca t)
+  (:pkg t)
     (:autoload company-grab))
 
   (dolist (backend '(cape-elisp-symbol cape-keyword cape-file cape-history cape-dabbrev))

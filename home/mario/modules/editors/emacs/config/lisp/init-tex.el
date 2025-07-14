@@ -8,7 +8,7 @@
 ;;; Code:
 
 (setup auctex
-  (:elpaca t)
+  (:pkg t)
   (:with-mode LaTeX-mode
     (:file-match "\\.tex\\'"))
 

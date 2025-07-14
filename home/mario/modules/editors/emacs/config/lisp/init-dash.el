@@ -7,7 +7,7 @@
 ;;; Code:
 
 (setup dashboard
-  (:elpaca t)
+  (:pkg t)
   (:option dashboard-banner-logo-title "SUCK(EMAC)S - Personal Workspace"
            dashboard-startup-banner (expand-file-name "img/stallman.png" user-emacs-directory)
            dashboard-center-content t

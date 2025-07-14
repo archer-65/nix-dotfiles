@@ -45,7 +45,7 @@
 
 (setup lsp-mode
   (:disable t)
-  (:elpaca t)
+  (:pkg t)
   (:autoload lsp)
 
   (:when-loaded
@@ -86,7 +86,7 @@
 
 (setup lsp-ui
   (:disable t)
-  (:elpaca t)
+  (:pkg t)
   (:autoload lsp-ui-mode)
   (:hook-into lsp-mode)
   (:load-after lsp)
@@ -100,7 +100,7 @@
 
 (setup lsp-java
   (:disable t)
-  (:elpaca t)
+  (:pkg t)
   (:load-after lsp))
 
 ;;
@@ -128,7 +128,7 @@
     (:hook eglot-ensure)))
 
 (setup eglot-java
-  (:elpaca t)
+  (:pkg t)
   (:load-after eglot)
   (:with-mode (java-mode)
     (:hook eglot-java-mode)))

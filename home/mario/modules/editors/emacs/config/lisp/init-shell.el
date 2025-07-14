@@ -7,9 +7,7 @@
 ;;; Code:
 
 (setup vterm
-  (if (archer-using-nix-p)
-      (cl-pushnew 'vterm elpaca-ignored-dependencies)
-    (elpaca vterm))
+  (:pkg (:nix t))
 
   (:autoload vterm vterm-other-window)
 
@@ -18,7 +16,7 @@
            vterm-kill-buffer-on-exit t))
 
 (setup multi-vterm
-  (:elpaca t)
+  (:pkg t)
   (:with-after vterm
     (:option multi-vterm-dedicated-window-height-percent 20)))
 

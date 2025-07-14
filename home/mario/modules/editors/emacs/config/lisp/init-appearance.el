@@ -43,7 +43,7 @@
 
 ;; You must run `all-the-icons-install-fonts` the first time.
 (setup all-the-icons
-  (:elpaca t)
+  (:pkg t)
   (:require all-the-icons))
 
 (provide 'init-appearance)

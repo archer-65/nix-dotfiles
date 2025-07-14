@@ -7,10 +7,10 @@
 ;;; Code:
 
 (setup mpv
-  (:elpaca t))
+  (:pkg t))
 
 (setup emms
-  (:elpaca t)
+  (:pkg t)
   (:require emms-setup)
   (emms-all)
 

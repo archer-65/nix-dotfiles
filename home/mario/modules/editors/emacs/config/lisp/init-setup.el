@@ -135,53 +135,124 @@ If MODIFIER already exists, remove it first to avoid duplicates."
 (defun setup-wrap-to-install-package (body _name)
   "Wrap BODY in an `elpaca' block if necessary.
 The body is wrapped in an `elpaca' block if `setup-attributes'
-contains an alist with the key `elpaca'."
+contains an alist with the key `elpaca'. If there's also post-install
+code, it gets added to the elpaca body."
   (if (assq 'elpaca setup-attributes)
-      `(elpaca ,(cdr (assq 'elpaca setup-attributes)) ,@(macroexp-unprogn body))
+      (let ((elpaca-spec (cdr (assq 'elpaca setup-attributes)))
+            (post-install (cdr (assq 'post-install setup-attributes))))
+        `(elpaca ,elpaca-spec
+           ,@(macroexp-unprogn body)
+           ,@(when post-install (list post-install))))
     body))
 
 ;; Add the elpaca wrapper function
 (+setup-add-modifier #'setup-wrap-to-install-package 'append)
 
-(setup-define :elpaca
+(setup-define :pkg
   (lambda (order-or-recipe &optional recipe-list)
-    (push (cond
-           ;; Handle (:elpaca t) - simple package installation
-           ((eq order-or-recipe t)
-            `(elpaca . ,(setup-get 'feature)))
-           ;; Handle (:elpaca package-name (:host "github.com" ...)) - explicit package with recipe
-           ((and recipe-list (listp recipe-list) (keywordp (car recipe-list)))
-            `(elpaca . (,order-or-recipe ,@recipe-list)))
-           ;; Handle (:elpaca (:host "github.com" ...)) - recipe as list, use feature name
-           ((and (listp order-or-recipe) (keywordp (car order-or-recipe)))
-            `(elpaca . (,(setup-get 'feature) ,@order-or-recipe)))
-           ;; Handle (:elpaca package-name) - explicit package name only
-           (t
-            `(elpaca . ,order-or-recipe)))
-          setup-attributes)
-    nil)
-  :documentation "Install package with `elpaca'.
+    (let ((should-install t)
+          (final-order nil)
+          (final-recipe nil)
+          (post-install-code nil))
+
+      ;; Parse arguments and determine installation condition
+      (cond
+       ;; Handle (:pkg t) - simple package installation
+       ((eq order-or-recipe t)
+        (setq final-order (setup-get 'feature)))
+
+       ;; Handle (:pkg package-name (:host "github.com" ...)) - explicit package with recipe
+       ((and recipe-list (listp recipe-list) (keywordp (car recipe-list)))
+        (setq final-order order-or-recipe
+              final-recipe recipe-list))
+
+       ;; Handle (:pkg (:host "github.com" ...)) - recipe as list, use feature name
+       ((and (listp order-or-recipe) (keywordp (car order-or-recipe)))
+        (setq final-order (setup-get 'feature)
+              final-recipe order-or-recipe))
+
+       ;; Handle (:pkg package-name) - explicit package name only
+       (t
+        (setq final-order order-or-recipe)))
+
+      ;; Check for conditional installation and extract post-install code
+      (when final-recipe
+        ;; Extract :post-install code before any other processing
+        (when-let ((post-install (plist-get final-recipe :post-install)))
+          (setq post-install-code post-install))
+
+        ;; Check for :nix property - if present and we're using nix, don't install
+        (when (and (plist-get final-recipe :nix)
+                   (fboundp 'archer-using-nix-p)
+                   (archer-using-nix-p))
+          (setq should-install nil)
+          ;; Add to elpaca-ignored-dependencies to prevent downloading as dependency
+          (when (boundp 'elpaca-ignored-dependencies)
+            (cl-pushnew final-order elpaca-ignored-dependencies)))
+
+        ;; Remove our custom properties from the recipe before passing to elpaca
+        (setq final-recipe (cl-loop for (key value) on final-recipe by #'cddr
+                                    unless (memq key '(:nix :post-install))
+                                    collect key and collect value)))
+
+      ;; Push elpaca attribute if we should install
+      (when should-install
+        (push (if final-recipe
+                  `(elpaca . (,final-order ,@final-recipe))
+                `(elpaca . ,final-order))
+              setup-attributes))
+      
+      ;; Push post-install code to attributes if present and we should install
+      (when (and post-install-code should-install)
+        (push `(post-install . (with-eval-after-load ',(setup-get 'feature)
+                                 ,post-install-code))
+              setup-attributes))
+      nil))
+  :documentation "Install package with `elpaca', with optional Nix-aware conditional installation.
 
 This keyword supports multiple forms:
 
 1. Simple installation using feature name:
-   (:elpaca t)
+   (:pkg t)
    → (elpaca feature-name ...)
 
 2. Recipe as plist (inferred package name):
-   (:elpaca (:host \"github.com\" :repo \"user/repo\"))
+   (:pkg (:host \"github.com\" :repo \"user/repo\"))
    → (elpaca (feature-name :host \"github.com\" :repo \"user/repo\") ...)
 
 3. Explicit package name:
-   (:elpaca different-package-name)
+   (:pkg different-package-name)
    → (elpaca different-package-name ...)
 
 4. Explicit package name with recipe:
-   (:elpaca package-name (:host \"github.com\" :repo \"user/repo\"))
+   (:pkg package-name (:host \"github.com\" :repo \"user/repo\"))
    → (elpaca (package-name :host \"github.com\" :repo \"user/repo\") ...)
 
-The recipe keywords commonly used include:
-:host, :repo, :branch, :tag, :ref, :files, :includes, :excludes"
+NIX-AWARE INSTALLATION:
+Add :nix t to skip installation when using Nix.
+NOTE: This could change to be a more flexible alternative. Say :type, or :prefer.
+
+5. Skip installation when using Nix:
+   (:pkg (:nix t))
+   → Only installs if NOT using Nix
+
+6. Combined with regular recipe properties:
+   (:pkg (:host \"github.com\" :repo \"user/repo\" :nix t))
+   → Recipe with Nix-aware conditional installation
+
+POST-INSTALLATION SETUP:
+Add :post-install to run code after package installation:
+NOTE: This could change to be a more flexible alternative.
+
+7. Post-installation setup (only when installed via elpaca):
+   (:pkg (:nix t :post-install (pdf-tools-install :no-query)))
+   → Runs post-install code only when elpaca installs the package
+
+8. Combined example:
+   (:pkg (:host \"github.com\" :repo \"user/repo\" :nix t :post-install (setup-function)))
+
+The special properties :nix and :post-install are removed before passing to elpaca.
+Use :disable for other conditional installation scenarios."
   :shorthand #'cadr)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

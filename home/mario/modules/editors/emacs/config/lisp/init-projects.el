@@ -7,7 +7,7 @@
 ;;; Code:
 
 (setup envrc
-  (:elpaca t)
+  (:pkg t)
   (:needs "direnv")
   (:with-hook after-init-hook
     (:hook envrc-global-mode)))
@@ -19,7 +19,7 @@
   (:option magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1))
 
 ;; (setup forge
-;;   (:elpaca t)
+;;   (:pkg t)
 ;;   (:load-after magit))
 
 (setup ediff
@@ -28,12 +28,12 @@
            ediff-window-setup-function 'ediff-setup-windows-plain))
 
 (setup blamer
-  (:elpaca t))
+  (:pkg t))
 
 ;; `projectile', not using to try `project.el'
 (setup projectile
   (:disable t)
-  (:elpaca t)
+  (:pkg t)
   (:hide-mode)
 
   ;; NOTE: Set this to the folder where you keep your Git repos!
@@ -46,13 +46,13 @@
 
 (setup consult-projectile
   (:disable t)
-  (:elpaca t)
+  (:pkg t)
   (:load-after consult projectile))
 
 ;; `treemacs' stuff, I'm not using it
 (setup treemacs
   (:disable t)
-  (:elpaca t)
+  (:pkg t)
   (:option treemacs-deferred-git-apply-delay        0.5
            treemacs-directory-name-transformer      #'identity
            treemacs-display-in-side-window          t
@@ -134,18 +134,18 @@
 
 (setup treemacs-projectile
   (:disable t)
-  (:elpaca t)
+  (:pkg t)
   (:load-after treemacs projectile))
 
 (setup treemacs-all-the-icons
   (:disable t)
-  (:elpaca t)
+  (:pkg t)
   (:with-after treemacs
     (treemacs-load-theme "all-the-icons")))
 
 (setup treemacs-magit
   (:disable t)
-  (:elpaca t)
+  (:pkg t)
   (:load-after treemacs magit))
 
 (provide 'init-projects)
