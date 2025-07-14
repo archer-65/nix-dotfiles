@@ -97,41 +97,51 @@ Alternatively, MODE can be specified manually, and override the
 current mode."
   :after-loaded t)
 
-;;;###autoload
-(defmacro setup-pkg (order &rest body)
-  "Execute BODY in `setup' declaration after ORDER is finished.
-If the :disabled keyword is present in body, the package is completely ignored.
-This happens regardless of the value associated with :disabled.
-The expansion is a string indicating the package has been disabled."
-  (declare (indent 1))
-  (if (memq :disabled body)
-      (format "%S :disabled by setup-pkg" order)
-    (let ((o order))
-      (when-let ((ensure (cl-position :ensure body)))
-        (setq o (if (null (nth (1+ ensure) body)) nil order)
-              body (append (cl-subseq body 0 ensure)
-                           (cl-subseq body (+ ensure 2)))))
-      `(elpaca ,o (setup
-                    ,(if-let (((memq (car-safe order) '(quote \`)))
-                              (feature (flatten-tree order)))
-                         (cadr feature)
-                       (elpaca--first order))
-                    ,@body)))))
+;; Copyright - Amazon Q CLI :D
+(defun +setup-add-modifier (modifier &optional position relative-to)
+  "Smartly add MODIFIER to `setup-modifier-list'.
+POSITION can be:
+- nil or 'append: Add to end (default)
+- 'prepend: Add to beginning
+- 'before: Add before RELATIVE-TO function
+- 'after: Add after RELATIVE-TO function
+
+If MODIFIER already exists, remove it first to avoid duplicates."
+  (setq setup-modifier-list (delq modifier setup-modifier-list))
+  (pcase position
+    ('prepend
+     (push modifier setup-modifier-list))
+    ('before
+     (if-let ((pos (cl-position relative-to setup-modifier-list)))
+         (setq setup-modifier-list
+               (append (cl-subseq setup-modifier-list 0 pos)
+                       (list modifier)
+                       (cl-subseq setup-modifier-list pos)))
+       (push modifier setup-modifier-list)))
+    ('after
+     (if-let ((pos (cl-position relative-to setup-modifier-list)))
+         (setq setup-modifier-list
+               (append (cl-subseq setup-modifier-list 0 (1+ pos))
+                       (list modifier)
+                       (cl-subseq setup-modifier-list (1+ pos))))
+       (setq setup-modifier-list (append setup-modifier-list (list modifier)))))
+    (_
+     (setq setup-modifier-list (append setup-modifier-list (list modifier))))))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; Another try... Elpaca damn you!
+;; Elpaca integration with setup.el
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun setup-wrap-to-install-package (body _name)
-"Wrap BODY in an `elpaca' block if necessary.
+  "Wrap BODY in an `elpaca' block if necessary.
 The body is wrapped in an `elpaca' block if `setup-attributes'
 contains an alist with the key `elpaca'."
-(if (assq 'elpaca setup-attributes)
-    `(elpaca ,(cdr (assq 'elpaca setup-attributes)) ,@(macroexp-unprogn body))
-  body))
+  (if (assq 'elpaca setup-attributes)
+      `(elpaca ,(cdr (assq 'elpaca setup-attributes)) ,@(macroexp-unprogn body))
+    body))
 
-;; Add the wrapper function
-(add-to-list 'setup-modifier-list #'setup-wrap-to-install-package t)
+;; Add the elpaca wrapper function
+(+setup-add-modifier #'setup-wrap-to-install-package 'append)
 
 (setup-define :elpaca
   (lambda (order-or-recipe &optional recipe-list)
@@ -151,31 +161,68 @@ contains an alist with the key `elpaca'."
           setup-attributes)
     nil)
   :documentation "Install package with `elpaca'.
-ORDER-OR-RECIPE can be:
-- t: Install package with same name as feature
-- A list starting with keyword: Recipe properties like (:host \"github.com\" :repo \"user/repo\")
-- A symbol/string: Explicit package name
-When RECIPE-LIST is provided, ORDER-OR-RECIPE is treated as the package name."
+
+This keyword supports multiple forms:
+
+1. Simple installation using feature name:
+   (:elpaca t)
+   → (elpaca feature-name ...)
+
+2. Recipe as plist (inferred package name):
+   (:elpaca (:host \"github.com\" :repo \"user/repo\"))
+   → (elpaca (feature-name :host \"github.com\" :repo \"user/repo\") ...)
+
+3. Explicit package name:
+   (:elpaca different-package-name)
+   → (elpaca different-package-name ...)
+
+4. Explicit package name with recipe:
+   (:elpaca package-name (:host \"github.com\" :repo \"user/repo\"))
+   → (elpaca (package-name :host \"github.com\" :repo \"user/repo\") ...)
+
+The recipe keywords commonly used include:
+:host, :repo, :branch, :tag, :ref, :files, :includes, :excludes"
   :shorthand #'cadr)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Conditional disabling
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defun setup-wrap-to-disable-conditionally (body _name)
   "Conditionally disable setup form based on `disable' attribute.
 If `setup-attributes' contains an alist with the key `disable',
-wrap the body in a conditional that evaluates at runtime.
-If no disable condition is present, return BODY unchanged."
+wrap the entire BODY in a conditional that evaluates at runtime.
+If no disable condition is present, return BODY unchanged.
+
+This wrapper should run after other wrappers (like elpaca) to ensure
+the entire form gets conditionally disabled."
   (if-let ((disable-condition (cdr (assq 'disable setup-attributes))))
       `(unless ,disable-condition ,body)
     body))
 
-;; Add the disable wrapper function (append to run after elpaca and others)
-(add-to-list 'setup-modifier-list #'setup-wrap-to-disable-conditionally t)
+;; Add the disable wrapper function (after elpaca wrapper)
+(+setup-add-modifier #'setup-wrap-to-disable-conditionally 'after #'setup-wrap-to-install-package)
 
 (setup-define :disable
   (lambda (condition)
     (push `(disable . ,condition) setup-attributes)
     nil)
-  :documentation "Conditionally disable the setup form.
-If CONDITION evaluates to non-nil, the entire setup form is disabled.")
+  :documentation "Conditionally disable the entire setup form.
+
+CONDITION is evaluated at runtime. If it evaluates to non-nil,
+the entire setup form (including package installation) is skipped.
+
+Examples:
+  (:disable t)                              ; Always disabled
+  (:disable (eq system-type 'windows-nt))   ; Disabled on Windows
+  (:disable (not (executable-find \"git\")))  ; Disabled if git not found
+  (:disable (version< emacs-version \"29\"))  ; Disabled on old Emacs
+
+This is useful for:
+- Platform-specific packages
+- Packages requiring external dependencies
+- Experimental configurations
+- Version-specific features")
 
 (provide 'init-setup)
 ;;; init-setup.el ends here
