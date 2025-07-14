@@ -122,41 +122,60 @@ The expansion is a string indicating the package has been disabled."
 ;; Another try... Elpaca damn you!
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(defun +setup-wrap-to-install-package (body name)
-  "Wrap BODY in an `elpaca' block if necessary.
+(defun setup-wrap-to-install-package (body _name)
+"Wrap BODY in an `elpaca' block if necessary.
 The body is wrapped in an `elpaca' block if `setup-attributes'
-contains an alist with the key `elpaca'.
-If `need-quit' is in `setup-attributes', skip `elpaca' installation entirely.
-
-BODY is the setup form body to be wrapped.
-NAME is the feature name being configured, used for logging messages."
-  (let ((has-elpaca (assq 'elpaca setup-attributes))
-        (need-quit (memq 'need-quit setup-attributes)))
-    (when (and need-quit has-elpaca)
-      (message "[Setup] Skipping elpaca installation for %s due to quit condition" name))
-    (cond
-     (need-quit `(progn ,@(macroexp-unprogn body)))
-     (has-elpaca `(elpaca ,(cdr has-elpaca) ,@(macroexp-unprogn body)))
-     (t body))))
+contains an alist with the key `elpaca'."
+(if (assq 'elpaca setup-attributes)
+    `(elpaca ,(cdr (assq 'elpaca setup-attributes)) ,@(macroexp-unprogn body))
+  body))
 
 ;; Add the wrapper function
-(add-to-list 'setup-modifier-list #'+setup-wrap-to-install-package)
+(add-to-list 'setup-modifier-list #'setup-wrap-to-install-package t)
 
 (setup-define :elpaca
-  (lambda (order &rest recipe)
+  (lambda (order-or-recipe &optional recipe-list)
     (push (cond
-           ((eq order t) `(elpaca . ,(setup-get 'feature)))
-           ((eq order nil) '(elpaca . nil))
-           (`(elpaca . (,(setup-get 'feature) ,order ,@recipe))))
+           ;; Handle (:elpaca t) - simple package installation
+           ((eq order-or-recipe t)
+            `(elpaca . ,(setup-get 'feature)))
+           ;; Handle (:elpaca package-name (:host "github.com" ...)) - explicit package with recipe
+           ((and recipe-list (listp recipe-list) (keywordp (car recipe-list)))
+            `(elpaca . (,order-or-recipe ,@recipe-list)))
+           ;; Handle (:elpaca (:host "github.com" ...)) - recipe as list, use feature name
+           ((and (listp order-or-recipe) (keywordp (car order-or-recipe)))
+            `(elpaca . (,(setup-get 'feature) ,@order-or-recipe)))
+           ;; Handle (:elpaca package-name) - explicit package name only
+           (t
+            `(elpaca . ,order-or-recipe)))
           setup-attributes)
-    ;; If the macro wouldn't return nil, it would try to insert the result of
-    ;; `push' which is the new value of the modified list. As this value usually
-    ;; cannot be evaluated, it is better to return nil which the byte compiler
-    ;; would optimize away anyway.
     nil)
-  :documentation "Install ORDER with `elpaca'.
-The ORDER can be used to deduce the feature context."
+  :documentation "Install package with `elpaca'.
+ORDER-OR-RECIPE can be:
+- t: Install package with same name as feature
+- A list starting with keyword: Recipe properties like (:host \"github.com\" :repo \"user/repo\")
+- A symbol/string: Explicit package name
+When RECIPE-LIST is provided, ORDER-OR-RECIPE is treated as the package name."
   :shorthand #'cadr)
+
+(defun setup-wrap-to-disable-conditionally (body _name)
+  "Conditionally disable setup form based on `disable' attribute.
+If `setup-attributes' contains an alist with the key `disable',
+wrap the body in a conditional that evaluates at runtime.
+If no disable condition is present, return BODY unchanged."
+  (if-let ((disable-condition (cdr (assq 'disable setup-attributes))))
+      `(unless ,disable-condition ,body)
+    body))
+
+;; Add the disable wrapper function (append to run after elpaca and others)
+(add-to-list 'setup-modifier-list #'setup-wrap-to-disable-conditionally t)
+
+(setup-define :disable
+  (lambda (condition)
+    (push `(disable . ,condition) setup-attributes)
+    nil)
+  :documentation "Conditionally disable the setup form.
+If CONDITION evaluates to non-nil, the entire setup form is disabled.")
 
 (provide 'init-setup)
 ;;; init-setup.el ends here

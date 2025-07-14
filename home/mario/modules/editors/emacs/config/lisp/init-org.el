@@ -145,7 +145,7 @@
            org-modern-table-horizontal 0))
 
 (setup org-modern-indent
-  (:elpaca :host github :repo "jdtsmith/org-modern-indent")
+  (:elpaca (:host github :repo "jdtsmith/org-modern-indent"))
   (:hook-into org-indent-mode))
 
 (setup olivetti

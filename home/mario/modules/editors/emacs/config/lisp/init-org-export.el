@@ -45,7 +45,7 @@
 
 ;; Reveal.js
 (setup ox-reveal
-  (:elpaca :host github :repo "yjwen/org-reveal")
+  (:elpaca (:host github :repo "yjwen/org-reveal"))
   (:load-after ox)
   (:option org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js"))
 

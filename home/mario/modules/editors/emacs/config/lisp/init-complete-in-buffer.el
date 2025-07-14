@@ -7,8 +7,8 @@
 ;;; Code:
 
 (setup corfu
-  (:elpaca :files (:defaults "extensions/*")
-           :includes (corfu-history corfu-popupinfo corfu-info))
+  (:elpaca (:files (:defaults "extensions/*")
+                   :includes (corfu-history corfu-popupinfo corfu-info)))
   (:option corfu-cycle t
            corfu-auto t
            corfu-auto-delay 0.3

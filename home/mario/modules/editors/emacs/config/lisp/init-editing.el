@@ -111,7 +111,7 @@
         scroll-preserve-screen-position t))
 
 (setup ultra-scroll
-  (:elpaca :host github :repo "jdtsmith/ultra-scroll")
+  (:elpaca (:host github :repo "jdtsmith/ultra-scroll"))
   (:option scroll-conservatively 101
            scroll-margin 0)
   (:when-loaded

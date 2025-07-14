@@ -73,7 +73,7 @@
     (:bind "<return>" #'image-dired-thumbnail-display-external)))
 
 (setup diredfl
-  (:quit)
+  (:disable t)
   (:elpaca t)
   (diredfl-global-mode 1))
 

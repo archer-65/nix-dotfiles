@@ -13,7 +13,7 @@
   (which-key-mode 1))
 
 (setup helpful
-  (:quit)
+  (:disable t)
   (:elpaca t)
   (:bind "C-h f"    helpful-callable
          "C-h v"    helpful-variable

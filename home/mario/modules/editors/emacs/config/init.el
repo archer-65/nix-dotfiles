@@ -120,7 +120,7 @@ t
 (require 'init-pdf)
 
 (setup beancount-mode
-  (:elpaca :host github :repo "beancount/beancount-mode" :main "beancount.el"))
+  (:elpaca (:host github :repo "beancount/beancount-mode" :main "beancount.el")))
 
 (require 'init-shell)
 

@@ -50,7 +50,7 @@
 
 ;; Vertico
 (setup vertico
-  (:elpaca :files (:defaults "extensions/*"))
+  (:elpaca (:files (:defaults "extensions/*")))
 
   (:also-load vertico-indexed
               vertico-flat
@@ -125,10 +125,10 @@
 ;; TODO: Remove fork when https://github.com/iyefrat/all-the-icons-completion/pull/33 is merged
 ;; TODO: Then, remove direct reference to GitHub when on MELPA
 (setup all-the-icons-completion
-  (:elpaca :host github :repo "iyefrat/all-the-icons-completion"
-           :remotes ("fork"
-                     :repo "maxecharel/all-the-icons-completion"
-                     :branch "contrib"))
+  (:elpaca (:host github :repo "iyefrat/all-the-icons-completion"
+                  :remotes ("fork"
+                            :repo "maxecharel/all-the-icons-completion"
+                            :branch "contrib")))
   (:with-after (all-the-icons marginalia)
     (all-the-icons-completion-mode 1)
     (:with-mode marginalia-mode

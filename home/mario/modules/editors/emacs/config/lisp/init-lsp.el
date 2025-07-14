@@ -44,7 +44,7 @@
 ;;; LSP-MODE
 
 (setup lsp-mode
-  (:quit)
+  (:disable t)
   (:elpaca t)
   (:autoload lsp)
 
@@ -85,7 +85,7 @@
   (:hook-into lsp-enable-which-key-integration))
 
 (setup lsp-ui
-  (:quit)
+  (:disable t)
   (:elpaca t)
   (:autoload lsp-ui-mode)
   (:hook-into lsp-mode)
@@ -99,7 +99,7 @@
              lsp-ui-sideline-delay 0.05)))
 
 (setup lsp-java
-  (:quit)
+  (:disable t)
   (:elpaca t)
   (:load-after lsp))
 

@@ -32,7 +32,7 @@
 
 ;; `projectile', not using to try `project.el'
 (setup projectile
-  (:quit)
+  (:disable t)
   (:elpaca t)
   (:hide-mode)
 
@@ -45,13 +45,13 @@
   (:global "C-c C-p" projectile-command-map))
 
 (setup consult-projectile
-  (:quit)
+  (:disable t)
   (:elpaca t)
   (:load-after consult projectile))
 
 ;; `treemacs' stuff, I'm not using it
 (setup treemacs
-  (:quit)
+  (:disable t)
   (:elpaca t)
   (:option treemacs-deferred-git-apply-delay        0.5
            treemacs-directory-name-transformer      #'identity
@@ -133,18 +133,18 @@
            "C-c C-t T"  treemacs-find-tag))
 
 (setup treemacs-projectile
-  (:quit)
+  (:disable t)
   (:elpaca t)
   (:load-after treemacs projectile))
 
 (setup treemacs-all-the-icons
-  (:quit)
+  (:disable t)
   (:elpaca t)
   (:with-after treemacs
     (treemacs-load-theme "all-the-icons")))
 
 (setup treemacs-magit
-  (:quit)
+  (:disable t)
   (:elpaca t)
   (:load-after treemacs magit))
 
