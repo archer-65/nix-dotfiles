@@ -122,14 +122,16 @@
 
   (:hook archer-org-mode-setup))
 
-(setup-pkg org-appear
+(setup org-appear
+  (:pkg t)
   (:autoload org-appear-mode)
   (:hook-into org-mode)
   (:option org-appear-autoemphasis t
            org-appear-autolinks nil
            org-appear-autosubmarkers t))
 
-(setup-pkg org-modern
+(setup org-modern
+  (:pkg t)
   (:load-after org)
   (:hook-into org-mode)
   (set-face-attribute 'org-modern-symbol nil :family "Iosevka Nerd Font")
@@ -142,10 +144,12 @@
            org-modern-table-vertical 1
            org-modern-table-horizontal 0))
 
-(setup-pkg (org-modern-indent :host github :repo "jdtsmith/org-modern-indent")
+(setup org-modern-indent
+  (:pkg (:host github :repo "jdtsmith/org-modern-indent"))
   (:hook-into org-indent-mode))
 
-(setup-pkg olivetti
+(setup olivetti
+  (:pkg t)
   (:load-after org)
   (:hook-into org-mode)
   (:option olivetti-body-width 0.75

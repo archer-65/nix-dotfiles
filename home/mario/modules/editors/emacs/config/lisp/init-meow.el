@@ -6,7 +6,8 @@
 
 ;;; Code:
 
-(setup-pkg meow
+(setup meow
+  (:pkg t)
   (:require meow)
 
   (:hide-mode meow-normal)

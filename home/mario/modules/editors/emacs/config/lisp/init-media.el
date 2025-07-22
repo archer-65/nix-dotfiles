@@ -6,9 +6,11 @@
 
 ;;; Code:
 
-(setup-pkg mpv)
+(setup mpv
+  (:pkg t))
 
-(setup-pkg emms
+(setup emms
+  (:pkg t)
   (:require emms-setup)
   (emms-all)
 

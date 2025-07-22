@@ -9,9 +9,7 @@
 ;;; Code:
 
 (setup telega
-
-  (unless (archer-using-nix-p)
-    (elpaca telega))
+  (:pkg (:built-in 'prefer))
 
   (:autoload telega)
 

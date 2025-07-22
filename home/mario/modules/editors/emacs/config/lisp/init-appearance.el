@@ -42,7 +42,8 @@
   (setq-default indicate-buffer-boundaries nil))
 
 ;; You must run `all-the-icons-install-fonts` the first time.
-(setup-pkg all-the-icons
+(setup all-the-icons
+  (:pkg t)
   (:require all-the-icons))
 
 (provide 'init-appearance)

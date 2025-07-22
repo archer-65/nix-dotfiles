@@ -7,7 +7,8 @@
 ;;; Code:
 
 
-(setup-pkg modus-themes
+(setup modus-themes
+  (:pkg t)
   ;; Preferences
   (:option modus-themes-org-blocks 'gray-background
            modus-themes-mixed-fonts nil
@@ -82,10 +83,12 @@
 
   (modus-themes-select 'modus-operandi))
 
-(setup-pkg ef-themes)
+(setup ef-themes
+  (:pkg t))
 
 ;; I set circadian in the configuration of my themes
-(setup-pkg circadian
+(setup circadian
+  (:pkg t)
   (:load-after modus-themes)
   (:option circadian-themes '(("8:00" . modus-operandi)
                               ("20:00" . modus-vivendi)))

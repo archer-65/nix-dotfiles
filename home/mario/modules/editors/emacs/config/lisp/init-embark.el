@@ -43,7 +43,8 @@ targets."
     (apply fn args)))
 
 ;; Embark configuration
-(setup-pkg embark
+(setup embark
+  (:pkg t)
   (:with-after consult
     (elpaca embark-consult))
 
@@ -62,7 +63,8 @@ targets."
                  (window-parameters (mode-line-format . none)))))
 
 ;; Used for export and edit after ripgrep magic.
-(setup-pkg wgrep)
+(setup wgrep
+  (:pkg t))
 
 (provide 'init-embark)
 ;;; init-embark.el ends here

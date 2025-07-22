@@ -31,7 +31,8 @@
 ;;; Keep history and keep the order
 
 ;; The `no-littering` package to keep folders where we edit files and the Emacs configuration folder clean.
-(setup-pkg no-littering
+(setup no-littering
+  (:pkg t)
   ;; The package doesn't set this by default so we must place
   ;; auto save files in the same path as it uses for sessions
   (:option auto-save-file-name-transforms `((".*" ,(no-littering-expand-var-file-name "auto-save/")))))
@@ -109,7 +110,8 @@
         scroll-preserve-screen-position t
         scroll-preserve-screen-position t))
 
-(setup-pkg (ultra-scroll :host github :repo "jdtsmith/ultra-scroll")
+(setup ultra-scroll
+  (:pkg (:host github :repo "jdtsmith/ultra-scroll"))
   (:option scroll-conservatively 101
            scroll-margin 0)
   (:when-loaded
@@ -154,12 +156,14 @@
   (:with-hook after-init-hook
     (:hook delete-selection-mode)))
 
-(setup-pkg drag-stuff
+(setup drag-stuff
+  (:pkg t)
   (:hide-mode)
   (drag-stuff-global-mode 1)
   (drag-stuff-define-keys))
 
-(setup-pkg goto-last-change
+(setup goto-last-change
+  (:pkg t)
   (:global "C-z" goto-last-change))
 
 (setup (:require autorevert)
@@ -172,7 +176,8 @@
 (setup (:require so-long)
   (global-so-long-mode 1))
 
-(setup-pkg diff-hl
+(setup diff-hl
+  (:pkg t)
   (:hook-into prog-mode)
 
   (:with-mode dired-mode

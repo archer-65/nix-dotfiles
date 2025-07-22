@@ -7,9 +7,8 @@
 ;;; Code:
 
 (setup pdf-tools
-  (unless (archer-using-nix-p)
-    (elpaca pdf-tools
-      (pdf-tools-install :no-query)))
+  (:pkg (:built-in 'prefer :post-install (pdf-tools-install :no-query)))
+  (:require pdf-tools)
 
   (:option display-buffer-alist '(("^\\*outline"
                                    display-buffer-in-side-window
@@ -20,7 +19,9 @@
   (:with-mode pdf-view-mode
     (:file-match "\\.[pP][dD][fF]\\'")))
 
-(setup-pkg saveplace-pdf-view
+
+(setup saveplace-pdf-view
+  (:pkg t)
   (:load-after pdf-tools))
 
 (provide 'init-pdf)
