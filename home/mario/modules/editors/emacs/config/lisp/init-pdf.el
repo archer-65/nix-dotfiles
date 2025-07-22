@@ -7,7 +7,7 @@
 ;;; Code:
 
 (setup pdf-tools
-  (:pkg (:nix t :post-install (pdf-tools-install :no-query)))
+  (:pkg (:built-in 'prefer :post-install (pdf-tools-install :no-query)))
   (:require pdf-tools)
 
   (:option display-buffer-alist '(("^\\*outline"

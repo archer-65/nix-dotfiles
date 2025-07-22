@@ -9,7 +9,7 @@
 ;;; Code:
 
 (setup telega
-  (:pkg (:nix t))
+  (:pkg (:built-in 'prefer))
 
   (:autoload telega)
 

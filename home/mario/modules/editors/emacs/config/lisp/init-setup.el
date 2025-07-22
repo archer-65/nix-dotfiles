@@ -137,63 +137,59 @@ If MODIFIER already exists, remove it first to avoid duplicates."
 The body is wrapped in an `elpaca' block if `setup-attributes'
 contains an alist with the key `elpaca'. If there's also post-install
 code, it gets added to the elpaca body."
-  (if (assq 'elpaca setup-attributes)
-      (let ((elpaca-spec (cdr (assq 'elpaca setup-attributes)))
-            (post-install (cdr (assq 'post-install setup-attributes))))
-        `(elpaca ,elpaca-spec
-           ,@(macroexp-unprogn body)
-           ,@(when post-install (list post-install))))
-    body))
+  (let ((elpaca-attr (assq 'elpaca setup-attributes)))
+    (if elpaca-attr
+        (let ((elpaca-spec (cdr elpaca-attr))
+              (post-install (cdr (assq 'post-install setup-attributes))))
+          `(elpaca ,elpaca-spec
+             ,@(macroexp-unprogn body)
+             ,@(when post-install (list post-install))))
+      body)))
 
 ;; Add the elpaca wrapper function
 (+setup-add-modifier #'setup-wrap-to-install-package 'append)
 
 (setup-define :pkg
   (lambda (order-or-recipe &optional recipe-list)
-    (let ((should-install t)
-          (final-order nil)
-          (final-recipe nil)
-          (post-install-code nil))
+    (let* ((feature-name (setup-get 'feature))
+           ;; Simplified pattern recognition
+           (recipe-p (lambda (x) (and (listp x) (keywordp (car x)))))
 
-      ;; Parse arguments and determine installation condition
-      (cond
-       ;; Handle (:pkg t) - simple package installation
-       ((eq order-or-recipe t)
-        (setq final-order (setup-get 'feature)))
+           ;; Determine final values based on argument pattern
+           (final-order (cond
+                         ((eq order-or-recipe t) feature-name)
+                         ((funcall recipe-p order-or-recipe) feature-name)
+                         (t order-or-recipe)))
+           (final-recipe (cond
+                          ((and recipe-list (funcall recipe-p recipe-list)) recipe-list)
+                          ((funcall recipe-p order-or-recipe) order-or-recipe)))
 
-       ;; Handle (:pkg package-name (:host "github.com" ...)) - explicit package with recipe
-       ((and recipe-list (listp recipe-list) (keywordp (car recipe-list)))
-        (setq final-order order-or-recipe
-              final-recipe recipe-list))
+           (should-install t)
+           (post-install-code nil)
+           (built-in nil))
 
-       ;; Handle (:pkg (:host "github.com" ...)) - recipe as list, use feature name
-       ((and (listp order-or-recipe) (keywordp (car order-or-recipe)))
-        (setq final-order (setup-get 'feature)
-              final-recipe order-or-recipe))
-
-       ;; Handle (:pkg package-name) - explicit package name only
-       (t
-        (setq final-order order-or-recipe)))
-
-      ;; Check for conditional installation and extract post-install code
+      ;; Process recipe properties if present
       (when final-recipe
-        ;; Extract :post-install code before any other processing
-        (when-let ((post-install (plist-get final-recipe :post-install)))
-          (setq post-install-code post-install))
+        (setq post-install-code (plist-get final-recipe :post-install)
+              built-in (plist-get final-recipe :built-in))
 
-        ;; Check for :nix property - if present and we're using nix, don't install
-        (when (and (plist-get final-recipe :nix)
-                   (fboundp 'archer-using-nix-p)
-                   (archer-using-nix-p))
-          (setq should-install nil)
-          ;; Add to elpaca-ignored-dependencies to prevent downloading as dependency
-          (when (boundp 'elpaca-ignored-dependencies)
-            (cl-pushnew final-order elpaca-ignored-dependencies)))
+        ;; Handle :built-in property - supports various ignore conditions
+        (when built-in
+          (let ((should-ignore
+                 (pcase built-in
+                   ('t t)
+                   (`(quote prefer) (locate-library (symbol-name final-order) nil (get 'load-path 'initial-value)))
+                   ((pred listp) (eval built-in))
+                   (_ (eval built-in)))))
+            (when should-ignore
+              (setq should-install nil)
+              ;; Add to elpaca-ignored-dependencies to prevent downloading as dependency
+              (when (boundp 'elpaca-ignored-dependencies)
+                (cl-pushnew final-order elpaca-ignored-dependencies)))))
 
         ;; Remove our custom properties from the recipe before passing to elpaca
-        (setq final-recipe (cl-loop for (key value) on final-recipe by #'cddr
-                                    unless (memq key '(:nix :post-install))
-                                    collect key and collect value)))
+        (cl-loop for prop in '(:built-in :post-install)
+                 do (cl-remf final-recipe prop)))
 
       ;; Push elpaca attribute if we should install
       (when should-install
@@ -201,14 +197,14 @@ code, it gets added to the elpaca body."
                   `(elpaca . (,final-order ,@final-recipe))
                 `(elpaca . ,final-order))
               setup-attributes))
-      
+
       ;; Push post-install code to attributes if present and we should install
       (when (and post-install-code should-install)
-        (push `(post-install . (with-eval-after-load ',(setup-get 'feature)
+        (push `(post-install . (with-eval-after-load ',feature-name
                                  ,post-install-code))
               setup-attributes))
       nil))
-  :documentation "Install package with `elpaca', with optional Nix-aware conditional installation.
+  :documentation "Install package with `elpaca', with optional conditional installation.
 
 This keyword supports multiple forms:
 
@@ -228,31 +224,37 @@ This keyword supports multiple forms:
    (:pkg package-name (:host \"github.com\" :repo \"user/repo\"))
    → (elpaca (package-name :host \"github.com\" :repo \"user/repo\") ...)
 
-NIX-AWARE INSTALLATION:
-Add :nix t to skip installation when using Nix.
-NOTE: This could change to be a more flexible alternative. Say :type, or :prefer.
+CONDITIONAL INSTALLATION:
+Add :built-in to conditionally skip installation based on various criteria.
 
-5. Skip installation when using Nix:
-   (:pkg (:nix t))
-   → Only installs if NOT using Nix
+5. Always skip installation (built-in package):
+   (:pkg (:built-in t))
+   → Never installs via elpaca
 
-6. Combined with regular recipe properties:
-   (:pkg (:host \"github.com\" :repo \"user/repo\" :nix t))
-   → Recipe with Nix-aware conditional installation
+6. Skip if package is already available (prefer system version):
+   (:pkg (:built-in 'prefer))
+   → Only installs if not found in initial load-path
+
+7. Skip based on custom condition:
+   (:pkg (:built-in (archer-using-nix-p)))
+   → Evaluates condition at runtime
+
+8. Combined with regular recipe properties:
+   (:pkg (:host \"github.com\" :repo \"user/repo\" :built-in 'prefer))
+   → Recipe with conditional installation
 
 POST-INSTALLATION SETUP:
-Add :post-install to run code after package installation:
-NOTE: This could change to be a more flexible alternative.
+Add :post-install to run code after package installation.
 
-7. Post-installation setup (only when installed via elpaca):
-   (:pkg (:nix t :post-install (pdf-tools-install :no-query)))
+9. Post-installation setup (only when installed via elpaca):
+   (:pkg (:built-in 'prefer :post-install (pdf-tools-install :no-query)))
    → Runs post-install code only when elpaca installs the package
 
-8. Combined example:
-   (:pkg (:host \"github.com\" :repo \"user/repo\" :nix t :post-install (setup-function)))
+10. Combined example:
+    (:pkg (:host \"github.com\" :repo \"user/repo\" :built-in (version< emacs-version \"29\") :post-install (setup-function)))
 
-The special properties :nix and :post-install are removed before passing to elpaca.
-Use :disable for other conditional installation scenarios."
+The special properties :built-in and :post-install are removed before passing to elpaca.
+Use :disable for other conditional setup scenarios."
   :shorthand #'cadr)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

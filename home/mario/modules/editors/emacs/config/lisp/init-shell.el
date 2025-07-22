@@ -7,7 +7,7 @@
 ;;; Code:
 
 (setup vterm
-  (:pkg (:nix t))
+  (:pkg (:built-in 'prefer))
 
   (:autoload vterm vterm-other-window)
 
