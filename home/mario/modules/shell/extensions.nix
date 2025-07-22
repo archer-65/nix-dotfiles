@@ -11,7 +11,7 @@ with lib; let
   cfgBash = config.mario.modules.shell.bash;
   cfgZsh = config.mario.modules.shell.zsh;
 in {
-  imports = [inputs.nix-index-database.hmModules.nix-index];
+  imports = [inputs.nix-index-database.homeModules.nix-index];
 
   options.mario.modules.shell.extensions = {
     enable = mkEnableOption "shell useful commands (e.g. bat, eza) ";
