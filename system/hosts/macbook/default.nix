@@ -3,7 +3,9 @@
     enable = true;
 
     onActivation = {
-      cleanup = "zap";
+      autoUpdate = true;
+      # cleanup = "zap"; # Headaches, continuously reinstalling docker cask...
+      upgrade = true;
     };
 
     casks = [
@@ -14,6 +16,8 @@
       "tunnelblick"
       "keybase"
       "karabiner-elements"
+      "windows-app"
+      "suzuki-shunsuke/tfmv/tfmv"
     ];
   };
 }
