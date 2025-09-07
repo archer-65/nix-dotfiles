@@ -75,10 +75,9 @@ in {
           special_scale_factor = 0.85;
         };
 
-        gestures = {
-          workspace_swipe = true;
-          workspace_swipe_fingers = 3;
-        };
+        gesture = [
+          "3, horizontal, workspace"
+        ];
 
         misc = {
           vfr = true;
