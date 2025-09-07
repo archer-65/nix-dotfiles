@@ -30,27 +30,27 @@ in {
 
       includes = lib.optionals (builtins.hasAttr "XDG_WORK_DIR" config.xdg.userDirs.extraConfig) [
         {
-	  condition = hasconfig:remote.*.url:git@gitlab.intranet.bit4id.com/**;
-	  contents = {
-	    user = {
-	      email = "mli@bit4id.com";
-	      name = "mli";
-	      signingKey = "BAC570B2172822A3";
-	    };
-	    commit.gpgSign = true;
-	  };
-	}
+          condition = hasconfig:remote.*.url:git@gitlab.intranet.bit4id.com/**;
+          contents = {
+            user = {
+              email = "mli@bit4id.com";
+              name = "mli";
+              signingKey = "BAC570B2172822A3";
+            };
+            commit.gpgSign = true;
+          };
+        }
         {
-	  condition = hasconfig:remote.*.url:ssh://git@bitbucket.namirial.com:7999/**;
-	  contents = {
-	    user = {
-	      email = "m.liguori@namirial.com";
-	      name = "m.liguori";
-	      signingKey = "BAC570B2172822A3";
-	    };
-	    commit.gpgSign = true;
-	  };
-	}
+          condition = hasconfig:remote.*.url:ssh://git@bitbucket.namirial.com:7999/**;
+          contents = {
+            user = {
+              email = "m.liguori@namirial.com";
+              name = "m.liguori";
+              signingKey = "BAC570B2172822A3";
+            };
+            commit.gpgSign = true;
+          };
+        }
       ];
     };
   };

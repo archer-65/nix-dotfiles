@@ -52,9 +52,8 @@
 
   services.flatpak.enable = true;
   # TODO: Move this away
-  hardware.graphics.extraPackages = with pkgs; [ rocmPackages.clr.icd ];
-  systemd.tmpfiles.rules =
-  let
+  hardware.graphics.extraPackages = with pkgs; [rocmPackages.clr.icd];
+  systemd.tmpfiles.rules = let
     rocmEnv = pkgs.symlinkJoin {
       name = "rocm-combined";
       paths = with pkgs.rocmPackages; [

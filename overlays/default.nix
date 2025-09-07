@@ -24,20 +24,6 @@ in {
 
   # Overlays for various pkgs (e.g. broken, not updated)
   modifications = final: prev: rec {
-    amazon-q-cli = prev.amazon-q-cli.overrideAttrs (oldAttrs: rec {
-      version = "1.13.3";
-      src = final.fetchFromGitHub {
-        owner = "aws";
-        repo = "amazon-q-developer-cli";
-        tag = "v${version}";
-        hash = "sha256-1y7mQjZurT+JCh8Nl/nbfwMlyYKFmfc8Kwp46Dt9Lz4=";
-      };
-      cargoHash = ""; # Update this hash
-      cargoDeps = final.rustPlatform.fetchCargoVendor {
-        inherit src;
-        hash = "sha256-qepnwdkh0g/C40l8JMWVRRheSKbLWeu4AC+ib/DwfKE=";
-      };
-    });
     rofi-emoji-wayland = prev.rofi-emoji.overrideAttrs (oldAttrs: rec {
       buildInputs = with final; [
         rofi-wayland-unwrapped
