@@ -37,6 +37,11 @@
     };
   };
 
+  # Cross compilation
+  boot.binfmt.emulatedSystems = [
+    "aarch64-linux"
+  ];
+
   networking.interfaces.enp42s0.useDHCP = true;
 
   # Graphics

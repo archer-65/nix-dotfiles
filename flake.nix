@@ -85,6 +85,11 @@
         system = "x86_64-linux";
         stateVersion = "22.05";
       };
+      apollo = mkSystem {
+        hostname = "apollo";
+        system = "aarch64-linux";
+        stateVersion = "25.11";
+      };
     };
 
     homeConfigurations = {
