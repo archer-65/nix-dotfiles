@@ -24,6 +24,27 @@ in {
 
   # Overlays for various pkgs (e.g. broken, not updated)
   modifications = final: prev: rec {
+    terraform-docs = prev.terraform-docs.overrideAttrs (oldAttrs: rec {
+      version = "0.20.0-unstable";
+
+      src = prev.fetchFromGitHub {
+        owner = "terraform-docs";
+        repo = "terraform-docs";
+        rev = "master";
+        hash = "sha256-DkjNjzQuZrsozJKeS0r63QBBqe8p/Cu0Mu7WYOGl2kg=";
+      };
+
+      vendorHash = "sha256-vGLDIEJZar21seXljsp2pFxIow42u88pkaJTyQGqRBQ=";
+
+      patches = [
+        (prev.fetchpatch {
+          name = "bump-golang-tools.patch";
+          url = "https://github.com/terraform-docs/terraform-docs/pull/872.patch";
+          sha256 = "664ZtL/fqJSpmTSISEqYyRnNIvXjoSripCJUPxMKy+I=";
+        })
+      ];
+    });
+
     rofi-emoji-wayland = prev.rofi-emoji.overrideAttrs (oldAttrs: rec {
       buildInputs = with final; [
         rofi-wayland-unwrapped
