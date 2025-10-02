@@ -30,7 +30,7 @@ in {
 
       includes = lib.optionals (builtins.hasAttr "XDG_WORK_DIR" config.xdg.userDirs.extraConfig) [
         {
-          condition = hasconfig:remote.*.url:git@gitlab.intranet.bit4id.com/**;
+          condition = hasconfig:remote.*.url:git@gitlab.intranet.bit4id.com:*/**;
           contents = {
             user = {
               email = "mli@bit4id.com";
