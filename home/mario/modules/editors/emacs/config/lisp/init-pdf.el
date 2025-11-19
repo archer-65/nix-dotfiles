@@ -14,10 +14,7 @@
                                    display-buffer-in-side-window
                                    (side . left)
                                    (window-width . 0.20)
-                                   (inhibit-switch-frame . t))))
-
-  (:with-mode pdf-view-mode
-    (:match-file "\\.[pP][dD][fF]\\'")))
+                                   (inhibit-switch-frame . t)))))
 
 
 (setup saveplace-pdf-view

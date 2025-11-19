@@ -7,34 +7,27 @@
 ;;; Code:
 
 (setup cmake-mode
-  (:pkg t)
-  (:match-file (rx (or "CmakeLists.txt" ".cmake") eos)))
+  (:pkg t))
 
 (setup nix-mode
-  (:pkg t)
-  (:match-file (rx ".nix" eos)))
+  (:pkg t))
 
 (setup markdown-mode
-  (:pkg t)
-  (:match-file (rx (or ".md" ".markdown" ".mdown") eos)))
+  (:pkg t))
 
 (setup yaml-mode
-  (:pkg t)
-  (:match-file (rx (or ".yml" ".yaml") eos)))
+  (:pkg t))
 
 (setup json-mode
-  (:pkg t)
-  (:match-file (rx ".json" eos)))
+  (:pkg t))
 
 (setup rustic
   (:pkg t)
-  (:match-file (rx ".rs" eos))
   (setopt rustic-format-on-save nil ; There's `format-all-mode'
-           rustic-lsp-client archer-lsp-client))
+          rustic-lsp-client archer-lsp-client))
 
 (setup terraform-mode
-  (:pkg t)
-  (:match-file (rx ".tf" eos)))
+  (:pkg t))
 
 (provide 'init-extra-modes)
 ;;; init-extra-modes.el ends here

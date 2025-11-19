@@ -28,8 +28,8 @@
 
   (keymap-global-set "C-x <up>"   'enlarge-window)
   (keymap-global-set "C-x <down>" 'shrink-window)
-  (keymap-global-set "C-x {"      'shrink-window-horizontally
-  (keymap-global-set "C-x }"      'enlarge-window-horizontally)))
+  (keymap-global-set "C-x {"      'shrink-window-horizontally)
+  (keymap-global-set "C-x }"      'enlarge-window-horizontally))
 
 (setup beframe
   (:pkg t)

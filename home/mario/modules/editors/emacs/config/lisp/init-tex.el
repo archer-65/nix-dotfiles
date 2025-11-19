@@ -9,8 +9,7 @@
 
 (setup auctex
   (:pkg t)
-  (:with-mode LaTeX-mode
-    (:match-file "\\.tex\\'"))
+  (add-to-list 'auto-mode-alist '("\\.tex\\'" . latex-mode))
 
   (setopt TeX-master nil
            TeX-output-dir "output"
