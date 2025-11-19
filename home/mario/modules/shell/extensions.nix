@@ -64,7 +64,7 @@ in {
           "--reverse"
           "--border"
           "--inline-info"
-          "--color=16"
+          "--color=current-bg:0,border:0"
         ];
 
         enableBashIntegration = true;
