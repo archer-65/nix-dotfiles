@@ -19,8 +19,6 @@ in {
       package =
         if pkgs.stdenv.isDarwin
         then null
-        else if cfgWayland.enable
-        then pkgs.firefox-wayland
         else pkgs.firefox;
 
       profiles.default = {

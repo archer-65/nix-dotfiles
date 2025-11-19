@@ -16,15 +16,15 @@ in {
   config = mkIf cfg.enable {
     programs.git = {
       enable = true;
-      userEmail = "mario.liguori.056@gmail.com";
-      userName = "archer-65";
+      settings.user.email = "mario.liguori.056@gmail.com";
+      settings.user.name = "archer-65";
 
       signing = {
         key = "BAC570B2172822A3";
         signByDefault = true;
       };
 
-      extraConfig = {
+      settings = {
         credential.helper = lib.mkIf cfgBw.enable "${pkgs.rbw}/bin/git-credential-rbw";
       };
 

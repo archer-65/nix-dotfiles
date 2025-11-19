@@ -18,7 +18,7 @@ with lib; let
     corefonts
     # Noto
     noto-fonts
-    noto-fonts-emoji
+    noto-fonts-color-emoji
     noto-fonts-cjk-sans
     # Icons
     font-awesome
@@ -29,7 +29,7 @@ with lib; let
     ibm-plex
   ];
 
-  social = with pkgs; [tdesktop];
+  social = with pkgs; [telegram-desktop];
 
   media = with pkgs; [
     pavucontrol
@@ -60,7 +60,7 @@ with lib; let
     ];
 
   desktop = with pkgs; [
-    transmission_3-gtk
+    transmission_4-gtk
   ];
 in {
   config = mkIf (cfgXorg.enable || cfgWayland.enable) {
