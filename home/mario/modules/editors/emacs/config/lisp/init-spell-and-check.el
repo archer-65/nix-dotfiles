@@ -10,7 +10,7 @@
   ;; Dumb `flymake' made me crash for this
   (add-to-list 'elisp-flymake-byte-compile-load-path load-path)
 
-  (:option flymake-fringe-indicator-position 'left-fringe
+  (setopt flymake-fringe-indicator-position 'left-fringe
            flymake-suppress-zero-counters t
            flymake-start-on-flymake-mode t
            flymake-no-changes-timeout 0.3
@@ -18,10 +18,10 @@
            flymake-proc-compilation-prevents-syntax-check t
            flymake-wrap-around nil)
 
-  (:option flymake-mode-line-format
+  (setopt flymake-mode-line-format
            '("" flymake-mode-line-exception flymake-mode-line-counters))
 
-  (:option flymake-mode-line-counter-format
+  (setopt flymake-mode-line-counter-format
            '(" " flymake-mode-line-error-counter
              flymake-mode-line-warning-counter
              flymake-mode-line-note-counter ""))

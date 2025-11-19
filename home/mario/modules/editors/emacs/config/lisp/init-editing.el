@@ -35,15 +35,15 @@
   (:pkg t)
   ;; The package doesn't set this by default so we must place
   ;; auto save files in the same path as it uses for sessions
-  (:option auto-save-file-name-transforms `((".*" ,(no-littering-expand-var-file-name "auto-save/")))))
+  (setopt auto-save-file-name-transforms `((".*" ,(no-littering-expand-var-file-name "auto-save/") t))))
 
 (setup saveplace
-  (:option save-place-file (expand-file-name "var/saveplace" user-emacs-directory))
+  (setopt save-place-file (expand-file-name "var/saveplace" user-emacs-directory))
   (setq save-place-forget-unreadable-files t)
   (save-place-mode 1))
 
 (setup backup
-  (:option backup-directory-alist `(("." . ,(expand-file-name "var/backup" user-emacs-directory))))
+  (setopt backup-directory-alist `(("." . ,(expand-file-name "var/backup" user-emacs-directory))))
   (setq backup-by-copying t)
   (setq version-control t)
   (setq delete-old-versions t)
@@ -60,7 +60,7 @@
   (setq-default display-line-numbers-width 3)
 
   ;; Preferences
-  (:option display-line-numbers-type 'relative
+  (setopt display-line-numbers-type 'relative
            display-line-numbers-width-start nil
            display-line-numbers-grow-only t)
 
@@ -112,7 +112,7 @@
 
 (setup ultra-scroll
   (:pkg (:host github :repo "jdtsmith/ultra-scroll"))
-  (:option scroll-conservatively 101
+  (setopt scroll-conservatively 101
            scroll-margin 0)
   (:when-loaded
     (ultra-scroll-mode 1)))
@@ -133,19 +133,19 @@
   (setq mouse-1-click-follows-link t)
   (setq mouse-yank-at-point t)
 
-  (:global "<mouse-2>" clipboard-yank))
+  (keymap-global-set "<mouse-2>" 'clipboard-yank))
 
 (setup elec-pair
   (electric-pair-mode 1))
 
 (setup paren
-  (:option show-paren-style 'parenthesis
+  (setopt show-paren-style 'parenthesis
            show-paren-when-point-in-periphery t
            show-paren-when-point-inside-paren nil)
   (show-paren-mode 1))
 
 (setup selection
-  (:option save-interprogram-paste-before-kill t
+  (setopt save-interprogram-paste-before-kill t
            kill-do-not-save-duplicates t
            kill-whole-line t
            select-enable-clipboard t
@@ -164,11 +164,11 @@
 
 (setup goto-last-change
   (:pkg t)
-  (:global "C-z" goto-last-change))
+  (keymap-global-set "C-z" 'goto-last-change))
 
 (setup (:require autorevert)
   (:hide-mode auto-revert)
-  (:option auto-revert-verbose t
+  (setopt auto-revert-verbose t
            global-auto-revert-non-file-buffers t)
   (:with-hook after-init-hook
     (:hook global-auto-revert-mode)))

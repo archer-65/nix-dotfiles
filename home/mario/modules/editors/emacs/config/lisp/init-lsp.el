@@ -59,7 +59,7 @@
       (setq lsp-completion-provider :none)
       (add-hook 'lsp-completion-mode-hook #'archer-lsp-mode-setup-completion)))
 
-  (:option lsp-keymap-prefix "C-c l"
+  (setopt lsp-keymap-prefix "C-c l"
            lsp-keep-workspace-alive nil
            lsp-auto-guess-root nil
            lsp-log-io nil
@@ -91,7 +91,7 @@
   (:hook-into lsp-mode)
   (:load-after lsp)
   (:when-loaded
-    (:option lsp-ui-doc-enable t
+    (setopt lsp-ui-doc-enable t
              lsp-ui-doc-header t
              lsp-ui-doc-include-signature t
              lsp-ui-doc-border '(face-foreground 'default)

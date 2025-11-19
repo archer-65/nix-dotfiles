@@ -14,7 +14,7 @@
   (:require emms-setup)
   (emms-all)
 
-  (:option emms-mode-line t
+  (setopt emms-mode-line t
            ;; emms-source-file-default-directory "~/idkrn/"
            emms-info-asynchronously t
            emms-playing-time t

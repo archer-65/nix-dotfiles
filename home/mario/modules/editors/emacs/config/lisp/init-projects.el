@@ -16,7 +16,7 @@
   (elpaca transient)
   (elpaca (magit :wait t))
   (:autoload magit-status)
-  (:option magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1))
+  (setopt magit-display-buffer-function 'magit-display-buffer-same-window-except-diff-v1))
 
 ;; (setup forge
 ;;   (:pkg t)
@@ -24,7 +24,7 @@
 
 (setup ediff
   (:autoload ediff-buffers ediff-files ediff-buffers3 ediff-files3)
-  (:option ediff-split-window-function 'split-window-horizontally
+  (setopt ediff-split-window-function 'split-window-horizontally
            ediff-window-setup-function 'ediff-setup-windows-plain))
 
 (setup blamer
@@ -37,12 +37,12 @@
   (:hide-mode)
 
   ;; NOTE: Set this to the folder where you keep your Git repos!
-  (:option projectile-project-search-path '("~/projects")
+  (setopt projectile-project-search-path '("~/projects")
            projectile-switch-project-action #'projectile-dired)
 
   (projectile-mode)
 
-  (:global "C-c C-p" projectile-command-map))
+  (keymap-global-set "C-c C-p" 'projectile-command-map))
 
 (setup consult-projectile
   (:disable t)
@@ -53,7 +53,7 @@
 (setup treemacs
   (:disable t)
   (:pkg t)
-  (:option treemacs-deferred-git-apply-delay        0.5
+  (setopt treemacs-deferred-git-apply-delay        0.5
            treemacs-directory-name-transformer      #'identity
            treemacs-display-in-side-window          t
            treemacs-eldoc-display                   'simple
@@ -124,13 +124,13 @@
        (treemacs-git-mode 'simple))))
 
 
-  (:global "M-0"        treemacs-select-window
-           "C-c C-t 1"  treemacs-delete-other-windows
-           "C-c C-t t"  treemacs
-           "C-c C-t d"  treemacs-select-directory
-           "C-c C-t b"  treemacs-bookmark
-           "C-c C-t f"  treemacs-find-file
-           "C-c C-t T"  treemacs-find-tag))
+  (keymap-global-set "M-0"        'treemacs-select-window)
+  (keymap-global-set "C-c C-t 1"  'treemacs-delete-other-windows)
+  (keymap-global-set "C-c C-t t"  'treemacs)
+  (keymap-global-set "C-c C-t d"  'treemacs-select-directory)
+  (keymap-global-set "C-c C-t b"  'treemacs-bookmark)
+  (keymap-global-set "C-c C-t f"  'treemacs-find-file)
+  (keymap-global-set "C-c C-t T"  'treemacs-find-tag))
 
 (setup treemacs-projectile
   (:disable t)

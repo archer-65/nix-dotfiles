@@ -22,7 +22,7 @@
             dired-make-directory-clickable t
             dired-free-space nil))
 
-  (:option dired-listing-switches "-agho --group-directories-first"
+  (setopt dired-listing-switches "-agho --group-directories-first"
            dired-kill-when-opening-new-dired-buffer t
            dired-recursive-copies 'always
            dired-recursive-deletes 'always
@@ -38,7 +38,7 @@
     (:bind "M-<return>" archer-dired-open-file)))
 
 (setup (:require dired-x)
-  (:option dired-clean-confirm-killing-deleted-buffers t
+  (setopt dired-clean-confirm-killing-deleted-buffers t
            dired-clean-up-buffers-too t
            dired-x-hands-off-my-keys t
            dired-omit-files "^\\.$\\|^\\.[^.]")
@@ -53,17 +53,17 @@
     (:hook dired-omit-mode)))
 
 (setup (:require dired-aux)
-  (:option dired-create-destination-dirs 'always
+  (setopt dired-create-destination-dirs 'always
            dired-do-revert-buffer t
            dired-isearch-filenames 'dwim
            dired-vc-rename-file t))
 
 (setup (:require wdired)
-  (:option wdired-allow-to-change-permissions t
+  (setopt wdired-allow-to-change-permissions t
            wdired-create-parent-directories t))
 
 (setup (:require image-dired)
-  (:option image-dired-external-viewer "xdg-open"
+  (setopt image-dired-external-viewer "xdg-open"
            image-dired-thumb-size 80
            image-dired-thumb-margin 2
            image-dired-thumb-relief 0
@@ -80,7 +80,7 @@
 (setup dired-subtree
   (:pkg t)
   (:load-after dired)
-  (:option dired-subtree-use-backgrounds nil)
+  (setopt dired-subtree-use-backgrounds nil)
   (:with-map dired-mode-map
     (:bind
       "<tab>" dired-subtree-toggle
@@ -89,7 +89,7 @@
 (setup dired-sidebar
   (:pkg t)
   (:load-after dired)
-  (:global "C-x C-n" dired-sidebar-toggle-sidebar))
+  (keymap-global-set "C-x C-n" 'dired-sidebar-toggle-sidebar))
 
 (setup dired-collapse
   (:pkg t)
@@ -98,13 +98,13 @@
 
 (setup all-the-icons-dired
   (:pkg t)
-  (:option all-the-icons-dired-monochrome nil)
+  (setopt all-the-icons-dired-monochrome nil)
   (:with-after (all-the-icons dired)
     (:hook-into dired-mode-hook)))
 
 (setup trashed
   (:pkg t)
-  (:option trashed-action-confirmer 'y-or-n-p
+  (setopt trashed-action-confirmer 'y-or-n-p
            trashed-use-header-line t
            trashed-sort-key '("Date deleted" . t)))
 

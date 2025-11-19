@@ -16,7 +16,7 @@
   ;; when it's idle. However, if the idle delay is too long, we run the risk of
   ;; runaway memory usage in busy sessions. If it's too low, then we may as well
   ;; not be using gcmh at all.
-  (:option gcmh-idle-delay 'auto ; Default 15 seconds
+  (setopt gcmh-idle-delay 'auto ; Default 15 seconds
            gcmh-auto-idle-delay-factor 10
            gcmh-high-cons-threshold (* 16 1024 1024))
   (gcmh-mode 1))

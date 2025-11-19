@@ -14,7 +14,7 @@
      :header-mouse-map ibuffer-size-header-map)
     (file-size-human-readable (buffer-size)))
   ;; Modify the default ibuffer-formats
-  (:option ibuffer-formats
+  (setopt ibuffer-formats
            '((mark modified read-only locked " "
                    (name 20 20 :left :elide)
                    " "
@@ -27,7 +27,7 @@
                    (name 16 -1)
                    " " filename)))
   ;; Add groups
-  (:option ibuffer-saved-filter-groups
+  (setopt ibuffer-saved-filter-groups
            '(("default"
               ("dired" (mode . dired-mode))
               ("git"   (or (mode . magit-mode)
@@ -56,7 +56,7 @@
                         (name . "^\\*straight-process\\*$")
                         (name . "^\\*dashboard\\*$"))))))
 
-  (:option ibuffer-expert t
+  (setopt ibuffer-expert t
            ibuffer-display-summary t
            ibuffer-show-empty-filter-groups nil
            ibuffer-use-other-window nil
@@ -68,11 +68,11 @@
   (:hook (lambda () (ibuffer-switch-to-saved-filter-groups "default")
            (ibuffer-auto-mode 1)))
 
-  (:global "C-x C-b" ibuffer))
+  (keymap-global-set "C-x C-b" 'ibuffer))
 
 ;;; Unique names for buffers
 (setup (:require uniquify)
-  (:option uniquify-buffer-name-style 'forward
+  (setopt uniquify-buffer-name-style 'forward
            uniquify-strip-common-suffix t
            uniquify-after-kill-buffer-p t))
 

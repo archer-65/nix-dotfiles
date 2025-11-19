@@ -52,9 +52,9 @@ targets."
     (setq prefix-help-command #'embark-prefix-help-command)
     (advice-add #'embark-completing-read-prompter :around #'archer-embark-hide-which-key-indicator))
 
-  (:global "C-." embark-act
-           "C-;" embark-dwim
-           "C-h B" embark-bindings) ;; alternative for `describe-bindings'
+  (keymap-global-set "C-."   'embark-act)
+  (keymap-global-set "C-;"   'embark-dwim)
+  (keymap-global-set "C-h B" 'embark-bindings) ;; alternative for `describe-bindings'
 
   ;; Hide the mode line of the Embark live/completions buffers
   (add-to-list 'display-buffer-alist

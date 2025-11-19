@@ -26,14 +26,14 @@
   (setq window-divider-default-places 'right-only)
   (window-divider-mode 0)
 
-  (:global "C-x <up>"   enlarge-window
-           "C-x <down>" shrink-window
-           "C-x {"      shrink-window-horizontally
-           "C-x }"      enlarge-window-horizontally))
+  (keymap-global-set "C-x <up>"   'enlarge-window)
+  (keymap-global-set "C-x <down>" 'shrink-window)
+  (keymap-global-set "C-x {"      'shrink-window-horizontally)
+  (keymap-global-set "C-x }"      'enlarge-window-horizontally))
 
 (setup beframe
   (:pkg t)
-  (:option beframe-functions-in-frames '(project-prompt-project-dir)
+  (setopt beframe-functions-in-frames '(project-prompt-project-dir)
            beframe-global-buffers '("*scratch*"
                                     "*Messages"
                                     "*Async-native-compile-log*"
@@ -62,16 +62,16 @@
 
 (setup ace-window
   (:pkg t)
-  (:global "M-o" ace-window
-           "M-O" ace-swap-window)
-  (:option aw-scope 'frame
-           aw-dispatch-always t
-           aw-minibuffer-flag t))
+  (keymap-global-set "M-o" 'ace-window)
+  (keymap-global-set "M-O" 'ace-swap-window)
+  (setopt aw-scope 'frame
+          aw-dispatch-always t
+          aw-minibuffer-flag t))
 
 (setup avy
   (:pkg t)
-  (:global "M-g j" avy-goto-char-timer)
-  (:option avy-all-windows nil   ;; only current
+  (keymap-global-set "M-g j" 'avy-goto-char-timer)
+  (setopt avy-all-windows nil   ;; only current
            avy-all-windows-alt t ;; all windows with C-u
            avy-single-candidate-jump t
            avy-case-fold-search nil

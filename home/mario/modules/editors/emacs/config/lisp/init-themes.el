@@ -10,12 +10,12 @@
 (setup modus-themes
   (:pkg t)
   ;; Preferences
-  (:option modus-themes-org-blocks 'gray-background
+  (setopt modus-themes-org-blocks 'gray-background
            modus-themes-mixed-fonts nil
            modus-themes-variable-pitch-ui nil)
   
   ;; Overrides
-  (:option modus-themes-common-palette-overrides
+  (setopt modus-themes-common-palette-overrides
            ;; Modeline
            '((bg-mode-line-active bg-blue-subtle)
              (fg-mode-line-active fg-main)
@@ -90,7 +90,7 @@
 (setup circadian
   (:pkg t)
   (:load-after modus-themes)
-  (:option circadian-themes '(("8:00" . modus-operandi)
+  (setopt circadian-themes '(("8:00" . modus-operandi)
                               ("20:00" . modus-vivendi)))
   (circadian-setup))
 

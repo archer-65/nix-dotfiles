@@ -35,7 +35,7 @@
 ;; <https://github.com/minad/recursion-indicator>.
 (setup recursion-indicator
   (:pkg t)
-  (:option recursion-indicator-general (concat "general" (all-the-icons-material "cached" :v-adjust -0.1))
+  (setopt recursion-indicator-general (concat "general" (all-the-icons-material "cached" :v-adjust -0.1))
            recursion-indicator-minibuffer (concat "minibuffer " (all-the-icons-material "cached" :v-adjust -0.1)))
 
   (setq-default mode-line-modes
@@ -51,14 +51,14 @@
 (setup keycast
   (:pkg t)
   ;; For `keycast-mode'
-  (:option keycast-mode-line-window-predicate #'keycast-active-frame-bottom-right-p
+  (setopt keycast-mode-line-window-predicate #'keycast-active-frame-bottom-right-p
            keycast-separator-width 1
            keycast-mode-line-remove-tail-elements nil
            keycast-mode-line-format "%3s%k%c%r"
            keycast-mode-line-insert-after 'mode-line-misc-info)
 
   ;; For `keycast-log-mode'
-  (:option keycast-log-format "%-20K%C\n"
+  (setopt keycast-log-format "%-20K%C\n"
            keycast-log-newest-first t
            keycast-log-frame-alist '((minibuffer . nil)))
 
