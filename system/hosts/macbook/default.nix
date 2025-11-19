@@ -10,7 +10,7 @@
 
     casks = [
       "firefox"
-      "docker"
+      "docker-desktop"
       "microsoft-teams"
       "microsoft-excel"
       "tunnelblick"
