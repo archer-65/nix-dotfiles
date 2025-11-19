@@ -11,25 +11,25 @@
   (:require consult)
 
   ;; C-c bindings (mode specific)
-  (:global "C-c h" consult-history
-           "C-c M" consult-mode-command
-           "C-c b" consult-bookmark
-           "C-c k" consult-kmacro)
+  (keymap-global-set "C-c h" 'consult-history)
+  (keymap-global-set "C-c M" 'consult-mode-command)
+  (keymap-global-set "C-c b" 'consult-bookmark)
+  (keymap-global-set "C-c k" 'consult-kmacro)
 
   ;; C-x bindings
-  (:global "C-x M-c" consult-complex-command      ; orig. repeat-complex-command
-           "C-x b"   consult-buffer               ; orig. switch-to-buffer
-           "C-x 4 b" consult-buffer-other-window  ; orig. switch-to-buffer-other-window
-           "C-x 5 b" consult-buffer-other-frame)  ; orig. switch-to-buffer-other-frame
+  (keymap-global-set "C-x M-c" 'consult-complex-command)      ; orig. repeat-complex-command
+  (keymap-global-set "C-x b"   'consult-buffer)               ; orig. switch-to-buffer
+  (keymap-global-set "C-x 4 b" 'consult-buffer-other-window)  ; orig. switch-to-buffer-other-window
+  (keymap-global-set "C-x 5 b" 'consult-buffer-other-frame)   ; orig. switch-to-buffer-other-frame
 
   ;; [C]-[M]-# bindings for registers
-  (:global "C-M-#" consult-register
-           "M-#"   consult-register-load
-           "C-#"   consult-register-store) ; orig. abbrev-prefix-mark (unrelated)
+  (keymap-global-set "C-M-#" 'consult-register)
+  (keymap-global-set "M-#"   'consult-register-load)
+  (keymap-global-set "C-#"   'consult-register-store) ; orig. abbrev-prefix-mark (unrelated)
 
   ;; Other custom bindings
-  (:global "M-y"   consult-yank-pop  ; orig. yank-po
-           "C-h a" consult-apropos)  ; orig. apropos-comman
+  (keymap-global-set "M-y"   'consult-yank-pop) ; orig. yank-po
+  (keymap-global-set "C-h a" 'consult-apropos)  ; orig. apropos-comman
 
   ;; M-g bindings (goto-map)
   (:with-map goto-map
@@ -69,14 +69,14 @@
   ;; Register formatting. This improves the register
   ;; preview for `consult-register', `consult-register-load',
   ;; `consult-register-store' and the Emacs built-ins.
-  (:option register-preview-delay 0
+  (setopt register-preview-delay 0
            register-preview-function #'consult-register-format)
 
   ;; Optionally configure the narrowing key.
-  (:option consult-narrow-key "<")
+  (setopt consult-narrow-key "<")
 
   ;; Use Consult to select xref locations with preview
-  (:option xref-show-xrefs-function #'consult-xref
+  (setopt xref-show-xrefs-function #'consult-xref
            xref-show-definitions-function #'consult-xref)
 
   ;; Optionally configure preview. The default value
@@ -115,7 +115,7 @@
 (setup consult-dir
   (:pkg t)
   (:with-after consult
-    (:global "C-x C-d" consult-dir)
+    (keymap-global-set "C-x C-d" 'consult-dir)
     (:with-map minibuffer-local-completion-map
       (:bind
        "C-x C-d" consult-dir-maybe
@@ -124,7 +124,7 @@
 (setup consult-eglot
   (:pkg t)
   (:with-after (consult eglot)
-    (:global "M-g s" consult-eglot-symbols)))
+    (keymap-global-set "M-g s" 'consult-eglot-symbols)))
 
 (provide 'init-consult)
 ;;; init-consult.el ends here

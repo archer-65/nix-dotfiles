@@ -13,7 +13,7 @@
 
   (:autoload telega)
 
-  (:option telega-use-images t
+  (setopt telega-use-images t
            telega-emoji-font-family "Noto Color Emoji"
            telega-emoji-use-images nil
            telega-emoji-company-backend 'telega-company-emoji
@@ -31,7 +31,7 @@
 
   (:when-loaded
     (:also-load telega-mnz)
-    (:global "C-c t" telega-prefix-map))
+    (keymap-global-set "C-c t" 'telega-prefix-map))
 
   (:with-mode telega-chat-mode
     ;; (:hook archer-telega-chat-mode)

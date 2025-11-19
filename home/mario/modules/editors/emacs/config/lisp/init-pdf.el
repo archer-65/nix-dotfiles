@@ -10,14 +10,14 @@
   (:pkg (:built-in 'prefer :post-install (pdf-tools-install :no-query)))
   (:require pdf-tools)
 
-  (:option display-buffer-alist '(("^\\*outline"
+  (setopt display-buffer-alist '(("^\\*outline"
                                    display-buffer-in-side-window
                                    (side . left)
                                    (window-width . 0.20)
                                    (inhibit-switch-frame . t))))
 
   (:with-mode pdf-view-mode
-    (:file-match "\\.[pP][dD][fF]\\'")))
+    (:match-file "\\.[pP][dD][fF]\\'")))
 
 
 (setup saveplace-pdf-view

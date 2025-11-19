@@ -9,7 +9,7 @@
 (setup which-key
   (:pkg t)
   (:hide-mode)
-  (:option which-key-idle-delay 0.2)
+  (setopt which-key-idle-delay 0.2)
   (which-key-mode 1))
 
 (setup helpful

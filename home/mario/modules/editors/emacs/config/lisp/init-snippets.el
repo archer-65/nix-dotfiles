@@ -21,7 +21,7 @@
 (setup yasnippet-capf
   (:pkg t)
   (:load-after cape)
-  (:global "C-c p y" cape-yasnippet))
+  (keymap-global-set "C-c p y" 'cape-yasnippet))
 
 (provide 'init-snippets)
 ;;; init-snippets.el ends here

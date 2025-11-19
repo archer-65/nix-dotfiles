@@ -10,9 +10,9 @@
 (setup auctex
   (:pkg t)
   (:with-mode LaTeX-mode
-    (:file-match "\\.tex\\'"))
+    (:match-file "\\.tex\\'"))
 
-  (:option TeX-master nil
+  (setopt TeX-master nil
            TeX-output-dir "output"
            TeX-auto-save t
            TeX-parse-self t

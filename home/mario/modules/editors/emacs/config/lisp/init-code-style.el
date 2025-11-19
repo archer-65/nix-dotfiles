@@ -11,7 +11,7 @@
   (:pkg t)
   (:hide-mode)
   (:hook-into prog-mode)
-  (:global "<f1>" format-all-buffer))
+  (keymap-global-set "<f1>" 'format-all-buffer))
 
 (setup editorconfig
   (:pkg t)
@@ -30,12 +30,12 @@
   (:pkg t)
   (:require)
   (:hook-into prog-mode)
-  (:option mode-require-final-newline t
+  (setopt mode-require-final-newline t
            require-final-newline t))
 
 ;; Tabs, indentation, and the TAB key
 (setup indent
-  (:option tab-always-indent 'complete
+  (setopt tab-always-indent 'complete
            tab-first-completion 'word-or-paren-or-punct
            tab-width 2
            indent-tabs-mode nil)) ; Use spaces!
@@ -49,14 +49,14 @@
 
     (progn
       (setup treesit
-        (:option treesit-font-lock-level 4))
+        (setopt treesit-font-lock-level 4))
 
       (setup treesit-auto
         (:pkg t)
         (:load-after treesit)
         (:autoload global-treesit-auto-mode)
 
-        (:option treesit-auto-install 'prompt)
+        (setopt treesit-auto-install 'prompt)
         (global-treesit-auto-mode)))
 
   (progn

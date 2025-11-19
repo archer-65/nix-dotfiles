@@ -9,7 +9,7 @@
 (setup corfu
   (:pkg (:files (:defaults "extensions/*")
                    :includes (corfu-history corfu-popupinfo corfu-info)))
-  (:option corfu-cycle t
+  (setopt corfu-cycle t
            corfu-auto t
            corfu-auto-delay 0.3
            corfu-auto-prefix 3
@@ -87,7 +87,7 @@ Useful for prompts such as `eval-expression' and `shell-command'."
 (setup corfu-popupinfo
   (:autoload corfu-popupinfo-mode)
   (:with-after corfu
-    (:option corfu-popupinfo-delay '(0.5 . 0))
+    (setopt corfu-popupinfo-delay '(0.5 . 0))
     (corfu-popupinfo-mode 1)
     (:with-map corfu-popupinfo-map
       (:bind
@@ -105,7 +105,7 @@ Useful for prompts such as `eval-expression' and `shell-command'."
 (setup kind-icon
   (:pkg t)
   (:with-after corfu
-    (:option kind-icon-default-face 'corfu-default
+    (setopt kind-icon-default-face 'corfu-default
              kind-icon-default-style '(:padding 0 :stroke 0 :margin 0 :radius 0 :height 0.7 :scale 1.0))
     (add-to-list 'corfu-margin-formatters #'kind-icon-margin-formatter)))
 
@@ -119,24 +119,24 @@ Useful for prompts such as `eval-expression' and `shell-command'."
   (dolist (backend '(cape-elisp-symbol cape-keyword cape-file cape-history cape-dabbrev))
     (add-to-list 'completion-at-point-functions backend))
 
-  (:global "C-c p p"  completion-at-point
-           "C-c p t"  complete-tag
-           "C-c p d"  cape-dabbrev
-           "C-c p h"  cape-history
-           "C-c p f"  cape-file
-           "C-c p k"  cape-keyword
-           "C-c p s"  cape-elisp-symbol
-           "C-c p e"  cape-elisp-block
-           "C-c p a"  cape-abbrev
-           "C-c p i"  cape-ispell
-           "C-c p l"  cape-line
-           "C-c p w"  cape-dict
-           "C-c p :"  cape-emoji
-           "C-c p \\" cape-tex
-           "C-c p _"  cape-tex
-           "C-c p ^"  cape-tex
-           "C-c p &"  cape-sgml
-           "C-c p r"  cape-rfc1345))
+  (keymap-global-set "C-c p p"  'completion-at-point)
+  (keymap-global-set "C-c p t"  'complete-tag)
+  (keymap-global-set "C-c p d"  'cape-dabbrev)
+  (keymap-global-set "C-c p h"  'cape-history)
+  (keymap-global-set "C-c p f"  'cape-file)
+  (keymap-global-set "C-c p k"  'cape-keyword)
+  (keymap-global-set "C-c p s"  'cape-elisp-symbol)
+  (keymap-global-set "C-c p e"  'cape-elisp-block)
+  (keymap-global-set "C-c p a"  'cape-abbrev)
+  (keymap-global-set "C-c p i"  'cape-ispell)
+  (keymap-global-set "C-c p l"  'cape-line)
+  (keymap-global-set "C-c p w"  'cape-dict)
+  (keymap-global-set "C-c p :"  'cape-emoji)
+  (keymap-global-set "C-c p \\" 'cape-tex)
+  (keymap-global-set "C-c p _"  'cape-tex)
+  (keymap-global-set "C-c p ^"  'cape-tex)
+  (keymap-global-set "C-c p &"  'cape-sgml)
+  (keymap-global-set "C-c p r"  'cape-rfc1345))
 
 (provide 'init-complete-in-buffer)
 ;;; init-complete-in-buffer.el ends here

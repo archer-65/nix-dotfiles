@@ -17,7 +17,7 @@
 
 (setup org
   ;; General
-  (:option org-adapt-indentation nil
+  (setopt org-adapt-indentation nil
            org-fold-catch-invisible-edits 'smart
            org-cycle-separator-lines 1
            org-auto-align-tags nil
@@ -26,7 +26,7 @@
            org-startup-folded 'content
            org-insert-heading-respect-content t
            org-read-date-prefer-future 'time
-           org-startup-folded t
+           org-startup-folded 'showeverything
            org-startup-indented t
 
            ;; Prettify
@@ -85,9 +85,9 @@
   (:local-set completion-at-point-functions '(cape-dabbrev cape-file))
 
   (:with-after org-ctags
-    (:option org-ctags-open-link-functions '()))
+    (setopt org-ctags-open-link-functions '()))
 
-  (:option org-directory "~/projects/pkm"
+  (setopt org-directory "~/projects/pkm"
            org-agenda-files '("inbox.org" "todo.org")
 
            ;; Standard refiling is awful
@@ -126,7 +126,7 @@
   (:pkg t)
   (:autoload org-appear-mode)
   (:hook-into org-mode)
-  (:option org-appear-autoemphasis t
+  (setopt org-appear-autoemphasis t
            org-appear-autolinks nil
            org-appear-autosubmarkers t))
 
@@ -135,7 +135,7 @@
   (:load-after org)
   (:hook-into org-mode)
   (set-face-attribute 'org-modern-symbol nil :family "Iosevka Nerd Font")
-  (:option org-modern-label-border 1
+  (setopt org-modern-label-border 1
            org-modern-hide-stars nil      ;; Compatibility with org-indent
            org-modern-block-fringe nil    ;; Bad
            org-modern-variable-pitch nil
@@ -152,7 +152,7 @@
   (:pkg t)
   (:load-after org)
   (:hook-into org-mode)
-  (:option olivetti-body-width 0.75
+  (setopt olivetti-body-width 0.75
            olivetti-minimum-body-width 75
            olivetti-style 'fancy))
 

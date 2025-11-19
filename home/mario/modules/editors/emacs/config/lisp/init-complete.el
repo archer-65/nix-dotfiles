@@ -64,7 +64,7 @@
               vertico-multiform
               vertico-unobtrusive)
 
-  (:option vertico-scroll-margin 0
+  (setopt vertico-scroll-margin 0
            vertico-count 12
            vertico-resize t
            vertico-cycle t)
@@ -88,10 +88,10 @@
     (nconc (seq-filter (lambda (x) (string-suffix-p "/" x)) files)
            (seq-remove (lambda (x) (string-suffix-p "/" x)) files)))
 
-  (:option vertico-multiform-commands
+  (setopt vertico-multiform-commands
            '((dired (vertico-sort-function . sort-directories-first))))
 
-  (:option vertico-multiform-categories
+  (setopt vertico-multiform-categories
            '(
              ;; (consult-grep buffer)
              ;; (consult-ripgrep buffer)
@@ -169,17 +169,17 @@
      ((string-suffix-p "~" pattern)
       (cons 'orderless-flex (substring pattern 0 -1)))))
 
-  (:option completion-styles '(orderless basic)
+  (setopt completion-styles '(orderless basic)
            orderless-component-separator 'orderless-escapable-split-on-space
            completion-category-defaults nil)
 
-  (:option orderless-style-dispatchers
+  (setopt orderless-style-dispatchers
            '(archer-orderless-literal-dispatcher
              archer-orderless-without-literal-dispatcher
              archer-orderless-initialism-dispatcher
              archer-orderless-flex-dispatcher))
 
-  (:option completion-category-overrides
+  (setopt completion-category-overrides
            '((file (styles . (partial-completion basic orderless)))
              (project-file (styles . (partial-completion basic orderless))))))
 
