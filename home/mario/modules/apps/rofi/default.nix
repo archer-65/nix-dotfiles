@@ -10,27 +10,7 @@ with lib; let
   cfgWayland = config.mario.modules.wayland;
   cfgBitwarden = config.mario.modules.credentials.bitwarden;
 
-  rofiPkg =
-    if cfgWayland.enable
-    then pkgs.rofi-wayland
-    else pkgs.rofi;
-
   rofiFonts = pkgs.nerd-fonts.iosevka;
-
-  rofi-emoji =
-    if cfgWayland.enable
-    then pkgs.rofi-emoji-wayland
-    else pkgs.rofi-emoji;
-
-  rofi-powermenu =
-    if cfgWayland.enable
-    then pkgs.rofi-powermenu-wayland
-    else pkgs.rofi-powermenu;
-
-  rofi-rbw =
-    if cfgWayland.enable
-    then pkgs.rofi-rbw-wayland
-    else pkgs.rofi-rbw-x11;
 in {
   options.mario.modules.apps.rofi = {
     enable = mkEnableOption "rofi configuration";
@@ -39,13 +19,13 @@ in {
   config = mkIf cfg.enable {
     programs.rofi = {
       enable = true;
-      package = rofiPkg;
-      plugins = [rofi-emoji];
+      package = pkgs.rofi;
+      plugins = [pkgs.rofi-emoji];
     };
 
     home.packages = with pkgs;
-      [rofi-powermenu]
-      ++ optionals cfgBitwarden.enable [rofi-rbw]
+      [pkgs.rofi-powermenu]
+      ++ optionals cfgBitwarden.enable [pkgs.rofi-rbw]
       ++ [rofiFonts];
 
     xdg.configFile."rofi/colors/color.rasi".text = ''

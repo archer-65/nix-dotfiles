@@ -45,7 +45,7 @@ in {
       settings = {
         default_session = {
           # command = "${config.programs.sway.package}/bin/sway --config ${greetd-sway-config}";
-          command = "${pkgs.greetd.tuigreet}/bin/tuigreet --time --remember";
+          command = "${pkgs.tuigreet}/bin/tuigreet --time --remember";
           user = "greeter";
         };
       };

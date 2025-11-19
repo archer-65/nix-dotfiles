@@ -6,6 +6,7 @@
   imports = [./hardware-configuration.nix ./options.nix];
 
   # Kernel related
+  hardware.amdgpu.initrd.enable = true;
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.initrd.kernelModules = ["amdgpu"];
@@ -31,7 +32,7 @@
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
-    extraPackages = with pkgs; [amdvlk vaapiVdpau libvdpau-va-gl];
+    extraPackages = with pkgs; [libva-vdpau-driver libvdpau-va-gl];
   };
 
   services.xserver = {

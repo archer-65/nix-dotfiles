@@ -51,8 +51,9 @@
   primaryUser.shell = pkgs.zsh;
 
   services.flatpak.enable = true;
+
   # TODO: Move this away
-  hardware.graphics.extraPackages = with pkgs; [rocmPackages.clr.icd];
+  hardware.amdgpu.opencl.enable = true;
   systemd.tmpfiles.rules = let
     rocmEnv = pkgs.symlinkJoin {
       name = "rocm-combined";

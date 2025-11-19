@@ -14,8 +14,15 @@ in {
   # 'inputs.${flake}.legacyPackages.${pkgs.system}' or
   flake-inputs = final: _: {
     inputs =
-      builtins.mapAttrs
-      (_: flake: (flake.legacyPackages or flake.packages or {}).${final.system} or {})
+      builtins.mapAttrs (
+        _: flake: let
+          legacyPackages = (flake.legacyPackages or {}).${final.stdenv.hostPlatform.system} or {};
+          packages = (flake.packages or {}).${final.stdenv.hostPlatform.system} or {};
+        in
+          if legacyPackages != {}
+          then legacyPackages
+          else packages
+      )
       inputs;
   };
 
@@ -42,18 +49,6 @@ in {
           url = "https://github.com/terraform-docs/terraform-docs/pull/872.patch";
           sha256 = "664ZtL/fqJSpmTSISEqYyRnNIvXjoSripCJUPxMKy+I=";
         })
-      ];
-    });
-
-    rofi-emoji-wayland = prev.rofi-emoji.overrideAttrs (oldAttrs: rec {
-      buildInputs = with final; [
-        rofi-wayland-unwrapped
-        cairo
-        glib
-        libnotify
-        wl-clipboard
-        xclip
-        xsel
       ];
     });
 
