@@ -1,0 +1,18 @@
+{
+  "x86_64-linux": {
+    "url": "https://desktop-release.q.us-east-1.amazonaws.com/1.21.0/kirocli-x86_64-linux.tar.xz",
+    "sha256": "0b29894d3a2ea89de8dff1fa0ef717084c6e4ce8a11dcb556db0486ad7104b36"
+  },
+  "aarch64-linux": {
+    "url": "https://desktop-release.q.us-east-1.amazonaws.com/1.21.0/kirocli-aarch64-linux.tar.xz",
+    "sha256": "0f4d67ba5120c62c5f75bfe0c36c9ee368802d77f6e875402f0081f2bd4e0694"
+  },
+  "x86_64-darwin": {
+    "url": "https://desktop-release.q.us-east-1.amazonaws.com/1.21.0/Kiro%20CLI.dmg",
+    "sha256": "8501f9214fe347cd901b02320fefc7a3dbcde8c0f3f33bf7658a5e181736ce3f"
+  },
+  "aarch64-darwin": {
+    "url": "https://desktop-release.q.us-east-1.amazonaws.com/1.21.0/Kiro%20CLI.dmg",
+    "sha256": "8501f9214fe347cd901b02320fefc7a3dbcde8c0f3f33bf7658a5e181736ce3f"
+  }
+}
