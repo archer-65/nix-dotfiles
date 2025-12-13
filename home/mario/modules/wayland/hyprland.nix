@@ -103,36 +103,36 @@ in {
           repeat_rate = 50;
         };
 
-        windowrulev2 = [
+        windowrule = [
           # Needed
-          "float, class:^(thunar)$"
-          "float, class:^(Thunar)$"
-          "float, class:^(Rofi)$"
-          "noborder, class:^(Rofi)$"
-          "stayfocused, class:^(Rofi)$"
-          "float, class:^(ipv)$"
-          "float, class:^(mpv)$"
-          "float, class:^(pavucontrol)$"
-          "float, title:^(Polychromatic)$"
+          "match:class ^(thunar)$, float on"
+          "match:class ^(Thunar)$, float on"
+          "match:class ^(Rofi)$, float on"
+          "match:class ^(Rofi)$, border_size 0"
+          "match:class ^(Rofi)$, stay_focused on"
+          "match:class ^(ipv)$, float on"
+          "match:class ^(mpv)$, float on"
+          "match:class ^(pavucontrol)$, float on"
+          "match:title ^(Polychromatic)$, float on"
 
           # Popups
-          "float, class:^(GtkFileChooserDialog)$"
-          "float, class:^(pop-up)$"
-          "float, class:^(Organizer)$"
-          "float, class:^(task_dialog)$"
+          "match:class ^(GtkFileChooserDialog)$, float on"
+          "match:class ^(pop-up)$, float on"
+          "match:class ^(Organizer)$, float on"
+          "match:class (task_dialog)$, float on"
 
           # Browser indicators
-          "float, class:^(firefox)$, title:^(Picture-in-Picture)"
-          "pin, class:^(firefox)$, title:^(Picture-in-Picture)"
+          "match:class ^(firefox)$ match:title ^(Picture-in-Picture), float on"
+          "match:class ^(firefox)$ match:title:^(Picture-in-Picture), pin on"
 
-          "workspace special:trash silent, title:^(Firefox — Sharing Indicator)$"
-          # "float, title:^(Firefox — Sharing Indicator)$"
-          # "pin, title:^(Firefox — Sharing Indicator)$"
-          # "move 100%-20, title:^(Firefox — Sharing Indicator)$"
+          "match:title ^(Firefox — Sharing Indicator)$, workspace special:trash silent"
+          # "match:title ^(Firefox — Sharing Indicator)$, float on"
+          # "match:title ^(Firefox — Sharing Indicator)$, pin"
+          # "match:title ^(Firefox — Sharing Indicator)$, move 100%-20"
 
           # idle inhibit while watching videos
-          "idleinhibit focus, class:^(mpv)$"
-          "idleinhibit fullscreen, class:^(firefox)$"
+          "match:class ^(mpv)$, idle_inhibit focus"
+          "match:class ^(firefox)$, idle_inhibit fullscreen"
         ];
 
         exec = [
