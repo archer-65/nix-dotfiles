@@ -31,6 +31,20 @@ in {
 
   # Overlays for various pkgs (e.g. broken, not updated)
   modifications = final: prev: rec {
+    rbw = prev.rbw.overrideAttrs (oldAttrs: rec {
+      version = "1.15.0";
+
+      src = prev.fetchzip {
+        url = "https://git.tozt.net/rbw/snapshot/rbw-${version}.tar.gz";
+        hash = "sha256-N/s1flB+s2HwEeLsf7YlJG+5TJgP8Wu7PHNPWmVfpIo=";
+      };
+
+      cargoDeps = final.rustPlatform.fetchCargoVendor {
+        inherit src;
+        hash = "sha256-N4IxnAXDvD+vp3LUB9CKYM+1C5i1Flihk+Pfb2c5IWY=";
+      };
+    });
+
     terraform-docs = prev.terraform-docs.overrideAttrs (oldAttrs: rec {
       version = "0.20.0-unstable";
 
