@@ -31,8 +31,13 @@ with lib; let
 
       [ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
     '';
+
+    last = lib.mkAfter ''
+      # Source private configuration if exists
+      [[ -e "$HOME/.config/zsh/private.zsh" ]] && source "$HOME/.config/zsh/private.zsh"
+    '';
   in
-    lib.mkMerge [early general];
+    lib.mkMerge [early general last];
 in {
   options.mario.modules.shell.zsh = {
     enable = mkOption {

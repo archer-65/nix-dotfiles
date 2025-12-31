@@ -36,6 +36,6 @@
 
       # Move to Terraform module
       "suzuki-shunsuke/tfmv/tfmv"
-   ];
+    ];
   };
 }
