@@ -29,6 +29,8 @@ in {
       terraform
       terraform-ls
       terraform-docs
+      tfautomv
+      tfmigrate
     ];
 
     programs.bash.initExtra = lib.mkIf cfg.enableBashIntegration ''

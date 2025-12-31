@@ -17,7 +17,10 @@ in {
       enable = true;
       settings = {
         email = "mario.liguori.056@gmail.com";
-        pinentry = pkgs.pinentry-gnome3;
+        pinentry =
+          if pkgs.stdenv.isDarwin
+          then pkgs.pinentry_mac
+          else pkgs.pinentry-gnome3;
       };
     };
   };

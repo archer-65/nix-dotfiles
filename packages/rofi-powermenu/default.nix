@@ -9,31 +9,31 @@
 with lib; let
   name = "rofi-powermenu";
 in
-    stdenv.mkDerivation {
-      inherit name;
-      version = "1.0";
-      src = ./powermenu.sh;
+  stdenv.mkDerivation {
+    inherit name;
+    version = "1.0";
+    src = ./powermenu.sh;
 
-      nativeBuildInputs = [makeWrapper];
+    nativeBuildInputs = [makeWrapper];
 
-      dontUnpack = true;
-      dontBuild = true;
-      dontConfigure = true;
+    dontUnpack = true;
+    dontBuild = true;
+    dontConfigure = true;
 
-      installPhase = ''
-        install -Dm 0755 $src $out/bin/${name}
-        wrapProgram $out/bin/${name} --prefix PATH ':' \
-          "${
-          makeBinPath [
-              procps
-              rofi
-          ]
-        }"
-      '';
+    installPhase = ''
+      install -Dm 0755 $src $out/bin/${name}
+      wrapProgram $out/bin/${name} --prefix PATH ':' \
+        "${
+        makeBinPath [
+          procps
+          rofi
+        ]
+      }"
+    '';
 
-      meta = {
-        description = "A rofi graphical powermenu script";
-        platforms = platforms.all;
-        mainProgram = "${name}";
-      };
-    }
+    meta = {
+      description = "A rofi graphical powermenu script";
+      platforms = platforms.all;
+      mainProgram = "${name}";
+    };
+  }

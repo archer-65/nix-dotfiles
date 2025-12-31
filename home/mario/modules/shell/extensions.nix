@@ -19,7 +19,14 @@ in {
 
   config = mkIf cfg.enable (mkMerge [
     {
-      home.packages = with pkgs; [fd];
+      home.packages = with pkgs; [
+        fd
+        gettext # envsubst
+        just
+        jq
+        rsync
+        yq-go
+      ];
     }
 
     {

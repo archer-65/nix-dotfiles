@@ -23,6 +23,10 @@ in {
         kind
         minikube
         kubernetes-helm
+        helmfile
+        kustomize
+        velero
+        kubectl-cnpg
       ];
 
       mario.modules.dev.kube.krew.enable = lib.mkDefault true;
@@ -41,7 +45,7 @@ in {
       ];
 
       home.sessionVariables = {
-        KREW_ROOT = "$XDG_DATA_HOME/krew";
+        KREW_ROOT = "$HOME/.local/share/krew";
       };
 
       home.sessionPath = [

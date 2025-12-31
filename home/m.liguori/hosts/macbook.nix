@@ -4,6 +4,7 @@
   mario.modules = {
     credentials = {
       gpg.enable = true;
+      bitwarden.enable = true;
     };
 
     browsers = {firefox.enable = true;};
@@ -15,6 +16,7 @@
     dev = {
       nix.enable = true;
       kube.enable = true;
+      python.enable = true;
       terraform.enable = true;
       tex.enable = true;
     };
