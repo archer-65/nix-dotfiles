@@ -17,7 +17,8 @@
 
     mac-app-util = {
       url = "github:hraban/mac-app-util";
-      inputs.nixpkgs.follows = "nixpkgs-darwin";
+      # https://github.com/sheeeng/nix/blob/fb40921ca4ae701b406725def16dcf32eaab576c/flake.nix#L122
+      # inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
 
     nix-index-database = {
@@ -105,10 +106,10 @@
     darwinConfigurations = {
       macbook = mkDarwin {
         hostname = "macbook";
-        username = "m.liguori";
+        username = "mliguori";
         system = "aarch64-darwin";
-        stateVersion = 5;
-        homeStateVersion = "25.05";
+        stateVersion = 6;
+        homeStateVersion = "25.11";
       };
     };
   };

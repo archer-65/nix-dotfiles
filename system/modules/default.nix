@@ -40,6 +40,4 @@
 
   "shell/bash" = import ./shell/bash.nix;
   "shell/zsh" = import ./shell/zsh.nix;
-
-  "network/openvpn" = import ./network/openvpn.nix;
 }

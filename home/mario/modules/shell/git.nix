@@ -7,13 +7,32 @@
 }:
 with lib; let
   cfg = config.mario.modules.shell.git;
-  cfgBw = config.mario.modules.credentials.bitwarden;
+  workDir = config.xdg.userDirs.extraConfig.WORK;
 in {
   options.mario.modules.shell.git = {
     enable = mkEnableOption "main user git configuration";
   };
 
   config = mkIf cfg.enable {
+    # TODO: Move these anywhere else, maybe in a `secrets` at the root of the repo
+    sops = lib.mkIf (workDir != null) {
+      secrets = {
+        work_email = {sopsFile = ./secrets/work.yaml;};
+        work_username = {sopsFile = ./secrets/work.yaml;};
+      };
+
+      templates = {
+        work_gitconfig = {
+          content = lib.generators.toINI {} {
+            user = {
+              email = config.sops.placeholder.work_email;
+              name = config.sops.placeholder.work_username;
+            };
+          };
+        };
+      };
+    };
+
     programs.git = {
       enable = true;
       settings.user.email = "mario.liguori.056@gmail.com";
@@ -24,32 +43,16 @@ in {
         signByDefault = true;
       };
 
-      settings = {
-        credential.helper = lib.mkIf cfgBw.enable "${pkgs.rbw}/bin/git-credential-rbw";
+      settings.url = lib.mkIf (workDir != null) {
+        "git@github-work:nellotech/" = {
+          insteadOf = "git@github.com:nellotech/";
+        };
       };
 
-      includes = lib.optionals (builtins.hasAttr "XDG_WORK_DIR" config.xdg.userDirs.extraConfig) [
+      includes = lib.mkIf (workDir != null) [
         {
-          condition = hasconfig:remote.*.url:git@gitlab.intranet.bit4id.com:*/**;
-          contents = {
-            user = {
-              email = "mli@bit4id.com";
-              name = "mli";
-              signingKey = "BAC570B2172822A3";
-            };
-            commit.gpgSign = true;
-          };
-        }
-        {
-          condition = hasconfig:remote.*.url:ssh://git@bitbucket.namirial.com:7999/**;
-          contents = {
-            user = {
-              email = "m.liguori@namirial.com";
-              name = "m.liguori";
-              signingKey = "BAC570B2172822A3";
-            };
-            commit.gpgSign = true;
-          };
+          condition = "gitdir:${workDir}/";
+          path = config.sops.templates.work_gitconfig.path;
         }
       ];
     };

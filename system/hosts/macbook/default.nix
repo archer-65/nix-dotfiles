@@ -8,34 +8,17 @@
       upgrade = true;
     };
 
-    taps = [
-      "outscale/tap"
-    ];
-
-    brews = [
-      # Move to Outscale module
-      "outscale/tap/oapi-cli"
-
-      # Move to Vault module (switch to Nix where possible)
-      "vault"
-      "vault-token-helper"
-
-      # Less relevant but still
-      "octopus-cli"
-    ];
-
     casks = [
       "firefox"
       "docker-desktop"
-      "microsoft-teams"
-      "microsoft-excel"
-      "tunnelblick"
-      "keybase"
       "karabiner-elements"
-      "windows-app"
 
       # Move to Terraform module
       "suzuki-shunsuke/tfmv/tfmv"
     ];
   };
+
+  system.defaults.NSGlobalDomain.InitialKeyRepeat = 10;
+  system.defaults.NSGlobalDomain.KeyRepeat = 2;
+  system.defaults.NSGlobalDomain."com.apple.keyboard.fnState" = true;
 }
