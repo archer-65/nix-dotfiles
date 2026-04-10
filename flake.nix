@@ -17,7 +17,7 @@
 
     mac-app-util = {
       url = "github:hraban/mac-app-util";
-      # https://github.com/sheeeng/nix/blob/fb40921ca4ae701b406725def16dcf32eaab576c/flake.nix#L122
+      # NOTE: There are some issues while compiling, don't follow and call it a day
       # inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
 
