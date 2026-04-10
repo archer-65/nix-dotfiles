@@ -7,7 +7,6 @@
 }:
 with lib; let
   cfg = config.mario.modules.dev.js;
-  #node-pkgs = pkgs.callPackage ./node-pkgs { };
 in {
   options.mario.modules.dev.js = {
     enable = mkEnableOption "javascript language tools";
@@ -15,15 +14,8 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      # Base
       nodejs
-
-      # NPM extra packages
-      node2nix
-      #node-pkgs."pkgs"
-
-      # Language server
-      nodePackages.typescript-language-server
+      typescript-language-server
     ];
 
     # Needed to quickly install borked modules (e.g. amplify, *coff*) in home
