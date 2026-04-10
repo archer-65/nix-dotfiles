@@ -13,8 +13,8 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      texliveFull
-      python312Packages.pygments
+      (texliveFull.withPackages (ps: with ps; [ fontawesome6 source-sans ]))
+      python314Packages.pygments
       inkscape
     ];
   };
