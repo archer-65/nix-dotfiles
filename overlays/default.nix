@@ -1,8 +1,14 @@
 # With inputs as an argument it is possible to access to the flake itself. This could be helpful in future.
 # Thanks to Misterio77 for these functions!!!
 {
+  outputs,
   inputs,
-}: {
+}: let
+  addPatches = pkg: patches:
+    pkg.overrideAttrs (oldAttrs: {
+      patches = (oldAttrs.patches or []) ++ patches;
+    });
+in {
   # For every flake input, aliases 'pkgs.inputs.${flake}' to
   # 'inputs.${flake}.packages.${pkgs.system}' or
   # 'inputs.${flake}.legacyPackages.${pkgs.system}' or
