@@ -16,7 +16,18 @@ in {
     # Enable CUPS
     services.printing = {
       enable = true;
-      drivers = [pkgs.hplip];
+      drivers = with pkgs; [
+        pkgs.hplipWithPlugin
+        pkgs.samsung-unified-linux-driver
+        cups-filters
+        cups-browsed
+      ];
+    };
+
+    services.avahi = {
+      enable = true;
+      nssmdns4 = true;
+      openFirewall = true;
     };
   };
 }
