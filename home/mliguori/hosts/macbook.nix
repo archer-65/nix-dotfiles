@@ -39,6 +39,8 @@
       vscode.enable = true;
     };
 
+    mixins.work.enable = true;
+
     shell = {
       bash.enable = true;
       zsh.enable = true;

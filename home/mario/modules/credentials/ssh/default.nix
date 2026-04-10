@@ -7,7 +7,7 @@
 }:
 with lib; let
   cfg = config.mario.modules.credentials.ssh;
-  workDir = config.xdg.userDirs.extraConfig.WORK;
+  cfgWork = config.mario.modules.mixins.work;
 in {
   options.mario.modules.credentials.ssh = {
     enable = mkEnableOption "ssh user configuration";
@@ -49,7 +49,7 @@ in {
         identityFile = ["~/.ssh/keys.d/yubikey-id_ed25519.pub"];
       };
 
-      matchBlocks."work" = lib.mkIf (workDir != null) {
+      matchBlocks."work" = lib.mkIf (cfgWork.enable) {
         host = "github-work";
         hostname = "github.com";
         identitiesOnly = true;

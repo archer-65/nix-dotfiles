@@ -51,9 +51,6 @@ with builtins; let
               stateVersion = homeStateVersion;
               homeDirectory = "/Users/${username}";
             };
-
-            # TODO: Improve this sh*t
-            xdg.userDirs.extraConfig.WORK = "${config.home.homeDirectory}/work";
           };
         }
 

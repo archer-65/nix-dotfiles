@@ -37,6 +37,8 @@
     "media/documents" = import ./media/documents.nix;
     "media/videos" = import ./media/videos.nix;
 
+    "mixins/work" = import ./mixins/work.nix;
+
     "term/alacritty" = import ./term/alacritty.nix;
 
     "dev/cc" = import ./dev/cc.nix;
