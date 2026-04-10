@@ -8,13 +8,16 @@
 with lib; let
   cfg = config.mario.modules.term.alacritty;
   cfgTheme = config.mario.modules.themes;
-  inherit (config.colorScheme) palette;
 in {
   options.mario.modules.term.alacritty = {
     enable = mkEnableOption "alacritty configuration";
   };
 
   config = mkIf cfg.enable {
+    stylix.targets.alacritty.enable = true;
+    stylix.targets.alacritty.fonts.enable = false;
+    stylix.targets.alacritty.opacity.enable = false;
+
     programs.alacritty = {
       enable = true;
 
@@ -57,33 +60,6 @@ in {
             style = "Italic";
           };
           inherit size;
-        };
-
-        colors = {
-          primary = {
-            background = "#${palette.base00}";
-            foreground = "#${palette.base05}";
-          };
-          normal = {
-            black = "#${palette.base00}";
-            red = "#${palette.base08}";
-            green = "#${palette.base0B}";
-            yellow = "#${palette.base09}";
-            blue = "#${palette.base0D}";
-            magenta = "#${palette.base0E}";
-            cyan = "#${palette.base0C}";
-            white = "#${palette.base05}";
-          };
-          bright = {
-            black = "#${palette.base03}";
-            red = "#${palette.base06}";
-            green = "#${palette.base0B}";
-            yellow = "#${palette.base09}";
-            blue = "#${palette.base0D}";
-            magenta = "#${palette.base0E}";
-            cyan = "#${palette.base0C}";
-            white = "#${palette.base05}";
-          };
         };
 
         selection.save_to_clipboard = true;

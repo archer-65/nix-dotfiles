@@ -8,7 +8,7 @@
 with lib; let
   cfg = config.mario.modules.wayland.waybar;
   cfgTheme = config.mario.modules.themes;
-  inherit (config.colorScheme) palette;
+  palette = config.stylix.base16Scheme;
 
   # Function to simplify making waybar outputs
   # https://github.com/Misterio77/nix-config/blob/main/home/misterio/features/desktop/common/wayland-wm/waybar.nix

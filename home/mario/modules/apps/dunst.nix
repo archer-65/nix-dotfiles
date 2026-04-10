@@ -9,7 +9,6 @@ with lib; let
   cfg = config.mario.modules.apps.dunst;
   cfgWayland = config.mario.modules.wayland;
   cfgTheme = config.mario.modules.themes;
-  inherit (config.colorScheme) palette;
 in {
   options.mario.modules.apps.dunst = {
     enable = mkEnableOption "dunst configuration";
@@ -17,6 +16,9 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = [pkgs.libnotify];
+
+    stylix.targets.dunst.enable = true;
+    stylix.targets.dunst.fonts.enable = false;
 
     services.dunst = {
       enable = true;
@@ -59,8 +61,6 @@ in {
 
           corner_radius = 5;
           frame_width = 2;
-          frame_color = "#${palette.base0D}";
-          separator_color = "frame";
 
           sort = "yes";
           idle_threshold = 60;
@@ -116,20 +116,14 @@ in {
         };
 
         urgency_low = {
-          background = "#${palette.base00}";
-          foreground = "#${palette.base05}";
           timeout = 5;
         };
 
         urgency_normal = {
-          background = "#${palette.base00}";
-          foreground = "#${palette.base05}";
           timeout = 5;
         };
 
         urgency_critical = {
-          background = "#${palette.base0F}";
-          foreground = "#${palette.base05}";
           timeout = 0;
         };
 

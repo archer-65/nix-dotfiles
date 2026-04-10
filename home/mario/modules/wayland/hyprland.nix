@@ -8,9 +8,10 @@
 }:
 with lib; let
   cfg = config.mario.modules.wayland;
-  inherit (config.colorScheme) palette;
 in {
   config = mkIf (cfg.enable && (elem "hyprland" cfg.wm)) {
+    stylix.targets.hyprland.enable = true;
+
     wayland.windowManager.hyprland = {
       enable = true;
       package = pkgs.inputs.hyprland.hyprland;
@@ -41,8 +42,6 @@ in {
           gaps_out = 5;
           border_size = 2;
           layout = "master";
-          "col.active_border" = "0xff${palette.base0B}";
-          "col.inactive_border" = "0xff${palette.base02}";
         };
 
         decoration = {

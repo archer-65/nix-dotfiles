@@ -28,6 +28,7 @@ in {
       ++ optionals cfgBitwarden.enable [pkgs.rofi-rbw]
       ++ [rofiFonts];
 
+    # TODO: Change it with stylix target. At least we will be consistent.
     xdg.configFile."rofi/colors/color.rasi".text = ''
       /*
        *
@@ -35,7 +36,7 @@ in {
        *
        */
 
-       @import "${config.colorscheme.slug}.rasi"
+       @import "${config.stylix.base16Scheme.slug}.rasi"
     '';
 
     xdg.configFile."rofi/colors" = {

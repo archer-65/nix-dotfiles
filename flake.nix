@@ -33,7 +33,11 @@
     };
 
     sops-nix.url = "github:Mic92/sops-nix";
-    nix-colors.url = "github:misterio77/nix-colors";
+
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     disko = {
       url = "github:nix-community/disko";

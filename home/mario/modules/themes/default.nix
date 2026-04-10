@@ -8,14 +8,15 @@
 }:
 with lib; let
   cfg = config.mario.modules.themes;
-  inherit (inputs.nix-colors.lib-contrib {inherit pkgs;}) gtkThemeFromScheme;
-  inherit (config.mario.modules) xorg;
 in {
-  imports = [./onedark.nix ./modus.nix];
+  imports = [
+    inputs.stylix.homeModules.stylix
+    ./modus.nix
+  ];
 
   options.mario.modules.themes = with types; {
     active = mkOption {
-      type = nullOr (enum ["onedark" "modus"]);
+      type = nullOr (enum ["modus"]);
       default = null;
       description = ''
         Name of the theme to enable.
@@ -36,55 +37,26 @@ in {
     };
   };
 
-  config = mkIf (cfg.active != null && pkgs.stdenv.isDarwin == false) (mkMerge [
-    # GTK
+  config = mkIf (cfg.active != null) (mkMerge [
+    # Globally enabled, for every system if a theme is selected
     {
-      # https://github.com/ThinkChaos/home-manager/commit/6eaad31eb9044811ebc93622dd628cf0fb411213
-      xdg.configFile."gtk-4.0/gtk.css".text = lib.mkForce "";
-
-      gtk = {
-        enable = true;
-
-        theme = {
-          name = "${config.colorscheme.slug}";
-          package = gtkThemeFromScheme {scheme = config.colorscheme;};
-        };
-
-        font = {
-          name = cfg.font.regular.family;
-          inherit (cfg.font.regular) size;
-        };
-
-        gtk3.extraConfig = let
-          is-dark =
-            if cfg.darkTheme
-            then 1
-            else 0;
-        in {
-          gtk-application-prefer-dark-theme = is-dark;
-        };
-      };
-
-      home.pointerCursor = {
-        inherit (config.gtk.cursorTheme) name size package;
-        gtk.enable = true;
-      };
+      stylix.enable = true;
+      stylix.autoEnable = false;
     }
 
-    # QT
-    {
-      home.sessionVariables = {QT_QPA_PLATFORMTHEME = "qt6ct";};
-      home.packages = with pkgs.kdePackages; [
-        qtstyleplugin-kvantum
-        breeze
-        qt6ct
-      ];
-    }
+    # Only on Linux because... GTK and QT
+    (mkIf pkgs.stdenv.isLinux {
+      stylix.targets.gtk.enable = true;
+      stylix.targets.gtk.fonts.enable = false;
 
-    # Xorg
-    (mkIf xorg.enable {
-      home.pointerCursor.x11.enable = true;
-      xresources.properties = {"Xcursor.theme" = config.gtk.cursorTheme.name;};
+      # NOTE: I have older `stateVersion` values for home-manager, this is the new behavior
+      gtk.gtk4.theme = null;
+      gtk.font = {
+        name = cfg.font.regular.family;
+        inherit (cfg.font.regular) size;
+      };
+
+      stylix.targets.qt.enable = true;
     })
   ]);
 }

@@ -60,7 +60,7 @@ in {
               sha256 = "sha256-vBYBvZrMGLpMU059a+Z4SEekWdQD0GrDqBQyqfkEHPg=";
             };
           });
-          extraConfig = with config.colorScheme.palette; ''
+          extraConfig = with config.stylix.base16Scheme; ''
             set -g @catppuccin_flavor "mocha"
 
             set -g @catppuccin_status_background "none"

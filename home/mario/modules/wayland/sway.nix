@@ -8,9 +8,10 @@
 with lib; let
   cfg = config.mario.modules.wayland;
   cfgTheme = config.mario.modules.themes;
-  inherit (config.colorScheme) palette;
 in {
   config = mkIf (cfg.enable && (elem "sway" cfg.wm)) {
+    stylix.targets.sway.enable = true;
+
     wayland.windowManager.sway = {
       enable = true;
       xwayland = true;
@@ -60,31 +61,13 @@ in {
         fonts = {
           names = [cfgTheme.font.regular.family];
           # Sum required: floating point value but int option defined
-          size = cfgTheme.font.regular.size + 0.0;
+          size = lib.mkDefault (cfgTheme.font.regular.size + 0.0);
         };
 
         gaps.inner = 5;
         gaps.outer = 5;
 
         focus.followMouse = true;
-
-        colors = rec {
-          focused = {
-            border = "#${palette.base0B}";
-            background = "#${palette.base0B}";
-            text = "#${palette.base00}";
-            indicator = "#${palette.base0B}BF";
-            childBorder = "#${palette.base0B}";
-          };
-          focusedInactive =
-            focused
-            // {
-              border = "#${palette.base02}";
-              background = "#${palette.base02}";
-              indicator = "#${palette.base02}";
-              childBorder = "#${palette.base02}";
-            };
-        };
 
         window = {
           titlebar = false;
