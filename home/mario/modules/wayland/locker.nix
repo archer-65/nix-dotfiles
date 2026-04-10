@@ -1,5 +1,4 @@
 {
-  options,
   config,
   lib,
   pkgs,
@@ -23,9 +22,7 @@ in {
     programs.swaylock = {
       enable = true;
       package = pkgs.swaylock-effects;
-      settings = let
-        transparent = "#00000000";
-      in {
+      settings = {
         font = cfgTheme.font.regular.family;
         image = outputs.wallpapers.digital-flowers.src;
         effect-blur = "5x5";

@@ -1,19 +1,11 @@
 {
   config,
-  options,
   lib,
   pkgs,
   ...
 }:
 with lib; let
   cfg = config.mario.modules.credentials.mail-defaults;
-
-  channelExtraConfig = {
-    Create = "Near";
-    SyncState = "*";
-    # Read https://vxlabs.com/2021/03/21/mbsync-copyarrivaldate-yes/
-    CopyArrivalDate = "yes";
-  };
 
   mbsyncEnabled = length (filter (a: a.mbsync.enable) (attrValues config.accounts.email.accounts)) > 0;
   msmtpEnabled = length (filter (a: a.msmtp.enable) (attrValues config.accounts.email.accounts)) > 0;

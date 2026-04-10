@@ -1,6 +1,5 @@
 {
   lib,
-  pkgs,
   stdenv,
   makeWrapper,
   awscli2,

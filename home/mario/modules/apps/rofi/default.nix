@@ -1,5 +1,4 @@
 {
-  options,
   config,
   lib,
   pkgs,
@@ -7,7 +6,6 @@
 }:
 with lib; let
   cfg = config.mario.modules.apps.rofi;
-  cfgWayland = config.mario.modules.wayland;
   cfgBitwarden = config.mario.modules.credentials.bitwarden;
 
   rofiFonts = pkgs.nerd-fonts.iosevka;

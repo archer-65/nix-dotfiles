@@ -1,5 +1,4 @@
 {
-  options,
   config,
   lib,
   pkgs,
@@ -8,8 +7,6 @@
 }:
 with lib; let
   cfg = config.mario.modules.shell.extensions;
-  cfgBash = config.mario.modules.shell.bash;
-  cfgZsh = config.mario.modules.shell.zsh;
 in {
   imports = [inputs.nix-index-database.homeModules.nix-index];
 

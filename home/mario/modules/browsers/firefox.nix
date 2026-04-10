@@ -1,5 +1,4 @@
 {
-  options,
   config,
   lib,
   pkgs,
@@ -7,7 +6,6 @@
 }:
 with lib; let
   cfg = config.mario.modules.browsers.firefox;
-  cfgWayland = config.mario.modules.wayland;
 in {
   options.mario.modules.browsers.firefox = {
     enable = mkEnableOption "firefox with a decent configuration";

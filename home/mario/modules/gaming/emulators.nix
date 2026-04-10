@@ -1,13 +1,9 @@
 {
-  options,
   config,
   lib,
-  pkgs,
   ...
 }:
-with lib; let
-  cfg = config.mario.modules.gaming.emulators;
-in {
+with lib; {
   options.mario.modules.gaming.emulators = {
     # Keep this as reference, as it is now considered illegal :/
     # switch.enable = mkEnableOption "switch emulator";

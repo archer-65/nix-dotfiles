@@ -1,6 +1,4 @@
 {
-  options,
-  pkgs,
   config,
   lib,
   ...
@@ -18,8 +16,8 @@ in {
 
     # TODO: Move these anywhere else, maybe in a `secrets` directory at the root of the repo?
     sops.secrets = {
-        work_email = {sopsFile = ./secrets/work.yaml;};
-        work_username = {sopsFile = ./secrets/work.yaml;};
+      work_email = {sopsFile = ./secrets/work.yaml;};
+      work_username = {sopsFile = ./secrets/work.yaml;};
     };
   };
 }

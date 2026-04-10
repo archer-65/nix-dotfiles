@@ -48,9 +48,6 @@
   outputs = inputs @ {
     self,
     nixpkgs,
-    nixpkgs-darwin,
-    home-manager,
-    darwin,
     ...
   }: let
     inherit (self) outputs;

@@ -1,5 +1,4 @@
 {
-  options,
   config,
   lib,
   pkgs,
@@ -8,22 +7,6 @@
 }:
 with lib; let
   cfg = config.system.modules.graphical.greetd;
-
-  greetd-sway-config = pkgs.writeText "greetd-sway-config" ''
-    exec "dbus-update-activation-environment --systemd WAYLAND_DISPLAY SWAYSOCK XDG_CURRENT_DESKTOP"
-    input "type:touchpad" {
-      tap enabled
-    }
-    xwayland disable
-
-    bindsym Mod4+shift+e exec swaynag \
-      -t warning \
-      -m 'What do you want to do?' \
-      -b 'Poweroff' 'systemctl poweroff' \
-      -b 'Reboot' 'systemctl reboot'
-
-    exec "${config.programs.regreet.package}/bin/regreet -l debug; ${config.programs.sway.package}/bin/swaymsg exit"
-  '';
 in {
   options.system.modules.graphical.greetd = {
     enable = mkEnableOption "greetd configuration";
