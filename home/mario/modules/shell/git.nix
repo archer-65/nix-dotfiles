@@ -32,6 +32,7 @@ in {
 
       signing = {
         key = "BAC570B2172822A3";
+        format = null;
         signByDefault = true;
       };
 

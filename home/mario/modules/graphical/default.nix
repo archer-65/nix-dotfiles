@@ -47,16 +47,16 @@ with lib; let
 
   files = let
     thunarPlugins = with pkgs; [
-      xfce.thunar-volman
-      xfce.thunar-archive-plugin
-      xfce.thunar-media-tags-plugin
+      thunar-volman
+      thunar-archive-plugin
+      thunar-media-tags-plugin
     ];
   in
     with pkgs; [
-      (xfce.thunar.override {inherit thunarPlugins;})
-      xfce.xfconf
-      xfce.exo
-      mate.engrampa
+      (thunar.override {inherit thunarPlugins;})
+      xfconf
+      exo
+      engrampa
     ];
 
   desktop = with pkgs; [

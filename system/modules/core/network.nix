@@ -37,9 +37,11 @@
     # DNS
     resolved = {
       enable = true;
-      dnssec = "allow-downgrade";
-      domains = ["~."];
-      dnsovertls = "opportunistic";
+      settings.Resolve = {
+        DNSSEC = "allow-downgrade";
+        Domains = ["~."];
+        DNSOverTLS = "opportunistic";
+      };
     };
 
     # VPN
