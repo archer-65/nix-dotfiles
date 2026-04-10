@@ -103,11 +103,9 @@ in {
 
         windowrule = [
           # Needed
-          "match:class ^(thunar)$, float on"
-          "match:class ^(Thunar)$, float on"
-          "match:class ^(Rofi)$, float on"
-          "match:class ^(Rofi)$, border_size 0"
-          "match:class ^(Rofi)$, stay_focused on"
+          "match:class ^(thunar|Thunar)$, float on"
+          "match:class ^(thunar|Thunar)$, persistent_size on"
+
           "match:class ^(ipv)$, float on"
           "match:class ^(mpv)$, float on"
           "match:class ^(pavucontrol)$, float on"
@@ -120,13 +118,10 @@ in {
           "match:class (task_dialog)$, float on"
 
           # Browser indicators
-          "match:class ^(firefox)$ match:title ^(Picture-in-Picture), float on"
-          "match:class ^(firefox)$ match:title:^(Picture-in-Picture), pin on"
+          "match:class ^(firefox)$, match:title ^(Picture-in-Picture)$, float on"
+          "match:class ^(firefox)$, match:title ^(Picture-in-Picture)$, pin on"
 
           "match:title ^(Firefox — Sharing Indicator)$, workspace special:trash silent"
-          # "match:title ^(Firefox — Sharing Indicator)$, float on"
-          # "match:title ^(Firefox — Sharing Indicator)$, pin"
-          # "match:title ^(Firefox — Sharing Indicator)$, move 100%-20"
 
           # idle inhibit while watching videos
           "match:class ^(mpv)$, idle_inhibit focus"
