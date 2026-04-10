@@ -31,41 +31,6 @@ in {
 
   # Overlays for various pkgs (e.g. broken, not updated)
   modifications = final: prev: rec {
-    rbw = prev.rbw.overrideAttrs (oldAttrs: rec {
-      version = "1.15.0";
-
-      src = prev.fetchzip {
-        url = "https://git.tozt.net/rbw/snapshot/rbw-${version}.tar.gz";
-        hash = "sha256-N/s1flB+s2HwEeLsf7YlJG+5TJgP8Wu7PHNPWmVfpIo=";
-      };
-
-      cargoDeps = final.rustPlatform.fetchCargoVendor {
-        inherit src;
-        hash = "sha256-N4IxnAXDvD+vp3LUB9CKYM+1C5i1Flihk+Pfb2c5IWY=";
-      };
-    });
-
-    terraform-docs = prev.terraform-docs.overrideAttrs (oldAttrs: rec {
-      version = "0.20.0-unstable";
-
-      src = prev.fetchFromGitHub {
-        owner = "terraform-docs";
-        repo = "terraform-docs";
-        rev = "master";
-        hash = "sha256-DkjNjzQuZrsozJKeS0r63QBBqe8p/Cu0Mu7WYOGl2kg=";
-      };
-
-      vendorHash = "sha256-vGLDIEJZar21seXljsp2pFxIow42u88pkaJTyQGqRBQ=";
-
-      patches = [
-        (prev.fetchpatch {
-          name = "bump-golang-tools.patch";
-          url = "https://github.com/terraform-docs/terraform-docs/pull/872.patch";
-          sha256 = "664ZtL/fqJSpmTSISEqYyRnNIvXjoSripCJUPxMKy+I=";
-        })
-      ];
-    });
-
     sway-displaylink = let
       wlroots-sway = prev.wlroots.overrideAttrs (_: {
         # https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/4824

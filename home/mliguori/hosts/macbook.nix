@@ -1,9 +1,17 @@
 {pkgs, ...}: {
-  home.packages = with pkgs; [coreutils-prefixed kiro-cli];
+  home.packages = with pkgs; [
+    coreutils-prefixed
+    (google-cloud-sdk.withExtraComponents (
+      with google-cloud-sdk.components; [
+        gke-gcloud-auth-plugin
+      ]
+    ))
+  ];
 
   mario.modules = {
     credentials = {
       gpg.enable = true;
+      ssh.enable = true;
       bitwarden.enable = true;
     };
 
@@ -42,7 +50,7 @@
 
       git.enable = true;
 
-      awscli.enable = true;
+      # awscli.enable = true;
     };
 
     themes = {

@@ -1,4 +1,5 @@
 {
+  pkgs,
   config,
   options,
   lib,
@@ -6,13 +7,14 @@
 }:
 with lib; let
   cfg = config.mario.modules.credentials.ssh;
+  workDir = config.xdg.userDirs.extraConfig.WORK;
 in {
   options.mario.modules.credentials.ssh = {
     enable = mkEnableOption "ssh user configuration";
   };
 
   config = mkIf cfg.enable {
-    systemd.user.tmpfiles.rules = [
+    systemd.user.tmpfiles.rules = lib.mkIf (pkgs.stdenv.isDarwin == false) [
       "d ${config.home.homeDirectory}/.ssh/sockets - - - - -"
     ];
 
@@ -20,13 +22,6 @@ in {
       ".ssh/keys.d/yubikey-id_ed25519.pub".text = ''
         ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBR9GjKkCrbAbfuQJXuMTh1I6agrhiHrxlEXhWgidvLS
       '';
-    };
-
-    sops.secrets."work/config" = {
-      sopsFile = ./work/config.enc;
-      mode = "0400";
-      format = "binary";
-      path = "${config.home.homeDirectory}/.ssh/work/config";
     };
 
     programs.ssh = {
@@ -48,15 +43,18 @@ in {
       };
 
       matchBlocks."forges" = {
-        host = "github.com gitlab.*.com";
+        host = "github.com gitlab.com";
         user = "git";
         identitiesOnly = true;
         identityFile = ["~/.ssh/keys.d/yubikey-id_ed25519.pub"];
       };
 
-      includes = [
-        "work/*"
-      ];
+      matchBlocks."work" = lib.mkIf (workDir != null) {
+        host = "github-work";
+        hostname = "github.com";
+        identitiesOnly = true;
+        identityFile = ["~/.ssh/id_ed25519"];
+      };
     };
   };
 }
