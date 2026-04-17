@@ -184,6 +184,7 @@
     (:hook diff-hl-dired-mode))
 
   (:with-after magit
+    (require 'diff-hl)
     (:with-hook magit-pre-refresh-hook
       (:hook diff-hl-magit-pre-refresh))
     (:with-hook magit-post-refresh-hook
