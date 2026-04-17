@@ -111,7 +111,22 @@
   (:when-loaded
     (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
     (add-to-list 'eglot-server-programs '(terraform-mode . ("terraform-ls" "serve")))
-    (add-to-list 'eglot-server-programs `(nix-mode . ("nixd"))))
+    (add-to-list 'eglot-server-programs `(nix-mode . ("nixd")))
+    (add-to-list 'eglot-server-programs '(yaml-mode . ("yaml-language-server" "--stdio")))
+
+    ; NOTE: Consider moving this somewhere else, splitting the config in multiple parts
+    (setq-default
+     eglot-workspace-configuration
+     '(:redhat (:telemetry (:enabled nil))
+       ; NOTE: Also consider https://github.com/tepea-code/yaml-schema-router
+       :yaml
+        (:completion t
+         :hover t
+         :validate t
+         :format (:enable nil)
+         :schemaStore (:enable t)
+         :schemas (kubernetes ["k8s/**/*.yaml" "kubernetes/**/*.yaml" "manifests/**/*.yaml"])
+         :kubernetesCRDStore (:enable t)))))
 
   (:with-after (cape yasnippet)
     (:local-set completion-at-point-functions (list (cape-capf-super
@@ -124,7 +139,7 @@
     (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster))
 
   ;; Hooks
-  (:with-mode (c-mode c++-mode java-mode nix-mode rustic-mode terraform-mode)
+  (:with-mode (c-mode c++-mode java-mode nix-mode rustic-mode terraform-mode yaml-mode)
     (:hook eglot-ensure)))
 
 (setup eglot-java

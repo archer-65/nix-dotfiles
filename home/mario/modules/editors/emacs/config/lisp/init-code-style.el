@@ -44,7 +44,7 @@
   (:pkg t)
   (:hook-into prog-mode))
 
-;; FIXME: What the hell is this...
+;; FIXME: What the hell is this... And I don't use Emacs < 29 anyway.
 (if (and (version< "29" emacs-version) (treesit-available-p))
 
     (progn

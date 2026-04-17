@@ -42,15 +42,29 @@ in {
           })
         ];
       });
+  modifications = final: prev: rec {
+    yaml-language-server = prev.yaml-language-server.overrideAttrs (old: rec {
+      pname = "yaml-language-server";
+      version = "1.22.0";
 
       sway-unwrapped = prev.sway-unwrapped.override {
         wlroots = wlroots-sway;
+      src = old.src.override {
+        tag = version;
+        hash = "sha256-NCJsnA0m8DUeAUpQW83f8QUXzZ9DRHA7eOrVcj40RVk=";
       };
     in
       prev.sway.override {
         inherit sway-unwrapped;
         extraOptions = ["--unsupported-gpu"];
+
+      npmDepsHash = "";
+      npmDeps = prev.fetchNpmDeps {
+        inherit src;
+        name = "${pname}-${version}-npm-deps";
+        hash = "sha256-DCEutA4DubP/iQIWMKjbepnhgd5L1GXnlzBokneqtWg=";
       };
+    });
 
     # Keep this if telega is borked
     # tdlib = prev.tdlib.overrideAttrs (oldAttrs: {
