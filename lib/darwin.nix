@@ -43,7 +43,7 @@ with builtins; let
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = {inherit inputs outputs;};
           home-manager.sharedModules = [inputs.mac-app-util.homeManagerModules.default];
-          home-manager.users."${username}" = { ...}: {
+          home-manager.users."${username}" = {...}: {
             imports = (builtins.attrValues self.outputs.homeModules.mario) ++ ["${self}/home/${username}/hosts/${hostname}.nix"];
 
             home = {

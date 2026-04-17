@@ -1,7 +1,4 @@
-{
-  lib,
-  ...
-}: {
+{lib, ...}: {
   # Writable /etc/hosts
   environment.etc.hosts.mode = "0644";
 
