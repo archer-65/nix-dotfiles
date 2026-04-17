@@ -45,7 +45,7 @@ in {
 
       includes = lib.mkIf (cfgWork.enable) [
         {
-          condition = "gitdir:${workDir}/";
+          condition = "gitdir:${config.xdg.userDirs.extraConfig.WORK}/";
           path = config.sops.templates.work_gitconfig.path;
         }
       ];
