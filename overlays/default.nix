@@ -30,33 +30,15 @@ in {
   additions = final: _: import ../packages {pkgs = final;};
 
   # Overlays for various pkgs (e.g. broken, not updated)
-  modifications = _final: prev: rec {
-    sway-displaylink = let
-      wlroots-sway = prev.wlroots.overrideAttrs (_: {
-        # https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/4824
-        patches = [
-          (prev.fetchpatch {
-            name = "scannout-without-mgpu-renderer.patch";
-            url = "https://gitlab.freedesktop.org/wlroots/wlroots/-/merge_requests/4824.patch";
-            sha256 = "19phmcplc1y2rvhvgi6a2vkzflkf9b2xzlyb58dvbffl87vgv224";
-          })
-        ];
-      });
   modifications = final: prev: rec {
     yaml-language-server = prev.yaml-language-server.overrideAttrs (old: rec {
       pname = "yaml-language-server";
       version = "1.22.0";
 
-      sway-unwrapped = prev.sway-unwrapped.override {
-        wlroots = wlroots-sway;
       src = old.src.override {
         tag = version;
         hash = "sha256-NCJsnA0m8DUeAUpQW83f8QUXzZ9DRHA7eOrVcj40RVk=";
       };
-    in
-      prev.sway.override {
-        inherit sway-unwrapped;
-        extraOptions = ["--unsupported-gpu"];
 
       npmDepsHash = "";
       npmDeps = prev.fetchNpmDeps {
