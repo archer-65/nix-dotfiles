@@ -19,6 +19,9 @@ in {
             email = config.sops.placeholder.work_email;
             name = config.sops.placeholder.work_username;
           };
+          commit = {
+            gpgSign = false;
+          };
         };
       };
     };
