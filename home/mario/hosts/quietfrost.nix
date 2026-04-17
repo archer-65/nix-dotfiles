@@ -47,6 +47,7 @@
       python.enable = true;
       rust.enable = true;
       tex.enable = true;
+      yaml.enable = true;
       terraform.enable = true;
     };
 

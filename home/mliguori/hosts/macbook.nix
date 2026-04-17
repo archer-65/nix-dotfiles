@@ -27,6 +27,7 @@
       python.enable = true;
       terraform.enable = true;
       tex.enable = true;
+      yaml.enable = true;
     };
 
     editors = {
@@ -51,8 +52,6 @@
       direnv.enable = true;
 
       git.enable = true;
-
-      # awscli.enable = true;
     };
 
     themes = {

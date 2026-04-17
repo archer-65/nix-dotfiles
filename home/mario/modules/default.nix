@@ -42,7 +42,7 @@
     "term/alacritty" = import ./term/alacritty.nix;
 
     "dev/cc" = import ./dev/cc.nix;
-    "dev/js" = import ./dev/js;
+    "dev/js" = import ./dev/js.nix;
     "dev/java" = import ./dev/java.nix;
     "dev/kube" = import ./dev/kube.nix;
     "dev/nix" = import ./dev/nix-lang.nix;
@@ -50,6 +50,7 @@
     "dev/rust" = import ./dev/rust.nix;
     "dev/terraform" = import ./dev/terraform.nix;
     "dev/tex" = import ./dev/tex.nix;
+    "dev/yaml" = import ./dev/yaml.nix;
 
     "editors/android-studio" = import ./editors/android-studio.nix;
     "editors/emacs" = import ./editors/emacs;
