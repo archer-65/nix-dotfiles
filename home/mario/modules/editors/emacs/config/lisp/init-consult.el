@@ -90,8 +90,8 @@
   (consult-customize
    consult-ripgrep consult-git-grep consult-grep
    consult-bookmark consult-recent-file consult-xref
-   consult--source-recent-file consult--source-project-recent-file
-   consult--source-bookmark :preview-key "M-.")
+   consult-source-recent-file consult-source-project-recent-file
+   consult-source-bookmark :preview-key "M-.")
 
   ;; Use `consult-completion-in-region' if Vertico is enabled.
   ;; Otherwise use the default `completion--in-region' function.

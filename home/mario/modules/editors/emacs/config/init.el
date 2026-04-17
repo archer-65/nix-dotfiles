@@ -51,7 +51,7 @@
       (when gls
         (setq dired-use-ls-dired t
               insert-directory-program gls)))))
-t
+
 (when (eq system-type 'darwin)
   ;; mac-* variables are used by the special emacs-mac build of Emacs by
   ;; Yamamoto Mitsuharu, while other builds use ns-*.

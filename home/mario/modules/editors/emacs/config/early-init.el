@@ -68,9 +68,10 @@
 ;; starting a client where this settings are defined later causes a little flash at startup (before redisplay)
 ;; where menu-bar is present.
 ;;
-;; Not calling `menu-bar-mode', `tool-bar-mode', and
-;; `scroll-bar-mode' because they do extra and unnecessary work that can be more
+;; Not calling `'tool-bar-mode', and `scroll-bar-mode'
+;; because they do extra and unnecessary work that can be more
 ;; concisely and efficiently expressed with these six lines:
+
 (push '(menu-bar-lines . 0)   default-frame-alist)
 (push '(tool-bar-lines . 0)   default-frame-alist)
 (push '(vertical-scroll-bars) default-frame-alist)
@@ -79,8 +80,33 @@
 ;; reactivate them.
 (setq menu-bar-mode nil
       tool-bar-mode nil
-      scroll-bar-mode nil
-      column-number-mode t
+      scroll-bar-mode nil)
+
+;; If not on macOS (or in a terminal), turn off the menu bar. Also solves a bug with desktop switching.
+(when (not (and (eq system-type 'darwin)
+                (display-graphic-p)))
+  (menu-bar-mode -1))
+
+;; HACK: The menu-bar needs special treatment on MacOS. On Linux and Windows
+;;   (and TTY frames in MacOS), the menu-bar takes up valuable in-frame real
+;;   estate -- so we disable it -- but on MacOS (GUI frames only) the menu bar
+;;   lives outside of the frame, on the MacOS menu bar, which is acceptable, but
+;;   disabling Emacs' menu-bar also makes MacOS treat Emacs GUI frames like
+;;   non-application windows (e.g. it won't capture focus on activation, among
+;;   other things), so the menu-bar should be preserved there.
+(when (eq system-type 'darwin)
+  (setcdr (assq 'menu-bar-lines default-frame-alist) 'tty)
+
+  (defun my/init-menu-bar-on-macos (&optional frame)
+    (if (eq (frame-parameter frame 'menu-bar-lines) 'tty)
+        (set-frame-parameter
+         frame
+         'menu-bar-lines
+         (if (display-graphic-p frame) 1 0))))
+
+  (add-hook 'after-make-frame-functions #'my/init-menu-bar-on-macos))
+
+(setq column-number-mode t
       fringe-mode 10)
 
 ;; Minor message for gc after loading
@@ -96,15 +122,15 @@
       package-quickstart nil)
 
 ;; Configure and bootstrap `elpaca'
-(defvar elpaca-installer-version 0.11)
+(defvar elpaca-installer-version 0.12)
 (defvar elpaca-directory (expand-file-name "elpaca/" user-emacs-directory))
 (defvar elpaca-builds-directory (expand-file-name "builds/" elpaca-directory))
-(defvar elpaca-repos-directory (expand-file-name "repos/" elpaca-directory))
+(defvar elpaca-sources-directory (expand-file-name "sources/" elpaca-directory))
 (defvar elpaca-order '(elpaca :repo "https://github.com/progfolio/elpaca.git"
                               :ref nil :depth 1 :inherit ignore
                               :files (:defaults "elpaca-test.el" (:exclude "extensions"))
-                              :build (:not elpaca--activate-package)))
-(let* ((repo  (expand-file-name "elpaca/" elpaca-repos-directory))
+                              :build (:not elpaca-activate)))
+(let* ((repo  (expand-file-name "elpaca/" elpaca-sources-directory))
        (build (expand-file-name "elpaca/" elpaca-builds-directory))
        (order (cdr elpaca-order))
        (default-directory repo))
@@ -131,22 +157,21 @@
   (unless (require 'elpaca-autoloads nil t)
     (require 'elpaca)
     (elpaca-generate-autoloads "elpaca" repo)
-    (load "./elpaca-autoloads")))
+    (let ((load-source-file-function nil)) (load "./elpaca-autoloads"))))
 (add-hook 'after-init-hook #'elpaca-process-queues)
 (elpaca `(,@elpaca-order))
 
-;; Here I'm loading a newer seq
-(defun +elpaca-build-steps-with-unload (pkg)
-  (append (butlast (if (file-exists-p (file-name-concat elpaca-builds-directory
-                                                        (symbol-name pkg)))
-                       elpaca--pre-built-steps elpaca-build-steps))
-          (list `(lambda (e)
-                   (when (featurep ',pkg) (unload-feature ',pkg t))
-                   (elpaca--continue-build e))
-                'elpaca--activate-package)))
+;; NOTE: Read more about what I'm doing here: https://github.com/progfolio/elpaca/issues/517
+(defun +elpaca-unload-feature (e)
+  "Unload feature matching E's ID."
+  (when-let* ((id (elpaca<-id e))
+              ((featurep id)))
+    (unload-feature id t))
+  (elpaca--continue-build e))
 
-(elpaca `(seq :build ,(+elpaca-build-steps-with-unload 'seq)))
-(elpaca `(map :build ,(+elpaca-build-steps-with-unload 'map)))
+(elpaca (seq :build (:before elpaca-activate +elpaca-unload-feature)))
+(elpaca (map :build (:before elpaca-activate +elpaca-unload-feature)))
+
 (elpaca let-alist)
 
 (cl-pushnew 'eglot elpaca-ignored-dependencies)
