@@ -170,9 +170,6 @@
   (elpaca--continue-build e))
 
 (elpaca (seq :build (:before elpaca-activate +elpaca-unload-feature)))
-(elpaca (map :build (:before elpaca-activate +elpaca-unload-feature)))
-
-(elpaca let-alist)
 
 (cl-pushnew 'eglot elpaca-ignored-dependencies)
 
