@@ -1,4 +1,4 @@
-{
+{pkgs, ...}: {
   # Timezone
   time.timeZone = "Europe/Rome";
 
@@ -8,7 +8,9 @@
 
   # Console settings
   console = {
+    earlySetup = true;
     font = "Lat2-Terminus16";
-    # keyMap = "us";
+    keyMap = "us-acentos";
+    packages = [pkgs.terminus_font];
   };
 }

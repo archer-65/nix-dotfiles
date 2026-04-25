@@ -32,10 +32,5 @@ in {
       "udev.log_priority=3"
       "vt.global_cursor_default=0"
     ];
-
-    console = {
-      useXkbConfig = true;
-      earlySetup = false;
-    };
   };
 }
