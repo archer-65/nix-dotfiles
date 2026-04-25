@@ -78,7 +78,6 @@ in {
         ];
 
         misc = {
-          vfr = true;
           enable_swallow = true;
           swallow_regex = "^(Alacritty)$";
         };

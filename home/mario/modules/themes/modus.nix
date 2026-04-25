@@ -18,17 +18,19 @@ in {
         name = icons;
         package = pkgs.kora-icon-theme;
       };
+    };
 
-      cursorTheme = let
-        cursor =
-          if cfg.darkTheme
-          then "Bibata-Modern-Ice"
-          else "Bibata-Modern-Classic";
-      in {
-        name = cursor;
-        inherit (cfg.cursor) size;
-        package = pkgs.bibata-cursors;
-      };
+    home.pointerCursor = let
+      cursor =
+        if cfg.darkTheme
+        then "Bibata-Modern-Ice"
+        else "Bibata-Modern-Classic";
+    in {
+      name = cursor;
+      inherit (cfg.cursor) size;
+      package = pkgs.bibata-cursors;
+      gtk.enable = true;
+      hyprcursor.enable = true;
     };
 
     stylix.base16Scheme = let

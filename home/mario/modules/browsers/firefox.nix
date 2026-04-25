@@ -19,6 +19,8 @@ in {
         then null
         else pkgs.firefox;
 
+      configPath = "${config.xdg.configHome}/mozilla/firefox";
+
       profiles.default = {
         name = "Default";
         settings = {

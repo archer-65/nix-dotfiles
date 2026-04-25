@@ -27,6 +27,8 @@
     })
     outputs.wallpapers;
 
+  home.preferXdgDirectories = true;
+
   xdg.userDirs = {
     enable =
       if pkgs.stdenv.isDarwin
