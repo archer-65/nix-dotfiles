@@ -10,7 +10,8 @@
   (:pkg t))
 
 (setup nix-mode
-  (:pkg t))
+  (:pkg t)
+  (add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode))
 
 (setup markdown-mode
   (:pkg t))
