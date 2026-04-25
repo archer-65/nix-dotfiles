@@ -31,23 +31,6 @@ in {
 
   # Overlays for various pkgs (e.g. broken, not updated)
   modifications = final: prev: rec {
-    yaml-language-server = prev.yaml-language-server.overrideAttrs (old: rec {
-      pname = "yaml-language-server";
-      version = "1.22.0";
-
-      src = old.src.override {
-        tag = version;
-        hash = "sha256-NCJsnA0m8DUeAUpQW83f8QUXzZ9DRHA7eOrVcj40RVk=";
-      };
-
-      npmDepsHash = "";
-      npmDeps = prev.fetchNpmDeps {
-        inherit src;
-        name = "${pname}-${version}-npm-deps";
-        hash = "sha256-DCEutA4DubP/iQIWMKjbepnhgd5L1GXnlzBokneqtWg=";
-      };
-    });
-
     # Keep this if telega is borked
     # tdlib = prev.tdlib.overrideAttrs (oldAttrs: {
     #   version = "1.8.8";
