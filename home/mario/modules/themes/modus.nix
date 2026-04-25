@@ -25,7 +25,7 @@ in {
         if cfg.darkTheme
         then "Bibata-Modern-Ice"
         else "Bibata-Modern-Classic";
-    in {
+    in mkIf (pkgs.stdenv.isLinux) {
       name = cursor;
       inherit (cfg.cursor) size;
       package = pkgs.bibata-cursors;

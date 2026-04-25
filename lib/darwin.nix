@@ -1,6 +1,6 @@
 {inputs, ...}:
 with builtins; let
-  inherit (inputs) self nixpkgs-darwin darwin home-manager;
+  inherit (inputs) self nixpkgs-darwin darwin home-manager-darwin;
   inherit (self) outputs overlays;
 
   genConfiguration = {
@@ -37,7 +37,7 @@ with builtins; let
 
         inputs.mac-app-util.darwinModules.default
 
-        home-manager.darwinModules.home-manager
+        home-manager-darwin.darwinModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
