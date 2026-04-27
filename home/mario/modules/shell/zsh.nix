@@ -157,6 +157,7 @@ in {
           src = pkgs.zsh-you-should-use;
           file = "share/zsh/plugins/you-should-use/you-should-use.plugin.zsh";
         }
+        # TODO: Consider the usage of https://github.com/MercuryTechnologies/nix-your-shell instead?
         {
           name = "zsh-nix-shell";
           src = pkgs.zsh-nix-shell;

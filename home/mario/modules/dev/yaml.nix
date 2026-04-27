@@ -16,7 +16,10 @@ in {
       yaml-language-server
       yamllint
       yamlfmt
-      actionlint # # github actions linter
+
+      # GitHub Actions
+      actionlint        # linter
+      zizmor            # static analysis
     ];
   };
 }
