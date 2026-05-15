@@ -11,7 +11,7 @@
 
 (setup nix-mode
   (:pkg t)
-  (add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode))
+  (add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode)))
 
 (setup markdown-mode
   (:pkg t))
