@@ -18,8 +18,8 @@ in {
       yamlfmt
 
       # GitHub Actions
-      actionlint        # linter
-      zizmor            # static analysis
+      actionlint # linter
+      zizmor # static analysis
     ];
   };
 }

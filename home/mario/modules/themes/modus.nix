@@ -25,13 +25,14 @@ in {
         if cfg.darkTheme
         then "Bibata-Modern-Ice"
         else "Bibata-Modern-Classic";
-    in mkIf (pkgs.stdenv.isLinux) {
-      name = cursor;
-      inherit (cfg.cursor) size;
-      package = pkgs.bibata-cursors;
-      gtk.enable = true;
-      hyprcursor.enable = true;
-    };
+    in
+      mkIf (pkgs.stdenv.isLinux) {
+        name = cursor;
+        inherit (cfg.cursor) size;
+        package = pkgs.bibata-cursors;
+        gtk.enable = true;
+        hyprcursor.enable = true;
+      };
 
     stylix.base16Scheme = let
       modus-operandi = {

@@ -27,28 +27,31 @@ in {
       enable = true;
 
       enableDefaultConfig = false;
-      matchBlocks."*" = {
-        forwardAgent = false;
-        addKeysToAgent = "no";
-        compression = false;
-        serverAliveInterval = 0;
-        serverAliveCountMax = 3;
-        hashKnownHosts = false;
-        userKnownHostsFile = "~/.ssh/known_hosts";
+      settings."*" = {
+        ForwardAgent = false;
+        AddKeysToAgent = "no";
+        Compression = false;
+        ServerAliveInterval = 0;
+        ServerAliveCountMax = 3;
+        HashKnownHosts = false;
+        UserKnownHostsFile = "~/.ssh/known_hosts";
 
-        controlMaster = "auto";
-        controlPath = "~/.ssh/sockets/%r@%h-%p";
-        controlPersist = "60m";
+        ControlMaster = "auto";
+        ControlPath = "~/.ssh/sockets/%r@%n-%p";
+        ControlPersist = "60m";
       };
 
-      matchBlocks."forges" = {
+      settings."forges" = {
         host = "github.com gitlab.com";
         user = "git";
         identitiesOnly = true;
         identityFile = ["~/.ssh/keys.d/yubikey-id_ed25519.pub"];
       };
 
-      matchBlocks."work" = lib.mkIf (cfgWork.enable) {
+      # NOTE: This way I can use different keys and agents.
+      # Different agents are handy for alternative access methods, or
+      # if I want to get rid of GPG being the only SSH agent.
+      settings."work" = lib.mkIf (cfgWork.enable) {
         host = "github-work";
         hostname = "github.com";
         identitiesOnly = true;
