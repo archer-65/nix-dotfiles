@@ -1,6 +1,21 @@
-{...}: {
+{config, ...}: {
+  # TODO: Move this and homebrew to dedicated module
+  environment.variables = {
+    HOMEBREW_BAT = "1";
+    HOMEBREW_NO_ANALYTICS = "1";
+    HOMEBREW_NO_INSECURE_REDIRECT = "1";
+  };
+  environment.systemPath = ["${config.homebrew.prefix}/bin"];
+
   homebrew = {
     enable = true;
+    enableBashIntegration = true;
+    enableZshIntegration = true;
+
+    global = {
+      brewfile = true;
+      autoUpdate = true;
+    };
 
     onActivation = {
       autoUpdate = true;

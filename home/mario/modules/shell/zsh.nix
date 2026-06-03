@@ -23,7 +23,21 @@ with lib; let
 
       bindkey ' ' magic-space  # [Space] - Don't do history expansion
 
-      [ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
+      # HACK: Source variables from `home.sessionVariables` generated file more than once.
+      # `hm-session-vars.sh` sources once, so you have to login in the session again to get
+      # fresh variables. This is for performance reasons, but a bit incovenient.
+      #
+      # Should cover multiple locations of Home Manager module and standalone.
+      #
+      # NOTE: If you change to XDG based Nix this could change!
+      # if [ -e "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
+      #   unset __HM_SESS_VARS_SOURCED
+      #   . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
+      # fi
+      # if [ -e "/etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh" ]; then
+      #   unset __HM_SESS_VARS_SOURCED
+      #   . "/etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh"
+      # fi
     '';
 
     last = lib.mkAfter ''
@@ -61,6 +75,7 @@ in {
 
       shellAliases = {};
 
+      # TODO: Do a proper refactor here, may slow down the shell startup
       completionInit = ''
         zmodload zsh/zle
         zmodload zsh/zpty
@@ -140,7 +155,7 @@ in {
 
       inherit initContent;
 
-      # TODO: fast-syntax-highlighting?
+      # TODO: Try out fast-syntax-highlighting?
       plugins = [
         {
           name = "zsh-autopair";

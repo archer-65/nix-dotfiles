@@ -63,7 +63,7 @@
     };
   };
 
-  # TODO: Extract in dedicated module or bind it to specific services
+  # TODO: Extract in dedicated module or bind it to specific services to not pollute env
   # TODO: For tools not supporting opt out by environment variable I need another way
   # https://github.com/beatcracker/toptout/blob/master/examples/toptout_bash
   home.sessionVariables = {
@@ -117,9 +117,6 @@
     HF_HUB_DISABLE_TELEMETRY = "1";
     HF_HUB_OFFLINE = "1";
     HINT_TELEMETRY = "off";
-    HOMEBREW_NO_ANALYTICS = "1";
-    HOMEBREW_NO_ANALYTICS_THIS_RUN = "1";
-    HOMEBREW_NO_AUTO_UPDATE = "1";
     HOOKDECK_CLI_TELEMETRY_OPTOUT = "1";
     IG_PRO_OPT_OUT = "YES";
     INFLUXD_REPORTING_DISABLED = "true";
