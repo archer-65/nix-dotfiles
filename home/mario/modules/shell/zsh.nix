@@ -23,11 +23,6 @@ with lib; let
 
       bindkey ' ' magic-space  # [Space] - Don't do history expansion
 
-      # FIXME: https://github.com/nix-community/home-manager/issues/2991
-      if [ -r "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
-        __HM_SESS_VARS_SOURCED= source "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
-      fi
-
       [ -f /opt/homebrew/bin/brew ] && eval "$(/opt/homebrew/bin/brew shellenv)"
     '';
 
