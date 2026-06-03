@@ -35,14 +35,11 @@ with builtins; let
           nix.settings.trusted-users = ["${username}"];
         }
 
-        inputs.mac-app-util.darwinModules.default
-
         home-manager-darwin.darwinModules.home-manager
         {
           home-manager.useGlobalPkgs = true;
           home-manager.useUserPackages = true;
           home-manager.extraSpecialArgs = {inherit inputs outputs;};
-          home-manager.sharedModules = [inputs.mac-app-util.homeManagerModules.default];
           home-manager.users."${username}" = {...}: {
             imports = (builtins.attrValues self.outputs.homeModules.mario) ++ ["${self}/home/${username}/hosts/${hostname}.nix"];
 

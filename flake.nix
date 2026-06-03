@@ -20,12 +20,6 @@
       inputs.nixpkgs.follows = "nixpkgs-darwin";
     };
 
-    mac-app-util = {
-      url = "github:hraban/mac-app-util";
-      # NOTE: There are some issues while compiling, don't follow and call it a day
-      # inputs.nixpkgs.follows = "nixpkgs-darwin";
-    };
-
     nix-index-database = {
       url = "github:Mic92/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
