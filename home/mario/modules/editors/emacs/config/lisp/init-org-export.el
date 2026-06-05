@@ -44,10 +44,10 @@
                                ("\\subparagraph{%s}" . "\\subparagraph*{%s}")))))
 
 ;; Reveal.js
-(setup ox-reveal
-  (:pkg (:host github :repo "yjwen/org-reveal"))
+(setup org-re-reveal
+  (:pkg t)
   (:load-after ox)
-  (setopt org-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js"))
+  (setopt org-re-reveal-root "https://cdn.jsdelivr.net/npm/reveal.js"))
 
 ;; Hugo
 (setup ox-hugo
