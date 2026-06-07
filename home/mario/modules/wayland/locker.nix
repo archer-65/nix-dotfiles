@@ -68,8 +68,8 @@ in {
         ++ (optionals cfgHyprland.enable [
           {
             timeout = 360;
-            command = "${hyprctl} dispatch dpms off";
-            resumeCommand = "${hyprctl} dispatch dpms on";
+            command = "${hyprctl} dispatch '\"hl.dsp.dpms({ action = \"disable\" })\"'";
+            resumeCommand = "${hyprctl} dispatch '\"hl.dsp.dpms({ action = \"enable\" })\"'";
           }
         ]);
     };

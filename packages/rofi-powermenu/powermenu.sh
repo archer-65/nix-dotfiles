@@ -62,7 +62,8 @@ logout() {
     elif [[ "$XDG_CURRENT_DESKTOP" =~ "sway" ]]; then
         execute_with_confirm "swaymsg exit && systemctl stop --user sway-session.target"
     elif [[ "$XDG_CURRENT_DESKTOP" =~ "Hyprland" ]]; then
-        execute_with_confirm "hyprctl dispatch -- exit && systemctl stop --user hyprland-session.target"
+        # TODO: Replace with hyprshutdown, this is weird anyway
+        execute_with_confirm "hyprctl dispatch hl.dsp.exit()"
     fi
 }
 
