@@ -48,8 +48,6 @@ in {
       stylix.targets.gtk.enable = true;
       stylix.targets.gtk.fonts.enable = false;
 
-      # NOTE: I have older `stateVersion` values for home-manager, this is the new behavior
-      gtk.gtk4.theme = null;
       gtk.font = {
         name = cfg.font.regular.family;
         inherit (cfg.font.regular) size;
