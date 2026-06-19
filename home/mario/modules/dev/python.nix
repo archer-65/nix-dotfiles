@@ -13,8 +13,8 @@ in {
 
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
-      python313Packages.python-lsp-server
-      python313
+      basedpyright
+      python314
       uv
     ];
   };

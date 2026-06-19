@@ -106,13 +106,18 @@
 ;;
 ;;; EGLOT
 
+;; TODO: While this is working, I would like to try moving the "consumers"
+;; in the dedicated section. For example, if I install modes I could manage
+;; the programs and workspace configuration in that section.
 (setup eglot
   ;; List of modes and servers
   (:when-loaded
-    (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
+    (add-to-list 'eglot-server-programs '((c++-mode c-mode c++-ts-mode c-ts-mode) "clangd"))
     (add-to-list 'eglot-server-programs '(terraform-mode . ("terraform-ls" "serve")))
-    (add-to-list 'eglot-server-programs `(nix-mode . ("nixd")))
+    (add-to-list 'eglot-server-programs '((nix-mode nix-ts-mode) "nixd"))
+    (add-to-list 'eglot-server-programs '((python-mode python-ts-mode) "basedpyright-langserver" "--stdio"))
     (add-to-list 'eglot-server-programs '(yaml-mode . ("yaml-language-server" "--stdio")))
+    (add-to-list 'eglot-server-programs '(yaml-ts-mode . ("yaml-language-server" "--stdio")))
 
     ; NOTE: Consider moving this somewhere else, splitting the config in multiple parts
     (setq-default
@@ -139,7 +144,8 @@
     (advice-add 'eglot-completion-at-point :around #'cape-wrap-buster))
 
   ;; Hooks
-  (:with-mode (c-mode c++-mode java-mode nix-mode rustic-mode terraform-mode yaml-mode)
+  (:with-mode (c-mode c++-mode c-ts-mode c++-ts-mode java-mode nix-mode nix-ts-mode
+                python-mode python-ts-mode rustic-mode terraform-mode yaml-mode yaml-ts-mode)
     (:hook eglot-ensure)))
 
 (setup eglot-java

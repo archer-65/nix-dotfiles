@@ -47,6 +47,13 @@ in {
       xdg.configFile."emacs/early-init.el".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/early-init.el";
       xdg.configFile."emacs/lisp".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/lisp";
       xdg.configFile."emacs/img".source = config.lib.file.mkOutOfStoreSymlink "${configDir}/img";
+
+      targets.darwin.defaults = mkIf pkgs.stdenv.isDarwin {
+        "org.gnu.Emacs" = {
+          NSEventConcurrentProcessingEnabled = false;
+          NSApplicationUpdateCycleEnabled = false;
+        };
+      };
     }
 
     (mkIf cfg.daemon.enable {

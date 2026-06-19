@@ -13,13 +13,13 @@
   (:pkg t)
   (add-to-list 'auto-mode-alist '("\\.nix\\'" . nix-mode)))
 
+(setup nix-ts-mode
+  (:pkg t))
+
 (setup markdown-mode
   (:pkg t))
 
 (setup yaml-mode
-  (:pkg t))
-
-(setup json-mode
   (:pkg t))
 
 (setup rustic

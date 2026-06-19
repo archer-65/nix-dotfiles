@@ -29,7 +29,10 @@
       "karabiner-elements"
 
       # Move to Terraform module
-      "suzuki-shunsuke/tfmv/tfmv"
+      {
+        name = "suzuki-shunsuke/tfmv/tfmv";
+        trusted = true;
+      }
     ];
   };
 
