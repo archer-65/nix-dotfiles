@@ -149,7 +149,7 @@
            kill-do-not-save-duplicates t
            kill-whole-line t
            select-enable-clipboard t
-           select-enable-primary nil))
+           select-enable-primary t))
 
 (setup (:require delsel)
   (:hide-mode delete-selection)

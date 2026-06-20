@@ -231,9 +231,6 @@ in {
             "hyprland.start"
             (mkLuaInline ''
               function()
-                hl.exec_cmd("wl-paste -t text --watch clipman store --no-persist")
-                hl.exec_cmd("wl-paste -p -t text --watch clipman store -P --histpath=\"~/.local/share/clipman-primary.json\"")
-                hl.exec_cmd("wl-clip-persist --clipboard regular")
                 hl.exec_cmd("corectrl")
                 hl.exec_cmd("polychromatic-tray-applet")
                 hl.exec_cmd("${pkgs.swaybg}/bin/swaybg -i ${outputs.wallpapers.digital-flowers.src} --mode fill")
@@ -501,7 +498,7 @@ in {
             _args = [ "SUPER + SHIFT + q" (mkLuaInline "hl.dsp.exec_cmd(\"rofi-powermenu\")") ];
           }
           {
-            _args = [ "SUPER + comma" (mkLuaInline "hl.dsp.exec_cmd(\"clipman pick -t rofi -T'-theme ~/.config/rofi/themes/clipboard'\")") ];
+            _args = [ "SUPER + comma" (mkLuaInline "hl.dsp.exec_cmd(\"cliphist list | rofi -dmenu -display-columns 2 -theme ~/.config/rofi/themes/clipboard | cliphist decode | wl-copy\")") ];
           }
           {
             _args = [ "SUPER + slash" (mkLuaInline "hl.dsp.exec_cmd(\"rofi -show emoji -modi emoji -theme $HOME/.config/rofi/themes/emoji\")") ];

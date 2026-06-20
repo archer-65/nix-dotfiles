@@ -143,10 +143,10 @@ in {
             command = "polychromatic-tray-applet";
           }
           {
-            command = "exec wl-paste -t text --watch clipman store --no-persist";
+            command = "exec wl-paste --type text --watch cliphist store";
           }
           {
-            command = "exec wl-paste -p -t text --watch clipman store -P --histpath=\"~/.local/share/clipman-primary.json\"";
+            command = "exec wl-paste --type image --watch cliphist store";
           }
         ];
 
@@ -247,7 +247,7 @@ in {
           "${mod}+p" = "exec rofi-rbw";
 
           # Clipboard
-          "${mod}+comma" = "exec clipman pick -t rofi -T'-theme ~/.config/rofi/themes/clipboard'";
+          "${mod}+comma" = "exec cliphist list | rofi -dmenu -display-columns 2 -theme ~/.config/rofi/themes/clipboard | cliphist decode | wl-copy";
 
           # Screenshots
           "Print" = "exec grimshot --notify copy";

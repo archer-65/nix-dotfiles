@@ -20,26 +20,30 @@ in {
   config = mkIf cfg.enable {
     home.packages = with pkgs; [
       wl-clipboard
-      wl-clip-persist
       wtype
       grim
       slurp
       sway-contrib.grimshot
       swaybg
-      clipman
     ];
+
+    services.cliphist = {
+      enable = true;
+      allowImages = true;
+    };
+
+    services.wl-clip-persist = {
+      enable = true;
+      clipboardType = "regular";
+    };
 
     home.sessionVariables = {
       GDK_BACKEND = "wayland,x11";
-      XDG_SESSION_TYPE = "wayland";
       SDL_VIDEODRIVER = "wayland";
-      # GTK_USE_PORTAL = "1";
-      QT_QPA_PLATFORM = "wayland";
+      QT_QPA_PLATFORM = "wayland;xcb";
       QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
-      MOZ_ENABLE_WAYLAND = "1";
       _JAVA_AWT_WM_NONREPARENTING = "1";
       NIXOS_OZONE_WL = "1";
-      # WLR_RENDERER_ALLOW_SOFTWARE = "1";
     };
   };
 }
