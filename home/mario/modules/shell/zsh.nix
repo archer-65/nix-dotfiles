@@ -6,12 +6,6 @@
 }:
 with lib; let
   cfg = config.mario.modules.shell.zsh;
-
-  initContent = let
-    general = ''
-    '';
-  in
-    lib.mkMerge [early general last];
 in {
   options.mario.modules.shell.zsh = {
     enable = mkOption {
@@ -46,7 +40,7 @@ in {
         zmodload zsh/complist
 
         _comp_options+=(globdots)
-        zcompdump="$XDG_DATA_HOME"/zsh/.zcompdump-"$ZSH_VERSION"-"$(date -I)"
+        zcompdump="''${XDG_DATA_HOME:-$HOME/.local/share}/zsh/.zcompdump-''${ZSH_VERSION}-$(date -I)"
         compinit -d "$zcompdump"
 
         # Recompile zcompdump if it exists and is newer than zcompdump.zwc
@@ -65,7 +59,7 @@ in {
 
         # Use cache
         zstyle ':completion:*' use-cache on
-        zstyle ':completion:*' cache-path "$XDG_CACHE_HOME/zsh/.zcompcache"
+        zstyle ':completion:*' cache-path "''${XDG_CACHE_HOME:-$HOME/.cache}/zsh/.zcompcache"
 
         # Complete the alias
         zstyle ':completion:*' complete true
