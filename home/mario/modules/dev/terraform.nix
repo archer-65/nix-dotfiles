@@ -37,7 +37,6 @@ in {
     '';
 
     programs.zsh.initContent = lib.mkIf cfg.enableZshIntegration ''
-      autoload -U +X bashcompinit && bashcompinit
       source ${pkgs.terraform}/share/bash-completion/completions/terraform
     '';
   };

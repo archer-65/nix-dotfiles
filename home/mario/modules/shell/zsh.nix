@@ -8,41 +8,7 @@ with lib; let
   cfg = config.mario.modules.shell.zsh;
 
   initContent = let
-    # FIXME: Beautiful, but flashing on selection!
-    # Old issue: https://github.com/Aloxaf/fzf-tab/issues/172
-    early = lib.mkBefore ''
-      # source  ${pkgs.zsh-fzf-tab}/share/fzf-tab/fzf-tab.plugin.zsh
-    '';
-
     general = ''
-      # Keybindings
-      bindkey "^[[3~" delete-char
-      bindkey '^[[1;5D' backward-word
-      bindkey '^[[1;5C' forward-word
-      bindkey '^[[3;5~' kill-word
-
-      bindkey ' ' magic-space  # [Space] - Don't do history expansion
-
-      # HACK: Source variables from `home.sessionVariables` generated file more than once.
-      # `hm-session-vars.sh` sources once, so you have to login in the session again to get
-      # fresh variables. This is for performance reasons, but a bit incovenient.
-      #
-      # Should cover multiple locations of Home Manager module and standalone.
-      #
-      # NOTE: If you change to XDG based Nix this could change!
-      # if [ -e "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
-      #   unset __HM_SESS_VARS_SOURCED
-      #   . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
-      # fi
-      # if [ -e "/etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh" ]; then
-      #   unset __HM_SESS_VARS_SOURCED
-      #   . "/etc/profiles/per-user/$USER/etc/profile.d/hm-session-vars.sh"
-      # fi
-    '';
-
-    last = lib.mkAfter ''
-      # Source private configuration if exists
-      [[ -e "$HOME/.config/zsh/private.zsh" ]] && source "$HOME/.config/zsh/private.zsh"
     '';
   in
     lib.mkMerge [early general last];
@@ -75,18 +41,24 @@ in {
 
       shellAliases = {};
 
-      # TODO: Do a proper refactor here, may slow down the shell startup
       completionInit = ''
-        zmodload zsh/zle
-        zmodload zsh/zpty
+        autoload -U compinit
         zmodload zsh/complist
 
         _comp_options+=(globdots)
+        zcompdump="$XDG_DATA_HOME"/zsh/.zcompdump-"$ZSH_VERSION"-"$(date -I)"
+        compinit -d "$zcompdump"
 
-        # Edit current command line in $EDITOR
-        autoload -U edit-command-line
-        zle -N edit-command-line
-        bindkey '^X^e' edit-command-line
+        # Recompile zcompdump if it exists and is newer than zcompdump.zwc
+        # compdumps are marked with the current date in yyyy-mm-dd format
+        # which means this is likely to recompile daily
+        # also see: <https://htr3n.github.io/2018/07/faster-zsh/>
+        if [[ -s "$zcompdump" && (! -s "$zcompdump".zwc || "$zcompdump" -nt "$zcompdump".zwc) ]]; then
+          zcompile "$zcompdump"
+        fi
+
+        # Load bash completion functions.
+        autoload -U +X bashcompinit && bashcompinit
 
         # Case insensitive tab completion ('C-x a' to expand_alias)
         zstyle ':completion:*' completer _extensions _complete _ignored _approximate
@@ -102,9 +74,7 @@ in {
         zstyle ':completion:*' complete-options true
 
         # Completion matching control
-        # WIP: Try new matcher
-        # zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'
-        zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+        zstyle ':completion:*' matcher-list 'm:{[:lower:][:upper:]}={[:upper:][:lower:]}' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*' 'm:{[:lower:][:upper:]}={[:upper:][:lower:]} l:|=* r:|=*'
         zstyle ':completion:*' keep-prefix true
 
         # Group matches and describe
@@ -120,7 +90,6 @@ in {
         zstyle ':completion:*:descriptions' format '[%d]'
 
         # Colors
-        # zstyle ':completion:*' list-colors '\'
         zstyle ':completion:*' list-colors ''${(s.:.)LS_COLORS}
 
         # Prompt
@@ -143,20 +112,39 @@ in {
         zstyle ':completion:*:eza' sort false
         zstyle ':completion:complete:*:options' sort false
         zstyle ':completion:files' sort false
-
-        # Plugin: 'fzf-tab'
-        zstyle ':fzf-tab:complete:kill:argument-rest' fzf-preview 'ps --pid=$word -o cmd --no-headers -w -w'
-        zstyle ':fzf-tab:complete:kill:argument-rest' fzf-flags '--preview-window=down:3:wrap'
-        zstyle ':fzf-tab:*' fzf-command fzf
-        zstyle ':fzf-tab:*' fzf-pad 4
-        zstyle ':fzf-tab:*' fzf-min-height 100
-        zstyle ':fzf-tab:*' switch-group ',' '.'
       '';
 
-      inherit initContent;
+      initContent = ''
+        zstyle ':fzf-tab:complete:cd:*'       fzf-preview 'eza -1 --color=always $realpath'
+        zstyle ':fzf-tab:*'                   switch-group ',' '.'
+        zstyle ':fzf-tab:complete:cd:*'       popup-pad 20 0
+
+        zstyle ':fzf-tab:complete:kill:argument-rest' fzf-preview 'ps --pid=$word -o cmd --no-headers -w -w'
+        zstyle ':fzf-tab:complete:kill:argument-rest' fzf-flags '--preview-window=down:3:wrap'
+
+        # Keybindings
+        bindkey "^[[3~" delete-char
+        bindkey '^[[1;5D' backward-word
+        bindkey '^[[1;5C' forward-word
+        bindkey '^[[3;5~' kill-word
+
+        bindkey ' ' magic-space  # [Space] - Don't do history expansion
+
+        # Interactive line editing in the shell
+        zmodload zsh/zle
+
+        # Control interactive processes
+        zmodload zsh/zpty
+      '';
 
       # TODO: Try out fast-syntax-highlighting?
       plugins = [
+        # Must be before plugins that wrap widgets, such as zsh-autosuggestions or fast-syntax-highlighting
+        {
+          name = "fzf-tab";
+          file = "share/fzf-tab/fzf-tab.plugin.zsh";
+          src = pkgs.zsh-fzf-tab;
+        }
         {
           name = "zsh-autopair";
           src = pkgs.zsh-autopair;
