@@ -6,6 +6,9 @@
         gke-gcloud-auth-plugin
       ]
     ))
+
+    # TODO: Move in module
+    pkgs.inputs.meridian.meridian
   ];
 
   mario.modules = {
@@ -82,5 +85,35 @@
         size = 20;
       };
     };
+  };
+
+  # TODO: Move in module
+  programs.opencode = {
+    enable = true;
+    settings = {
+      plugin = ["${pkgs.inputs.meridian.meridian}/lib/meridian/plugin/meridian.ts"];
+
+      provider.anthropic.options = {
+        baseURL = "http://127.0.0.1:3456";
+        apiKey = "dummy";
+      };
+
+      mcp = {
+        atlassian = {
+          type = "remote";
+          url = "https://mcp.atlassian.com/v1/mcp/authv2";
+          enabled = true;
+        };
+      };
+    };
+  };
+
+  xdg.configFile."meridian/plugins.json".text = builtins.toJSON {
+    plugins = [
+      {
+        path = "${pkgs.meridian-plugin-opencode-scrub}/lib/dist/index.js";
+        enabled = true;
+      }
+    ];
   };
 }

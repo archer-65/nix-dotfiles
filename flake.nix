@@ -31,6 +31,10 @@
       url = "github:hyprwm/Hyprland";
     };
 
+    meridian = {
+      url = "github:rynfar/meridian";
+    };
+
     sops-nix.url = "github:Mic92/sops-nix";
 
     stylix = {
