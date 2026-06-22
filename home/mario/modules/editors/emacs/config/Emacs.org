@@ -137,6 +137,10 @@ I also install [[https://github.com/radian-software/blackout][blackout.el]] (and
           mac-right-option-modifier 'none
           ns-right-option-modifier  'none))
 
+  (when (eq system-type 'darwin)
+    (unless (server-running-p)
+      (server-start)))
+
 #+end_src
 
 ** Performances enhancement

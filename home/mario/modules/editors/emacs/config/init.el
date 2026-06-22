@@ -63,6 +63,10 @@
         mac-right-option-modifier 'none
         ns-right-option-modifier  'none))
 
+(when (eq system-type 'darwin)
+  (unless (server-running-p)
+    (server-start)))
+
 (require 'init-performance)
 
 (require 'init-help)
