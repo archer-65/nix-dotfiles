@@ -64,6 +64,7 @@
         ns-right-option-modifier  'none))
 
 (when (eq system-type 'darwin)
+  (require 'server)
   (unless (server-running-p)
     (server-start)))
 
