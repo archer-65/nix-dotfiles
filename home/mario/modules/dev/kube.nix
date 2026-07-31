@@ -20,12 +20,9 @@ in {
       home.packages = with pkgs; [
         kubectl
         kind
-        minikube
         kubernetes-helm
         helmfile
         kustomize
-        velero
-        kubectl-cnpg
       ];
 
       mario.modules.dev.kube.krew.enable = lib.mkDefault true;
