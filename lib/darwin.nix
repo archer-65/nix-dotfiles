@@ -22,6 +22,7 @@ with builtins; let
       inherit pkgs;
 
       modules = [
+        inputs.determinate.darwinModules.default
         {
           system.stateVersion = stateVersion;
           users.users."${username}" = {
@@ -31,8 +32,10 @@ with builtins; let
           system.primaryUser = username;
 
           # https://determinate.systems/posts/nix-darwin-updates/
+          # https://docs.determinate.systems/guides/nix-darwin/
           nix.enable = false;
-          nix.settings.trusted-users = ["${username}"];
+          determinateNix.enable = true;
+          determinateNix.customSettings.trusted-users = ["${username}"];
         }
 
         home-manager-darwin.darwinModules.home-manager
