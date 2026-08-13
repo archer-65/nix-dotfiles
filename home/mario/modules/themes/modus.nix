@@ -27,6 +27,7 @@ in {
         else "Bibata-Modern-Classic";
     in
       mkIf (pkgs.stdenv.isLinux) {
+        enable = true;
         name = cursor;
         inherit (cfg.cursor) size;
         package = pkgs.bibata-cursors;
