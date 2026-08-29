@@ -27,7 +27,7 @@ in {
       programs.emacs = {
         enable = true;
         package =
-          if pkgs.stdenv.isDarwin
+          if pkgs.stdenv.hostPlatform.isDarwin
           then pkgs.emacs-macport
           else pkgs.emacs-pgtk;
 

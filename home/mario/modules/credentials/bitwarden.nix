@@ -17,7 +17,7 @@ in {
       settings = {
         email = "mario.liguori.056@gmail.com";
         pinentry =
-          if pkgs.stdenv.isDarwin
+          if pkgs.stdenv.hostPlatform.isDarwin
           then pkgs.pinentry_mac
           else pkgs.pinentry-gnome3;
       };

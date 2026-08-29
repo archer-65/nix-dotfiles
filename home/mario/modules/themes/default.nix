@@ -44,7 +44,7 @@ in {
     }
 
     # Only on Linux because... GTK and QT
-    (mkIf pkgs.stdenv.isLinux {
+    (mkIf pkgs.stdenv.hostPlatform.isLinux {
       stylix.targets.gtk.enable = true;
       stylix.targets.gtk.fonts.enable = false;
 

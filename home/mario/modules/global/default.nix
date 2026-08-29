@@ -31,7 +31,7 @@
 
   xdg.userDirs = {
     enable =
-      if pkgs.stdenv.isDarwin
+      if pkgs.stdenv.hostPlatform.isDarwin
       then false
       else true;
     createDirectories = true;
@@ -55,7 +55,7 @@
     };
   };
 
-  services = lib.optionalAttrs (pkgs.stdenv.isDarwin != true) {
+  services = lib.optionalAttrs (pkgs.stdenv.hostPlatform.isDarwin != true) {
     keybase.enable = true;
     kbfs = {
       enable = true;

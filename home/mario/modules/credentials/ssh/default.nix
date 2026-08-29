@@ -13,7 +13,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    systemd.user.tmpfiles.rules = lib.mkIf (pkgs.stdenv.isDarwin == false) [
+    systemd.user.tmpfiles.rules = lib.mkIf (pkgs.stdenv.hostPlatform.isDarwin == false) [
       "d ${config.home.homeDirectory}/.ssh/sockets - - - - -"
     ];
 

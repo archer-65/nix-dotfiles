@@ -30,7 +30,7 @@ in {
       enable = true;
       enableSshSupport = true;
       pinentry.package =
-        if pkgs.stdenv.isDarwin
+        if pkgs.stdenv.hostPlatform.isDarwin
         then pkgs.pinentry_mac
         else pkgs.pinentry-gnome3;
 

@@ -28,7 +28,7 @@ in {
             y = 15;
           };
           decorations =
-            if pkgs.stdenv.isDarwin
+            if pkgs.stdenv.hostPlatform.isDarwin
             then "Full"
             else "None";
           opacity = 0.95;

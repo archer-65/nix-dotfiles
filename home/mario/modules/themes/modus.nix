@@ -26,7 +26,7 @@ in {
         then "Bibata-Modern-Ice"
         else "Bibata-Modern-Classic";
     in
-      mkIf (pkgs.stdenv.isLinux) {
+      mkIf (pkgs.stdenv.hostPlatform.isLinux) {
         enable = true;
         name = cursor;
         inherit (cfg.cursor) size;
