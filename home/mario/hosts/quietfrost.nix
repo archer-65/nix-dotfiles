@@ -30,7 +30,7 @@
       enable = true;
       wm = ["sway" "hyprland"];
       waybar = {
-        temperature = "/sys/class/hwmon/hwmon2/temp4_input";
+        temperature = "/sys/class/hwmon/hwmon3/temp1_input";
       };
     };
 
