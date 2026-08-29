@@ -55,7 +55,6 @@ with lib; let
     with pkgs; [
       (thunar.override {inherit thunarPlugins;})
       xfconf
-      exo
       engrampa
     ];
 
