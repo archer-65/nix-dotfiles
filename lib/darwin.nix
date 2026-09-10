@@ -35,7 +35,7 @@ with builtins; let
           # https://docs.determinate.systems/guides/nix-darwin/
           nix.enable = false;
           determinateNix.enable = true;
-          determinateNix.customSettings.trusted-users = ["${username}"];
+          determinateNix.customSettings.trusted-users = ["root" "${username}"];
         }
 
         home-manager-darwin.darwinModules.home-manager
