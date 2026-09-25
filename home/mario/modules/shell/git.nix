@@ -63,6 +63,9 @@ in {
 
         programs.git = {
           settings.url."git@github-work:nellotech/".insteadOf = "git@github.com:nellotech/";
+          # Terraform's git:: module sources use the ssh:// URL form, which insteadOf
+          # matches by literal prefix and won't rewrite alongside the scp-like form above.
+          settings.url."ssh://git@github-work/nellotech/".insteadOf = "ssh://git@github.com/nellotech/";
 
           includes = [
             {
