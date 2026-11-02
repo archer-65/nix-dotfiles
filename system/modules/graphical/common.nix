@@ -22,7 +22,7 @@ in {
       enable = true;
       packages = with pkgs; [
         dconf
-        gcr # pinentry-gnome3 may not work without this
+        gcr_4 # pinentry-gnome3 may not work without this
       ];
     };
 
